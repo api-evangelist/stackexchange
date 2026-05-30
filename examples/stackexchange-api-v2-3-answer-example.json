@@ -1,0 +1,54 @@
+{
+  "answer_id": 11227902,
+  "question_id": 11227809,
+  "title": "Why is processing a sorted array faster than processing an unsorted array?",
+  "body": "Use the standard library `json` module.",
+  "body_markdown": "Use the standard library `json` module.",
+  "link": "https://stackoverflow.com/a/11227902",
+  "score": 36000,
+  "up_vote_count": 36500,
+  "down_vote_count": 500,
+  "is_accepted": true,
+  "comment_count": 20,
+  "creation_date": 1338719105,
+  "last_activity_date": 1700000000,
+  "last_edit_date": 1735076864,
+  "owner": {
+    "user_id": 22656,
+    "user_type": "registered",
+    "display_name": "Jon Skeet",
+    "reputation": 1500000,
+    "profile_image": "https://i.sstatic.net/lLZAr.jpg?s=128",
+    "link": "https://stackoverflow.com/users/22656/jon-skeet",
+    "accept_rate": 92
+  },
+  "last_editor": {
+    "user_id": 22656,
+    "user_type": "registered",
+    "display_name": "Jon Skeet",
+    "reputation": 1500000,
+    "profile_image": "https://i.sstatic.net/lLZAr.jpg?s=128",
+    "link": "https://stackoverflow.com/users/22656/jon-skeet",
+    "accept_rate": 92
+  },
+  "tags": [
+    "java",
+    "c++",
+    "performance"
+  ],
+  "content_license": "CC BY-SA 4.0",
+  "community_owned_date": 1735003190,
+  "locked_date": 1735068757,
+  "awarded_bounty_amount": 559584,
+  "awarded_bounty_users": [
+    {
+      "user_id": 22656,
+      "user_type": "registered",
+      "display_name": "Jon Skeet",
+      "reputation": 1500000,
+      "profile_image": "https://i.sstatic.net/lLZAr.jpg?s=128",
+      "link": "https://stackoverflow.com/users/22656/jon-skeet",
+      "accept_rate": 92
+    }
+  ]
+}

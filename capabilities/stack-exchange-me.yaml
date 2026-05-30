@@ -1,0 +1,837 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Stack Exchange API v2.3 — Me
+  description: 'Me surface of the Stack Exchange API. 12 operations. Lead operation: Get Me. Self-contained Naftiko capability covering one Stack Exchange business surface.'
+  tags:
+  - Stack Exchange
+  - Q And A
+  - Me
+  created: '2026-05-29'
+  modified: '2026-05-29'
+binds:
+- namespace: env
+  keys:
+    STACK_EXCHANGE_KEY: STACK_EXCHANGE_KEY
+    STACK_EXCHANGE_ACCESS_TOKEN: STACK_EXCHANGE_ACCESS_TOKEN
+capability:
+  consumes:
+  - type: http
+    namespace: stack-exchange-me
+    baseUri: https://api.stackexchange.com/2.3
+    description: Stack Exchange API v2.3 — Me business capability. Self-contained, no shared references.
+    authentication:
+      type: apikey
+      key: key
+      value: '{{env.STACK_EXCHANGE_KEY}}'
+      placement: query
+    resources:
+    - name: me
+      path: /me
+      operations:
+      - name: getMe
+        method: GET
+        description: Get Me
+        inputParameters:
+        - name: site
+          in: query
+          type: string
+          required: true
+          description: Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).
+        - name: access_token
+          in: query
+          type: string
+          required: false
+          description: OAuth 2.0 access token. Required for any /me surface and any write.
+        - name: key
+          in: query
+          type: string
+          required: false
+          description: App key from stackapps.com. Raises the daily quota to 10,000/IP.
+        - name: filter
+          in: query
+          type: string
+          required: false
+          description: Custom response filter id created via /filters/create.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: me-questions
+      path: /me/questions
+      operations:
+      - name: listMyQuestions
+        method: GET
+        description: List My Questions
+        inputParameters:
+        - name: site
+          in: query
+          type: string
+          required: true
+          description: Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).
+        - name: access_token
+          in: query
+          type: string
+          required: false
+          description: OAuth 2.0 access token. Required for any /me surface and any write.
+        - name: key
+          in: query
+          type: string
+          required: false
+          description: App key from stackapps.com. Raises the daily quota to 10,000/IP.
+        - name: filter
+          in: query
+          type: string
+          required: false
+          description: Custom response filter id created via /filters/create.
+        - name: page
+          in: query
+          type: integer
+          required: false
+          description: 1-indexed page number.
+        - name: pagesize
+          in: query
+          type: integer
+          required: false
+          description: Items per page (max 100).
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: me-answers
+      path: /me/answers
+      operations:
+      - name: listMyAnswers
+        method: GET
+        description: List My Answers
+        inputParameters:
+        - name: site
+          in: query
+          type: string
+          required: true
+          description: Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).
+        - name: access_token
+          in: query
+          type: string
+          required: false
+          description: OAuth 2.0 access token. Required for any /me surface and any write.
+        - name: key
+          in: query
+          type: string
+          required: false
+          description: App key from stackapps.com. Raises the daily quota to 10,000/IP.
+        - name: filter
+          in: query
+          type: string
+          required: false
+          description: Custom response filter id created via /filters/create.
+        - name: page
+          in: query
+          type: integer
+          required: false
+          description: 1-indexed page number.
+        - name: pagesize
+          in: query
+          type: integer
+          required: false
+          description: Items per page (max 100).
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: me-comments
+      path: /me/comments
+      operations:
+      - name: listMyComments
+        method: GET
+        description: List My Comments
+        inputParameters:
+        - name: site
+          in: query
+          type: string
+          required: true
+          description: Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).
+        - name: access_token
+          in: query
+          type: string
+          required: false
+          description: OAuth 2.0 access token. Required for any /me surface and any write.
+        - name: key
+          in: query
+          type: string
+          required: false
+          description: App key from stackapps.com. Raises the daily quota to 10,000/IP.
+        - name: filter
+          in: query
+          type: string
+          required: false
+          description: Custom response filter id created via /filters/create.
+        - name: page
+          in: query
+          type: integer
+          required: false
+          description: 1-indexed page number.
+        - name: pagesize
+          in: query
+          type: integer
+          required: false
+          description: Items per page (max 100).
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: me-tags
+      path: /me/tags
+      operations:
+      - name: listMyTags
+        method: GET
+        description: List My Tags
+        inputParameters:
+        - name: site
+          in: query
+          type: string
+          required: true
+          description: Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).
+        - name: access_token
+          in: query
+          type: string
+          required: false
+          description: OAuth 2.0 access token. Required for any /me surface and any write.
+        - name: key
+          in: query
+          type: string
+          required: false
+          description: App key from stackapps.com. Raises the daily quota to 10,000/IP.
+        - name: filter
+          in: query
+          type: string
+          required: false
+          description: Custom response filter id created via /filters/create.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: me-badges
+      path: /me/badges
+      operations:
+      - name: listMyBadges
+        method: GET
+        description: List My Badges
+        inputParameters:
+        - name: site
+          in: query
+          type: string
+          required: true
+          description: Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).
+        - name: access_token
+          in: query
+          type: string
+          required: false
+          description: OAuth 2.0 access token. Required for any /me surface and any write.
+        - name: key
+          in: query
+          type: string
+          required: false
+          description: App key from stackapps.com. Raises the daily quota to 10,000/IP.
+        - name: filter
+          in: query
+          type: string
+          required: false
+          description: Custom response filter id created via /filters/create.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: me-reputation
+      path: /me/reputation
+      operations:
+      - name: getMyReputation
+        method: GET
+        description: Get My Reputation
+        inputParameters:
+        - name: site
+          in: query
+          type: string
+          required: true
+          description: Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).
+        - name: access_token
+          in: query
+          type: string
+          required: false
+          description: OAuth 2.0 access token. Required for any /me surface and any write.
+        - name: key
+          in: query
+          type: string
+          required: false
+          description: App key from stackapps.com. Raises the daily quota to 10,000/IP.
+        - name: filter
+          in: query
+          type: string
+          required: false
+          description: Custom response filter id created via /filters/create.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: me-notifications
+      path: /me/notifications
+      operations:
+      - name: listMyNotifications
+        method: GET
+        description: List My Notifications
+        inputParameters:
+        - name: site
+          in: query
+          type: string
+          required: true
+          description: Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).
+        - name: access_token
+          in: query
+          type: string
+          required: false
+          description: OAuth 2.0 access token. Required for any /me surface and any write.
+        - name: key
+          in: query
+          type: string
+          required: false
+          description: App key from stackapps.com. Raises the daily quota to 10,000/IP.
+        - name: filter
+          in: query
+          type: string
+          required: false
+          description: Custom response filter id created via /filters/create.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: me-notifications-unread
+      path: /me/notifications/unread
+      operations:
+      - name: listMyUnreadNotifications
+        method: GET
+        description: List My Unread Notifications
+        inputParameters:
+        - name: site
+          in: query
+          type: string
+          required: true
+          description: Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).
+        - name: access_token
+          in: query
+          type: string
+          required: false
+          description: OAuth 2.0 access token. Required for any /me surface and any write.
+        - name: key
+          in: query
+          type: string
+          required: false
+          description: App key from stackapps.com. Raises the daily quota to 10,000/IP.
+        - name: filter
+          in: query
+          type: string
+          required: false
+          description: Custom response filter id created via /filters/create.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: me-inbox
+      path: /me/inbox
+      operations:
+      - name: listMyInbox
+        method: GET
+        description: List My Inbox
+        inputParameters:
+        - name: site
+          in: query
+          type: string
+          required: true
+          description: Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).
+        - name: access_token
+          in: query
+          type: string
+          required: false
+          description: OAuth 2.0 access token. Required for any /me surface and any write.
+        - name: key
+          in: query
+          type: string
+          required: false
+          description: App key from stackapps.com. Raises the daily quota to 10,000/IP.
+        - name: filter
+          in: query
+          type: string
+          required: false
+          description: Custom response filter id created via /filters/create.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: me-inbox-unread
+      path: /me/inbox/unread
+      operations:
+      - name: listMyUnreadInbox
+        method: GET
+        description: List My Unread Inbox
+        inputParameters:
+        - name: site
+          in: query
+          type: string
+          required: true
+          description: Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).
+        - name: access_token
+          in: query
+          type: string
+          required: false
+          description: OAuth 2.0 access token. Required for any /me surface and any write.
+        - name: key
+          in: query
+          type: string
+          required: false
+          description: App key from stackapps.com. Raises the daily quota to 10,000/IP.
+        - name: filter
+          in: query
+          type: string
+          required: false
+          description: Custom response filter id created via /filters/create.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: me-timeline
+      path: /me/timeline
+      operations:
+      - name: listMyTimeline
+        method: GET
+        description: List My Timeline
+        inputParameters:
+        - name: site
+          in: query
+          type: string
+          required: true
+          description: Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).
+        - name: access_token
+          in: query
+          type: string
+          required: false
+          description: OAuth 2.0 access token. Required for any /me surface and any write.
+        - name: key
+          in: query
+          type: string
+          required: false
+          description: App key from stackapps.com. Raises the daily quota to 10,000/IP.
+        - name: filter
+          in: query
+          type: string
+          required: false
+          description: Custom response filter id created via /filters/create.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+  exposes:
+  - type: rest
+    namespace: stack-exchange-me-rest
+    port: 8080
+    description: REST adapter for Stack Exchange API v2.3 — Me. One Spectral-compliant resource per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/me
+      name: me
+      description: REST surface for me.
+      operations:
+      - method: GET
+        name: getMe
+        description: Get Me
+        call: stack-exchange-me.getMe
+        with:
+          site: rest.site
+          access_token: rest.access_token
+          key: rest.key
+          filter: rest.filter
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/me/questions
+      name: questions
+      description: REST surface for me.
+      operations:
+      - method: GET
+        name: listMyQuestions
+        description: List My Questions
+        call: stack-exchange-me.listMyQuestions
+        with:
+          site: rest.site
+          access_token: rest.access_token
+          key: rest.key
+          filter: rest.filter
+          page: rest.page
+          pagesize: rest.pagesize
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/me/answers
+      name: answers
+      description: REST surface for me.
+      operations:
+      - method: GET
+        name: listMyAnswers
+        description: List My Answers
+        call: stack-exchange-me.listMyAnswers
+        with:
+          site: rest.site
+          access_token: rest.access_token
+          key: rest.key
+          filter: rest.filter
+          page: rest.page
+          pagesize: rest.pagesize
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/me/comments
+      name: comments
+      description: REST surface for me.
+      operations:
+      - method: GET
+        name: listMyComments
+        description: List My Comments
+        call: stack-exchange-me.listMyComments
+        with:
+          site: rest.site
+          access_token: rest.access_token
+          key: rest.key
+          filter: rest.filter
+          page: rest.page
+          pagesize: rest.pagesize
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/me/tags
+      name: tags
+      description: REST surface for me.
+      operations:
+      - method: GET
+        name: listMyTags
+        description: List My Tags
+        call: stack-exchange-me.listMyTags
+        with:
+          site: rest.site
+          access_token: rest.access_token
+          key: rest.key
+          filter: rest.filter
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/me/badges
+      name: badges
+      description: REST surface for me.
+      operations:
+      - method: GET
+        name: listMyBadges
+        description: List My Badges
+        call: stack-exchange-me.listMyBadges
+        with:
+          site: rest.site
+          access_token: rest.access_token
+          key: rest.key
+          filter: rest.filter
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/me/reputation
+      name: reputation
+      description: REST surface for me.
+      operations:
+      - method: GET
+        name: getMyReputation
+        description: Get My Reputation
+        call: stack-exchange-me.getMyReputation
+        with:
+          site: rest.site
+          access_token: rest.access_token
+          key: rest.key
+          filter: rest.filter
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/me/notifications
+      name: notifications
+      description: REST surface for me.
+      operations:
+      - method: GET
+        name: listMyNotifications
+        description: List My Notifications
+        call: stack-exchange-me.listMyNotifications
+        with:
+          site: rest.site
+          access_token: rest.access_token
+          key: rest.key
+          filter: rest.filter
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/me/notifications/unread
+      name: unread
+      description: REST surface for me.
+      operations:
+      - method: GET
+        name: listMyUnreadNotifications
+        description: List My Unread Notifications
+        call: stack-exchange-me.listMyUnreadNotifications
+        with:
+          site: rest.site
+          access_token: rest.access_token
+          key: rest.key
+          filter: rest.filter
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/me/inbox
+      name: inbox
+      description: REST surface for me.
+      operations:
+      - method: GET
+        name: listMyInbox
+        description: List My Inbox
+        call: stack-exchange-me.listMyInbox
+        with:
+          site: rest.site
+          access_token: rest.access_token
+          key: rest.key
+          filter: rest.filter
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/me/inbox/unread
+      name: unread
+      description: REST surface for me.
+      operations:
+      - method: GET
+        name: listMyUnreadInbox
+        description: List My Unread Inbox
+        call: stack-exchange-me.listMyUnreadInbox
+        with:
+          site: rest.site
+          access_token: rest.access_token
+          key: rest.key
+          filter: rest.filter
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/me/timeline
+      name: timeline
+      description: REST surface for me.
+      operations:
+      - method: GET
+        name: listMyTimeline
+        description: List My Timeline
+        call: stack-exchange-me.listMyTimeline
+        with:
+          site: rest.site
+          access_token: rest.access_token
+          key: rest.key
+          filter: rest.filter
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: stack-exchange-me-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Stack Exchange API v2.3 — Me. One tool per consumed operation, routed inline through this capability's consumes block.
+    tools:
+    - name: get-me
+      description: Get Me
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: stack-exchange-me.getMe
+      with:
+        site: tools.site
+        access_token: tools.access_token
+        key: tools.key
+        filter: tools.filter
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-my-questions
+      description: List My Questions
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: stack-exchange-me.listMyQuestions
+      with:
+        site: tools.site
+        access_token: tools.access_token
+        key: tools.key
+        filter: tools.filter
+        page: tools.page
+        pagesize: tools.pagesize
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-my-answers
+      description: List My Answers
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: stack-exchange-me.listMyAnswers
+      with:
+        site: tools.site
+        access_token: tools.access_token
+        key: tools.key
+        filter: tools.filter
+        page: tools.page
+        pagesize: tools.pagesize
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-my-comments
+      description: List My Comments
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: stack-exchange-me.listMyComments
+      with:
+        site: tools.site
+        access_token: tools.access_token
+        key: tools.key
+        filter: tools.filter
+        page: tools.page
+        pagesize: tools.pagesize
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-my-tags
+      description: List My Tags
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: stack-exchange-me.listMyTags
+      with:
+        site: tools.site
+        access_token: tools.access_token
+        key: tools.key
+        filter: tools.filter
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-my-badges
+      description: List My Badges
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: stack-exchange-me.listMyBadges
+      with:
+        site: tools.site
+        access_token: tools.access_token
+        key: tools.key
+        filter: tools.filter
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-my-reputation
+      description: Get My Reputation
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: stack-exchange-me.getMyReputation
+      with:
+        site: tools.site
+        access_token: tools.access_token
+        key: tools.key
+        filter: tools.filter
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-my-notifications
+      description: List My Notifications
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: stack-exchange-me.listMyNotifications
+      with:
+        site: tools.site
+        access_token: tools.access_token
+        key: tools.key
+        filter: tools.filter
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-my-unread-notifications
+      description: List My Unread Notifications
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: stack-exchange-me.listMyUnreadNotifications
+      with:
+        site: tools.site
+        access_token: tools.access_token
+        key: tools.key
+        filter: tools.filter
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-my-inbox
+      description: List My Inbox
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: stack-exchange-me.listMyInbox
+      with:
+        site: tools.site
+        access_token: tools.access_token
+        key: tools.key
+        filter: tools.filter
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-my-unread-inbox
+      description: List My Unread Inbox
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: stack-exchange-me.listMyUnreadInbox
+      with:
+        site: tools.site
+        access_token: tools.access_token
+        key: tools.key
+        filter: tools.filter
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-my-timeline
+      description: List My Timeline
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: stack-exchange-me.listMyTimeline
+      with:
+        site: tools.site
+        access_token: tools.access_token
+        key: tools.key
+        filter: tools.filter
+      outputParameters:
+      - type: object
+        mapping: $.

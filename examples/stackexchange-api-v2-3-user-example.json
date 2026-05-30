@@ -1,0 +1,31 @@
+{
+  "user_id": 22656,
+  "account_id": 11683,
+  "user_type": "registered",
+  "display_name": "Jon Skeet",
+  "reputation": 1500000,
+  "reputation_change_day": 10,
+  "reputation_change_week": 120,
+  "reputation_change_month": 540,
+  "reputation_change_quarter": 1600,
+  "reputation_change_year": 5400,
+  "creation_date": 1217631542,
+  "last_modified_date": 1735000000,
+  "last_access_date": 1735200000,
+  "is_employee": false,
+  "location": "Reading, United Kingdom",
+  "website_url": "https://codeblog.jonskeet.uk",
+  "link": "https://stackoverflow.com/users/22656/jon-skeet",
+  "profile_image": "https://i.sstatic.net/lLZAr.jpg?s=128",
+  "accept_rate": 92,
+  "badge_counts": {
+    "bronze": 10000,
+    "silver": 5000,
+    "gold": 800
+  },
+  "question_count": 56,
+  "answer_count": 36234,
+  "up_vote_count": 39120,
+  "down_vote_count": 1024,
+  "view_count": 99999999
+}

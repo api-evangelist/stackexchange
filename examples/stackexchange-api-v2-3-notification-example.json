@@ -1,0 +1,34 @@
+{
+  "notification_type": "badge_earned",
+  "creation_date": 1735000000,
+  "is_unread": true,
+  "body": "You earned the 'Nice Question' badge.",
+  "post_id": 516016,
+  "site": {
+    "site_url": "https://stackoverflow.com",
+    "api_site_parameter": "stackoverflow",
+    "name": "Stack Overflow",
+    "site_type": "main_site",
+    "audience": "professional and enthusiast programmers",
+    "icon_url": "https://stackoverflow.com/questions/11227809",
+    "logo_url": "https://stackoverflow.com/questions/11227809",
+    "favicon_url": "https://stackoverflow.com/questions/11227809",
+    "launch_date": 1221177600,
+    "site_state": "normal",
+    "styling": {
+      "link_color": "https://stackoverflow.com/questions/11227809",
+      "tag_foreground_color": "stackoverflow",
+      "tag_background_color": "stackoverflow"
+    },
+    "related_sites": [
+      {
+        "name": "openapi",
+        "site_url": "https://stackoverflow.com/questions/11227809",
+        "relation": "parent"
+      }
+    ],
+    "markdown_extensions": [
+      "stackoverflow"
+    ]
+  }
+}

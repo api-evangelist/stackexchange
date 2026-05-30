@@ -1,0 +1,40 @@
+{
+  "question_id": 11227809,
+  "title": "Why is processing a sorted array faster than processing an unsorted array?",
+  "body": "Use the standard library `json` module.",
+  "body_markdown": "Use the standard library `json` module.",
+  "link": "https://stackoverflow.com/questions/11227809",
+  "score": 27000,
+  "view_count": 1900000,
+  "answer_count": 25,
+  "comment_count": 12,
+  "favorite_count": 4000,
+  "is_answered": true,
+  "accepted_answer_id": 11227902,
+  "creation_date": 1338717687,
+  "last_activity_date": 1700000000,
+  "last_edit_date": 1690000000,
+  "owner": {
+    "user_id": 22656,
+    "user_type": "registered",
+    "display_name": "Jon Skeet",
+    "reputation": 1500000,
+    "profile_image": "https://i.sstatic.net/lLZAr.jpg?s=128",
+    "link": "https://stackoverflow.com/users/22656/jon-skeet",
+    "accept_rate": 92
+  },
+  "tags": [
+    "java",
+    "c++",
+    "performance",
+    "cpu-architecture",
+    "branch-prediction"
+  ],
+  "content_license": "CC BY-SA 4.0",
+  "protected_date": 1735003823,
+  "locked_date": 1735076140,
+  "closed_date": 1735077842,
+  "closed_reason": "stackoverflow",
+  "bounty_amount": 310636,
+  "bounty_closes_date": 1735022005
+}

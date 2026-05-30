@@ -1,0 +1,725 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Stack Exchange API v2.3 — Questions
+  description: 'Questions surface of the Stack Exchange API. 9 operations. Lead operation: List Questions. Self-contained Naftiko capability covering one Stack Exchange business surface.'
+  tags:
+  - Stack Exchange
+  - Q And A
+  - Questions
+  created: '2026-05-29'
+  modified: '2026-05-29'
+binds:
+- namespace: env
+  keys:
+    STACK_EXCHANGE_KEY: STACK_EXCHANGE_KEY
+    STACK_EXCHANGE_ACCESS_TOKEN: STACK_EXCHANGE_ACCESS_TOKEN
+capability:
+  consumes:
+  - type: http
+    namespace: stack-exchange-questions
+    baseUri: https://api.stackexchange.com/2.3
+    description: Stack Exchange API v2.3 — Questions business capability. Self-contained, no shared references.
+    authentication:
+      type: apikey
+      key: key
+      value: '{{env.STACK_EXCHANGE_KEY}}'
+      placement: query
+    resources:
+    - name: questions
+      path: /questions
+      operations:
+      - name: listQuestions
+        method: GET
+        description: List Questions
+        inputParameters:
+        - name: site
+          in: query
+          type: string
+          required: true
+          description: Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).
+        - name: key
+          in: query
+          type: string
+          required: false
+          description: App key from stackapps.com. Raises the daily quota to 10,000/IP.
+        - name: access_token
+          in: query
+          type: string
+          required: false
+          description: OAuth 2.0 access token. Required for any /me surface and any write.
+        - name: filter
+          in: query
+          type: string
+          required: false
+          description: Custom response filter id created via /filters/create.
+        - name: page
+          in: query
+          type: integer
+          required: false
+          description: 1-indexed page number.
+        - name: pagesize
+          in: query
+          type: integer
+          required: false
+          description: Items per page (max 100).
+        - name: order
+          in: query
+          type: string
+          required: false
+          description: Sort direction.
+        - name: fromdate
+          in: query
+          type: integer
+          required: false
+          description: Unix epoch seconds — earliest creation_date.
+        - name: todate
+          in: query
+          type: integer
+          required: false
+          description: Unix epoch seconds — latest creation_date.
+        - name: tagged
+          in: query
+          type: string
+          required: false
+          description: Semicolon-delimited list of tags to AND-filter by.
+        - name: sort
+          in: query
+          type: string
+          required: false
+          description: sort parameter
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: questions-featured
+      path: /questions/featured
+      operations:
+      - name: listFeaturedQuestions
+        method: GET
+        description: List Featured Questions
+        inputParameters:
+        - name: site
+          in: query
+          type: string
+          required: true
+          description: Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).
+        - name: key
+          in: query
+          type: string
+          required: false
+          description: App key from stackapps.com. Raises the daily quota to 10,000/IP.
+        - name: filter
+          in: query
+          type: string
+          required: false
+          description: Custom response filter id created via /filters/create.
+        - name: page
+          in: query
+          type: integer
+          required: false
+          description: 1-indexed page number.
+        - name: pagesize
+          in: query
+          type: integer
+          required: false
+          description: Items per page (max 100).
+        - name: tagged
+          in: query
+          type: string
+          required: false
+          description: Semicolon-delimited list of tags to AND-filter by.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: questions-unanswered
+      path: /questions/unanswered
+      operations:
+      - name: listUnansweredQuestions
+        method: GET
+        description: List Unanswered Questions
+        inputParameters:
+        - name: site
+          in: query
+          type: string
+          required: true
+          description: Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).
+        - name: key
+          in: query
+          type: string
+          required: false
+          description: App key from stackapps.com. Raises the daily quota to 10,000/IP.
+        - name: filter
+          in: query
+          type: string
+          required: false
+          description: Custom response filter id created via /filters/create.
+        - name: page
+          in: query
+          type: integer
+          required: false
+          description: 1-indexed page number.
+        - name: pagesize
+          in: query
+          type: integer
+          required: false
+          description: Items per page (max 100).
+        - name: tagged
+          in: query
+          type: string
+          required: false
+          description: Semicolon-delimited list of tags to AND-filter by.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: questions-no-answers
+      path: /questions/no-answers
+      operations:
+      - name: listQuestionsWithoutAnswers
+        method: GET
+        description: List Questions Without Answers
+        inputParameters:
+        - name: site
+          in: query
+          type: string
+          required: true
+          description: Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).
+        - name: key
+          in: query
+          type: string
+          required: false
+          description: App key from stackapps.com. Raises the daily quota to 10,000/IP.
+        - name: filter
+          in: query
+          type: string
+          required: false
+          description: Custom response filter id created via /filters/create.
+        - name: page
+          in: query
+          type: integer
+          required: false
+          description: 1-indexed page number.
+        - name: pagesize
+          in: query
+          type: integer
+          required: false
+          description: Items per page (max 100).
+        - name: tagged
+          in: query
+          type: string
+          required: false
+          description: Semicolon-delimited list of tags to AND-filter by.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: questions-ids
+      path: /questions/{ids}
+      operations:
+      - name: getQuestionsByIds
+        method: GET
+        description: Get Questions by Ids
+        inputParameters:
+        - name: ids
+          in: path
+          type: string
+          required: true
+          description: Up to 100 semicolon-delimited ids of the resource.
+        - name: site
+          in: query
+          type: string
+          required: true
+          description: Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).
+        - name: key
+          in: query
+          type: string
+          required: false
+          description: App key from stackapps.com. Raises the daily quota to 10,000/IP.
+        - name: filter
+          in: query
+          type: string
+          required: false
+          description: Custom response filter id created via /filters/create.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: questions-ids-answers
+      path: /questions/{ids}/answers
+      operations:
+      - name: listAnswersOnQuestions
+        method: GET
+        description: List Answers on Questions
+        inputParameters:
+        - name: ids
+          in: path
+          type: string
+          required: true
+          description: Up to 100 semicolon-delimited ids of the resource.
+        - name: site
+          in: query
+          type: string
+          required: true
+          description: Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).
+        - name: key
+          in: query
+          type: string
+          required: false
+          description: App key from stackapps.com. Raises the daily quota to 10,000/IP.
+        - name: filter
+          in: query
+          type: string
+          required: false
+          description: Custom response filter id created via /filters/create.
+        - name: page
+          in: query
+          type: integer
+          required: false
+          description: 1-indexed page number.
+        - name: pagesize
+          in: query
+          type: integer
+          required: false
+          description: Items per page (max 100).
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: questions-ids-comments
+      path: /questions/{ids}/comments
+      operations:
+      - name: listCommentsOnQuestions
+        method: GET
+        description: List Comments on Questions
+        inputParameters:
+        - name: ids
+          in: path
+          type: string
+          required: true
+          description: Up to 100 semicolon-delimited ids of the resource.
+        - name: site
+          in: query
+          type: string
+          required: true
+          description: Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).
+        - name: key
+          in: query
+          type: string
+          required: false
+          description: App key from stackapps.com. Raises the daily quota to 10,000/IP.
+        - name: filter
+          in: query
+          type: string
+          required: false
+          description: Custom response filter id created via /filters/create.
+        - name: page
+          in: query
+          type: integer
+          required: false
+          description: 1-indexed page number.
+        - name: pagesize
+          in: query
+          type: integer
+          required: false
+          description: Items per page (max 100).
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: questions-ids-linked
+      path: /questions/{ids}/linked
+      operations:
+      - name: listLinkedQuestions
+        method: GET
+        description: List Linked Questions
+        inputParameters:
+        - name: ids
+          in: path
+          type: string
+          required: true
+          description: Up to 100 semicolon-delimited ids of the resource.
+        - name: site
+          in: query
+          type: string
+          required: true
+          description: Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).
+        - name: key
+          in: query
+          type: string
+          required: false
+          description: App key from stackapps.com. Raises the daily quota to 10,000/IP.
+        - name: filter
+          in: query
+          type: string
+          required: false
+          description: Custom response filter id created via /filters/create.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: questions-ids-related
+      path: /questions/{ids}/related
+      operations:
+      - name: listRelatedQuestions
+        method: GET
+        description: List Related Questions
+        inputParameters:
+        - name: ids
+          in: path
+          type: string
+          required: true
+          description: Up to 100 semicolon-delimited ids of the resource.
+        - name: site
+          in: query
+          type: string
+          required: true
+          description: Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).
+        - name: key
+          in: query
+          type: string
+          required: false
+          description: App key from stackapps.com. Raises the daily quota to 10,000/IP.
+        - name: filter
+          in: query
+          type: string
+          required: false
+          description: Custom response filter id created via /filters/create.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+  exposes:
+  - type: rest
+    namespace: stack-exchange-questions-rest
+    port: 8080
+    description: REST adapter for Stack Exchange API v2.3 — Questions. One Spectral-compliant resource per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/questions
+      name: questions
+      description: REST surface for questions.
+      operations:
+      - method: GET
+        name: listQuestions
+        description: List Questions
+        call: stack-exchange-questions.listQuestions
+        with:
+          site: rest.site
+          key: rest.key
+          access_token: rest.access_token
+          filter: rest.filter
+          page: rest.page
+          pagesize: rest.pagesize
+          order: rest.order
+          fromdate: rest.fromdate
+          todate: rest.todate
+          tagged: rest.tagged
+          sort: rest.sort
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/questions/featured
+      name: featured
+      description: REST surface for questions.
+      operations:
+      - method: GET
+        name: listFeaturedQuestions
+        description: List Featured Questions
+        call: stack-exchange-questions.listFeaturedQuestions
+        with:
+          site: rest.site
+          key: rest.key
+          filter: rest.filter
+          page: rest.page
+          pagesize: rest.pagesize
+          tagged: rest.tagged
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/questions/unanswered
+      name: unanswered
+      description: REST surface for questions.
+      operations:
+      - method: GET
+        name: listUnansweredQuestions
+        description: List Unanswered Questions
+        call: stack-exchange-questions.listUnansweredQuestions
+        with:
+          site: rest.site
+          key: rest.key
+          filter: rest.filter
+          page: rest.page
+          pagesize: rest.pagesize
+          tagged: rest.tagged
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/questions/no-answers
+      name: no-answers
+      description: REST surface for questions.
+      operations:
+      - method: GET
+        name: listQuestionsWithoutAnswers
+        description: List Questions Without Answers
+        call: stack-exchange-questions.listQuestionsWithoutAnswers
+        with:
+          site: rest.site
+          key: rest.key
+          filter: rest.filter
+          page: rest.page
+          pagesize: rest.pagesize
+          tagged: rest.tagged
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/questions/{ids}
+      name: questions
+      description: REST surface for questions.
+      operations:
+      - method: GET
+        name: getQuestionsByIds
+        description: Get Questions by Ids
+        call: stack-exchange-questions.getQuestionsByIds
+        with:
+          ids: rest.ids
+          site: rest.site
+          key: rest.key
+          filter: rest.filter
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/questions/{ids}/answers
+      name: answers
+      description: REST surface for questions.
+      operations:
+      - method: GET
+        name: listAnswersOnQuestions
+        description: List Answers on Questions
+        call: stack-exchange-questions.listAnswersOnQuestions
+        with:
+          ids: rest.ids
+          site: rest.site
+          key: rest.key
+          filter: rest.filter
+          page: rest.page
+          pagesize: rest.pagesize
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/questions/{ids}/comments
+      name: comments
+      description: REST surface for questions.
+      operations:
+      - method: GET
+        name: listCommentsOnQuestions
+        description: List Comments on Questions
+        call: stack-exchange-questions.listCommentsOnQuestions
+        with:
+          ids: rest.ids
+          site: rest.site
+          key: rest.key
+          filter: rest.filter
+          page: rest.page
+          pagesize: rest.pagesize
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/questions/{ids}/linked
+      name: linked
+      description: REST surface for questions.
+      operations:
+      - method: GET
+        name: listLinkedQuestions
+        description: List Linked Questions
+        call: stack-exchange-questions.listLinkedQuestions
+        with:
+          ids: rest.ids
+          site: rest.site
+          key: rest.key
+          filter: rest.filter
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/questions/{ids}/related
+      name: related
+      description: REST surface for questions.
+      operations:
+      - method: GET
+        name: listRelatedQuestions
+        description: List Related Questions
+        call: stack-exchange-questions.listRelatedQuestions
+        with:
+          ids: rest.ids
+          site: rest.site
+          key: rest.key
+          filter: rest.filter
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: stack-exchange-questions-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Stack Exchange API v2.3 — Questions. One tool per consumed operation, routed inline through this capability's consumes block.
+    tools:
+    - name: list-questions
+      description: List Questions
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: stack-exchange-questions.listQuestions
+      with:
+        site: tools.site
+        key: tools.key
+        access_token: tools.access_token
+        filter: tools.filter
+        page: tools.page
+        pagesize: tools.pagesize
+        order: tools.order
+        fromdate: tools.fromdate
+        todate: tools.todate
+        tagged: tools.tagged
+        sort: tools.sort
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-featured-questions
+      description: List Featured Questions
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: stack-exchange-questions.listFeaturedQuestions
+      with:
+        site: tools.site
+        key: tools.key
+        filter: tools.filter
+        page: tools.page
+        pagesize: tools.pagesize
+        tagged: tools.tagged
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-unanswered-questions
+      description: List Unanswered Questions
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: stack-exchange-questions.listUnansweredQuestions
+      with:
+        site: tools.site
+        key: tools.key
+        filter: tools.filter
+        page: tools.page
+        pagesize: tools.pagesize
+        tagged: tools.tagged
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-questions-without-answers
+      description: List Questions Without Answers
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: stack-exchange-questions.listQuestionsWithoutAnswers
+      with:
+        site: tools.site
+        key: tools.key
+        filter: tools.filter
+        page: tools.page
+        pagesize: tools.pagesize
+        tagged: tools.tagged
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-questions-ids
+      description: Get Questions by Ids
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: stack-exchange-questions.getQuestionsByIds
+      with:
+        ids: tools.ids
+        site: tools.site
+        key: tools.key
+        filter: tools.filter
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-answers-questions
+      description: List Answers on Questions
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: stack-exchange-questions.listAnswersOnQuestions
+      with:
+        ids: tools.ids
+        site: tools.site
+        key: tools.key
+        filter: tools.filter
+        page: tools.page
+        pagesize: tools.pagesize
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-comments-questions
+      description: List Comments on Questions
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: stack-exchange-questions.listCommentsOnQuestions
+      with:
+        ids: tools.ids
+        site: tools.site
+        key: tools.key
+        filter: tools.filter
+        page: tools.page
+        pagesize: tools.pagesize
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-linked-questions
+      description: List Linked Questions
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: stack-exchange-questions.listLinkedQuestions
+      with:
+        ids: tools.ids
+        site: tools.site
+        key: tools.key
+        filter: tools.filter
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-related-questions
+      description: List Related Questions
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: stack-exchange-questions.listRelatedQuestions
+      with:
+        ids: tools.ids
+        site: tools.site
+        key: tools.key
+        filter: tools.filter
+      outputParameters:
+      - type: object
+        mapping: $.

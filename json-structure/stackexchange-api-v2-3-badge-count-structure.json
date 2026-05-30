@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "name": "BadgeCount",
+  "description": "Bronze/silver/gold badge counts for a user.",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/stackexchange/refs/heads/main/json-structure/stackexchange-api-v2-3-badge-count-structure.json",
+  "type": "object",
+  "properties": {
+    "bronze": {
+      "type": "int32",
+      "example": 10000
+    },
+    "silver": {
+      "type": "int32",
+      "example": 5000
+    },
+    "gold": {
+      "type": "int32",
+      "example": 800
+    }
+  }
+}

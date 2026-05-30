@@ -1,0 +1,13 @@
+{
+  "user": {
+    "user_id": 22656,
+    "user_type": "registered",
+    "display_name": "Jon Skeet",
+    "reputation": 1500000,
+    "profile_image": "https://i.sstatic.net/lLZAr.jpg?s=128",
+    "link": "https://stackoverflow.com/users/22656/jon-skeet",
+    "accept_rate": 92
+  },
+  "score": 1200,
+  "post_count": 45
+}

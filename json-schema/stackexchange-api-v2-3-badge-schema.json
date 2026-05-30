@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Badge",
+  "description": "A badge definition.",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/stackexchange/refs/heads/main/json-schema/stackexchange-api-v2-3-badge-schema.json",
+  "type": "object",
+  "properties": {
+    "badge_id": {
+      "type": "integer",
+      "example": 23
+    },
+    "name": {
+      "type": "string",
+      "example": "Nice Question"
+    },
+    "description": {
+      "type": "string",
+      "example": "Question score of 10 or more."
+    },
+    "rank": {
+      "type": "string",
+      "enum": [
+        "bronze",
+        "silver",
+        "gold"
+      ],
+      "example": "bronze"
+    },
+    "badge_type": {
+      "type": "string",
+      "enum": [
+        "named",
+        "tag_based"
+      ],
+      "example": "named"
+    },
+    "award_count": {
+      "type": "integer",
+      "example": 500000
+    },
+    "link": {
+      "type": "string",
+      "format": "uri",
+      "example": "https://stackoverflow.com/help/badges/23/nice-question"
+    },
+    "user": {
+      "type": "object",
+      "description": "Lightweight user reference embedded in posts and comments.",
+      "properties": {
+        "user_id": {
+          "type": "integer",
+          "format": "int64",
+          "example": 22656
+        },
+        "user_type": {
+          "type": "string",
+          "enum": [
+            "unregistered",
+            "registered",
+            "moderator",
+            "team_admin",
+            "does_not_exist"
+          ],
+          "example": "registered"
+        },
+        "display_name": {
+          "type": "string",
+          "example": "Jon Skeet"
+        },
+        "reputation": {
+          "type": "integer",
+          "example": 1500000
+        },
+        "profile_image": {
+          "type": "string",
+          "format": "uri",
+          "example": "https://i.sstatic.net/lLZAr.jpg?s=128"
+        },
+        "link": {
+          "type": "string",
+          "format": "uri",
+          "example": "https://stackoverflow.com/users/22656/jon-skeet"
+        },
+        "accept_rate": {
+          "type": "integer",
+          "example": 92
+        }
+      }
+    }
+  }
+}

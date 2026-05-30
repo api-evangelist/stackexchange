@@ -1,0 +1,102 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Stack Exchange API v2.3 — Sites
+  description: 'Sites surface of the Stack Exchange API. 1 operations. Lead operation: List Sites. Self-contained Naftiko capability covering one Stack Exchange business surface.'
+  tags:
+  - Stack Exchange
+  - Q And A
+  - Sites
+  created: '2026-05-29'
+  modified: '2026-05-29'
+binds:
+- namespace: env
+  keys:
+    STACK_EXCHANGE_KEY: STACK_EXCHANGE_KEY
+    STACK_EXCHANGE_ACCESS_TOKEN: STACK_EXCHANGE_ACCESS_TOKEN
+capability:
+  consumes:
+  - type: http
+    namespace: stack-exchange-sites
+    baseUri: https://api.stackexchange.com/2.3
+    description: Stack Exchange API v2.3 — Sites business capability. Self-contained, no shared references.
+    authentication:
+      type: apikey
+      key: key
+      value: '{{env.STACK_EXCHANGE_KEY}}'
+      placement: query
+    resources:
+    - name: sites
+      path: /sites
+      operations:
+      - name: listSites
+        method: GET
+        description: List Sites
+        inputParameters:
+        - name: key
+          in: query
+          type: string
+          required: false
+          description: App key from stackapps.com. Raises the daily quota to 10,000/IP.
+        - name: filter
+          in: query
+          type: string
+          required: false
+          description: Custom response filter id created via /filters/create.
+        - name: page
+          in: query
+          type: integer
+          required: false
+          description: 1-indexed page number.
+        - name: pagesize
+          in: query
+          type: integer
+          required: false
+          description: Items per page (max 100).
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+  exposes:
+  - type: rest
+    namespace: stack-exchange-sites-rest
+    port: 8080
+    description: REST adapter for Stack Exchange API v2.3 — Sites. One Spectral-compliant resource per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/sites
+      name: sites
+      description: REST surface for sites.
+      operations:
+      - method: GET
+        name: listSites
+        description: List Sites
+        call: stack-exchange-sites.listSites
+        with:
+          key: rest.key
+          filter: rest.filter
+          page: rest.page
+          pagesize: rest.pagesize
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: stack-exchange-sites-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Stack Exchange API v2.3 — Sites. One tool per consumed operation, routed inline through this capability's consumes block.
+    tools:
+    - name: list-sites
+      description: List Sites
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: stack-exchange-sites.listSites
+      with:
+        key: tools.key
+        filter: tools.filter
+        page: tools.page
+        pagesize: tools.pagesize
+      outputParameters:
+      - type: object
+        mapping: $.

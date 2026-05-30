@@ -1,0 +1,459 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Stack Exchange API v2.3 — Search
+  description: 'Search surface of the Stack Exchange API. 4 operations. Lead operation: Search Questions. Self-contained Naftiko capability covering one Stack Exchange business surface.'
+  tags:
+  - Stack Exchange
+  - Q And A
+  - Search
+  created: '2026-05-29'
+  modified: '2026-05-29'
+binds:
+- namespace: env
+  keys:
+    STACK_EXCHANGE_KEY: STACK_EXCHANGE_KEY
+    STACK_EXCHANGE_ACCESS_TOKEN: STACK_EXCHANGE_ACCESS_TOKEN
+capability:
+  consumes:
+  - type: http
+    namespace: stack-exchange-search
+    baseUri: https://api.stackexchange.com/2.3
+    description: Stack Exchange API v2.3 — Search business capability. Self-contained, no shared references.
+    authentication:
+      type: apikey
+      key: key
+      value: '{{env.STACK_EXCHANGE_KEY}}'
+      placement: query
+    resources:
+    - name: search
+      path: /search
+      operations:
+      - name: searchQuestions
+        method: GET
+        description: Search Questions
+        inputParameters:
+        - name: site
+          in: query
+          type: string
+          required: true
+          description: Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).
+        - name: key
+          in: query
+          type: string
+          required: false
+          description: App key from stackapps.com. Raises the daily quota to 10,000/IP.
+        - name: filter
+          in: query
+          type: string
+          required: false
+          description: Custom response filter id created via /filters/create.
+        - name: page
+          in: query
+          type: integer
+          required: false
+          description: 1-indexed page number.
+        - name: pagesize
+          in: query
+          type: integer
+          required: false
+          description: Items per page (max 100).
+        - name: intitle
+          in: query
+          type: string
+          required: true
+          description: intitle parameter
+        - name: tagged
+          in: query
+          type: string
+          required: false
+          description: tagged parameter
+        - name: nottagged
+          in: query
+          type: string
+          required: false
+          description: nottagged parameter
+        - name: sort
+          in: query
+          type: string
+          required: false
+          description: sort parameter
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: search-advanced
+      path: /search/advanced
+      operations:
+      - name: searchQuestionsAdvanced
+        method: GET
+        description: Search Questions Advanced
+        inputParameters:
+        - name: site
+          in: query
+          type: string
+          required: true
+          description: Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).
+        - name: key
+          in: query
+          type: string
+          required: false
+          description: App key from stackapps.com. Raises the daily quota to 10,000/IP.
+        - name: filter
+          in: query
+          type: string
+          required: false
+          description: Custom response filter id created via /filters/create.
+        - name: page
+          in: query
+          type: integer
+          required: false
+          description: 1-indexed page number.
+        - name: pagesize
+          in: query
+          type: integer
+          required: false
+          description: Items per page (max 100).
+        - name: q
+          in: query
+          type: string
+          required: false
+          description: q parameter
+        - name: title
+          in: query
+          type: string
+          required: false
+          description: title parameter
+        - name: body
+          in: query
+          type: string
+          required: false
+          description: body parameter
+        - name: tagged
+          in: query
+          type: string
+          required: false
+          description: tagged parameter
+        - name: nottagged
+          in: query
+          type: string
+          required: false
+          description: nottagged parameter
+        - name: accepted
+          in: query
+          type: boolean
+          required: false
+          description: accepted parameter
+        - name: answers
+          in: query
+          type: integer
+          required: false
+          description: answers parameter
+        - name: closed
+          in: query
+          type: boolean
+          required: false
+          description: closed parameter
+        - name: migrated
+          in: query
+          type: boolean
+          required: false
+          description: migrated parameter
+        - name: notice
+          in: query
+          type: boolean
+          required: false
+          description: notice parameter
+        - name: views
+          in: query
+          type: integer
+          required: false
+          description: views parameter
+        - name: sort
+          in: query
+          type: string
+          required: false
+          description: sort parameter
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: search-excerpts
+      path: /search/excerpts
+      operations:
+      - name: searchExcerpts
+        method: GET
+        description: Search Excerpts
+        inputParameters:
+        - name: site
+          in: query
+          type: string
+          required: true
+          description: Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).
+        - name: key
+          in: query
+          type: string
+          required: false
+          description: App key from stackapps.com. Raises the daily quota to 10,000/IP.
+        - name: filter
+          in: query
+          type: string
+          required: false
+          description: Custom response filter id created via /filters/create.
+        - name: page
+          in: query
+          type: integer
+          required: false
+          description: 1-indexed page number.
+        - name: pagesize
+          in: query
+          type: integer
+          required: false
+          description: Items per page (max 100).
+        - name: q
+          in: query
+          type: string
+          required: false
+          description: q parameter
+        - name: tagged
+          in: query
+          type: string
+          required: false
+          description: tagged parameter
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: similar
+      path: /similar
+      operations:
+      - name: findSimilarQuestions
+        method: GET
+        description: Find Similar Questions
+        inputParameters:
+        - name: site
+          in: query
+          type: string
+          required: true
+          description: Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).
+        - name: key
+          in: query
+          type: string
+          required: false
+          description: App key from stackapps.com. Raises the daily quota to 10,000/IP.
+        - name: filter
+          in: query
+          type: string
+          required: false
+          description: Custom response filter id created via /filters/create.
+        - name: page
+          in: query
+          type: integer
+          required: false
+          description: 1-indexed page number.
+        - name: pagesize
+          in: query
+          type: integer
+          required: false
+          description: Items per page (max 100).
+        - name: title
+          in: query
+          type: string
+          required: true
+          description: title parameter
+        - name: tagged
+          in: query
+          type: string
+          required: false
+          description: tagged parameter
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+  exposes:
+  - type: rest
+    namespace: stack-exchange-search-rest
+    port: 8080
+    description: REST adapter for Stack Exchange API v2.3 — Search. One Spectral-compliant resource per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/search
+      name: search
+      description: REST surface for search.
+      operations:
+      - method: GET
+        name: searchQuestions
+        description: Search Questions
+        call: stack-exchange-search.searchQuestions
+        with:
+          site: rest.site
+          key: rest.key
+          filter: rest.filter
+          page: rest.page
+          pagesize: rest.pagesize
+          intitle: rest.intitle
+          tagged: rest.tagged
+          nottagged: rest.nottagged
+          sort: rest.sort
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/search/advanced
+      name: advanced
+      description: REST surface for search.
+      operations:
+      - method: GET
+        name: searchQuestionsAdvanced
+        description: Search Questions Advanced
+        call: stack-exchange-search.searchQuestionsAdvanced
+        with:
+          site: rest.site
+          key: rest.key
+          filter: rest.filter
+          page: rest.page
+          pagesize: rest.pagesize
+          q: rest.q
+          title: rest.title
+          body: rest.body
+          tagged: rest.tagged
+          nottagged: rest.nottagged
+          accepted: rest.accepted
+          answers: rest.answers
+          closed: rest.closed
+          migrated: rest.migrated
+          notice: rest.notice
+          views: rest.views
+          sort: rest.sort
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/search/excerpts
+      name: excerpts
+      description: REST surface for search.
+      operations:
+      - method: GET
+        name: searchExcerpts
+        description: Search Excerpts
+        call: stack-exchange-search.searchExcerpts
+        with:
+          site: rest.site
+          key: rest.key
+          filter: rest.filter
+          page: rest.page
+          pagesize: rest.pagesize
+          q: rest.q
+          tagged: rest.tagged
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/similar
+      name: similar
+      description: REST surface for similar.
+      operations:
+      - method: GET
+        name: findSimilarQuestions
+        description: Find Similar Questions
+        call: stack-exchange-search.findSimilarQuestions
+        with:
+          site: rest.site
+          key: rest.key
+          filter: rest.filter
+          page: rest.page
+          pagesize: rest.pagesize
+          title: rest.title
+          tagged: rest.tagged
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: stack-exchange-search-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Stack Exchange API v2.3 — Search. One tool per consumed operation, routed inline through this capability's consumes block.
+    tools:
+    - name: search-questions
+      description: Search Questions
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: stack-exchange-search.searchQuestions
+      with:
+        site: tools.site
+        key: tools.key
+        filter: tools.filter
+        page: tools.page
+        pagesize: tools.pagesize
+        intitle: tools.intitle
+        tagged: tools.tagged
+        nottagged: tools.nottagged
+        sort: tools.sort
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: search-questions-advanced
+      description: Search Questions Advanced
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: stack-exchange-search.searchQuestionsAdvanced
+      with:
+        site: tools.site
+        key: tools.key
+        filter: tools.filter
+        page: tools.page
+        pagesize: tools.pagesize
+        q: tools.q
+        title: tools.title
+        body: tools.body
+        tagged: tools.tagged
+        nottagged: tools.nottagged
+        accepted: tools.accepted
+        answers: tools.answers
+        closed: tools.closed
+        migrated: tools.migrated
+        notice: tools.notice
+        views: tools.views
+        sort: tools.sort
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: search-excerpts
+      description: Search Excerpts
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: stack-exchange-search.searchExcerpts
+      with:
+        site: tools.site
+        key: tools.key
+        filter: tools.filter
+        page: tools.page
+        pagesize: tools.pagesize
+        q: tools.q
+        tagged: tools.tagged
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: find-similar-questions
+      description: Find Similar Questions
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: stack-exchange-search.findSimilarQuestions
+      with:
+        site: tools.site
+        key: tools.key
+        filter: tools.filter
+        page: tools.page
+        pagesize: tools.pagesize
+        title: tools.title
+        tagged: tools.tagged
+      outputParameters:
+      - type: object
+        mapping: $.

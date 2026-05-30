@@ -1,0 +1,30 @@
+{
+  "comment_id": 14587302,
+  "post_id": 11227809,
+  "post_type": "question",
+  "score": 12,
+  "body": "Great explanation, thank you.",
+  "body_markdown": "Use the standard library `json` module.",
+  "creation_date": 1338800000,
+  "edited": false,
+  "link": "https://stackoverflow.com/questions/11227809#comment14587302_11227809",
+  "owner": {
+    "user_id": 22656,
+    "user_type": "registered",
+    "display_name": "Jon Skeet",
+    "reputation": 1500000,
+    "profile_image": "https://i.sstatic.net/lLZAr.jpg?s=128",
+    "link": "https://stackoverflow.com/users/22656/jon-skeet",
+    "accept_rate": 92
+  },
+  "reply_to_user": {
+    "user_id": 22656,
+    "user_type": "registered",
+    "display_name": "Jon Skeet",
+    "reputation": 1500000,
+    "profile_image": "https://i.sstatic.net/lLZAr.jpg?s=128",
+    "link": "https://stackoverflow.com/users/22656/jon-skeet",
+    "accept_rate": 92
+  },
+  "content_license": "CC BY-SA 4.0"
+}

@@ -1,0 +1,145 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "name": "Question",
+  "description": "A question on a Stack Exchange site.",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/stackexchange/refs/heads/main/json-structure/stackexchange-api-v2-3-question-structure.json",
+  "type": "object",
+  "properties": {
+    "question_id": {
+      "type": "int32",
+      "example": 11227809
+    },
+    "title": {
+      "type": "string",
+      "example": "Why is processing a sorted array faster than processing an unsorted array?"
+    },
+    "body": {
+      "type": "string",
+      "description": "HTML body of the question (only included via filter)."
+    },
+    "body_markdown": {
+      "type": "string",
+      "description": "Markdown body of the question (only included via filter)."
+    },
+    "link": {
+      "type": "uri",
+      "example": "https://stackoverflow.com/questions/11227809"
+    },
+    "score": {
+      "type": "int32",
+      "example": 27000
+    },
+    "view_count": {
+      "type": "int32",
+      "example": 1900000
+    },
+    "answer_count": {
+      "type": "int32",
+      "example": 25
+    },
+    "comment_count": {
+      "type": "int32",
+      "example": 12
+    },
+    "favorite_count": {
+      "type": "int32",
+      "example": 4000
+    },
+    "is_answered": {
+      "type": "boolean",
+      "example": true
+    },
+    "accepted_answer_id": {
+      "type": "int32",
+      "example": 11227902
+    },
+    "creation_date": {
+      "type": "int64",
+      "example": 1338717687
+    },
+    "last_activity_date": {
+      "type": "int64",
+      "example": 1700000000
+    },
+    "last_edit_date": {
+      "type": "int64",
+      "example": 1690000000
+    },
+    "owner": {
+      "type": "object",
+      "description": "Lightweight user reference embedded in posts and comments.",
+      "properties": {
+        "user_id": {
+          "type": "int64",
+          "example": 22656
+        },
+        "user_type": {
+          "type": "string",
+          "enum": [
+            "unregistered",
+            "registered",
+            "moderator",
+            "team_admin",
+            "does_not_exist"
+          ],
+          "example": "registered"
+        },
+        "display_name": {
+          "type": "string",
+          "example": "Jon Skeet"
+        },
+        "reputation": {
+          "type": "int32",
+          "example": 1500000
+        },
+        "profile_image": {
+          "type": "uri",
+          "example": "https://i.sstatic.net/lLZAr.jpg?s=128"
+        },
+        "link": {
+          "type": "uri",
+          "example": "https://stackoverflow.com/users/22656/jon-skeet"
+        },
+        "accept_rate": {
+          "type": "int32",
+          "example": 92
+        }
+      }
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "example": [
+        "java",
+        "c++",
+        "performance",
+        "cpu-architecture",
+        "branch-prediction"
+      ]
+    },
+    "content_license": {
+      "type": "string",
+      "example": "CC BY-SA 4.0"
+    },
+    "protected_date": {
+      "type": "int64"
+    },
+    "locked_date": {
+      "type": "int64"
+    },
+    "closed_date": {
+      "type": "int64"
+    },
+    "closed_reason": {
+      "type": "string"
+    },
+    "bounty_amount": {
+      "type": "int32"
+    },
+    "bounty_closes_date": {
+      "type": "int64"
+    }
+  }
+}

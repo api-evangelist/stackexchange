@@ -1,0 +1,497 @@
+vocabulary: "1.0.0"
+
+info:
+  provider: "Stack Exchange"
+  description: >-
+    Unified vocabulary across the Stack Exchange API v2.3 operational dimension
+    (OpenAPI methods, resources, and schemas) and the capability dimension
+    (Naftiko per-tag capabilities). Captures the full network-wide Q&A graph —
+    questions, answers, comments, users, tags, badges, sites, reputation —
+    plus the per-user authenticated /me surface and the OAuth scope/quota
+    machinery that wraps every call.
+  created: "2026-05-29"
+  modified: "2026-05-29"
+
+# ============================================================================
+# OPERATIONAL DIMENSION (from openapi/stackexchange-api-v2-3.yaml)
+# ============================================================================
+operational:
+
+  apis:
+    - name: "Stack Exchange API"
+      namespace: "stack-exchange"
+      version: "2.3"
+      baseUrl: "https://api.stackexchange.com/2.3"
+      status: "active"
+
+  resources:
+    - name: "questions"
+      api: "stack-exchange"
+      actions: [list, get, listFeatured, listUnanswered, listWithoutAnswers, listLinked, listRelated, listAnswersOn, listCommentsOn]
+    - name: "answers"
+      api: "stack-exchange"
+      actions: [list, get, listCommentsOn, getParentQuestions]
+    - name: "comments"
+      api: "stack-exchange"
+      actions: [list, get]
+    - name: "users"
+      api: "stack-exchange"
+      actions: [list, get, listAnswers, listQuestions, listComments, listBadges, listTags, listTopAnswerTags, listTopQuestionTags, getReputation, listPrivileges]
+    - name: "me"
+      api: "stack-exchange"
+      actions: [get, listQuestions, listAnswers, listComments, listTags, listBadges, getReputation, listNotifications, listUnreadNotifications, listInbox, listUnreadInbox, listTimeline]
+    - name: "tags"
+      api: "stack-exchange"
+      actions: [list, listSynonyms, getInfo, listTopAskers, listTopAnswerers, listRelated, getWikis]
+    - name: "badges"
+      api: "stack-exchange"
+      actions: [list, get, listRecipients, listNamed, listTagBased]
+    - name: "sites"
+      api: "stack-exchange"
+      actions: [list]
+    - name: "search"
+      api: "stack-exchange"
+      actions: [searchQuestions, searchAdvanced, searchExcerpts, findSimilar]
+    - name: "posts"
+      api: "stack-exchange"
+      actions: [list, get, listCommentsOn, listRevisions, listSuggestedEdits]
+    - name: "revisions"
+      api: "stack-exchange"
+      actions: [get]
+    - name: "suggested-edits"
+      api: "stack-exchange"
+      actions: [list, get]
+    - name: "events"
+      api: "stack-exchange"
+      actions: [list]
+    - name: "info"
+      api: "stack-exchange"
+      actions: [get]
+    - name: "access-tokens"
+      api: "stack-exchange"
+      actions: [read, invalidate, deauthenticateApp]
+    - name: "filters"
+      api: "stack-exchange"
+      actions: [create, get]
+
+  actions:
+    - name: "list"
+      verb: "list"
+      methods: [GET]
+      pattern: "read"
+      description: "Page through a collection."
+    - name: "get"
+      verb: "get"
+      methods: [GET]
+      pattern: "read"
+      description: "Vectorized fetch by semicolon-delimited ids (up to 100)."
+    - name: "search"
+      verb: "search"
+      methods: [GET]
+      pattern: "query"
+      description: "Full-text or filter-based query over a corpus."
+    - name: "find"
+      verb: "find"
+      methods: [GET]
+      pattern: "query"
+      description: "Similarity-based lookup (e.g. /similar)."
+    - name: "create"
+      verb: "create"
+      methods: [GET]
+      pattern: "write"
+      description: "Create a filter via /filters/create (Stack Exchange convention uses GET)."
+    - name: "invalidate"
+      verb: "invalidate"
+      methods: [GET]
+      pattern: "destructive"
+      description: "Invalidate OAuth access tokens."
+    - name: "read"
+      verb: "read"
+      methods: [GET]
+      pattern: "read"
+      description: "Inspect access token scopes and expiry."
+    - name: "deauthenticate"
+      verb: "deauthenticate"
+      methods: [GET]
+      pattern: "destructive"
+      description: "De-authenticate an app for a user."
+
+  schemas:
+    core:
+      - name: "Wrapper"
+        keyFields: [items, has_more, page, page_size, quota_max, quota_remaining, backoff]
+      - name: "Question"
+        keyFields: [question_id, title, body, score, view_count, answer_count, is_answered, accepted_answer_id, tags, owner, creation_date]
+      - name: "Answer"
+        keyFields: [answer_id, question_id, body, score, is_accepted, owner, creation_date, up_vote_count, down_vote_count]
+      - name: "Comment"
+        keyFields: [comment_id, post_id, post_type, body, score, owner, creation_date]
+      - name: "User"
+        keyFields: [user_id, account_id, display_name, reputation, badge_counts, location, user_type, creation_date]
+      - name: "ShallowUser"
+        keyFields: [user_id, display_name, reputation, user_type, accept_rate]
+      - name: "BadgeCount"
+        keyFields: [bronze, silver, gold]
+    taxonomy:
+      - name: "Tag"
+        keyFields: [name, count, is_required, is_moderator_only, has_synonyms]
+      - name: "TagSynonym"
+        keyFields: [from_tag, to_tag, applied_count]
+      - name: "TagScore"
+        keyFields: [user, score, post_count]
+      - name: "Badge"
+        keyFields: [badge_id, name, rank, badge_type, award_count]
+    network:
+      - name: "Site"
+        keyFields: [site_url, api_site_parameter, name, site_type, audience, launch_date, site_state]
+    moderation:
+      - name: "Revision"
+        keyFields: [revision_guid, revision_number, revision_type, post_id, post_type, creation_date, is_rollback]
+      - name: "SuggestedEdit"
+        keyFields: [suggested_edit_id, post_id, post_type, comment, creation_date, proposing_user]
+    inbox:
+      - name: "Notification"
+        keyFields: [notification_type, creation_date, is_unread, body, post_id, site]
+      - name: "InboxItem"
+        keyFields: [item_type, creation_date, is_unread, title, body, link, site]
+      - name: "Event"
+        keyFields: [event_type, event_id, creation_date, link, excerpt]
+    admin:
+      - name: "Info"
+        keyFields: [total_questions, total_answers, total_users, total_badges, questions_per_minute, api_revision]
+      - name: "AccessToken"
+        keyFields: [access_token, expires_on_date, account_id, scope]
+      - name: "Filter"
+        keyFields: [filter, filter_type, included_fields]
+    reputation:
+      - name: "ReputationChange"
+        keyFields: [user_id, post_id, post_type, vote_type, reputation_change, on_date]
+      - name: "PrivilegeItem"
+        keyFields: [short_description, description, reputation]
+    posts:
+      - name: "Post"
+        keyFields: [post_id, post_type, body, score, owner, creation_date]
+
+  parameters:
+    pagination:
+      - { name: page, description: "1-indexed page number" }
+      - { name: pagesize, description: "Items per page (max 100)" }
+      - { name: has_more, description: "Response-side pagination flag" }
+    identifiers:
+      - { name: ids, description: "Up to 100 semicolon-delimited ids" }
+      - { name: tags, description: "Up to 100 semicolon-delimited tag names" }
+      - { name: site, description: "Target Q&A community (api_site_parameter or domain)" }
+    filters:
+      - { name: filter, description: "Custom response filter id from /filters/create" }
+      - { name: tagged, description: "Semicolon-delimited tag AND-filter" }
+      - { name: nottagged, description: "Semicolon-delimited tag exclude-filter" }
+      - { name: inname, description: "Display-name substring (users) or tag-name substring (tags)" }
+      - { name: intitle, description: "Title-substring search filter" }
+      - { name: q, description: "Free-text query for /search/advanced and /search/excerpts" }
+    sort:
+      - { name: sort, description: "Per-method sort key (activity, votes, creation, hot, week, month, popular, name, rank, type, ...)" }
+      - { name: order, description: "Sort direction (desc/asc)" }
+      - { name: min, description: "Minimum sort field value" }
+      - { name: max, description: "Maximum sort field value" }
+      - { name: fromdate, description: "Earliest creation_date (epoch seconds)" }
+      - { name: todate, description: "Latest creation_date (epoch seconds)" }
+    auth:
+      - { name: key, description: "App key — raises daily quota from 300 to 10,000" }
+      - { name: access_token, description: "OAuth 2.0 access token" }
+
+  enums:
+    user_type: [unregistered, registered, moderator, team_admin, does_not_exist]
+    post_type: [question, answer]
+    badge_rank: [bronze, silver, gold]
+    badge_type: [named, tag_based]
+    site_type: [main_site, meta_site]
+    site_state: [normal, closed_beta, open_beta, linked_meta]
+    vote_type: [accepts, bounties_won, up_votes, down_votes, suggested_edit, post_undeleted, spam, vote_fraud_reversal, post_deleted, post_migrated, association_bonus]
+    revision_type: [single_user, vote_based]
+    sort_questions: [activity, votes, creation, hot, week, month]
+    sort_users: [reputation, creation, name, modified]
+    sort_tags: [popular, activity, name]
+    sort_badges: [rank, name, type]
+    sort_search: [activity, votes, creation, relevance]
+    period: [all_time, month]
+    order: [desc, asc]
+    filter_base: [default, none, withbody, total]
+
+  authentication:
+    schemes:
+      - { name: oauth2, type: oauth2, flow: authorizationCode, authorizationUrl: "https://stackoverflow.com/oauth", tokenUrl: "https://stackoverflow.com/oauth/access_token" }
+      - { name: apiKey, type: apiKey, in: query, parameter: key }
+    scopes:
+      - { name: read_inbox, usedBy: [me] }
+      - { name: no_expiry, usedBy: [events, me] }
+      - { name: write_access, usedBy: [me] }
+      - { name: private_info, usedBy: [me] }
+
+# ============================================================================
+# CAPABILITY DIMENSION (from capabilities/)
+# ============================================================================
+capability:
+
+  workflows:
+    - name: "Questions"
+      file: "capabilities/stack-exchange-questions.yaml"
+      description: "List, fetch, related, linked, featured, unanswered, no-answers and per-question answers/comments."
+      apis: ["Stack Exchange API v2.3"]
+      toolCount: 9
+      personas: [Knowledge Engineer, Community Analyst, AI Agent]
+      domains: [Q And A, Knowledge Graph]
+    - name: "Answers"
+      file: "capabilities/stack-exchange-answers.yaml"
+      description: "List answers, fetch by id, list comments, jump back to parent questions."
+      apis: ["Stack Exchange API v2.3"]
+      toolCount: 4
+      personas: [AI Agent, Knowledge Engineer]
+      domains: [Q And A]
+    - name: "Comments"
+      file: "capabilities/stack-exchange-comments.yaml"
+      description: "Stream and fetch comments network-wide."
+      apis: ["Stack Exchange API v2.3"]
+      toolCount: 2
+      personas: [Moderator, Community Analyst]
+      domains: [Q And A]
+    - name: "Users"
+      file: "capabilities/stack-exchange-users.yaml"
+      description: "User discovery, reputation, badges, tag scores, top tags, privileges."
+      apis: ["Stack Exchange API v2.3"]
+      toolCount: 11
+      personas: [Recruiter, Community Analyst, Reputation Researcher]
+      domains: [Identity, Reputation]
+    - name: "Me"
+      file: "capabilities/stack-exchange-me.yaml"
+      description: "Authenticated /me surfaces — questions, answers, badges, reputation, notifications, inbox, timeline."
+      apis: ["Stack Exchange API v2.3"]
+      toolCount: 12
+      personas: [End User, Personal Dashboard Builder]
+      domains: [Identity, Inbox, Reputation]
+    - name: "Tags"
+      file: "capabilities/stack-exchange-tags.yaml"
+      description: "Tag catalog, synonyms, info, wikis, top askers/answerers, related tags."
+      apis: ["Stack Exchange API v2.3"]
+      toolCount: 7
+      personas: [OSS Maintainer, Community Analyst]
+      domains: [Taxonomy]
+    - name: "Badges"
+      file: "capabilities/stack-exchange-badges.yaml"
+      description: "Badge catalog and recipients (named and tag-based)."
+      apis: ["Stack Exchange API v2.3"]
+      toolCount: 5
+      personas: [Community Analyst]
+      domains: [Reputation]
+    - name: "Sites"
+      file: "capabilities/stack-exchange-sites.yaml"
+      description: "Enumerate the 180+ Stack Exchange communities."
+      apis: ["Stack Exchange API v2.3"]
+      toolCount: 1
+      personas: [Integrator, Multi-Site Crawler]
+      domains: [Network]
+    - name: "Search"
+      file: "capabilities/stack-exchange-search.yaml"
+      description: "Title search, advanced search, excerpt search, similarity search."
+      apis: ["Stack Exchange API v2.3"]
+      toolCount: 4
+      personas: [AI Agent, Knowledge Engineer]
+      domains: [Search]
+    - name: "Posts"
+      file: "capabilities/stack-exchange-posts.yaml"
+      description: "Generic post (question or answer) view plus comments, revisions, suggested edits."
+      apis: ["Stack Exchange API v2.3"]
+      toolCount: 5
+      personas: [Moderator]
+      domains: [Q And A, Moderation]
+    - name: "Revisions"
+      file: "capabilities/stack-exchange-revisions.yaml"
+      description: "Fetch post revisions by GUID."
+      apis: ["Stack Exchange API v2.3"]
+      toolCount: 1
+      personas: [Moderator, Auditor]
+      domains: [Moderation]
+    - name: "Suggested Edits"
+      file: "capabilities/stack-exchange-suggested-edits.yaml"
+      description: "List and inspect pending edits across the site."
+      apis: ["Stack Exchange API v2.3"]
+      toolCount: 2
+      personas: [Moderator]
+      domains: [Moderation]
+    - name: "Events"
+      file: "capabilities/stack-exchange-events.yaml"
+      description: "Live network event stream for the authenticated user (15-second window)."
+      apis: ["Stack Exchange API v2.3"]
+      toolCount: 1
+      personas: [Realtime Integrator]
+      domains: [Realtime]
+    - name: "Info"
+      file: "capabilities/stack-exchange-info.yaml"
+      description: "Aggregate site totals and metadata."
+      apis: ["Stack Exchange API v2.3"]
+      toolCount: 1
+      personas: [Community Analyst]
+      domains: [Telemetry]
+    - name: "Access Tokens"
+      file: "capabilities/stack-exchange-access-tokens.yaml"
+      description: "Inspect, invalidate, and de-authenticate OAuth access tokens."
+      apis: ["Stack Exchange API v2.3"]
+      toolCount: 3
+      personas: [App Administrator]
+      domains: [Identity, Security]
+    - name: "Filters"
+      file: "capabilities/stack-exchange-filters.yaml"
+      description: "Create and inspect custom response filters for payload projection."
+      apis: ["Stack Exchange API v2.3"]
+      toolCount: 2
+      personas: [Performance Engineer]
+      domains: [Operability]
+
+  personas:
+    - id: knowledge-engineer
+      name: Knowledge Engineer
+      description: Builds RAG indexes and grounding pipelines over Stack Overflow Q&A.
+      workflows: [Questions, Answers, Search]
+    - id: ai-agent
+      name: AI Agent
+      description: Calls the Stack Exchange API (directly or via the MCP server) to ground LLM responses.
+      workflows: [Questions, Answers, Search]
+    - id: community-analyst
+      name: Community Analyst
+      description: Tracks tag velocity, reputation distributions, and badge churn.
+      workflows: [Questions, Comments, Users, Tags, Badges, Info]
+    - id: moderator
+      name: Moderator
+      description: Reviews suggested edits, comments, and revisions on flagged posts.
+      workflows: [Comments, Posts, Revisions, Suggested Edits]
+    - id: recruiter
+      name: Recruiter
+      description: Sources developer profiles by tag expertise and reputation.
+      workflows: [Users, Tags]
+    - id: end-user
+      name: End User
+      description: Reads their own inbox, notifications, and timeline.
+      workflows: [Me]
+    - id: oss-maintainer
+      name: OSS Maintainer
+      description: Watches incoming questions tagged with their library and triages.
+      workflows: [Tags, Questions, Search]
+    - id: integrator
+      name: Integrator
+      description: Bootstraps a multi-site integration starting from /sites.
+      workflows: [Sites, Info]
+    - id: realtime-integrator
+      name: Realtime Integrator
+      description: Builds dashboards on the 15-second event firehose.
+      workflows: [Events]
+    - id: app-administrator
+      name: App Administrator
+      description: Manages OAuth tokens issued to an app.
+      workflows: [Access Tokens]
+    - id: performance-engineer
+      name: Performance Engineer
+      description: Crafts custom filters to minimize payload size and stay under quota.
+      workflows: [Filters]
+
+  domains:
+    - { name: Q And A, resources: [questions, answers, comments, posts] }
+    - { name: Identity, resources: [users, me, access-tokens] }
+    - { name: Reputation, resources: [users, badges] }
+    - { name: Taxonomy, resources: [tags] }
+    - { name: Network, resources: [sites] }
+    - { name: Search, resources: [search] }
+    - { name: Moderation, resources: [revisions, suggested-edits, posts] }
+    - { name: Inbox, resources: [me] }
+    - { name: Realtime, resources: [events] }
+    - { name: Telemetry, resources: [info] }
+    - { name: Operability, resources: [filters] }
+    - { name: Knowledge Graph, resources: [questions, answers, tags, users] }
+    - { name: Security, resources: [access-tokens] }
+
+  namespaces:
+    - { type: consumes, namespace: "stack-exchange-questions" }
+    - { type: consumes, namespace: "stack-exchange-answers" }
+    - { type: consumes, namespace: "stack-exchange-comments" }
+    - { type: consumes, namespace: "stack-exchange-users" }
+    - { type: consumes, namespace: "stack-exchange-me" }
+    - { type: consumes, namespace: "stack-exchange-tags" }
+    - { type: consumes, namespace: "stack-exchange-badges" }
+    - { type: consumes, namespace: "stack-exchange-sites" }
+    - { type: consumes, namespace: "stack-exchange-search" }
+    - { type: consumes, namespace: "stack-exchange-posts" }
+    - { type: consumes, namespace: "stack-exchange-revisions" }
+    - { type: consumes, namespace: "stack-exchange-suggested-edits" }
+    - { type: consumes, namespace: "stack-exchange-events" }
+    - { type: consumes, namespace: "stack-exchange-info" }
+    - { type: consumes, namespace: "stack-exchange-access-tokens" }
+    - { type: consumes, namespace: "stack-exchange-filters" }
+    - { type: rest, namespace: "*-rest", port: 8080 }
+    - { type: mcp, namespace: "*-mcp", port: 9090 }
+
+  binds:
+    - { key: STACK_EXCHANGE_KEY, scope: app, usedBy: [all capabilities] }
+    - { key: STACK_EXCHANGE_ACCESS_TOKEN, scope: user, usedBy: [me, events, access-tokens] }
+
+# ============================================================================
+# CROSS-REFERENCE
+# ============================================================================
+crossReference:
+  - resource: questions
+    operations: [listQuestions, getQuestionsByIds, listFeaturedQuestions, listUnansweredQuestions, listQuestionsWithoutAnswers, listAnswersOnQuestions, listCommentsOnQuestions, listLinkedQuestions, listRelatedQuestions]
+    workflows: [Questions]
+    personas: [Knowledge Engineer, AI Agent, Community Analyst]
+  - resource: answers
+    operations: [listAnswers, getAnswersByIds, listCommentsOnAnswers, getQuestionsForAnswers]
+    workflows: [Answers]
+    personas: [Knowledge Engineer, AI Agent]
+  - resource: users
+    operations: [listUsers, getUsersByIds, listAnswersByUsers, listQuestionsByUsers, listCommentsByUsers, listBadgesEarnedByUsers, listTagsForUsers, listTopAnswerTagsForUsers, listTopQuestionTagsForUsers, getUsersReputationChanges, listUserPrivileges]
+    workflows: [Users]
+    personas: [Recruiter, Community Analyst]
+  - resource: me
+    operations: [getMe, listMyQuestions, listMyAnswers, listMyComments, listMyTags, listMyBadges, getMyReputation, listMyNotifications, listMyUnreadNotifications, listMyInbox, listMyUnreadInbox, listMyTimeline]
+    workflows: [Me]
+    personas: [End User]
+  - resource: tags
+    operations: [listTags, listTagSynonyms, getTagsInfo, listTopAskersInTags, listTopAnswerersInTags, listRelatedTags, getTagWikis]
+    workflows: [Tags]
+    personas: [OSS Maintainer, Community Analyst]
+  - resource: badges
+    operations: [listBadges, getBadgesByIds, listBadgeRecipients, listNamedBadges, listTagBasedBadges]
+    workflows: [Badges]
+    personas: [Community Analyst]
+  - resource: sites
+    operations: [listSites]
+    workflows: [Sites]
+    personas: [Integrator]
+  - resource: search
+    operations: [searchQuestions, searchQuestionsAdvanced, searchExcerpts, findSimilarQuestions]
+    workflows: [Search]
+    personas: [AI Agent, Knowledge Engineer]
+  - resource: posts
+    operations: [listPosts, getPostsByIds, listCommentsOnPosts, listPostsRevisions, listPostsSuggestedEdits]
+    workflows: [Posts]
+    personas: [Moderator]
+  - resource: revisions
+    operations: [getRevisionsByGuids]
+    workflows: [Revisions]
+    personas: [Moderator, Auditor]
+  - resource: suggested-edits
+    operations: [listSuggestedEdits, getSuggestedEditsByIds]
+    workflows: [Suggested Edits]
+    personas: [Moderator]
+  - resource: events
+    operations: [listEvents]
+    workflows: [Events]
+    personas: [Realtime Integrator]
+  - resource: info
+    operations: [getSiteInfo]
+    workflows: [Info]
+    personas: [Community Analyst]
+  - resource: access-tokens
+    operations: [readAccessTokens, invalidateAccessTokens, deauthenticateApp]
+    workflows: [Access Tokens]
+    personas: [App Administrator]
+  - resource: filters
+    operations: [createFilter, getFiltersByIds]
+    workflows: [Filters]
+    personas: [Performance Engineer]

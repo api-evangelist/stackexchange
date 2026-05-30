@@ -1,0 +1,130 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "name": "User",
+  "description": "A user account on a single Stack Exchange site.",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/stackexchange/refs/heads/main/json-structure/stackexchange-api-v2-3-user-structure.json",
+  "type": "object",
+  "properties": {
+    "user_id": {
+      "type": "int64",
+      "example": 22656
+    },
+    "account_id": {
+      "type": "int64",
+      "example": 11683
+    },
+    "user_type": {
+      "type": "string",
+      "enum": [
+        "unregistered",
+        "registered",
+        "moderator",
+        "team_admin",
+        "does_not_exist"
+      ],
+      "example": "registered"
+    },
+    "display_name": {
+      "type": "string",
+      "example": "Jon Skeet"
+    },
+    "reputation": {
+      "type": "int32",
+      "example": 1500000
+    },
+    "reputation_change_day": {
+      "type": "int32",
+      "example": 10
+    },
+    "reputation_change_week": {
+      "type": "int32",
+      "example": 120
+    },
+    "reputation_change_month": {
+      "type": "int32",
+      "example": 540
+    },
+    "reputation_change_quarter": {
+      "type": "int32",
+      "example": 1600
+    },
+    "reputation_change_year": {
+      "type": "int32",
+      "example": 5400
+    },
+    "creation_date": {
+      "type": "int64",
+      "example": 1217631542
+    },
+    "last_modified_date": {
+      "type": "int64",
+      "example": 1735000000
+    },
+    "last_access_date": {
+      "type": "int64",
+      "example": 1735200000
+    },
+    "is_employee": {
+      "type": "boolean",
+      "example": false
+    },
+    "location": {
+      "type": "string",
+      "example": "Reading, United Kingdom"
+    },
+    "website_url": {
+      "type": "uri",
+      "example": "https://codeblog.jonskeet.uk"
+    },
+    "link": {
+      "type": "uri",
+      "example": "https://stackoverflow.com/users/22656/jon-skeet"
+    },
+    "profile_image": {
+      "type": "uri",
+      "example": "https://i.sstatic.net/lLZAr.jpg?s=128"
+    },
+    "accept_rate": {
+      "type": "int32",
+      "example": 92
+    },
+    "badge_counts": {
+      "type": "object",
+      "description": "Bronze/silver/gold badge counts for a user.",
+      "properties": {
+        "bronze": {
+          "type": "int32",
+          "example": 10000
+        },
+        "silver": {
+          "type": "int32",
+          "example": 5000
+        },
+        "gold": {
+          "type": "int32",
+          "example": 800
+        }
+      }
+    },
+    "question_count": {
+      "type": "int32",
+      "example": 56
+    },
+    "answer_count": {
+      "type": "int32",
+      "example": 36234
+    },
+    "up_vote_count": {
+      "type": "int32",
+      "example": 39120
+    },
+    "down_vote_count": {
+      "type": "int32",
+      "example": 1024
+    },
+    "view_count": {
+      "type": "int32",
+      "example": 99999999
+    }
+  }
+}

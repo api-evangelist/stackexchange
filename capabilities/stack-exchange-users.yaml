@@ -1,0 +1,844 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Stack Exchange API v2.3 — Users
+  description: 'Users surface of the Stack Exchange API. 11 operations. Lead operation: List Users. Self-contained Naftiko capability covering one Stack Exchange business surface.'
+  tags:
+  - Stack Exchange
+  - Q And A
+  - Users
+  created: '2026-05-29'
+  modified: '2026-05-29'
+binds:
+- namespace: env
+  keys:
+    STACK_EXCHANGE_KEY: STACK_EXCHANGE_KEY
+    STACK_EXCHANGE_ACCESS_TOKEN: STACK_EXCHANGE_ACCESS_TOKEN
+capability:
+  consumes:
+  - type: http
+    namespace: stack-exchange-users
+    baseUri: https://api.stackexchange.com/2.3
+    description: Stack Exchange API v2.3 — Users business capability. Self-contained, no shared references.
+    authentication:
+      type: apikey
+      key: key
+      value: '{{env.STACK_EXCHANGE_KEY}}'
+      placement: query
+    resources:
+    - name: users
+      path: /users
+      operations:
+      - name: listUsers
+        method: GET
+        description: List Users
+        inputParameters:
+        - name: site
+          in: query
+          type: string
+          required: true
+          description: Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).
+        - name: key
+          in: query
+          type: string
+          required: false
+          description: App key from stackapps.com. Raises the daily quota to 10,000/IP.
+        - name: filter
+          in: query
+          type: string
+          required: false
+          description: Custom response filter id created via /filters/create.
+        - name: page
+          in: query
+          type: integer
+          required: false
+          description: 1-indexed page number.
+        - name: pagesize
+          in: query
+          type: integer
+          required: false
+          description: Items per page (max 100).
+        - name: order
+          in: query
+          type: string
+          required: false
+          description: Sort direction.
+        - name: inname
+          in: query
+          type: string
+          required: false
+          description: inname parameter
+        - name: sort
+          in: query
+          type: string
+          required: false
+          description: sort parameter
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: users-ids
+      path: /users/{ids}
+      operations:
+      - name: getUsersByIds
+        method: GET
+        description: Get Users by Ids
+        inputParameters:
+        - name: ids
+          in: path
+          type: string
+          required: true
+          description: Up to 100 semicolon-delimited ids of the resource.
+        - name: site
+          in: query
+          type: string
+          required: true
+          description: Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).
+        - name: key
+          in: query
+          type: string
+          required: false
+          description: App key from stackapps.com. Raises the daily quota to 10,000/IP.
+        - name: filter
+          in: query
+          type: string
+          required: false
+          description: Custom response filter id created via /filters/create.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: users-ids-answers
+      path: /users/{ids}/answers
+      operations:
+      - name: listAnswersByUsers
+        method: GET
+        description: List Answers by Users
+        inputParameters:
+        - name: ids
+          in: path
+          type: string
+          required: true
+          description: Up to 100 semicolon-delimited ids of the resource.
+        - name: site
+          in: query
+          type: string
+          required: true
+          description: Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).
+        - name: key
+          in: query
+          type: string
+          required: false
+          description: App key from stackapps.com. Raises the daily quota to 10,000/IP.
+        - name: filter
+          in: query
+          type: string
+          required: false
+          description: Custom response filter id created via /filters/create.
+        - name: page
+          in: query
+          type: integer
+          required: false
+          description: 1-indexed page number.
+        - name: pagesize
+          in: query
+          type: integer
+          required: false
+          description: Items per page (max 100).
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: users-ids-questions
+      path: /users/{ids}/questions
+      operations:
+      - name: listQuestionsByUsers
+        method: GET
+        description: List Questions by Users
+        inputParameters:
+        - name: ids
+          in: path
+          type: string
+          required: true
+          description: Up to 100 semicolon-delimited ids of the resource.
+        - name: site
+          in: query
+          type: string
+          required: true
+          description: Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).
+        - name: key
+          in: query
+          type: string
+          required: false
+          description: App key from stackapps.com. Raises the daily quota to 10,000/IP.
+        - name: filter
+          in: query
+          type: string
+          required: false
+          description: Custom response filter id created via /filters/create.
+        - name: page
+          in: query
+          type: integer
+          required: false
+          description: 1-indexed page number.
+        - name: pagesize
+          in: query
+          type: integer
+          required: false
+          description: Items per page (max 100).
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: users-ids-comments
+      path: /users/{ids}/comments
+      operations:
+      - name: listCommentsByUsers
+        method: GET
+        description: List Comments by Users
+        inputParameters:
+        - name: ids
+          in: path
+          type: string
+          required: true
+          description: Up to 100 semicolon-delimited ids of the resource.
+        - name: site
+          in: query
+          type: string
+          required: true
+          description: Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).
+        - name: key
+          in: query
+          type: string
+          required: false
+          description: App key from stackapps.com. Raises the daily quota to 10,000/IP.
+        - name: filter
+          in: query
+          type: string
+          required: false
+          description: Custom response filter id created via /filters/create.
+        - name: page
+          in: query
+          type: integer
+          required: false
+          description: 1-indexed page number.
+        - name: pagesize
+          in: query
+          type: integer
+          required: false
+          description: Items per page (max 100).
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: users-ids-badges
+      path: /users/{ids}/badges
+      operations:
+      - name: listBadgesEarnedByUsers
+        method: GET
+        description: List Badges Earned by Users
+        inputParameters:
+        - name: ids
+          in: path
+          type: string
+          required: true
+          description: Up to 100 semicolon-delimited ids of the resource.
+        - name: site
+          in: query
+          type: string
+          required: true
+          description: Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).
+        - name: key
+          in: query
+          type: string
+          required: false
+          description: App key from stackapps.com. Raises the daily quota to 10,000/IP.
+        - name: filter
+          in: query
+          type: string
+          required: false
+          description: Custom response filter id created via /filters/create.
+        - name: page
+          in: query
+          type: integer
+          required: false
+          description: 1-indexed page number.
+        - name: pagesize
+          in: query
+          type: integer
+          required: false
+          description: Items per page (max 100).
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: users-ids-tags
+      path: /users/{ids}/tags
+      operations:
+      - name: listTagsForUsers
+        method: GET
+        description: List Tags for Users
+        inputParameters:
+        - name: ids
+          in: path
+          type: string
+          required: true
+          description: Up to 100 semicolon-delimited ids of the resource.
+        - name: site
+          in: query
+          type: string
+          required: true
+          description: Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).
+        - name: key
+          in: query
+          type: string
+          required: false
+          description: App key from stackapps.com. Raises the daily quota to 10,000/IP.
+        - name: filter
+          in: query
+          type: string
+          required: false
+          description: Custom response filter id created via /filters/create.
+        - name: page
+          in: query
+          type: integer
+          required: false
+          description: 1-indexed page number.
+        - name: pagesize
+          in: query
+          type: integer
+          required: false
+          description: Items per page (max 100).
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: users-ids-top-answer-tags
+      path: /users/{ids}/top-answer-tags
+      operations:
+      - name: listTopAnswerTagsForUsers
+        method: GET
+        description: List Top Answer Tags for Users
+        inputParameters:
+        - name: ids
+          in: path
+          type: string
+          required: true
+          description: Up to 100 semicolon-delimited ids of the resource.
+        - name: site
+          in: query
+          type: string
+          required: true
+          description: Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).
+        - name: key
+          in: query
+          type: string
+          required: false
+          description: App key from stackapps.com. Raises the daily quota to 10,000/IP.
+        - name: filter
+          in: query
+          type: string
+          required: false
+          description: Custom response filter id created via /filters/create.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: users-ids-top-question-tags
+      path: /users/{ids}/top-question-tags
+      operations:
+      - name: listTopQuestionTagsForUsers
+        method: GET
+        description: List Top Question Tags for Users
+        inputParameters:
+        - name: ids
+          in: path
+          type: string
+          required: true
+          description: Up to 100 semicolon-delimited ids of the resource.
+        - name: site
+          in: query
+          type: string
+          required: true
+          description: Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).
+        - name: key
+          in: query
+          type: string
+          required: false
+          description: App key from stackapps.com. Raises the daily quota to 10,000/IP.
+        - name: filter
+          in: query
+          type: string
+          required: false
+          description: Custom response filter id created via /filters/create.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: users-ids-reputation
+      path: /users/{ids}/reputation
+      operations:
+      - name: getUsersReputationChanges
+        method: GET
+        description: Get Users Reputation Changes
+        inputParameters:
+        - name: ids
+          in: path
+          type: string
+          required: true
+          description: Up to 100 semicolon-delimited ids of the resource.
+        - name: site
+          in: query
+          type: string
+          required: true
+          description: Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).
+        - name: key
+          in: query
+          type: string
+          required: false
+          description: App key from stackapps.com. Raises the daily quota to 10,000/IP.
+        - name: filter
+          in: query
+          type: string
+          required: false
+          description: Custom response filter id created via /filters/create.
+        - name: page
+          in: query
+          type: integer
+          required: false
+          description: 1-indexed page number.
+        - name: pagesize
+          in: query
+          type: integer
+          required: false
+          description: Items per page (max 100).
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: users-ids-privileges
+      path: /users/{ids}/privileges
+      operations:
+      - name: listUserPrivileges
+        method: GET
+        description: List User Privileges
+        inputParameters:
+        - name: ids
+          in: path
+          type: string
+          required: true
+          description: Up to 100 semicolon-delimited ids of the resource.
+        - name: site
+          in: query
+          type: string
+          required: true
+          description: Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).
+        - name: key
+          in: query
+          type: string
+          required: false
+          description: App key from stackapps.com. Raises the daily quota to 10,000/IP.
+        - name: filter
+          in: query
+          type: string
+          required: false
+          description: Custom response filter id created via /filters/create.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+  exposes:
+  - type: rest
+    namespace: stack-exchange-users-rest
+    port: 8080
+    description: REST adapter for Stack Exchange API v2.3 — Users. One Spectral-compliant resource per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/users
+      name: users
+      description: REST surface for users.
+      operations:
+      - method: GET
+        name: listUsers
+        description: List Users
+        call: stack-exchange-users.listUsers
+        with:
+          site: rest.site
+          key: rest.key
+          filter: rest.filter
+          page: rest.page
+          pagesize: rest.pagesize
+          order: rest.order
+          inname: rest.inname
+          sort: rest.sort
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/users/{ids}
+      name: users
+      description: REST surface for users.
+      operations:
+      - method: GET
+        name: getUsersByIds
+        description: Get Users by Ids
+        call: stack-exchange-users.getUsersByIds
+        with:
+          ids: rest.ids
+          site: rest.site
+          key: rest.key
+          filter: rest.filter
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/users/{ids}/answers
+      name: answers
+      description: REST surface for users.
+      operations:
+      - method: GET
+        name: listAnswersByUsers
+        description: List Answers by Users
+        call: stack-exchange-users.listAnswersByUsers
+        with:
+          ids: rest.ids
+          site: rest.site
+          key: rest.key
+          filter: rest.filter
+          page: rest.page
+          pagesize: rest.pagesize
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/users/{ids}/questions
+      name: questions
+      description: REST surface for users.
+      operations:
+      - method: GET
+        name: listQuestionsByUsers
+        description: List Questions by Users
+        call: stack-exchange-users.listQuestionsByUsers
+        with:
+          ids: rest.ids
+          site: rest.site
+          key: rest.key
+          filter: rest.filter
+          page: rest.page
+          pagesize: rest.pagesize
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/users/{ids}/comments
+      name: comments
+      description: REST surface for users.
+      operations:
+      - method: GET
+        name: listCommentsByUsers
+        description: List Comments by Users
+        call: stack-exchange-users.listCommentsByUsers
+        with:
+          ids: rest.ids
+          site: rest.site
+          key: rest.key
+          filter: rest.filter
+          page: rest.page
+          pagesize: rest.pagesize
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/users/{ids}/badges
+      name: badges
+      description: REST surface for users.
+      operations:
+      - method: GET
+        name: listBadgesEarnedByUsers
+        description: List Badges Earned by Users
+        call: stack-exchange-users.listBadgesEarnedByUsers
+        with:
+          ids: rest.ids
+          site: rest.site
+          key: rest.key
+          filter: rest.filter
+          page: rest.page
+          pagesize: rest.pagesize
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/users/{ids}/tags
+      name: tags
+      description: REST surface for users.
+      operations:
+      - method: GET
+        name: listTagsForUsers
+        description: List Tags for Users
+        call: stack-exchange-users.listTagsForUsers
+        with:
+          ids: rest.ids
+          site: rest.site
+          key: rest.key
+          filter: rest.filter
+          page: rest.page
+          pagesize: rest.pagesize
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/users/{ids}/top-answer-tags
+      name: top-answer-tags
+      description: REST surface for users.
+      operations:
+      - method: GET
+        name: listTopAnswerTagsForUsers
+        description: List Top Answer Tags for Users
+        call: stack-exchange-users.listTopAnswerTagsForUsers
+        with:
+          ids: rest.ids
+          site: rest.site
+          key: rest.key
+          filter: rest.filter
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/users/{ids}/top-question-tags
+      name: top-question-tags
+      description: REST surface for users.
+      operations:
+      - method: GET
+        name: listTopQuestionTagsForUsers
+        description: List Top Question Tags for Users
+        call: stack-exchange-users.listTopQuestionTagsForUsers
+        with:
+          ids: rest.ids
+          site: rest.site
+          key: rest.key
+          filter: rest.filter
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/users/{ids}/reputation
+      name: reputation
+      description: REST surface for users.
+      operations:
+      - method: GET
+        name: getUsersReputationChanges
+        description: Get Users Reputation Changes
+        call: stack-exchange-users.getUsersReputationChanges
+        with:
+          ids: rest.ids
+          site: rest.site
+          key: rest.key
+          filter: rest.filter
+          page: rest.page
+          pagesize: rest.pagesize
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/users/{ids}/privileges
+      name: privileges
+      description: REST surface for users.
+      operations:
+      - method: GET
+        name: listUserPrivileges
+        description: List User Privileges
+        call: stack-exchange-users.listUserPrivileges
+        with:
+          ids: rest.ids
+          site: rest.site
+          key: rest.key
+          filter: rest.filter
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: stack-exchange-users-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Stack Exchange API v2.3 — Users. One tool per consumed operation, routed inline through this capability's consumes block.
+    tools:
+    - name: list-users
+      description: List Users
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: stack-exchange-users.listUsers
+      with:
+        site: tools.site
+        key: tools.key
+        filter: tools.filter
+        page: tools.page
+        pagesize: tools.pagesize
+        order: tools.order
+        inname: tools.inname
+        sort: tools.sort
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-users-ids
+      description: Get Users by Ids
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: stack-exchange-users.getUsersByIds
+      with:
+        ids: tools.ids
+        site: tools.site
+        key: tools.key
+        filter: tools.filter
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-answers-users
+      description: List Answers by Users
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: stack-exchange-users.listAnswersByUsers
+      with:
+        ids: tools.ids
+        site: tools.site
+        key: tools.key
+        filter: tools.filter
+        page: tools.page
+        pagesize: tools.pagesize
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-questions-users
+      description: List Questions by Users
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: stack-exchange-users.listQuestionsByUsers
+      with:
+        ids: tools.ids
+        site: tools.site
+        key: tools.key
+        filter: tools.filter
+        page: tools.page
+        pagesize: tools.pagesize
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-comments-users
+      description: List Comments by Users
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: stack-exchange-users.listCommentsByUsers
+      with:
+        ids: tools.ids
+        site: tools.site
+        key: tools.key
+        filter: tools.filter
+        page: tools.page
+        pagesize: tools.pagesize
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-badges-earned-users
+      description: List Badges Earned by Users
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: stack-exchange-users.listBadgesEarnedByUsers
+      with:
+        ids: tools.ids
+        site: tools.site
+        key: tools.key
+        filter: tools.filter
+        page: tools.page
+        pagesize: tools.pagesize
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-tags-users
+      description: List Tags for Users
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: stack-exchange-users.listTagsForUsers
+      with:
+        ids: tools.ids
+        site: tools.site
+        key: tools.key
+        filter: tools.filter
+        page: tools.page
+        pagesize: tools.pagesize
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-top-answer-tags-users
+      description: List Top Answer Tags for Users
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: stack-exchange-users.listTopAnswerTagsForUsers
+      with:
+        ids: tools.ids
+        site: tools.site
+        key: tools.key
+        filter: tools.filter
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-top-question-tags-users
+      description: List Top Question Tags for Users
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: stack-exchange-users.listTopQuestionTagsForUsers
+      with:
+        ids: tools.ids
+        site: tools.site
+        key: tools.key
+        filter: tools.filter
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-users-reputation-changes
+      description: Get Users Reputation Changes
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: stack-exchange-users.getUsersReputationChanges
+      with:
+        ids: tools.ids
+        site: tools.site
+        key: tools.key
+        filter: tools.filter
+        page: tools.page
+        pagesize: tools.pagesize
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-user-privileges
+      description: List User Privileges
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: stack-exchange-users.listUserPrivileges
+      with:
+        ids: tools.ids
+        site: tools.site
+        key: tools.key
+        filter: tools.filter
+      outputParameters:
+      - type: object
+        mapping: $.

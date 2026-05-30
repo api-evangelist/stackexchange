@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "TagScore",
+  "description": "A user's score in a tag (top askers/answerers).",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/stackexchange/refs/heads/main/json-schema/stackexchange-api-v2-3-tag-score-schema.json",
+  "type": "object",
+  "properties": {
+    "user": {
+      "type": "object",
+      "description": "Lightweight user reference embedded in posts and comments.",
+      "properties": {
+        "user_id": {
+          "type": "integer",
+          "format": "int64",
+          "example": 22656
+        },
+        "user_type": {
+          "type": "string",
+          "enum": [
+            "unregistered",
+            "registered",
+            "moderator",
+            "team_admin",
+            "does_not_exist"
+          ],
+          "example": "registered"
+        },
+        "display_name": {
+          "type": "string",
+          "example": "Jon Skeet"
+        },
+        "reputation": {
+          "type": "integer",
+          "example": 1500000
+        },
+        "profile_image": {
+          "type": "string",
+          "format": "uri",
+          "example": "https://i.sstatic.net/lLZAr.jpg?s=128"
+        },
+        "link": {
+          "type": "string",
+          "format": "uri",
+          "example": "https://stackoverflow.com/users/22656/jon-skeet"
+        },
+        "accept_rate": {
+          "type": "integer",
+          "example": 92
+        }
+      }
+    },
+    "score": {
+      "type": "integer",
+      "example": 1200
+    },
+    "post_count": {
+      "type": "integer",
+      "example": 45
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "name": "Filter",
+  "description": "Filter schema from Stack Exchange API",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/stackexchange/refs/heads/main/json-structure/stackexchange-api-v2-3-filter-structure.json",
+  "type": "object",
+  "properties": {
+    "filter": {
+      "type": "string"
+    },
+    "filter_type": {
+      "type": "string",
+      "enum": [
+        "safe",
+        "unsafe",
+        "invalid"
+      ]
+    },
+    "included_fields": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

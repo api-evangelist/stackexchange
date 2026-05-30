@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AccessToken",
+  "description": "An OAuth access token, returned by the access-token endpoints.",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/stackexchange/refs/heads/main/json-schema/stackexchange-api-v2-3-access-token-schema.json",
+  "type": "object",
+  "properties": {
+    "access_token": {
+      "type": "string"
+    },
+    "expires_on_date": {
+      "type": "integer",
+      "format": "int64"
+    },
+    "account_id": {
+      "type": "integer",
+      "format": "int64"
+    },
+    "scope": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

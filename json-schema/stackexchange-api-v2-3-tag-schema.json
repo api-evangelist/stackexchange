@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Tag",
+  "description": "A tag on a Stack Exchange site.",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/stackexchange/refs/heads/main/json-schema/stackexchange-api-v2-3-tag-schema.json",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "example": "openapi"
+    },
+    "count": {
+      "type": "integer",
+      "example": 3200
+    },
+    "is_required": {
+      "type": "boolean",
+      "example": false
+    },
+    "is_moderator_only": {
+      "type": "boolean",
+      "example": false
+    },
+    "has_synonyms": {
+      "type": "boolean",
+      "example": true
+    },
+    "user_id": {
+      "type": "integer",
+      "description": "For tag-wikis, the most recent editor."
+    },
+    "last_activity_date": {
+      "type": "integer",
+      "format": "int64"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "badge_id": 23,
+  "name": "Nice Question",
+  "description": "Question score of 10 or more.",
+  "rank": "bronze",
+  "badge_type": "named",
+  "award_count": 500000,
+  "link": "https://stackoverflow.com/help/badges/23/nice-question",
+  "user": {
+    "user_id": 22656,
+    "user_type": "registered",
+    "display_name": "Jon Skeet",
+    "reputation": 1500000,
+    "profile_image": "https://i.sstatic.net/lLZAr.jpg?s=128",
+    "link": "https://stackoverflow.com/users/22656/jon-skeet",
+    "accept_rate": 92
+  }
+}

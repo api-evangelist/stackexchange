@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "name": "TagSynonym",
+  "description": "TagSynonym schema from Stack Exchange API",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/stackexchange/refs/heads/main/json-structure/stackexchange-api-v2-3-tag-synonym-structure.json",
+  "type": "object",
+  "properties": {
+    "from_tag": {
+      "type": "string",
+      "example": "oas3"
+    },
+    "to_tag": {
+      "type": "string",
+      "example": "openapi"
+    },
+    "applied_count": {
+      "type": "int32",
+      "example": 145
+    },
+    "last_applied_date": {
+      "type": "int64"
+    },
+    "creation_date": {
+      "type": "int64"
+    }
+  }
+}

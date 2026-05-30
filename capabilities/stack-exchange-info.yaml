@@ -1,0 +1,95 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Stack Exchange API v2.3 — Info
+  description: 'Info surface of the Stack Exchange API. 1 operations. Lead operation: Get Site Info. Self-contained Naftiko capability covering one Stack Exchange business surface.'
+  tags:
+  - Stack Exchange
+  - Q And A
+  - Info
+  created: '2026-05-29'
+  modified: '2026-05-29'
+binds:
+- namespace: env
+  keys:
+    STACK_EXCHANGE_KEY: STACK_EXCHANGE_KEY
+    STACK_EXCHANGE_ACCESS_TOKEN: STACK_EXCHANGE_ACCESS_TOKEN
+capability:
+  consumes:
+  - type: http
+    namespace: stack-exchange-info
+    baseUri: https://api.stackexchange.com/2.3
+    description: Stack Exchange API v2.3 — Info business capability. Self-contained, no shared references.
+    authentication:
+      type: apikey
+      key: key
+      value: '{{env.STACK_EXCHANGE_KEY}}'
+      placement: query
+    resources:
+    - name: info
+      path: /info
+      operations:
+      - name: getSiteInfo
+        method: GET
+        description: Get Site Info
+        inputParameters:
+        - name: site
+          in: query
+          type: string
+          required: true
+          description: Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).
+        - name: key
+          in: query
+          type: string
+          required: false
+          description: App key from stackapps.com. Raises the daily quota to 10,000/IP.
+        - name: filter
+          in: query
+          type: string
+          required: false
+          description: Custom response filter id created via /filters/create.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+  exposes:
+  - type: rest
+    namespace: stack-exchange-info-rest
+    port: 8080
+    description: REST adapter for Stack Exchange API v2.3 — Info. One Spectral-compliant resource per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/info
+      name: info
+      description: REST surface for info.
+      operations:
+      - method: GET
+        name: getSiteInfo
+        description: Get Site Info
+        call: stack-exchange-info.getSiteInfo
+        with:
+          site: rest.site
+          key: rest.key
+          filter: rest.filter
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: stack-exchange-info-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Stack Exchange API v2.3 — Info. One tool per consumed operation, routed inline through this capability's consumes block.
+    tools:
+    - name: get-site-info
+      description: Get Site Info
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: stack-exchange-info.getSiteInfo
+      with:
+        site: tools.site
+        key: tools.key
+        filter: tools.filter
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,30 @@
+{
+  "revision_guid": "9f1f1ad2-9bcb-4f0c-9eee-1234567890ab",
+  "revision_number": 4,
+  "revision_type": "single_user",
+  "post_type": "question",
+  "post_id": 11227809,
+  "comment": "Fixed typo",
+  "creation_date": 1338800000,
+  "is_rollback": false,
+  "last_body": "Use the standard library `json` module.",
+  "last_title": "stackoverflow",
+  "last_tags": [
+    "stackoverflow"
+  ],
+  "body": "Use the standard library `json` module.",
+  "title": "How do I parse JSON in Python?",
+  "tags": [
+    "stackoverflow"
+  ],
+  "set_community_wiki": false,
+  "user": {
+    "user_id": 22656,
+    "user_type": "registered",
+    "display_name": "Jon Skeet",
+    "reputation": 1500000,
+    "profile_image": "https://i.sstatic.net/lLZAr.jpg?s=128",
+    "link": "https://stackoverflow.com/users/22656/jon-skeet",
+    "accept_rate": 92
+  }
+}

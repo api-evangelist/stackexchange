@@ -1,0 +1,23 @@
+{
+  "suggested_edit_id": 12345,
+  "post_id": 11227809,
+  "post_type": "question",
+  "body": "Use the standard library `json` module.",
+  "title": "How do I parse JSON in Python?",
+  "tags": [
+    "stackoverflow"
+  ],
+  "comment": "Great answer, thank you.",
+  "creation_date": 1735013949,
+  "approval_date": 1735062669,
+  "rejection_date": 1735035849,
+  "proposing_user": {
+    "user_id": 22656,
+    "user_type": "registered",
+    "display_name": "Jon Skeet",
+    "reputation": 1500000,
+    "profile_image": "https://i.sstatic.net/lLZAr.jpg?s=128",
+    "link": "https://stackoverflow.com/users/22656/jon-skeet",
+    "accept_rate": 92
+  }
+}

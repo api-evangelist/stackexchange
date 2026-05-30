@@ -1,0 +1,7 @@
+{
+  "filter": "stackoverflow",
+  "filter_type": "unsafe",
+  "included_fields": [
+    "stackoverflow"
+  ]
+}

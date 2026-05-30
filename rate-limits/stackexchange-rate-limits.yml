@@ -1,0 +1,123 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Stack Exchange
+providerId: stackexchange
+created: '2026-05-29'
+modified: '2026-05-29'
+reconciled: false
+tags:
+  - Rate Limiting
+  - Quota
+  - Throttling
+  - Q And A
+  - Read-Mostly
+description: >-
+  The Stack Exchange API v2.3 enforces a daily quota and a dynamic per-method
+  backoff. Without an app key, callers get 300 requests per day per IP. With a
+  registered app key (free, from stackapps.com) the daily quota is raised to
+  10,000 requests per IP. Every response advertises `quota_max`,
+  `quota_remaining`, and an optional `backoff` field — when `backoff` is
+  non-zero the client MUST wait that many seconds before re-querying the same
+  method or risk a hard throttle (HTTP 503) and possible IP ban. The Stack
+  Overflow MCP beta server applies an additional 100-call per-user daily cap.
+  Stack Overflow for Teams (v3 API) applies its own per-instance limits set by
+  the customer plan.
+sources:
+  - https://api.stackexchange.com/docs
+  - https://api.stackexchange.com/docs/throttle
+  - https://github.com/StackExchange/Stack-MCP
+headers:
+  quotaMax: X-RateLimit-Limit
+  quotaRemaining: X-RateLimit-Remaining
+  retryAfter: Retry-After
+responseCodes:
+  throttled: 503
+  quotaExceeded: 400
+  banned: 502
+limits:
+  - name: Daily quota — anonymous (no key)
+    scope: IP
+    metric: requests_per_day
+    limit: 300
+    timeFrame: day
+    notes: >-
+      Hard daily quota per IP without an app key. Returned in every response as
+      `quota_max=300`. Counter resets at the start of the UTC day.
+  - name: Daily quota — registered app key
+    scope: IP+key
+    metric: requests_per_day
+    limit: 10000
+    timeFrame: day
+    notes: >-
+      Daily quota when calls include the `key` query parameter from a
+      registered app. Free to obtain at https://stackapps.com/apps/oauth/register.
+  - name: Dynamic per-method backoff
+    scope: method
+    metric: backoff_seconds
+    limit: 'varies (advertised in response.backoff)'
+    notes: >-
+      When the API identifies a consumer as expensive on a particular method
+      it sets `backoff` in the response body (integer seconds). Clients MUST
+      wait that many seconds before re-calling the same method on the same
+      site or they will receive HTTP 503 and progressive throttling.
+  - name: Concurrency cap
+    scope: IP
+    metric: concurrent_requests
+    limit: 30
+    notes: >-
+      Stack Exchange historically caps simultaneous in-flight requests per IP
+      at roughly 30. Exceeding this returns 503 with a violation flag.
+  - name: Stack Overflow MCP beta — per-user
+    scope: user
+    metric: requests_per_day
+    limit: 100
+    timeFrame: day
+    notes: >-
+      Beta-period limit for the official Stack Overflow MCP server.
+      Documented at https://github.com/StackExchange/Stack-MCP.
+  - name: Stack Overflow for Teams v3 — per-instance
+    scope: team
+    metric: varies
+    limit: 'see team plan'
+    notes: >-
+      Per-instance limits for the Teams v3 API depend on the customer plan
+      (Basic / Business / Enterprise). Consult your Teams admin or
+      stackoverflow.co/teams/pricing/.
+policies:
+  - name: Always honor backoff
+    description: >-
+      Every response includes an optional `backoff` integer. If non-zero,
+      the client MUST wait that many seconds before re-calling the same
+      method on the same site. Ignoring backoff escalates to HTTP 503 and
+      then to a hard IP ban.
+  - name: Use a registered app key
+    description: >-
+      Register a free app on stackapps.com and pass `key=...` on every call.
+      This identifies the app, raises the daily quota from 300 to 10,000
+      per IP, and is required for OAuth-authenticated write methods.
+  - name: Use response filters to shrink payloads
+    description: >-
+      Create a custom filter via /filters/create that includes only the
+      fields you need. Smaller payloads materially reduce CPU on the
+      service side and shorten observed backoff windows.
+  - name: Batch by id
+    description: >-
+      Most methods take up to 100 semicolon-delimited ids in a single call.
+      A vectorized /questions/{ids} call costs one quota unit; 100 separate
+      calls cost 100. Always batch.
+  - name: Site-scope every call
+    description: >-
+      Every per-site method requires the `site` query parameter. Omitting
+      it returns a 400; using the wrong api_site_parameter wastes quota.
+  - name: Respect HTTP 503 as throttling
+    description: >-
+      The service returns 503 (not 429) for throttling. Clients must treat
+      503 with an `error_id: 502 throttle_violation` body as a backoff
+      signal and exponentially delay.
+  - name: OAuth token scoping
+    description: >-
+      Read methods do not require auth. Write methods require an OAuth 2.0
+      access token with `write_access`; /me/inbox and /me/notifications
+      additionally require `private_info` (and `read_inbox` for inbox).
+      Issue `no_expiry` tokens for daemon use-cases.

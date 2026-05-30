@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "name": "Event",
+  "description": "A network event (1.5 minute live window).",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/stackexchange/refs/heads/main/json-structure/stackexchange-api-v2-3-event-structure.json",
+  "type": "object",
+  "properties": {
+    "event_type": {
+      "type": "string",
+      "example": "question_posted"
+    },
+    "event_id": {
+      "type": "int32"
+    },
+    "creation_date": {
+      "type": "int64"
+    },
+    "link": {
+      "type": "uri"
+    },
+    "excerpt": {
+      "type": "string"
+    }
+  }
+}

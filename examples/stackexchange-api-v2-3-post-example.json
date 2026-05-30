@@ -1,0 +1,20 @@
+{
+  "post_id": 99094,
+  "post_type": "answer",
+  "body": "Use the standard library `json` module.",
+  "body_markdown": "Use the standard library `json` module.",
+  "link": "https://stackoverflow.com/questions/11227809",
+  "score": 856996,
+  "creation_date": 1735041362,
+  "last_activity_date": 1735085681,
+  "owner": {
+    "user_id": 22656,
+    "user_type": "registered",
+    "display_name": "Jon Skeet",
+    "reputation": 1500000,
+    "profile_image": "https://i.sstatic.net/lLZAr.jpg?s=128",
+    "link": "https://stackoverflow.com/users/22656/jon-skeet",
+    "accept_rate": 92
+  },
+  "comment_count": 362823
+}

@@ -1,0 +1,138 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "User",
+  "description": "A user account on a single Stack Exchange site.",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/stackexchange/refs/heads/main/json-schema/stackexchange-api-v2-3-user-schema.json",
+  "type": "object",
+  "properties": {
+    "user_id": {
+      "type": "integer",
+      "format": "int64",
+      "example": 22656
+    },
+    "account_id": {
+      "type": "integer",
+      "format": "int64",
+      "example": 11683
+    },
+    "user_type": {
+      "type": "string",
+      "enum": [
+        "unregistered",
+        "registered",
+        "moderator",
+        "team_admin",
+        "does_not_exist"
+      ],
+      "example": "registered"
+    },
+    "display_name": {
+      "type": "string",
+      "example": "Jon Skeet"
+    },
+    "reputation": {
+      "type": "integer",
+      "example": 1500000
+    },
+    "reputation_change_day": {
+      "type": "integer",
+      "example": 10
+    },
+    "reputation_change_week": {
+      "type": "integer",
+      "example": 120
+    },
+    "reputation_change_month": {
+      "type": "integer",
+      "example": 540
+    },
+    "reputation_change_quarter": {
+      "type": "integer",
+      "example": 1600
+    },
+    "reputation_change_year": {
+      "type": "integer",
+      "example": 5400
+    },
+    "creation_date": {
+      "type": "integer",
+      "format": "int64",
+      "example": 1217631542
+    },
+    "last_modified_date": {
+      "type": "integer",
+      "format": "int64",
+      "example": 1735000000
+    },
+    "last_access_date": {
+      "type": "integer",
+      "format": "int64",
+      "example": 1735200000
+    },
+    "is_employee": {
+      "type": "boolean",
+      "example": false
+    },
+    "location": {
+      "type": "string",
+      "example": "Reading, United Kingdom"
+    },
+    "website_url": {
+      "type": "string",
+      "format": "uri",
+      "example": "https://codeblog.jonskeet.uk"
+    },
+    "link": {
+      "type": "string",
+      "format": "uri",
+      "example": "https://stackoverflow.com/users/22656/jon-skeet"
+    },
+    "profile_image": {
+      "type": "string",
+      "format": "uri",
+      "example": "https://i.sstatic.net/lLZAr.jpg?s=128"
+    },
+    "accept_rate": {
+      "type": "integer",
+      "example": 92
+    },
+    "badge_counts": {
+      "type": "object",
+      "description": "Bronze/silver/gold badge counts for a user.",
+      "properties": {
+        "bronze": {
+          "type": "integer",
+          "example": 10000
+        },
+        "silver": {
+          "type": "integer",
+          "example": 5000
+        },
+        "gold": {
+          "type": "integer",
+          "example": 800
+        }
+      }
+    },
+    "question_count": {
+      "type": "integer",
+      "example": 56
+    },
+    "answer_count": {
+      "type": "integer",
+      "example": 36234
+    },
+    "up_vote_count": {
+      "type": "integer",
+      "example": 39120
+    },
+    "down_vote_count": {
+      "type": "integer",
+      "example": 1024
+    },
+    "view_count": {
+      "type": "integer",
+      "example": 99999999
+    }
+  }
+}

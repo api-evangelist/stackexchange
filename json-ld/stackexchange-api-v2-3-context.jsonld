@@ -1,0 +1,572 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "se": "https://api.stackexchange.com/schema/",
+    "schema": "https://schema.org/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "AccessToken": "se:AccessToken",
+    "Answer": "se:Answer",
+    "Badge": "se:Badge",
+    "BadgeCount": "se:BadgeCount",
+    "Comment": "se:Comment",
+    "Event": "se:Event",
+    "Filter": "se:Filter",
+    "InboxItem": "se:InboxItem",
+    "Info": "se:Info",
+    "Notification": "se:Notification",
+    "Post": "se:Post",
+    "PrivilegeItem": "se:PrivilegeItem",
+    "Question": "se:Question",
+    "ReputationChange": "se:ReputationChange",
+    "Revision": "se:Revision",
+    "ShallowUser": "se:ShallowUser",
+    "Site": "se:Site",
+    "SuggestedEdit": "se:SuggestedEdit",
+    "Tag": "se:Tag",
+    "TagScore": "se:TagScore",
+    "TagSynonym": "se:TagSynonym",
+    "User": "se:User",
+    "acceptRate": {
+      "@id": "se:accept_rate",
+      "@type": "xsd:integer"
+    },
+    "acceptedAnswerId": {
+      "@id": "se:accepted_answer_id",
+      "@type": "xsd:integer"
+    },
+    "accessToken": {
+      "@id": "se:access_token",
+      "@type": "xsd:string"
+    },
+    "accountId": {
+      "@id": "se:account_id",
+      "@type": "xsd:integer"
+    },
+    "answerCount": {
+      "@id": "se:answer_count",
+      "@type": "xsd:integer"
+    },
+    "answerId": {
+      "@id": "se:answer_id",
+      "@type": "xsd:integer"
+    },
+    "answersPerMinute": {
+      "@id": "se:answers_per_minute",
+      "@type": "xsd:decimal"
+    },
+    "apiRevision": {
+      "@id": "se:api_revision",
+      "@type": "xsd:string"
+    },
+    "apiSiteParameter": {
+      "@id": "se:api_site_parameter",
+      "@type": "xsd:string"
+    },
+    "appliedCount": {
+      "@id": "se:applied_count",
+      "@type": "xsd:integer"
+    },
+    "approvalDate": {
+      "@id": "se:approval_date",
+      "@type": "xsd:integer"
+    },
+    "audience": {
+      "@id": "se:audience",
+      "@type": "xsd:string"
+    },
+    "awardCount": {
+      "@id": "se:award_count",
+      "@type": "xsd:integer"
+    },
+    "awardedBountyAmount": {
+      "@id": "se:awarded_bounty_amount",
+      "@type": "xsd:integer"
+    },
+    "awardedBountyUsers": {
+      "@id": "se:awarded_bounty_users",
+      "@container": "@set",
+      "@type": "@id"
+    },
+    "badgeCounts": {
+      "@id": "se:badge_counts",
+      "@type": "@id"
+    },
+    "badgeId": {
+      "@id": "se:badge_id",
+      "@type": "xsd:integer"
+    },
+    "badgeType": {
+      "@id": "se:badge_type",
+      "@type": "xsd:string"
+    },
+    "badgesPerMinute": {
+      "@id": "se:badges_per_minute",
+      "@type": "xsd:decimal"
+    },
+    "body": {
+      "@id": "se:body",
+      "@type": "xsd:string"
+    },
+    "bodyMarkdown": {
+      "@id": "se:body_markdown",
+      "@type": "xsd:string"
+    },
+    "bountyAmount": {
+      "@id": "se:bounty_amount",
+      "@type": "xsd:integer"
+    },
+    "bountyClosesDate": {
+      "@id": "se:bounty_closes_date",
+      "@type": "xsd:integer"
+    },
+    "bronze": {
+      "@id": "se:bronze",
+      "@type": "xsd:integer"
+    },
+    "closedDate": {
+      "@id": "se:closed_date",
+      "@type": "xsd:integer"
+    },
+    "closedReason": {
+      "@id": "se:closed_reason",
+      "@type": "xsd:string"
+    },
+    "comment": {
+      "@id": "se:comment",
+      "@type": "xsd:string"
+    },
+    "commentCount": {
+      "@id": "se:comment_count",
+      "@type": "xsd:integer"
+    },
+    "commentId": {
+      "@id": "se:comment_id",
+      "@type": "xsd:integer"
+    },
+    "communityOwnedDate": {
+      "@id": "se:community_owned_date",
+      "@type": "xsd:integer"
+    },
+    "contentLicense": {
+      "@id": "se:content_license",
+      "@type": "xsd:string"
+    },
+    "count": {
+      "@id": "se:count",
+      "@type": "xsd:integer"
+    },
+    "creationDate": {
+      "@id": "schema:dateCreated",
+      "@type": "xsd:dateTime"
+    },
+    "description": {
+      "@id": "schema:description"
+    },
+    "displayName": {
+      "@id": "se:display_name",
+      "@type": "xsd:string"
+    },
+    "downVoteCount": {
+      "@id": "se:down_vote_count",
+      "@type": "xsd:integer"
+    },
+    "edited": {
+      "@id": "se:edited",
+      "@type": "xsd:boolean"
+    },
+    "eventId": {
+      "@id": "se:event_id",
+      "@type": "xsd:integer"
+    },
+    "eventType": {
+      "@id": "se:event_type",
+      "@type": "xsd:string"
+    },
+    "excerpt": {
+      "@id": "se:excerpt",
+      "@type": "xsd:string"
+    },
+    "expiresOnDate": {
+      "@id": "se:expires_on_date",
+      "@type": "xsd:integer"
+    },
+    "faviconUrl": {
+      "@id": "se:favicon_url",
+      "@type": "@id"
+    },
+    "favoriteCount": {
+      "@id": "se:favorite_count",
+      "@type": "xsd:integer"
+    },
+    "filter": {
+      "@id": "se:filter",
+      "@type": "xsd:string"
+    },
+    "filterType": {
+      "@id": "se:filter_type",
+      "@type": "xsd:string"
+    },
+    "fromTag": {
+      "@id": "se:from_tag",
+      "@type": "xsd:string"
+    },
+    "gold": {
+      "@id": "se:gold",
+      "@type": "xsd:integer"
+    },
+    "hasSynonyms": {
+      "@id": "se:has_synonyms",
+      "@type": "xsd:boolean"
+    },
+    "iconUrl": {
+      "@id": "se:icon_url",
+      "@type": "@id"
+    },
+    "includedFields": {
+      "@id": "se:included_fields",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "isAccepted": {
+      "@id": "se:is_accepted",
+      "@type": "xsd:boolean"
+    },
+    "isAnswered": {
+      "@id": "se:is_answered",
+      "@type": "xsd:boolean"
+    },
+    "isEmployee": {
+      "@id": "se:is_employee",
+      "@type": "xsd:boolean"
+    },
+    "isModeratorOnly": {
+      "@id": "se:is_moderator_only",
+      "@type": "xsd:boolean"
+    },
+    "isRequired": {
+      "@id": "se:is_required",
+      "@type": "xsd:boolean"
+    },
+    "isRollback": {
+      "@id": "se:is_rollback",
+      "@type": "xsd:boolean"
+    },
+    "isUnread": {
+      "@id": "se:is_unread",
+      "@type": "xsd:boolean"
+    },
+    "itemType": {
+      "@id": "se:item_type",
+      "@type": "xsd:string"
+    },
+    "lastAccessDate": {
+      "@id": "se:last_access_date",
+      "@type": "xsd:integer"
+    },
+    "lastActivityDate": {
+      "@id": "se:last_activity_date",
+      "@type": "xsd:integer"
+    },
+    "lastAppliedDate": {
+      "@id": "se:last_applied_date",
+      "@type": "xsd:integer"
+    },
+    "lastBody": {
+      "@id": "se:last_body",
+      "@type": "xsd:string"
+    },
+    "lastEditDate": {
+      "@id": "se:last_edit_date",
+      "@type": "xsd:integer"
+    },
+    "lastEditor": {
+      "@id": "se:last_editor",
+      "@type": "@id"
+    },
+    "lastModifiedDate": {
+      "@id": "schema:dateModified",
+      "@type": "xsd:dateTime"
+    },
+    "lastTags": {
+      "@id": "se:last_tags",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "lastTitle": {
+      "@id": "se:last_title",
+      "@type": "xsd:string"
+    },
+    "launchDate": {
+      "@id": "se:launch_date",
+      "@type": "xsd:integer"
+    },
+    "link": {
+      "@id": "se:link",
+      "@type": "@id"
+    },
+    "linkColor": {
+      "@id": "se:link_color",
+      "@type": "xsd:string"
+    },
+    "location": {
+      "@id": "se:location",
+      "@type": "xsd:string"
+    },
+    "lockedDate": {
+      "@id": "se:locked_date",
+      "@type": "xsd:integer"
+    },
+    "logoUrl": {
+      "@id": "se:logo_url",
+      "@type": "@id"
+    },
+    "markdownExtensions": {
+      "@id": "se:markdown_extensions",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "name": {
+      "@id": "schema:name"
+    },
+    "newActiveUsers": {
+      "@id": "se:new_active_users",
+      "@type": "xsd:integer"
+    },
+    "notificationType": {
+      "@id": "se:notification_type",
+      "@type": "xsd:string"
+    },
+    "onDate": {
+      "@id": "se:on_date",
+      "@type": "xsd:integer"
+    },
+    "owner": {
+      "@id": "se:owner",
+      "@type": "@id"
+    },
+    "postCount": {
+      "@id": "se:post_count",
+      "@type": "xsd:integer"
+    },
+    "postId": {
+      "@id": "se:post_id",
+      "@type": "xsd:integer"
+    },
+    "postType": {
+      "@id": "se:post_type",
+      "@type": "xsd:string"
+    },
+    "profileImage": {
+      "@id": "se:profile_image",
+      "@type": "@id"
+    },
+    "proposingUser": {
+      "@id": "se:proposing_user",
+      "@type": "@id"
+    },
+    "protectedDate": {
+      "@id": "se:protected_date",
+      "@type": "xsd:integer"
+    },
+    "questionCount": {
+      "@id": "se:question_count",
+      "@type": "xsd:integer"
+    },
+    "questionId": {
+      "@id": "se:question_id",
+      "@type": "xsd:integer"
+    },
+    "questionsPerMinute": {
+      "@id": "se:questions_per_minute",
+      "@type": "xsd:decimal"
+    },
+    "rank": {
+      "@id": "se:rank",
+      "@type": "xsd:string"
+    },
+    "rejectionDate": {
+      "@id": "se:rejection_date",
+      "@type": "xsd:integer"
+    },
+    "relatedSites": {
+      "@id": "se:related_sites",
+      "@container": "@set",
+      "@type": "@id"
+    },
+    "relation": {
+      "@id": "se:relation",
+      "@type": "xsd:string"
+    },
+    "replyToUser": {
+      "@id": "se:reply_to_user",
+      "@type": "@id"
+    },
+    "reputation": {
+      "@id": "se:reputation",
+      "@type": "xsd:integer"
+    },
+    "reputationChange": {
+      "@id": "se:reputation_change",
+      "@type": "xsd:integer"
+    },
+    "reputationChangeDay": {
+      "@id": "se:reputation_change_day",
+      "@type": "xsd:integer"
+    },
+    "reputationChangeMonth": {
+      "@id": "se:reputation_change_month",
+      "@type": "xsd:integer"
+    },
+    "reputationChangeQuarter": {
+      "@id": "se:reputation_change_quarter",
+      "@type": "xsd:integer"
+    },
+    "reputationChangeWeek": {
+      "@id": "se:reputation_change_week",
+      "@type": "xsd:integer"
+    },
+    "reputationChangeYear": {
+      "@id": "se:reputation_change_year",
+      "@type": "xsd:integer"
+    },
+    "revisionGuid": {
+      "@id": "se:revision_guid",
+      "@type": "xsd:string"
+    },
+    "revisionNumber": {
+      "@id": "se:revision_number",
+      "@type": "xsd:integer"
+    },
+    "revisionType": {
+      "@id": "se:revision_type",
+      "@type": "xsd:string"
+    },
+    "scope": {
+      "@id": "se:scope",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "score": {
+      "@id": "se:score",
+      "@type": "xsd:integer"
+    },
+    "setCommunityWiki": {
+      "@id": "se:set_community_wiki",
+      "@type": "xsd:boolean"
+    },
+    "shortDescription": {
+      "@id": "se:short_description",
+      "@type": "xsd:string"
+    },
+    "silver": {
+      "@id": "se:silver",
+      "@type": "xsd:integer"
+    },
+    "site": {
+      "@id": "se:site",
+      "@type": "@id"
+    },
+    "siteState": {
+      "@id": "se:site_state",
+      "@type": "xsd:string"
+    },
+    "siteType": {
+      "@id": "se:site_type",
+      "@type": "xsd:string"
+    },
+    "siteUrl": {
+      "@id": "se:site_url",
+      "@type": "@id"
+    },
+    "styling": {
+      "@id": "se:styling",
+      "@type": "@id"
+    },
+    "suggestedEditId": {
+      "@id": "se:suggested_edit_id",
+      "@type": "xsd:integer"
+    },
+    "tagBackgroundColor": {
+      "@id": "se:tag_background_color",
+      "@type": "xsd:string"
+    },
+    "tagForegroundColor": {
+      "@id": "se:tag_foreground_color",
+      "@type": "xsd:string"
+    },
+    "tags": {
+      "@id": "se:tags",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "title": {
+      "@id": "se:title",
+      "@type": "xsd:string"
+    },
+    "toTag": {
+      "@id": "se:to_tag",
+      "@type": "xsd:string"
+    },
+    "totalAccepted": {
+      "@id": "se:total_accepted",
+      "@type": "xsd:integer"
+    },
+    "totalAnswers": {
+      "@id": "se:total_answers",
+      "@type": "xsd:integer"
+    },
+    "totalBadges": {
+      "@id": "se:total_badges",
+      "@type": "xsd:integer"
+    },
+    "totalComments": {
+      "@id": "se:total_comments",
+      "@type": "xsd:integer"
+    },
+    "totalQuestions": {
+      "@id": "se:total_questions",
+      "@type": "xsd:integer"
+    },
+    "totalUnanswered": {
+      "@id": "se:total_unanswered",
+      "@type": "xsd:integer"
+    },
+    "totalUsers": {
+      "@id": "se:total_users",
+      "@type": "xsd:integer"
+    },
+    "totalVotes": {
+      "@id": "se:total_votes",
+      "@type": "xsd:integer"
+    },
+    "upVoteCount": {
+      "@id": "se:up_vote_count",
+      "@type": "xsd:integer"
+    },
+    "user": {
+      "@id": "se:user",
+      "@type": "@id"
+    },
+    "userId": {
+      "@id": "se:user_id",
+      "@type": "xsd:integer"
+    },
+    "userType": {
+      "@id": "se:user_type",
+      "@type": "xsd:string"
+    },
+    "viewCount": {
+      "@id": "se:view_count",
+      "@type": "xsd:integer"
+    },
+    "voteType": {
+      "@id": "se:vote_type",
+      "@type": "xsd:string"
+    },
+    "websiteUrl": {
+      "@id": "se:website_url",
+      "@type": "@id"
+    }
+  }
+}

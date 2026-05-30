@@ -1,0 +1,123 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "name": "Notification",
+  "description": "An in-product notification for the authenticated user.",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/stackexchange/refs/heads/main/json-structure/stackexchange-api-v2-3-notification-structure.json",
+  "type": "object",
+  "properties": {
+    "notification_type": {
+      "type": "string",
+      "example": "badge_earned"
+    },
+    "creation_date": {
+      "type": "int64",
+      "example": 1735000000
+    },
+    "is_unread": {
+      "type": "boolean",
+      "example": true
+    },
+    "body": {
+      "type": "string",
+      "example": "You earned the 'Nice Question' badge."
+    },
+    "post_id": {
+      "type": "int32"
+    },
+    "site": {
+      "type": "object",
+      "description": "A Stack Exchange community site.",
+      "properties": {
+        "site_url": {
+          "type": "uri",
+          "example": "https://stackoverflow.com"
+        },
+        "api_site_parameter": {
+          "type": "string",
+          "example": "stackoverflow"
+        },
+        "name": {
+          "type": "string",
+          "example": "Stack Overflow"
+        },
+        "site_type": {
+          "type": "string",
+          "enum": [
+            "main_site",
+            "meta_site"
+          ],
+          "example": "main_site"
+        },
+        "audience": {
+          "type": "string",
+          "example": "professional and enthusiast programmers"
+        },
+        "icon_url": {
+          "type": "uri"
+        },
+        "logo_url": {
+          "type": "uri"
+        },
+        "favicon_url": {
+          "type": "uri"
+        },
+        "launch_date": {
+          "type": "int64",
+          "example": 1221177600
+        },
+        "site_state": {
+          "type": "string",
+          "enum": [
+            "normal",
+            "closed_beta",
+            "open_beta",
+            "linked_meta"
+          ],
+          "example": "normal"
+        },
+        "styling": {
+          "type": "object",
+          "properties": {
+            "link_color": {
+              "type": "string"
+            },
+            "tag_foreground_color": {
+              "type": "string"
+            },
+            "tag_background_color": {
+              "type": "string"
+            }
+          }
+        },
+        "related_sites": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "site_url": {
+                "type": "uri"
+              },
+              "relation": {
+                "type": "string",
+                "enum": [
+                  "parent",
+                  "meta",
+                  "chat"
+                ]
+              }
+            }
+          }
+        },
+        "markdown_extensions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

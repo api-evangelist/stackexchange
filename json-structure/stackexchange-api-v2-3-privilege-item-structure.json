@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "name": "PrivilegeItem",
+  "description": "PrivilegeItem schema from Stack Exchange API",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/stackexchange/refs/heads/main/json-structure/stackexchange-api-v2-3-privilege-item-structure.json",
+  "type": "object",
+  "properties": {
+    "short_description": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "reputation": {
+      "type": "int32"
+    }
+  }
+}

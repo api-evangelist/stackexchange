@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Event",
+  "description": "A network event (1.5 minute live window).",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/stackexchange/refs/heads/main/json-schema/stackexchange-api-v2-3-event-schema.json",
+  "type": "object",
+  "properties": {
+    "event_type": {
+      "type": "string",
+      "example": "question_posted"
+    },
+    "event_id": {
+      "type": "integer"
+    },
+    "creation_date": {
+      "type": "integer",
+      "format": "int64"
+    },
+    "link": {
+      "type": "string",
+      "format": "uri"
+    },
+    "excerpt": {
+      "type": "string"
+    }
+  }
+}

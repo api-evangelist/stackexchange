@@ -1,0 +1,229 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Answer",
+  "description": "An answer on a Stack Exchange site.",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/stackexchange/refs/heads/main/json-schema/stackexchange-api-v2-3-answer-schema.json",
+  "type": "object",
+  "properties": {
+    "answer_id": {
+      "type": "integer",
+      "example": 11227902
+    },
+    "question_id": {
+      "type": "integer",
+      "example": 11227809
+    },
+    "title": {
+      "type": "string",
+      "example": "Why is processing a sorted array faster than processing an unsorted array?"
+    },
+    "body": {
+      "type": "string",
+      "description": "HTML body (filter-dependent)."
+    },
+    "body_markdown": {
+      "type": "string",
+      "description": "Markdown body (filter-dependent)."
+    },
+    "link": {
+      "type": "string",
+      "format": "uri",
+      "example": "https://stackoverflow.com/a/11227902"
+    },
+    "score": {
+      "type": "integer",
+      "example": 36000
+    },
+    "up_vote_count": {
+      "type": "integer",
+      "example": 36500
+    },
+    "down_vote_count": {
+      "type": "integer",
+      "example": 500
+    },
+    "is_accepted": {
+      "type": "boolean",
+      "example": true
+    },
+    "comment_count": {
+      "type": "integer",
+      "example": 20
+    },
+    "creation_date": {
+      "type": "integer",
+      "format": "int64",
+      "example": 1338719105
+    },
+    "last_activity_date": {
+      "type": "integer",
+      "format": "int64",
+      "example": 1700000000
+    },
+    "last_edit_date": {
+      "type": "integer",
+      "format": "int64"
+    },
+    "owner": {
+      "type": "object",
+      "description": "Lightweight user reference embedded in posts and comments.",
+      "properties": {
+        "user_id": {
+          "type": "integer",
+          "format": "int64",
+          "example": 22656
+        },
+        "user_type": {
+          "type": "string",
+          "enum": [
+            "unregistered",
+            "registered",
+            "moderator",
+            "team_admin",
+            "does_not_exist"
+          ],
+          "example": "registered"
+        },
+        "display_name": {
+          "type": "string",
+          "example": "Jon Skeet"
+        },
+        "reputation": {
+          "type": "integer",
+          "example": 1500000
+        },
+        "profile_image": {
+          "type": "string",
+          "format": "uri",
+          "example": "https://i.sstatic.net/lLZAr.jpg?s=128"
+        },
+        "link": {
+          "type": "string",
+          "format": "uri",
+          "example": "https://stackoverflow.com/users/22656/jon-skeet"
+        },
+        "accept_rate": {
+          "type": "integer",
+          "example": 92
+        }
+      }
+    },
+    "last_editor": {
+      "type": "object",
+      "description": "Lightweight user reference embedded in posts and comments.",
+      "properties": {
+        "user_id": {
+          "type": "integer",
+          "format": "int64",
+          "example": 22656
+        },
+        "user_type": {
+          "type": "string",
+          "enum": [
+            "unregistered",
+            "registered",
+            "moderator",
+            "team_admin",
+            "does_not_exist"
+          ],
+          "example": "registered"
+        },
+        "display_name": {
+          "type": "string",
+          "example": "Jon Skeet"
+        },
+        "reputation": {
+          "type": "integer",
+          "example": 1500000
+        },
+        "profile_image": {
+          "type": "string",
+          "format": "uri",
+          "example": "https://i.sstatic.net/lLZAr.jpg?s=128"
+        },
+        "link": {
+          "type": "string",
+          "format": "uri",
+          "example": "https://stackoverflow.com/users/22656/jon-skeet"
+        },
+        "accept_rate": {
+          "type": "integer",
+          "example": 92
+        }
+      }
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "example": [
+        "java",
+        "c++",
+        "performance"
+      ]
+    },
+    "content_license": {
+      "type": "string",
+      "example": "CC BY-SA 4.0"
+    },
+    "community_owned_date": {
+      "type": "integer",
+      "format": "int64"
+    },
+    "locked_date": {
+      "type": "integer",
+      "format": "int64"
+    },
+    "awarded_bounty_amount": {
+      "type": "integer"
+    },
+    "awarded_bounty_users": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "description": "Lightweight user reference embedded in posts and comments.",
+        "properties": {
+          "user_id": {
+            "type": "integer",
+            "format": "int64",
+            "example": 22656
+          },
+          "user_type": {
+            "type": "string",
+            "enum": [
+              "unregistered",
+              "registered",
+              "moderator",
+              "team_admin",
+              "does_not_exist"
+            ],
+            "example": "registered"
+          },
+          "display_name": {
+            "type": "string",
+            "example": "Jon Skeet"
+          },
+          "reputation": {
+            "type": "integer",
+            "example": 1500000
+          },
+          "profile_image": {
+            "type": "string",
+            "format": "uri",
+            "example": "https://i.sstatic.net/lLZAr.jpg?s=128"
+          },
+          "link": {
+            "type": "string",
+            "format": "uri",
+            "example": "https://stackoverflow.com/users/22656/jon-skeet"
+          },
+          "accept_rate": {
+            "type": "integer",
+            "example": 92
+          }
+        }
+      }
+    }
+  }
+}

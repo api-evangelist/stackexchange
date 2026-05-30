@@ -1,32 +1,304 @@
 aid: stackexchange
-name: StackExchange
-description: "Q&A forum for developers"
+name: Stack Exchange
+description: >-
+  Stack Exchange is the network of Q&A communities founded by Joel Spolsky and
+  Jeff Atwood and headlined by Stack Overflow, the largest community of software
+  developers on the web. The Stack Exchange API v2.3 (api.stackexchange.com) is
+  a single, read-mostly HTTP/JSON interface that spans 180+ Q&A sites — Stack
+  Overflow, Server Fault, Super User, Ask Ubuntu, Stats, Math Overflow, and the
+  long tail of topical communities — and exposes the entire Q&A graph
+  (questions, answers, comments, users, tags, badges, reputation, revisions,
+  notifications, inbox, suggested-edits, network sites) under a uniform method
+  surface. Stack Exchange also operates Stack Overflow for Teams (private
+  knowledge bases with its own v3 REST API) and ships an official Stack Overflow
+  MCP server that grounds AI agents in community-verified content.
 url: https://api.stackexchange.com/
 specificationVersion: '0.20'
 created: '2026-05-28'
-modified: '2026-05-28'
+modified: '2026-05-29'
 x-source: public-apis/public-apis
-x-category: "Development"
-x-tier: 3
-x-tier-reason: bulk-registered-from-public-apis
+x-category: Development
+x-tier: 1
+x-tier-reason: developer-flagship-community-knowledge-graph-with-mcp
+x-type: company
 tags:
-  - Development
-  - Public APIs
+  - Q And A
+  - Developer Community
+  - Knowledge Graph
+  - Stack Overflow
+  - Stack Exchange
+  - Reputation
+  - Tags
+  - Community
+  - MCP
+  - AI Grounding
 apis:
-  - name: StackExchange
-    description: "Q&A forum for developers"
-    humanURL: https://api.stackexchange.com/
-    baseURL: https://api.stackexchange.com/
+  - name: Stack Exchange API v2.3
+    description: >-
+      Public, read-mostly HTTP/JSON API spanning all 180+ Stack Exchange sites.
+      All method families — questions, answers, comments, users, tags, badges,
+      sites, search, /me, access-tokens, notifications, inbox, events,
+      revisions, info, reputation, privileges, suggested-edits, posts — live
+      under a single base URL with a uniform response wrapper (items, has_more,
+      page, quota_max, quota_remaining, backoff). Read access requires no auth;
+      writes (posting, voting, flagging, accepting) require OAuth 2.0 with the
+      appropriate scopes (write_access, private_info, no_expiry).
+    humanURL: https://api.stackexchange.com/docs
+    baseURL: https://api.stackexchange.com/2.3
     tags:
-      - Development
+      - Stack Exchange
+      - Public API
+      - Q And A
+      - Read-Mostly
+      - OAuth 2.0
     properties:
       - type: Documentation
-        url: https://api.stackexchange.com/
+        url: https://api.stackexchange.com/docs
+      - type: OpenAPI
+        url: openapi/stackexchange-api-v2-3.yaml
+      - type: SignUp
+        url: https://stackapps.com/apps/oauth/register
+      - type: Authentication
+        url: https://api.stackexchange.com/docs/authentication
+      - type: TermsOfService
+        url: https://stackoverflow.com/legal/api-terms-of-use
+      - type: Throttling
+        url: https://api.stackexchange.com/docs/throttle
+      - type: Filters
+        url: https://api.stackexchange.com/docs/filters
+      - type: ChangeLog
+        url: https://api.stackexchange.com/docs/revisions
+      - type: SDK
+        url: https://github.com/StackExchange/StacMan
+        title: .NET (StacMan)
+      - type: NaftikoCapability
+        url: capabilities/stack-exchange-questions.yaml
+      - type: NaftikoCapability
+        url: capabilities/stack-exchange-answers.yaml
+      - type: NaftikoCapability
+        url: capabilities/stack-exchange-comments.yaml
+      - type: NaftikoCapability
+        url: capabilities/stack-exchange-users.yaml
+      - type: NaftikoCapability
+        url: capabilities/stack-exchange-me.yaml
+      - type: NaftikoCapability
+        url: capabilities/stack-exchange-tags.yaml
+      - type: NaftikoCapability
+        url: capabilities/stack-exchange-badges.yaml
+      - type: NaftikoCapability
+        url: capabilities/stack-exchange-sites.yaml
+      - type: NaftikoCapability
+        url: capabilities/stack-exchange-search.yaml
+      - type: NaftikoCapability
+        url: capabilities/stack-exchange-posts.yaml
+      - type: NaftikoCapability
+        url: capabilities/stack-exchange-revisions.yaml
+      - type: NaftikoCapability
+        url: capabilities/stack-exchange-suggested-edits.yaml
+      - type: NaftikoCapability
+        url: capabilities/stack-exchange-events.yaml
+      - type: NaftikoCapability
+        url: capabilities/stack-exchange-info.yaml
+      - type: NaftikoCapability
+        url: capabilities/stack-exchange-access-tokens.yaml
+      - type: NaftikoCapability
+        url: capabilities/stack-exchange-filters.yaml
+  - name: Stack Overflow for Teams API v3
+    description: >-
+      Newer REST API powering Stack Overflow for Teams (private/internal
+      instances). Resource-oriented (questions, answers, articles, comments,
+      tags, users, collections, communities) with full CRUD and bearer-token
+      auth. This is the API the official TypeScript SDK and Terraform provider
+      target; it is distinct from the public v2.3 API.
+    humanURL: https://stackoverflowteams.help/en/articles/9085836-api-v3-overview
+    baseURL: https://api.stackoverflowteams.com/v3/teams/{team}/
+    tags:
+      - Stack Overflow for Teams
+      - Internal API
+      - REST
+      - Bearer Token
+    properties:
+      - type: Documentation
+        url: https://stackoverflowteams.help/en/articles/9085836-api-v3-overview
+      - type: SDK
+        url: https://www.npmjs.com/package/@stackoverflow/teams-sdk
+        title: TypeScript SDK
+      - type: SDK
+        url: https://github.com/StackExchange/StackOverflowSDK
+        title: TypeScript SDK Source
+      - type: Tools
+        url: https://github.com/StackExchange/terraform-provider-stackoverflow
+        title: Terraform Provider
+      - type: Tools
+        url: https://github.com/StackExchange/backstage-stackoverflow
+        title: Backstage Plugin
+      - type: Tools
+        url: https://github.com/StackExchange/langchain-stack-overflow-for-teams
+        title: LangChain Integration
 common:
   - type: Website
-    url: https://api.stackexchange.com/
+    url: https://stackexchange.com/
+  - type: Documentation
+    url: https://api.stackexchange.com/docs
+  - type: DeveloperPortal
+    url: https://stackapps.com/
+  - type: GitHubOrganization
+    url: https://github.com/StackExchange
+  - type: Blog
+    url: https://stackoverflow.blog/
+  - type: TermsOfService
+    url: https://stackoverflow.com/legal/api-terms-of-use
+  - type: PrivacyPolicy
+    url: https://stackoverflow.com/legal/privacy-policy
+  - type: StatusPage
+    url: https://stackstatus.tumblr.com/
+  - type: ApplicationRegistration
+    url: https://stackapps.com/apps/oauth/register
   - type: PublicAPIsListing
     url: https://github.com/public-apis/public-apis
+  - type: Tools
+    title: MCP Server (Stack Overflow)
+    url: https://github.com/StackExchange/Stack-MCP
+  - type: Tools
+    title: MCP Server Documentation
+    url: https://api.stackexchange.com/docs/mcp-server
+  - type: Tools
+    title: Stack Exchange Data Explorer
+    url: https://github.com/StackExchange/StackExchange.DataExplorer
+  - type: Tools
+    title: Stacks Design System
+    url: https://github.com/StackExchange/Stacks
+  - type: Plans
+    url: plans/stackexchange-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/stackexchange-rate-limits.yml
+  - type: Rules
+    url: rules/stackexchange-spectral-rules.yml
+  - type: Vocabulary
+    url: vocabulary/stackexchange-vocabulary.yml
+features:
+  - name: Network-Wide Q&A Graph
+    description: >-
+      Single API surface spans 180+ communities. Use the `site` parameter
+      (`stackoverflow`, `serverfault`, `superuser`, `askubuntu`, `stats`,
+      `mathoverflow`, …) to switch context without changing endpoints.
+  - name: Vectorized IDs
+    description: >-
+      Most methods accept up to 100 semicolon-delimited IDs in a single request
+      (e.g., `/questions/{ids}`, `/users/{ids}`, `/answers/{ids}`), making bulk
+      fetch and join workloads cheap.
+  - name: Filter System
+    description: >-
+      Custom response filters let consumers project exactly the fields they
+      need, dramatically reducing payload size. Filters are created once via
+      `/filters/create` and reused.
+  - name: Compressed JSON
+    description: >-
+      All responses are gzip-compressed by default; the wire payload is roughly
+      30-50% the size of an unconditioned JSON body.
+  - name: Quota and Backoff Discipline
+    description: >-
+      Every response advertises `quota_max`, `quota_remaining`, and an optional
+      `backoff` integer. Clients must honor the backoff before re-querying the
+      same method or risk being throttled at 503 / banned.
+  - name: OAuth 2.0 Write Access
+    description: >-
+      Read is unauthenticated. Write methods (post answer, create comment, vote,
+      flag, accept) require an OAuth 2.0 access token issued via explicit or
+      implicit flows registered on stackapps.com.
+  - name: /me Convenience Methods
+    description: >-
+      Every `/users/{ids}/...` method has a `/me/...` equivalent that infers the
+      user from the access token, simplifying agent code paths.
+  - name: Site Discovery
+    description: >-
+      `/sites` enumerates every Q&A community on the network with its
+      `api_site_parameter`, audience, launch date, and styling — the canonical
+      way to bootstrap a multi-site integration.
+  - name: AI Grounding via MCP
+    description: >-
+      The official Stack Overflow MCP server exposes search, retrieve, and
+      ground tools so MCP-compatible clients (Claude Desktop, Cursor, VS Code)
+      can reach community-verified answers without bespoke integration.
+useCases:
+  - name: AI Answer Grounding
+    description: >-
+      Ground LLM responses in real Stack Overflow questions and answers — either
+      directly via /search and /questions methods or through the official MCP
+      server — to reduce hallucinations on technical topics.
+  - name: Developer Reputation Scoring
+    description: >-
+      Pull /users, /users/{ids}/reputation, badge counts, and tag scores to
+      build developer reputation, expertise, and hiring-signal pipelines.
+  - name: Community Analytics
+    description: >-
+      Aggregate /questions, /tags, /tags/{tags}/info, and /sites data to track
+      technology adoption, tag velocity, and community health across the
+      network.
+  - name: Personal Activity Dashboards
+    description: >-
+      Use /me, /me/inbox, /me/notifications, /me/timeline, /me/answers, and
+      /me/questions to build personal dashboards of a user's own activity,
+      reputation, and unread events.
+  - name: Tag Tracking and Triage
+    description: >-
+      Watch /tags/{tags}/info, /questions?tagged=…, /search/advanced, and
+      /questions/no-answers to triage incoming questions for OSS projects and
+      vendor support teams.
+  - name: Knowledge Base Mirroring
+    description: >-
+      Periodically sweep /questions with a filter and a since-date to mirror Q&A
+      into an internal knowledge base or RAG index, respecting the API quota
+      and backoff.
+  - name: Moderation Workbench
+    description: >-
+      Combine /suggested-edits, /flags, /posts, and /revisions surfaces (with
+      a moderator access token) to build moderation review queues.
+  - name: Stack Overflow for Teams Integrations
+    description: >-
+      Use the v3 Teams API plus the Terraform provider and Backstage plugin to
+      provision questions, articles, and tags from CI/CD pipelines.
+integrations:
+  - name: Claude Desktop / Cursor / VS Code via MCP
+    description: >-
+      The Stack Overflow MCP server plugs directly into any MCP-compatible
+      client, giving AI agents a typed search/retrieve interface to community
+      content.
+  - name: LangChain
+    description: >-
+      Official LangChain integration for Stack Overflow for Teams enables
+      retrieval and chat over private Teams content from LangChain pipelines.
+  - name: Backstage
+    description: >-
+      Backstage plugin (`backstage-stackoverflow`) surfaces Stack Overflow for
+      Teams content inside Backstage developer portals.
+  - name: Terraform
+    description: >-
+      Terraform provider (`terraform-provider-stackoverflow`) manages
+      questions, answers, and articles in Stack Overflow for Teams as code.
+  - name: StacMan (.NET)
+    description: >-
+      Long-standing .NET client for Stack Exchange API v2 (StackExchange/StacMan)
+      covering the public v2.3 surface.
+solutions:
+  - name: Public API v2.3
+    description: >-
+      Read-mostly, unauthenticated public access to the full Q&A graph across
+      180+ sites. Default integration path for developer tools, dashboards,
+      community analytics, and AI grounding.
+  - name: Stack Overflow for Teams API v3
+    description: >-
+      Private REST API for Stack Overflow for Teams customers, used by the
+      TypeScript SDK, Terraform provider, Backstage plugin, and LangChain
+      integration.
+  - name: Stack Overflow MCP Server
+    description: >-
+      Beta MCP server that lets MCP-compatible AI clients search, retrieve, and
+      ground answers in Stack Overflow content with simple OAuth onboarding.
+  - name: Stack Exchange Data Explorer
+    description: >-
+      SQL-style query interface for the Stack Exchange data dumps, used for
+      analytics workloads that exceed the API quota.
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

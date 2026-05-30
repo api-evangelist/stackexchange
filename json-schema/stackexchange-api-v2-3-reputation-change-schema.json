@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ReputationChange",
+  "description": "ReputationChange schema from Stack Exchange API",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/stackexchange/refs/heads/main/json-schema/stackexchange-api-v2-3-reputation-change-schema.json",
+  "type": "object",
+  "properties": {
+    "user_id": {
+      "type": "integer",
+      "format": "int64"
+    },
+    "post_id": {
+      "type": "integer"
+    },
+    "post_type": {
+      "type": "string",
+      "enum": [
+        "question",
+        "answer"
+      ]
+    },
+    "vote_type": {
+      "type": "string",
+      "enum": [
+        "accepts",
+        "bounties_won",
+        "up_votes",
+        "down_votes",
+        "suggested_edit",
+        "post_undeleted",
+        "spam",
+        "vote_fraud_reversal",
+        "post_deleted",
+        "post_migrated",
+        "association_bonus"
+      ]
+    },
+    "reputation_change": {
+      "type": "integer"
+    },
+    "on_date": {
+      "type": "integer",
+      "format": "int64"
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "TagSynonym",
+  "description": "TagSynonym schema from Stack Exchange API",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/stackexchange/refs/heads/main/json-schema/stackexchange-api-v2-3-tag-synonym-schema.json",
+  "type": "object",
+  "properties": {
+    "from_tag": {
+      "type": "string",
+      "example": "oas3"
+    },
+    "to_tag": {
+      "type": "string",
+      "example": "openapi"
+    },
+    "applied_count": {
+      "type": "integer",
+      "example": 145
+    },
+    "last_applied_date": {
+      "type": "integer",
+      "format": "int64"
+    },
+    "creation_date": {
+      "type": "integer",
+      "format": "int64"
+    }
+  }
+}

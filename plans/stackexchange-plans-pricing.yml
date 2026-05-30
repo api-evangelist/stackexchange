@@ -1,0 +1,120 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Stack Exchange
+providerId: stackexchange
+created: '2026-05-29'
+modified: '2026-05-29'
+reconciled: false
+tags:
+  - Q And A
+  - Developer Community
+  - Knowledge API
+  - Stack Overflow
+  - Free Tier
+description: >-
+  The public Stack Exchange API v2.3 is free to use for both commercial and
+  non-commercial applications under the Stack Exchange API Terms of Use.
+  Anonymous (no-key) callers get 300 requests per IP per day; registering a
+  free app on stackapps.com and sending the resulting `key` parameter raises
+  the daily quota to 10,000 requests per IP. Stack Overflow for Teams is a
+  separate paid product with seat-based and tiered pricing for private
+  workspaces; the Stack Overflow MCP beta server is currently free to use up
+  to 100 calls per user per day. Always consult the provider's pricing pages
+  for current numbers — values below are documented behavior captured from
+  api.stackexchange.com but not freshly reconciled against the live page.
+sources:
+  - https://api.stackexchange.com/docs
+  - https://api.stackexchange.com/docs/throttle
+  - https://stackapps.com/apps/oauth/register
+  - https://stackoverflow.co/teams/pricing/
+  - https://github.com/StackExchange/Stack-MCP
+plans:
+  - id: stackexchange-public-api-free
+    name: Public API (Free)
+    type: freemium
+    description: >-
+      Free public access to the Stack Exchange API v2.3 across all 180+ Q&A
+      sites. No key required; commercial use permitted under the API Terms of
+      Use.
+    entries:
+      - label: API requests without key
+        name: requests_no_key
+        type: quota
+        metric: request
+        limit: 300
+        timeFrame: day
+        geo: global
+        unit: 1
+        price: '$0'
+        userMultiplied: false
+      - label: API requests with registered key
+        name: requests_with_key
+        type: quota
+        metric: request
+        limit: 10000
+        timeFrame: day
+        geo: global
+        unit: 1
+        price: '$0'
+        userMultiplied: false
+    elements:
+      - name: Read access to questions, answers, comments, users, tags, badges, sites
+      - name: OAuth 2.0 for write operations
+      - name: Custom response filters
+      - name: Vectorized id fetch (up to 100 ids per call)
+      - name: Per-site or network-wide queries via the site parameter
+  - id: stackexchange-mcp-beta
+    name: Stack Overflow MCP (Beta)
+    type: freemium
+    description: >-
+      Official Stack Overflow MCP server hosted by Stack Exchange. Currently
+      in beta with a per-user daily cap; free during the beta period.
+    entries:
+      - label: MCP calls per user
+        name: mcp_calls
+        type: quota
+        metric: request
+        limit: 100
+        timeFrame: day
+        geo: global
+        unit: 1
+        price: '$0'
+        userMultiplied: true
+    elements:
+      - name: Search Stack Overflow questions and answers
+      - name: Retrieve full conversation threads
+      - name: Ground LLM responses in community-verified content
+      - name: OAuth onboarding with Stack Overflow account
+  - id: stackexchange-teams
+    name: Stack Overflow for Teams
+    type: tiered
+    description: >-
+      Paid SaaS product offering private Stack Overflow instances for
+      organizations. Pricing is seat- and tier-based (Basic, Business,
+      Enterprise) with custom Enterprise contracts. See
+      https://stackoverflow.co/teams/pricing/ for current per-seat numbers.
+    entries:
+      - label: Per-seat subscription
+        name: teams_seat
+        type: subscription
+        metric: seat
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: 'see https://stackoverflow.co/teams/pricing/'
+        userMultiplied: true
+    elements:
+      - name: Private Q&A workspace
+        description: Team-only questions, answers, articles, and collections.
+      - name: Stack Overflow for Teams API v3
+        description: REST API for programmatic CRUD over Teams content.
+      - name: TypeScript SDK
+        description: Official @stackoverflow/teams-sdk for Node/browser integrations.
+      - name: Terraform Provider
+        description: Manage Teams resources as code via terraform-provider-stackoverflow.
+      - name: Backstage Plugin
+        description: Surface Teams content inside Backstage developer portals.
+      - name: LangChain Integration
+        description: Retrieval over Teams content for LLM pipelines.

@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "name": "Post",
+  "description": "Generic post (question or answer) view.",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/stackexchange/refs/heads/main/json-structure/stackexchange-api-v2-3-post-structure.json",
+  "type": "object",
+  "properties": {
+    "post_id": {
+      "type": "int32"
+    },
+    "post_type": {
+      "type": "string",
+      "enum": [
+        "question",
+        "answer"
+      ]
+    },
+    "body": {
+      "type": "string"
+    },
+    "body_markdown": {
+      "type": "string"
+    },
+    "link": {
+      "type": "uri"
+    },
+    "score": {
+      "type": "int32"
+    },
+    "creation_date": {
+      "type": "int64"
+    },
+    "last_activity_date": {
+      "type": "int64"
+    },
+    "owner": {
+      "type": "object",
+      "description": "Lightweight user reference embedded in posts and comments.",
+      "properties": {
+        "user_id": {
+          "type": "int64",
+          "example": 22656
+        },
+        "user_type": {
+          "type": "string",
+          "enum": [
+            "unregistered",
+            "registered",
+            "moderator",
+            "team_admin",
+            "does_not_exist"
+          ],
+          "example": "registered"
+        },
+        "display_name": {
+          "type": "string",
+          "example": "Jon Skeet"
+        },
+        "reputation": {
+          "type": "int32",
+          "example": 1500000
+        },
+        "profile_image": {
+          "type": "uri",
+          "example": "https://i.sstatic.net/lLZAr.jpg?s=128"
+        },
+        "link": {
+          "type": "uri",
+          "example": "https://stackoverflow.com/users/22656/jon-skeet"
+        },
+        "accept_rate": {
+          "type": "int32",
+          "example": 92
+        }
+      }
+    },
+    "comment_count": {
+      "type": "int32"
+    }
+  }
+}

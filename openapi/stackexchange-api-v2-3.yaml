@@ -1,0 +1,2961 @@
+openapi: 3.0.3
+info:
+  title: Stack Exchange API
+  description: |
+    Public, read-mostly HTTP/JSON API spanning all 180+ Stack Exchange sites
+    (Stack Overflow, Server Fault, Super User, Ask Ubuntu, Stats, Math Overflow, ...).
+
+    All method families live under a single base URL with a uniform wrapper
+    (`items`, `has_more`, `page`, `quota_max`, `quota_remaining`, `backoff`).
+    Read access is unauthenticated. Write methods require OAuth 2.0 with the
+    appropriate scopes (`write_access`, `private_info`, `no_expiry`).
+
+    Most paths take a required `site` query parameter naming the target Q&A
+    community (`stackoverflow`, `serverfault`, `superuser`, ...). Use `/sites`
+    to enumerate the network.
+  version: '2.3'
+  termsOfService: https://stackoverflow.com/legal/api-terms-of-use
+  contact:
+    name: Stack Exchange API
+    url: https://api.stackexchange.com/
+  license:
+    name: Creative Commons BY-SA 4.0 (content) / API Terms of Use
+    url: https://stackoverflow.com/legal/api-terms-of-use
+  x-generated-from: documentation
+  x-last-validated: '2026-05-29'
+servers:
+- url: https://api.stackexchange.com/2.3
+  description: Stack Exchange API v2.3 production endpoint
+tags:
+- name: Questions
+  description: Question objects across the network — list, fetch, related, linked, search-equivalents.
+- name: Answers
+  description: Answer objects — list, fetch by id, and per-question answers.
+- name: Comments
+  description: Comments attached to questions and answers across the network.
+- name: Users
+  description: Site users, their reputation, badges, tags, top posts, timeline, and write surfaces.
+- name: Me
+  description: Convenience surfaces that infer the user from the OAuth access token.
+- name: Tags
+  description: Tag catalog, synonyms, wikis, top askers/answerers, and related tags.
+- name: Badges
+  description: Badges defined on a site — by id, name, type, and recipients.
+- name: Sites
+  description: Enumeration and metadata for the 180+ Stack Exchange Q&A sites.
+- name: Search
+  description: Question search — basic title-match, full-text excerpts, and advanced.
+- name: Posts
+  description: Generic post surfaces covering both questions and answers as `post` objects.
+- name: Revisions
+  description: Revision history for posts.
+- name: Suggested Edits
+  description: Pending edits proposed by users awaiting review.
+- name: Notifications
+  description: Per-user notifications surface (requires authenticated /me access).
+- name: Inbox
+  description: Per-user inbox surface (requires authenticated /me access).
+- name: Events
+  description: Recent network events (1.5 minute live window) for the authenticated user.
+- name: Info
+  description: Site-wide statistics, totals, and metadata.
+- name: Access Tokens
+  description: OAuth access token introspection and invalidation.
+- name: Filters
+  description: Custom response filter creation and inspection.
+components:
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      description: |
+        OAuth 2.0 explicit or implicit flow. Apps register on stackapps.com.
+        Read methods do not require auth; write methods require `write_access`.
+        `private_info` is needed for /me/notifications, /me/inbox, and similar
+        private surfaces. `no_expiry` issues tokens that never expire.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://stackoverflow.com/oauth
+          tokenUrl: https://stackoverflow.com/oauth/access_token
+          scopes:
+            read_inbox: Access the authenticated user's inbox.
+            no_expiry: Issue a token that never expires.
+            write_access: Vote, post, comment, flag, accept on the user's behalf.
+            private_info: Access endpoints that return personal information.
+    apiKey:
+      type: apiKey
+      in: query
+      name: key
+      description: |
+        Optional app key. Sending a key raises the daily quota from 300 to 10,000
+        requests per IP and is the recommended default for any non-trivial client.
+  parameters:
+    Site:
+      name: site
+      in: query
+      required: true
+      description: >-
+        Target Q&A community. Either the api_site_parameter from a `/sites`
+        entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full
+        domain (`stackoverflow.com`).
+      schema:
+        type: string
+        default: stackoverflow
+        example: stackoverflow
+    Key:
+      name: key
+      in: query
+      required: false
+      description: App key from stackapps.com. Raises the daily quota to 10,000/IP.
+      schema:
+        type: string
+        example: example_app_key_abcdef
+    AccessToken:
+      name: access_token
+      in: query
+      required: false
+      description: OAuth 2.0 access token. Required for any /me surface and any write.
+      schema:
+        type: string
+        example: example_access_token_abcdef
+    Filter:
+      name: filter
+      in: query
+      required: false
+      description: Custom response filter id created via /filters/create.
+      schema:
+        type: string
+        example: default
+    Page:
+      name: page
+      in: query
+      required: false
+      description: 1-indexed page number.
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+        example: 1
+    PageSize:
+      name: pagesize
+      in: query
+      required: false
+      description: Items per page (max 100).
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 30
+        example: 30
+    Order:
+      name: order
+      in: query
+      required: false
+      description: Sort direction.
+      schema:
+        type: string
+        enum: [desc, asc]
+        default: desc
+    Sort:
+      name: sort
+      in: query
+      required: false
+      description: Sort key (varies per method; see endpoint docs).
+      schema:
+        type: string
+        example: activity
+    FromDate:
+      name: fromdate
+      in: query
+      required: false
+      description: Unix epoch seconds — earliest creation_date.
+      schema:
+        type: integer
+        format: int64
+        example: 1700000000
+    ToDate:
+      name: todate
+      in: query
+      required: false
+      description: Unix epoch seconds — latest creation_date.
+      schema:
+        type: integer
+        format: int64
+        example: 1735689600
+    Min:
+      name: min
+      in: query
+      required: false
+      description: Minimum value of the sort field (string or epoch seconds depending on sort).
+      schema:
+        type: string
+        example: '1'
+    Max:
+      name: max
+      in: query
+      required: false
+      description: Maximum value of the sort field (string or epoch seconds depending on sort).
+      schema:
+        type: string
+        example: '1000'
+    Tagged:
+      name: tagged
+      in: query
+      required: false
+      description: Semicolon-delimited list of tags to AND-filter by.
+      schema:
+        type: string
+        example: openapi;rest
+    Ids:
+      name: ids
+      in: path
+      required: true
+      description: Up to 100 semicolon-delimited ids of the resource.
+      schema:
+        type: string
+        example: '11227809;417142'
+  schemas:
+    Wrapper:
+      type: object
+      description: Common envelope returned by every Stack Exchange API method.
+      properties:
+        backoff:
+          type: integer
+          description: >-
+            Seconds the client MUST wait before re-querying this same method.
+            Returned when the API has identified the consumer as expensive.
+          example: 0
+        error_id:
+          type: integer
+          description: Numeric error code when the response is an error.
+        error_message:
+          type: string
+          description: Human-readable error message.
+        error_name:
+          type: string
+          description: Stable error name (e.g. `throttle_violation`).
+        has_more:
+          type: boolean
+          description: True when more pages exist past the returned `page`.
+          example: true
+        page:
+          type: integer
+          description: Page number echoed from the request.
+          example: 1
+        page_size:
+          type: integer
+          description: Page size echoed from the request.
+          example: 30
+        quota_max:
+          type: integer
+          description: Daily quota for the IP/key combination.
+          example: 10000
+        quota_remaining:
+          type: integer
+          description: Quota left after this request.
+          example: 9999
+        total:
+          type: integer
+          description: Total count when the consumer requested it via filter.
+        type:
+          type: string
+          description: Type name of the items returned.
+      required:
+      - has_more
+      - quota_max
+      - quota_remaining
+    ShallowUser:
+      type: object
+      description: Lightweight user reference embedded in posts and comments.
+      properties:
+        user_id:
+          type: integer
+          format: int64
+          example: 22656
+        user_type:
+          type: string
+          enum: [unregistered, registered, moderator, team_admin, does_not_exist]
+          example: registered
+        display_name:
+          type: string
+          example: Jon Skeet
+        reputation:
+          type: integer
+          example: 1500000
+        profile_image:
+          type: string
+          format: uri
+          example: https://i.sstatic.net/lLZAr.jpg?s=128
+        link:
+          type: string
+          format: uri
+          example: https://stackoverflow.com/users/22656/jon-skeet
+        accept_rate:
+          type: integer
+          example: 92
+    User:
+      type: object
+      description: A user account on a single Stack Exchange site.
+      properties:
+        user_id:
+          type: integer
+          format: int64
+          example: 22656
+        account_id:
+          type: integer
+          format: int64
+          example: 11683
+        user_type:
+          type: string
+          enum: [unregistered, registered, moderator, team_admin, does_not_exist]
+          example: registered
+        display_name:
+          type: string
+          example: Jon Skeet
+        reputation:
+          type: integer
+          example: 1500000
+        reputation_change_day:
+          type: integer
+          example: 10
+        reputation_change_week:
+          type: integer
+          example: 120
+        reputation_change_month:
+          type: integer
+          example: 540
+        reputation_change_quarter:
+          type: integer
+          example: 1600
+        reputation_change_year:
+          type: integer
+          example: 5400
+        creation_date:
+          type: integer
+          format: int64
+          example: 1217631542
+        last_modified_date:
+          type: integer
+          format: int64
+          example: 1735000000
+        last_access_date:
+          type: integer
+          format: int64
+          example: 1735200000
+        is_employee:
+          type: boolean
+          example: false
+        location:
+          type: string
+          example: Reading, United Kingdom
+        website_url:
+          type: string
+          format: uri
+          example: https://codeblog.jonskeet.uk
+        link:
+          type: string
+          format: uri
+          example: https://stackoverflow.com/users/22656/jon-skeet
+        profile_image:
+          type: string
+          format: uri
+          example: https://i.sstatic.net/lLZAr.jpg?s=128
+        accept_rate:
+          type: integer
+          example: 92
+        badge_counts:
+          $ref: '#/components/schemas/BadgeCount'
+        question_count:
+          type: integer
+          example: 56
+        answer_count:
+          type: integer
+          example: 36234
+        up_vote_count:
+          type: integer
+          example: 39120
+        down_vote_count:
+          type: integer
+          example: 1024
+        view_count:
+          type: integer
+          example: 99999999
+    BadgeCount:
+      type: object
+      description: Bronze/silver/gold badge counts for a user.
+      properties:
+        bronze:
+          type: integer
+          example: 10000
+        silver:
+          type: integer
+          example: 5000
+        gold:
+          type: integer
+          example: 800
+    Question:
+      type: object
+      description: A question on a Stack Exchange site.
+      properties:
+        question_id:
+          type: integer
+          example: 11227809
+        title:
+          type: string
+          example: Why is processing a sorted array faster than processing an unsorted array?
+        body:
+          type: string
+          description: HTML body of the question (only included via filter).
+        body_markdown:
+          type: string
+          description: Markdown body of the question (only included via filter).
+        link:
+          type: string
+          format: uri
+          example: https://stackoverflow.com/questions/11227809
+        score:
+          type: integer
+          example: 27000
+        view_count:
+          type: integer
+          example: 1900000
+        answer_count:
+          type: integer
+          example: 25
+        comment_count:
+          type: integer
+          example: 12
+        favorite_count:
+          type: integer
+          example: 4000
+        is_answered:
+          type: boolean
+          example: true
+        accepted_answer_id:
+          type: integer
+          example: 11227902
+        creation_date:
+          type: integer
+          format: int64
+          example: 1338717687
+        last_activity_date:
+          type: integer
+          format: int64
+          example: 1700000000
+        last_edit_date:
+          type: integer
+          format: int64
+          example: 1690000000
+        owner:
+          $ref: '#/components/schemas/ShallowUser'
+        tags:
+          type: array
+          items:
+            type: string
+          example: [java, c++, performance, cpu-architecture, branch-prediction]
+        content_license:
+          type: string
+          example: CC BY-SA 4.0
+        protected_date:
+          type: integer
+          format: int64
+        locked_date:
+          type: integer
+          format: int64
+        closed_date:
+          type: integer
+          format: int64
+        closed_reason:
+          type: string
+        bounty_amount:
+          type: integer
+        bounty_closes_date:
+          type: integer
+          format: int64
+    Answer:
+      type: object
+      description: An answer on a Stack Exchange site.
+      properties:
+        answer_id:
+          type: integer
+          example: 11227902
+        question_id:
+          type: integer
+          example: 11227809
+        title:
+          type: string
+          example: Why is processing a sorted array faster than processing an unsorted array?
+        body:
+          type: string
+          description: HTML body (filter-dependent).
+        body_markdown:
+          type: string
+          description: Markdown body (filter-dependent).
+        link:
+          type: string
+          format: uri
+          example: https://stackoverflow.com/a/11227902
+        score:
+          type: integer
+          example: 36000
+        up_vote_count:
+          type: integer
+          example: 36500
+        down_vote_count:
+          type: integer
+          example: 500
+        is_accepted:
+          type: boolean
+          example: true
+        comment_count:
+          type: integer
+          example: 20
+        creation_date:
+          type: integer
+          format: int64
+          example: 1338719105
+        last_activity_date:
+          type: integer
+          format: int64
+          example: 1700000000
+        last_edit_date:
+          type: integer
+          format: int64
+        owner:
+          $ref: '#/components/schemas/ShallowUser'
+        last_editor:
+          $ref: '#/components/schemas/ShallowUser'
+        tags:
+          type: array
+          items:
+            type: string
+          example: [java, c++, performance]
+        content_license:
+          type: string
+          example: CC BY-SA 4.0
+        community_owned_date:
+          type: integer
+          format: int64
+        locked_date:
+          type: integer
+          format: int64
+        awarded_bounty_amount:
+          type: integer
+        awarded_bounty_users:
+          type: array
+          items:
+            $ref: '#/components/schemas/ShallowUser'
+    Comment:
+      type: object
+      description: A comment attached to a question or answer.
+      properties:
+        comment_id:
+          type: integer
+          example: 14587302
+        post_id:
+          type: integer
+          example: 11227809
+        post_type:
+          type: string
+          enum: [question, answer]
+          example: question
+        score:
+          type: integer
+          example: 12
+        body:
+          type: string
+          example: Great explanation, thank you.
+        body_markdown:
+          type: string
+        creation_date:
+          type: integer
+          format: int64
+          example: 1338800000
+        edited:
+          type: boolean
+          example: false
+        link:
+          type: string
+          format: uri
+          example: https://stackoverflow.com/questions/11227809#comment14587302_11227809
+        owner:
+          $ref: '#/components/schemas/ShallowUser'
+        reply_to_user:
+          $ref: '#/components/schemas/ShallowUser'
+        content_license:
+          type: string
+          example: CC BY-SA 4.0
+    Tag:
+      type: object
+      description: A tag on a Stack Exchange site.
+      properties:
+        name:
+          type: string
+          example: openapi
+        count:
+          type: integer
+          example: 3200
+        is_required:
+          type: boolean
+          example: false
+        is_moderator_only:
+          type: boolean
+          example: false
+        has_synonyms:
+          type: boolean
+          example: true
+        user_id:
+          type: integer
+          description: For tag-wikis, the most recent editor.
+        last_activity_date:
+          type: integer
+          format: int64
+    TagSynonym:
+      type: object
+      properties:
+        from_tag:
+          type: string
+          example: oas3
+        to_tag:
+          type: string
+          example: openapi
+        applied_count:
+          type: integer
+          example: 145
+        last_applied_date:
+          type: integer
+          format: int64
+        creation_date:
+          type: integer
+          format: int64
+    TagScore:
+      type: object
+      description: A user's score in a tag (top askers/answerers).
+      properties:
+        user:
+          $ref: '#/components/schemas/ShallowUser'
+        score:
+          type: integer
+          example: 1200
+        post_count:
+          type: integer
+          example: 45
+    Badge:
+      type: object
+      description: A badge definition.
+      properties:
+        badge_id:
+          type: integer
+          example: 23
+        name:
+          type: string
+          example: Nice Question
+        description:
+          type: string
+          example: Question score of 10 or more.
+        rank:
+          type: string
+          enum: [bronze, silver, gold]
+          example: bronze
+        badge_type:
+          type: string
+          enum: [named, tag_based]
+          example: named
+        award_count:
+          type: integer
+          example: 500000
+        link:
+          type: string
+          format: uri
+          example: https://stackoverflow.com/help/badges/23/nice-question
+        user:
+          $ref: '#/components/schemas/ShallowUser'
+    Site:
+      type: object
+      description: A Stack Exchange community site.
+      properties:
+        site_url:
+          type: string
+          format: uri
+          example: https://stackoverflow.com
+        api_site_parameter:
+          type: string
+          example: stackoverflow
+        name:
+          type: string
+          example: Stack Overflow
+        site_type:
+          type: string
+          enum: [main_site, meta_site]
+          example: main_site
+        audience:
+          type: string
+          example: professional and enthusiast programmers
+        icon_url:
+          type: string
+          format: uri
+        logo_url:
+          type: string
+          format: uri
+        favicon_url:
+          type: string
+          format: uri
+        launch_date:
+          type: integer
+          format: int64
+          example: 1221177600
+        site_state:
+          type: string
+          enum: [normal, closed_beta, open_beta, linked_meta]
+          example: normal
+        styling:
+          type: object
+          properties:
+            link_color:
+              type: string
+            tag_foreground_color:
+              type: string
+            tag_background_color:
+              type: string
+        related_sites:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              site_url:
+                type: string
+                format: uri
+              relation:
+                type: string
+                enum: [parent, meta, chat]
+        markdown_extensions:
+          type: array
+          items:
+            type: string
+    Revision:
+      type: object
+      description: A revision to a post.
+      properties:
+        revision_guid:
+          type: string
+          format: uuid
+          example: 9f1f1ad2-9bcb-4f0c-9eee-1234567890ab
+        revision_number:
+          type: integer
+          example: 4
+        revision_type:
+          type: string
+          enum: [single_user, vote_based]
+          example: single_user
+        post_type:
+          type: string
+          enum: [question, answer]
+          example: question
+        post_id:
+          type: integer
+          example: 11227809
+        comment:
+          type: string
+          example: 'Fixed typo'
+        creation_date:
+          type: integer
+          format: int64
+          example: 1338800000
+        is_rollback:
+          type: boolean
+          example: false
+        last_body:
+          type: string
+        last_title:
+          type: string
+        last_tags:
+          type: array
+          items:
+            type: string
+        body:
+          type: string
+        title:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+        set_community_wiki:
+          type: boolean
+        user:
+          $ref: '#/components/schemas/ShallowUser'
+    SuggestedEdit:
+      type: object
+      description: A pending edit suggested by a user.
+      properties:
+        suggested_edit_id:
+          type: integer
+          example: 12345
+        post_id:
+          type: integer
+          example: 11227809
+        post_type:
+          type: string
+          enum: [question, answer]
+          example: question
+        body:
+          type: string
+        title:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+        comment:
+          type: string
+        creation_date:
+          type: integer
+          format: int64
+        approval_date:
+          type: integer
+          format: int64
+        rejection_date:
+          type: integer
+          format: int64
+        proposing_user:
+          $ref: '#/components/schemas/ShallowUser'
+    Notification:
+      type: object
+      description: An in-product notification for the authenticated user.
+      properties:
+        notification_type:
+          type: string
+          example: badge_earned
+        creation_date:
+          type: integer
+          format: int64
+          example: 1735000000
+        is_unread:
+          type: boolean
+          example: true
+        body:
+          type: string
+          example: You earned the 'Nice Question' badge.
+        post_id:
+          type: integer
+        site:
+          $ref: '#/components/schemas/Site'
+    InboxItem:
+      type: object
+      description: An inbox item for the authenticated user.
+      properties:
+        item_type:
+          type: string
+          example: comment
+        creation_date:
+          type: integer
+          format: int64
+        is_unread:
+          type: boolean
+        title:
+          type: string
+        body:
+          type: string
+        link:
+          type: string
+          format: uri
+        question_id:
+          type: integer
+        answer_id:
+          type: integer
+        comment_id:
+          type: integer
+        site:
+          $ref: '#/components/schemas/Site'
+    Event:
+      type: object
+      description: A network event (1.5 minute live window).
+      properties:
+        event_type:
+          type: string
+          example: question_posted
+        event_id:
+          type: integer
+        creation_date:
+          type: integer
+          format: int64
+        link:
+          type: string
+          format: uri
+        excerpt:
+          type: string
+    Info:
+      type: object
+      description: Site-wide totals and metadata.
+      properties:
+        total_questions:
+          type: integer
+        total_unanswered:
+          type: integer
+        total_accepted:
+          type: integer
+        total_answers:
+          type: integer
+        total_comments:
+          type: integer
+        total_votes:
+          type: integer
+        total_badges:
+          type: integer
+        total_users:
+          type: integer
+        questions_per_minute:
+          type: number
+        answers_per_minute:
+          type: number
+        badges_per_minute:
+          type: number
+        new_active_users:
+          type: integer
+        api_revision:
+          type: string
+          example: 2024.12.01.1234
+        site:
+          $ref: '#/components/schemas/Site'
+    AccessToken:
+      type: object
+      description: An OAuth access token, returned by the access-token endpoints.
+      properties:
+        access_token:
+          type: string
+        expires_on_date:
+          type: integer
+          format: int64
+        account_id:
+          type: integer
+          format: int64
+        scope:
+          type: array
+          items:
+            type: string
+    Post:
+      type: object
+      description: Generic post (question or answer) view.
+      properties:
+        post_id:
+          type: integer
+        post_type:
+          type: string
+          enum: [question, answer]
+        body:
+          type: string
+        body_markdown:
+          type: string
+        link:
+          type: string
+          format: uri
+        score:
+          type: integer
+        creation_date:
+          type: integer
+          format: int64
+        last_activity_date:
+          type: integer
+          format: int64
+        owner:
+          $ref: '#/components/schemas/ShallowUser'
+        comment_count:
+          type: integer
+    PrivilegeItem:
+      type: object
+      properties:
+        short_description:
+          type: string
+        description:
+          type: string
+        reputation:
+          type: integer
+    ReputationChange:
+      type: object
+      properties:
+        user_id:
+          type: integer
+          format: int64
+        post_id:
+          type: integer
+        post_type:
+          type: string
+          enum: [question, answer]
+        vote_type:
+          type: string
+          enum: [accepts, bounties_won, up_votes, down_votes, suggested_edit, post_undeleted, spam, vote_fraud_reversal, post_deleted, post_migrated, association_bonus]
+        reputation_change:
+          type: integer
+        on_date:
+          type: integer
+          format: int64
+    Filter:
+      type: object
+      properties:
+        filter:
+          type: string
+        filter_type:
+          type: string
+          enum: [safe, unsafe, invalid]
+        included_fields:
+          type: array
+          items:
+            type: string
+    QuestionsResponse:
+      allOf:
+      - $ref: '#/components/schemas/Wrapper'
+      - type: object
+        properties:
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/Question'
+    AnswersResponse:
+      allOf:
+      - $ref: '#/components/schemas/Wrapper'
+      - type: object
+        properties:
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/Answer'
+    CommentsResponse:
+      allOf:
+      - $ref: '#/components/schemas/Wrapper'
+      - type: object
+        properties:
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/Comment'
+    UsersResponse:
+      allOf:
+      - $ref: '#/components/schemas/Wrapper'
+      - type: object
+        properties:
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/User'
+    TagsResponse:
+      allOf:
+      - $ref: '#/components/schemas/Wrapper'
+      - type: object
+        properties:
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/Tag'
+    TagSynonymsResponse:
+      allOf:
+      - $ref: '#/components/schemas/Wrapper'
+      - type: object
+        properties:
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/TagSynonym'
+    TagScoresResponse:
+      allOf:
+      - $ref: '#/components/schemas/Wrapper'
+      - type: object
+        properties:
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/TagScore'
+    BadgesResponse:
+      allOf:
+      - $ref: '#/components/schemas/Wrapper'
+      - type: object
+        properties:
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/Badge'
+    SitesResponse:
+      allOf:
+      - $ref: '#/components/schemas/Wrapper'
+      - type: object
+        properties:
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/Site'
+    RevisionsResponse:
+      allOf:
+      - $ref: '#/components/schemas/Wrapper'
+      - type: object
+        properties:
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/Revision'
+    SuggestedEditsResponse:
+      allOf:
+      - $ref: '#/components/schemas/Wrapper'
+      - type: object
+        properties:
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/SuggestedEdit'
+    NotificationsResponse:
+      allOf:
+      - $ref: '#/components/schemas/Wrapper'
+      - type: object
+        properties:
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/Notification'
+    InboxResponse:
+      allOf:
+      - $ref: '#/components/schemas/Wrapper'
+      - type: object
+        properties:
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/InboxItem'
+    EventsResponse:
+      allOf:
+      - $ref: '#/components/schemas/Wrapper'
+      - type: object
+        properties:
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/Event'
+    InfoResponse:
+      allOf:
+      - $ref: '#/components/schemas/Wrapper'
+      - type: object
+        properties:
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/Info'
+    PostsResponse:
+      allOf:
+      - $ref: '#/components/schemas/Wrapper'
+      - type: object
+        properties:
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/Post'
+    AccessTokensResponse:
+      allOf:
+      - $ref: '#/components/schemas/Wrapper'
+      - type: object
+        properties:
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/AccessToken'
+    PrivilegesResponse:
+      allOf:
+      - $ref: '#/components/schemas/Wrapper'
+      - type: object
+        properties:
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/PrivilegeItem'
+    ReputationResponse:
+      allOf:
+      - $ref: '#/components/schemas/Wrapper'
+      - type: object
+        properties:
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/ReputationChange'
+    FiltersResponse:
+      allOf:
+      - $ref: '#/components/schemas/Wrapper'
+      - type: object
+        properties:
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/Filter'
+security:
+- apiKey: []
+paths:
+  /questions:
+    get:
+      tags: [Questions]
+      operationId: listQuestions
+      summary: Stack Exchange List Questions
+      description: List questions on a site, optionally filtered by tag and date range.
+      parameters:
+      - $ref: '#/components/parameters/Site'
+      - $ref: '#/components/parameters/Key'
+      - $ref: '#/components/parameters/AccessToken'
+      - $ref: '#/components/parameters/Filter'
+      - $ref: '#/components/parameters/Page'
+      - $ref: '#/components/parameters/PageSize'
+      - $ref: '#/components/parameters/Order'
+      - $ref: '#/components/parameters/FromDate'
+      - $ref: '#/components/parameters/ToDate'
+      - $ref: '#/components/parameters/Tagged'
+      - name: sort
+        in: query
+        schema:
+          type: string
+          enum: [activity, votes, creation, hot, week, month]
+          default: activity
+      responses:
+        '200':
+          description: A page of questions.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuestionsResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /questions/featured:
+    get:
+      tags: [Questions]
+      operationId: listFeaturedQuestions
+      summary: Stack Exchange List Featured Questions
+      description: Questions with active bounties.
+      parameters:
+      - $ref: '#/components/parameters/Site'
+      - $ref: '#/components/parameters/Key'
+      - $ref: '#/components/parameters/Filter'
+      - $ref: '#/components/parameters/Page'
+      - $ref: '#/components/parameters/PageSize'
+      - $ref: '#/components/parameters/Tagged'
+      responses:
+        '200':
+          description: A page of featured questions.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuestionsResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /questions/unanswered:
+    get:
+      tags: [Questions]
+      operationId: listUnansweredQuestions
+      summary: Stack Exchange List Unanswered Questions
+      description: Questions the site considers insufficiently answered.
+      parameters:
+      - $ref: '#/components/parameters/Site'
+      - $ref: '#/components/parameters/Key'
+      - $ref: '#/components/parameters/Filter'
+      - $ref: '#/components/parameters/Page'
+      - $ref: '#/components/parameters/PageSize'
+      - $ref: '#/components/parameters/Tagged'
+      responses:
+        '200':
+          description: A page of unanswered questions.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuestionsResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /questions/no-answers:
+    get:
+      tags: [Questions]
+      operationId: listQuestionsWithoutAnswers
+      summary: Stack Exchange List Questions Without Answers
+      description: Questions that have received zero answers.
+      parameters:
+      - $ref: '#/components/parameters/Site'
+      - $ref: '#/components/parameters/Key'
+      - $ref: '#/components/parameters/Filter'
+      - $ref: '#/components/parameters/Page'
+      - $ref: '#/components/parameters/PageSize'
+      - $ref: '#/components/parameters/Tagged'
+      responses:
+        '200':
+          description: A page of questions with no answers.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuestionsResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /questions/{ids}:
+    get:
+      tags: [Questions]
+      operationId: getQuestionsByIds
+      summary: Stack Exchange Get Questions by Ids
+      description: Fetch up to 100 questions in a single call by semicolon-delimited ids.
+      parameters:
+      - $ref: '#/components/parameters/Ids'
+      - $ref: '#/components/parameters/Site'
+      - $ref: '#/components/parameters/Key'
+      - $ref: '#/components/parameters/Filter'
+      responses:
+        '200':
+          description: A page of questions.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuestionsResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /questions/{ids}/answers:
+    get:
+      tags: [Questions]
+      operationId: listAnswersOnQuestions
+      summary: Stack Exchange List Answers on Questions
+      description: All answers on the given questions.
+      parameters:
+      - $ref: '#/components/parameters/Ids'
+      - $ref: '#/components/parameters/Site'
+      - $ref: '#/components/parameters/Key'
+      - $ref: '#/components/parameters/Filter'
+      - $ref: '#/components/parameters/Page'
+      - $ref: '#/components/parameters/PageSize'
+      responses:
+        '200':
+          description: A page of answers.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnswersResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /questions/{ids}/comments:
+    get:
+      tags: [Questions]
+      operationId: listCommentsOnQuestions
+      summary: Stack Exchange List Comments on Questions
+      description: All comments on the given questions.
+      parameters:
+      - $ref: '#/components/parameters/Ids'
+      - $ref: '#/components/parameters/Site'
+      - $ref: '#/components/parameters/Key'
+      - $ref: '#/components/parameters/Filter'
+      - $ref: '#/components/parameters/Page'
+      - $ref: '#/components/parameters/PageSize'
+      responses:
+        '200':
+          description: A page of comments.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommentsResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /questions/{ids}/linked:
+    get:
+      tags: [Questions]
+      operationId: listLinkedQuestions
+      summary: Stack Exchange List Linked Questions
+      description: Questions linked from the given questions' bodies.
+      parameters:
+      - $ref: '#/components/parameters/Ids'
+      - $ref: '#/components/parameters/Site'
+      - $ref: '#/components/parameters/Key'
+      - $ref: '#/components/parameters/Filter'
+      responses:
+        '200':
+          description: A page of linked questions.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuestionsResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /questions/{ids}/related:
+    get:
+      tags: [Questions]
+      operationId: listRelatedQuestions
+      summary: Stack Exchange List Related Questions
+      description: Questions related to the given questions (by tag overlap and content similarity).
+      parameters:
+      - $ref: '#/components/parameters/Ids'
+      - $ref: '#/components/parameters/Site'
+      - $ref: '#/components/parameters/Key'
+      - $ref: '#/components/parameters/Filter'
+      responses:
+        '200':
+          description: A page of related questions.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuestionsResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /answers:
+    get:
+      tags: [Answers]
+      operationId: listAnswers
+      summary: Stack Exchange List Answers
+      description: All answers on a site, with sort and date filters.
+      parameters:
+      - $ref: '#/components/parameters/Site'
+      - $ref: '#/components/parameters/Key'
+      - $ref: '#/components/parameters/Filter'
+      - $ref: '#/components/parameters/Page'
+      - $ref: '#/components/parameters/PageSize'
+      - $ref: '#/components/parameters/Order'
+      - $ref: '#/components/parameters/FromDate'
+      - $ref: '#/components/parameters/ToDate'
+      - name: sort
+        in: query
+        schema:
+          type: string
+          enum: [activity, creation, votes]
+          default: activity
+      responses:
+        '200':
+          description: A page of answers.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnswersResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /answers/{ids}:
+    get:
+      tags: [Answers]
+      operationId: getAnswersByIds
+      summary: Stack Exchange Get Answers by Ids
+      description: Fetch up to 100 answers in a single call by semicolon-delimited ids.
+      parameters:
+      - $ref: '#/components/parameters/Ids'
+      - $ref: '#/components/parameters/Site'
+      - $ref: '#/components/parameters/Key'
+      - $ref: '#/components/parameters/Filter'
+      responses:
+        '200':
+          description: A page of answers.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnswersResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /answers/{ids}/comments:
+    get:
+      tags: [Answers]
+      operationId: listCommentsOnAnswers
+      summary: Stack Exchange List Comments on Answers
+      description: All comments on the given answers.
+      parameters:
+      - $ref: '#/components/parameters/Ids'
+      - $ref: '#/components/parameters/Site'
+      - $ref: '#/components/parameters/Key'
+      - $ref: '#/components/parameters/Filter'
+      - $ref: '#/components/parameters/Page'
+      - $ref: '#/components/parameters/PageSize'
+      responses:
+        '200':
+          description: A page of comments.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommentsResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /answers/{ids}/questions:
+    get:
+      tags: [Answers]
+      operationId: getQuestionsForAnswers
+      summary: Stack Exchange Get Questions for Answers
+      description: The parent questions for the given answers.
+      parameters:
+      - $ref: '#/components/parameters/Ids'
+      - $ref: '#/components/parameters/Site'
+      - $ref: '#/components/parameters/Key'
+      - $ref: '#/components/parameters/Filter'
+      responses:
+        '200':
+          description: A page of questions.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuestionsResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /comments:
+    get:
+      tags: [Comments]
+      operationId: listComments
+      summary: Stack Exchange List Comments
+      description: All comments on a site.
+      parameters:
+      - $ref: '#/components/parameters/Site'
+      - $ref: '#/components/parameters/Key'
+      - $ref: '#/components/parameters/Filter'
+      - $ref: '#/components/parameters/Page'
+      - $ref: '#/components/parameters/PageSize'
+      - $ref: '#/components/parameters/Order'
+      - $ref: '#/components/parameters/FromDate'
+      - $ref: '#/components/parameters/ToDate'
+      - name: sort
+        in: query
+        schema:
+          type: string
+          enum: [creation, votes]
+          default: creation
+      responses:
+        '200':
+          description: A page of comments.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommentsResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /comments/{ids}:
+    get:
+      tags: [Comments]
+      operationId: getCommentsByIds
+      summary: Stack Exchange Get Comments by Ids
+      description: Fetch up to 100 comments by semicolon-delimited ids.
+      parameters:
+      - $ref: '#/components/parameters/Ids'
+      - $ref: '#/components/parameters/Site'
+      - $ref: '#/components/parameters/Key'
+      - $ref: '#/components/parameters/Filter'
+      responses:
+        '200':
+          description: A page of comments.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommentsResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /users:
+    get:
+      tags: [Users]
+      operationId: listUsers
+      summary: Stack Exchange List Users
+      description: All users on a site, filterable by display-name substring (inname).
+      parameters:
+      - $ref: '#/components/parameters/Site'
+      - $ref: '#/components/parameters/Key'
+      - $ref: '#/components/parameters/Filter'
+      - $ref: '#/components/parameters/Page'
+      - $ref: '#/components/parameters/PageSize'
+      - $ref: '#/components/parameters/Order'
+      - name: inname
+        in: query
+        schema:
+          type: string
+          example: skeet
+      - name: sort
+        in: query
+        schema:
+          type: string
+          enum: [reputation, creation, name, modified]
+          default: reputation
+      responses:
+        '200':
+          description: A page of users.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UsersResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /users/{ids}:
+    get:
+      tags: [Users]
+      operationId: getUsersByIds
+      summary: Stack Exchange Get Users by Ids
+      description: Fetch up to 100 users by semicolon-delimited ids.
+      parameters:
+      - $ref: '#/components/parameters/Ids'
+      - $ref: '#/components/parameters/Site'
+      - $ref: '#/components/parameters/Key'
+      - $ref: '#/components/parameters/Filter'
+      responses:
+        '200':
+          description: A page of users.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UsersResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /users/{ids}/answers:
+    get:
+      tags: [Users]
+      operationId: listAnswersByUsers
+      summary: Stack Exchange List Answers by Users
+      description: Answers authored by the given users.
+      parameters:
+      - $ref: '#/components/parameters/Ids'
+      - $ref: '#/components/parameters/Site'
+      - $ref: '#/components/parameters/Key'
+      - $ref: '#/components/parameters/Filter'
+      - $ref: '#/components/parameters/Page'
+      - $ref: '#/components/parameters/PageSize'
+      responses:
+        '200':
+          description: A page of answers.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnswersResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /users/{ids}/questions:
+    get:
+      tags: [Users]
+      operationId: listQuestionsByUsers
+      summary: Stack Exchange List Questions by Users
+      description: Questions authored by the given users.
+      parameters:
+      - $ref: '#/components/parameters/Ids'
+      - $ref: '#/components/parameters/Site'
+      - $ref: '#/components/parameters/Key'
+      - $ref: '#/components/parameters/Filter'
+      - $ref: '#/components/parameters/Page'
+      - $ref: '#/components/parameters/PageSize'
+      responses:
+        '200':
+          description: A page of questions.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuestionsResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /users/{ids}/comments:
+    get:
+      tags: [Users]
+      operationId: listCommentsByUsers
+      summary: Stack Exchange List Comments by Users
+      description: Comments authored by the given users.
+      parameters:
+      - $ref: '#/components/parameters/Ids'
+      - $ref: '#/components/parameters/Site'
+      - $ref: '#/components/parameters/Key'
+      - $ref: '#/components/parameters/Filter'
+      - $ref: '#/components/parameters/Page'
+      - $ref: '#/components/parameters/PageSize'
+      responses:
+        '200':
+          description: A page of comments.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommentsResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /users/{ids}/badges:
+    get:
+      tags: [Users]
+      operationId: listBadgesEarnedByUsers
+      summary: Stack Exchange List Badges Earned by Users
+      description: Badges earned by the given users.
+      parameters:
+      - $ref: '#/components/parameters/Ids'
+      - $ref: '#/components/parameters/Site'
+      - $ref: '#/components/parameters/Key'
+      - $ref: '#/components/parameters/Filter'
+      - $ref: '#/components/parameters/Page'
+      - $ref: '#/components/parameters/PageSize'
+      responses:
+        '200':
+          description: A page of badges.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadgesResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /users/{ids}/tags:
+    get:
+      tags: [Users]
+      operationId: listTagsForUsers
+      summary: Stack Exchange List Tags for Users
+      description: Tags the given users have activity in.
+      parameters:
+      - $ref: '#/components/parameters/Ids'
+      - $ref: '#/components/parameters/Site'
+      - $ref: '#/components/parameters/Key'
+      - $ref: '#/components/parameters/Filter'
+      - $ref: '#/components/parameters/Page'
+      - $ref: '#/components/parameters/PageSize'
+      responses:
+        '200':
+          description: A page of tags.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TagsResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /users/{ids}/top-answer-tags:
+    get:
+      tags: [Users]
+      operationId: listTopAnswerTagsForUsers
+      summary: Stack Exchange List Top Answer Tags for Users
+      description: Top tags by answer score for the given users.
+      parameters:
+      - $ref: '#/components/parameters/Ids'
+      - $ref: '#/components/parameters/Site'
+      - $ref: '#/components/parameters/Key'
+      - $ref: '#/components/parameters/Filter'
+      responses:
+        '200':
+          description: A page of tag scores.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TagScoresResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /users/{ids}/top-question-tags:
+    get:
+      tags: [Users]
+      operationId: listTopQuestionTagsForUsers
+      summary: Stack Exchange List Top Question Tags for Users
+      description: Top tags by question score for the given users.
+      parameters:
+      - $ref: '#/components/parameters/Ids'
+      - $ref: '#/components/parameters/Site'
+      - $ref: '#/components/parameters/Key'
+      - $ref: '#/components/parameters/Filter'
+      responses:
+        '200':
+          description: A page of tag scores.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TagScoresResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /users/{ids}/reputation:
+    get:
+      tags: [Users]
+      operationId: getUsersReputationChanges
+      summary: Stack Exchange Get Users Reputation Changes
+      description: A subset of reputation changes for the given users.
+      parameters:
+      - $ref: '#/components/parameters/Ids'
+      - $ref: '#/components/parameters/Site'
+      - $ref: '#/components/parameters/Key'
+      - $ref: '#/components/parameters/Filter'
+      - $ref: '#/components/parameters/Page'
+      - $ref: '#/components/parameters/PageSize'
+      responses:
+        '200':
+          description: A page of reputation changes.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReputationResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /users/{ids}/privileges:
+    get:
+      tags: [Users]
+      operationId: listUserPrivileges
+      summary: Stack Exchange List User Privileges
+      description: Privileges available to the given users.
+      parameters:
+      - $ref: '#/components/parameters/Ids'
+      - $ref: '#/components/parameters/Site'
+      - $ref: '#/components/parameters/Key'
+      - $ref: '#/components/parameters/Filter'
+      responses:
+        '200':
+          description: A page of privileges.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PrivilegesResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /me:
+    get:
+      tags: [Me]
+      operationId: getMe
+      summary: Stack Exchange Get Me
+      description: The authenticated user.
+      security:
+      - oauth2: [private_info]
+      parameters:
+      - $ref: '#/components/parameters/Site'
+      - $ref: '#/components/parameters/AccessToken'
+      - $ref: '#/components/parameters/Key'
+      - $ref: '#/components/parameters/Filter'
+      responses:
+        '200':
+          description: The authenticated user wrapped as a single-element list.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UsersResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /me/questions:
+    get:
+      tags: [Me]
+      operationId: listMyQuestions
+      summary: Stack Exchange List My Questions
+      description: Questions authored by the authenticated user.
+      security:
+      - oauth2: [private_info]
+      parameters:
+      - $ref: '#/components/parameters/Site'
+      - $ref: '#/components/parameters/AccessToken'
+      - $ref: '#/components/parameters/Key'
+      - $ref: '#/components/parameters/Filter'
+      - $ref: '#/components/parameters/Page'
+      - $ref: '#/components/parameters/PageSize'
+      responses:
+        '200':
+          description: A page of questions.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuestionsResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /me/answers:
+    get:
+      tags: [Me]
+      operationId: listMyAnswers
+      summary: Stack Exchange List My Answers
+      description: Answers authored by the authenticated user.
+      security:
+      - oauth2: [private_info]
+      parameters:
+      - $ref: '#/components/parameters/Site'
+      - $ref: '#/components/parameters/AccessToken'
+      - $ref: '#/components/parameters/Key'
+      - $ref: '#/components/parameters/Filter'
+      - $ref: '#/components/parameters/Page'
+      - $ref: '#/components/parameters/PageSize'
+      responses:
+        '200':
+          description: A page of answers.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnswersResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /me/comments:
+    get:
+      tags: [Me]
+      operationId: listMyComments
+      summary: Stack Exchange List My Comments
+      description: Comments authored by the authenticated user.
+      security:
+      - oauth2: [private_info]
+      parameters:
+      - $ref: '#/components/parameters/Site'
+      - $ref: '#/components/parameters/AccessToken'
+      - $ref: '#/components/parameters/Key'
+      - $ref: '#/components/parameters/Filter'
+      - $ref: '#/components/parameters/Page'
+      - $ref: '#/components/parameters/PageSize'
+      responses:
+        '200':
+          description: A page of comments.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommentsResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /me/tags:
+    get:
+      tags: [Me]
+      operationId: listMyTags
+      summary: Stack Exchange List My Tags
+      description: Tags the authenticated user has activity in.
+      security:
+      - oauth2: [private_info]
+      parameters:
+      - $ref: '#/components/parameters/Site'
+      - $ref: '#/components/parameters/AccessToken'
+      - $ref: '#/components/parameters/Key'
+      - $ref: '#/components/parameters/Filter'
+      responses:
+        '200':
+          description: A page of tags.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TagsResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /me/badges:
+    get:
+      tags: [Me]
+      operationId: listMyBadges
+      summary: Stack Exchange List My Badges
+      description: Badges earned by the authenticated user.
+      security:
+      - oauth2: [private_info]
+      parameters:
+      - $ref: '#/components/parameters/Site'
+      - $ref: '#/components/parameters/AccessToken'
+      - $ref: '#/components/parameters/Key'
+      - $ref: '#/components/parameters/Filter'
+      responses:
+        '200':
+          description: A page of badges.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadgesResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /me/reputation:
+    get:
+      tags: [Me]
+      operationId: getMyReputation
+      summary: Stack Exchange Get My Reputation
+      description: Reputation changes for the authenticated user.
+      security:
+      - oauth2: [private_info]
+      parameters:
+      - $ref: '#/components/parameters/Site'
+      - $ref: '#/components/parameters/AccessToken'
+      - $ref: '#/components/parameters/Key'
+      - $ref: '#/components/parameters/Filter'
+      responses:
+        '200':
+          description: A page of reputation changes.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReputationResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /me/notifications:
+    get:
+      tags: [Me]
+      operationId: listMyNotifications
+      summary: Stack Exchange List My Notifications
+      description: Notifications for the authenticated user.
+      security:
+      - oauth2: [read_inbox, private_info]
+      parameters:
+      - $ref: '#/components/parameters/Site'
+      - $ref: '#/components/parameters/AccessToken'
+      - $ref: '#/components/parameters/Key'
+      - $ref: '#/components/parameters/Filter'
+      responses:
+        '200':
+          description: A page of notifications.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationsResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /me/notifications/unread:
+    get:
+      tags: [Me]
+      operationId: listMyUnreadNotifications
+      summary: Stack Exchange List My Unread Notifications
+      description: Unread notifications for the authenticated user.
+      security:
+      - oauth2: [read_inbox, private_info]
+      parameters:
+      - $ref: '#/components/parameters/Site'
+      - $ref: '#/components/parameters/AccessToken'
+      - $ref: '#/components/parameters/Key'
+      - $ref: '#/components/parameters/Filter'
+      responses:
+        '200':
+          description: A page of notifications.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationsResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /me/inbox:
+    get:
+      tags: [Me]
+      operationId: listMyInbox
+      summary: Stack Exchange List My Inbox
+      description: Inbox items for the authenticated user.
+      security:
+      - oauth2: [read_inbox, private_info]
+      parameters:
+      - $ref: '#/components/parameters/Site'
+      - $ref: '#/components/parameters/AccessToken'
+      - $ref: '#/components/parameters/Key'
+      - $ref: '#/components/parameters/Filter'
+      responses:
+        '200':
+          description: A page of inbox items.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InboxResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /me/inbox/unread:
+    get:
+      tags: [Me]
+      operationId: listMyUnreadInbox
+      summary: Stack Exchange List My Unread Inbox
+      description: Unread inbox items for the authenticated user.
+      security:
+      - oauth2: [read_inbox, private_info]
+      parameters:
+      - $ref: '#/components/parameters/Site'
+      - $ref: '#/components/parameters/AccessToken'
+      - $ref: '#/components/parameters/Key'
+      - $ref: '#/components/parameters/Filter'
+      responses:
+        '200':
+          description: A page of unread inbox items.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InboxResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /me/timeline:
+    get:
+      tags: [Me]
+      operationId: listMyTimeline
+      summary: Stack Exchange List My Timeline
+      description: Activity timeline for the authenticated user.
+      security:
+      - oauth2: [private_info]
+      parameters:
+      - $ref: '#/components/parameters/Site'
+      - $ref: '#/components/parameters/AccessToken'
+      - $ref: '#/components/parameters/Key'
+      - $ref: '#/components/parameters/Filter'
+      responses:
+        '200':
+          description: A page of timeline events.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventsResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /tags:
+    get:
+      tags: [Tags]
+      operationId: listTags
+      summary: Stack Exchange List Tags
+      description: All tags on a site.
+      parameters:
+      - $ref: '#/components/parameters/Site'
+      - $ref: '#/components/parameters/Key'
+      - $ref: '#/components/parameters/Filter'
+      - $ref: '#/components/parameters/Page'
+      - $ref: '#/components/parameters/PageSize'
+      - $ref: '#/components/parameters/Order'
+      - name: sort
+        in: query
+        schema:
+          type: string
+          enum: [popular, activity, name]
+          default: popular
+      - name: inname
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: A page of tags.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TagsResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /tags/synonyms:
+    get:
+      tags: [Tags]
+      operationId: listTagSynonyms
+      summary: Stack Exchange List Tag Synonyms
+      description: All tag synonyms on a site.
+      parameters:
+      - $ref: '#/components/parameters/Site'
+      - $ref: '#/components/parameters/Key'
+      - $ref: '#/components/parameters/Filter'
+      - $ref: '#/components/parameters/Page'
+      - $ref: '#/components/parameters/PageSize'
+      responses:
+        '200':
+          description: A page of tag synonyms.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TagSynonymsResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /tags/{tags}/info:
+    get:
+      tags: [Tags]
+      operationId: getTagsInfo
+      summary: Stack Exchange Get Tags Info
+      description: Metadata for the named tags.
+      parameters:
+      - name: tags
+        in: path
+        required: true
+        description: Up to 100 semicolon-delimited tag names.
+        schema:
+          type: string
+          example: openapi;rest
+      - $ref: '#/components/parameters/Site'
+      - $ref: '#/components/parameters/Key'
+      - $ref: '#/components/parameters/Filter'
+      responses:
+        '200':
+          description: A page of tag info entries.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TagsResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /tags/{tags}/top-askers/{period}:
+    get:
+      tags: [Tags]
+      operationId: listTopAskersInTags
+      summary: Stack Exchange List Top Askers in Tags
+      description: Top askers in the named tags over the chosen period.
+      parameters:
+      - name: tags
+        in: path
+        required: true
+        schema:
+          type: string
+          example: openapi
+      - name: period
+        in: path
+        required: true
+        schema:
+          type: string
+          enum: [all_time, month]
+          example: all_time
+      - $ref: '#/components/parameters/Site'
+      - $ref: '#/components/parameters/Key'
+      - $ref: '#/components/parameters/Filter'
+      responses:
+        '200':
+          description: A page of tag scores.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TagScoresResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /tags/{tags}/top-answerers/{period}:
+    get:
+      tags: [Tags]
+      operationId: listTopAnswerersInTags
+      summary: Stack Exchange List Top Answerers in Tags
+      description: Top answerers in the named tags over the chosen period.
+      parameters:
+      - name: tags
+        in: path
+        required: true
+        schema:
+          type: string
+          example: openapi
+      - name: period
+        in: path
+        required: true
+        schema:
+          type: string
+          enum: [all_time, month]
+          example: all_time
+      - $ref: '#/components/parameters/Site'
+      - $ref: '#/components/parameters/Key'
+      - $ref: '#/components/parameters/Filter'
+      responses:
+        '200':
+          description: A page of tag scores.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TagScoresResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /tags/{tags}/related:
+    get:
+      tags: [Tags]
+      operationId: listRelatedTags
+      summary: Stack Exchange List Related Tags
+      description: Tags frequently co-occurring with the named tags.
+      parameters:
+      - name: tags
+        in: path
+        required: true
+        schema:
+          type: string
+          example: openapi
+      - $ref: '#/components/parameters/Site'
+      - $ref: '#/components/parameters/Key'
+      - $ref: '#/components/parameters/Filter'
+      responses:
+        '200':
+          description: A page of tags.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TagsResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /tags/{tag}/wikis:
+    get:
+      tags: [Tags]
+      operationId: getTagWikis
+      summary: Stack Exchange Get Tag Wikis
+      description: Tag wiki content for the named tags.
+      parameters:
+      - name: tag
+        in: path
+        required: true
+        schema:
+          type: string
+          example: openapi
+      - $ref: '#/components/parameters/Site'
+      - $ref: '#/components/parameters/Key'
+      - $ref: '#/components/parameters/Filter'
+      responses:
+        '200':
+          description: A page of tag wikis.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TagsResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /badges:
+    get:
+      tags: [Badges]
+      operationId: listBadges
+      summary: Stack Exchange List Badges
+      description: All badges defined on a site.
+      parameters:
+      - $ref: '#/components/parameters/Site'
+      - $ref: '#/components/parameters/Key'
+      - $ref: '#/components/parameters/Filter'
+      - $ref: '#/components/parameters/Page'
+      - $ref: '#/components/parameters/PageSize'
+      - name: sort
+        in: query
+        schema:
+          type: string
+          enum: [rank, name, type]
+          default: rank
+      responses:
+        '200':
+          description: A page of badges.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadgesResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /badges/{ids}:
+    get:
+      tags: [Badges]
+      operationId: getBadgesByIds
+      summary: Stack Exchange Get Badges by Ids
+      description: Fetch badges by semicolon-delimited ids.
+      parameters:
+      - $ref: '#/components/parameters/Ids'
+      - $ref: '#/components/parameters/Site'
+      - $ref: '#/components/parameters/Key'
+      - $ref: '#/components/parameters/Filter'
+      responses:
+        '200':
+          description: A page of badges.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadgesResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /badges/{ids}/recipients:
+    get:
+      tags: [Badges]
+      operationId: listBadgeRecipients
+      summary: Stack Exchange List Badge Recipients
+      description: Recent recipients of the named badges.
+      parameters:
+      - $ref: '#/components/parameters/Ids'
+      - $ref: '#/components/parameters/Site'
+      - $ref: '#/components/parameters/Key'
+      - $ref: '#/components/parameters/Filter'
+      responses:
+        '200':
+          description: A page of badges with their recipients.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadgesResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /badges/name:
+    get:
+      tags: [Badges]
+      operationId: listNamedBadges
+      summary: Stack Exchange List Named Badges
+      description: All named (non-tag-based) badges.
+      parameters:
+      - $ref: '#/components/parameters/Site'
+      - $ref: '#/components/parameters/Key'
+      - $ref: '#/components/parameters/Filter'
+      - $ref: '#/components/parameters/Page'
+      - $ref: '#/components/parameters/PageSize'
+      responses:
+        '200':
+          description: A page of named badges.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadgesResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /badges/tags:
+    get:
+      tags: [Badges]
+      operationId: listTagBasedBadges
+      summary: Stack Exchange List Tag-Based Badges
+      description: All tag-based badges.
+      parameters:
+      - $ref: '#/components/parameters/Site'
+      - $ref: '#/components/parameters/Key'
+      - $ref: '#/components/parameters/Filter'
+      - $ref: '#/components/parameters/Page'
+      - $ref: '#/components/parameters/PageSize'
+      responses:
+        '200':
+          description: A page of tag-based badges.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadgesResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /sites:
+    get:
+      tags: [Sites]
+      operationId: listSites
+      summary: Stack Exchange List Sites
+      description: All Stack Exchange sites in the network.
+      parameters:
+      - $ref: '#/components/parameters/Key'
+      - $ref: '#/components/parameters/Filter'
+      - $ref: '#/components/parameters/Page'
+      - $ref: '#/components/parameters/PageSize'
+      responses:
+        '200':
+          description: A page of sites.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SitesResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /search:
+    get:
+      tags: [Search]
+      operationId: searchQuestions
+      summary: Stack Exchange Search Questions
+      description: Title-match search for questions.
+      parameters:
+      - $ref: '#/components/parameters/Site'
+      - $ref: '#/components/parameters/Key'
+      - $ref: '#/components/parameters/Filter'
+      - $ref: '#/components/parameters/Page'
+      - $ref: '#/components/parameters/PageSize'
+      - name: intitle
+        in: query
+        required: true
+        schema:
+          type: string
+          example: openapi
+      - name: tagged
+        in: query
+        schema:
+          type: string
+      - name: nottagged
+        in: query
+        schema:
+          type: string
+      - name: sort
+        in: query
+        schema:
+          type: string
+          enum: [activity, votes, creation, relevance]
+          default: activity
+      responses:
+        '200':
+          description: A page of matching questions.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuestionsResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /search/advanced:
+    get:
+      tags: [Search]
+      operationId: searchQuestionsAdvanced
+      summary: Stack Exchange Search Questions Advanced
+      description: Advanced search across question title, body, tags, and dates.
+      parameters:
+      - $ref: '#/components/parameters/Site'
+      - $ref: '#/components/parameters/Key'
+      - $ref: '#/components/parameters/Filter'
+      - $ref: '#/components/parameters/Page'
+      - $ref: '#/components/parameters/PageSize'
+      - name: q
+        in: query
+        schema:
+          type: string
+          example: openapi specification
+      - name: title
+        in: query
+        schema:
+          type: string
+      - name: body
+        in: query
+        schema:
+          type: string
+      - name: tagged
+        in: query
+        schema:
+          type: string
+      - name: nottagged
+        in: query
+        schema:
+          type: string
+      - name: accepted
+        in: query
+        schema:
+          type: boolean
+      - name: answers
+        in: query
+        schema:
+          type: integer
+      - name: closed
+        in: query
+        schema:
+          type: boolean
+      - name: migrated
+        in: query
+        schema:
+          type: boolean
+      - name: notice
+        in: query
+        schema:
+          type: boolean
+      - name: views
+        in: query
+        schema:
+          type: integer
+      - name: sort
+        in: query
+        schema:
+          type: string
+          enum: [activity, votes, creation, relevance]
+          default: activity
+      responses:
+        '200':
+          description: A page of matching questions.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuestionsResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /search/excerpts:
+    get:
+      tags: [Search]
+      operationId: searchExcerpts
+      summary: Stack Exchange Search Excerpts
+      description: Full-text excerpt search across questions and answers.
+      parameters:
+      - $ref: '#/components/parameters/Site'
+      - $ref: '#/components/parameters/Key'
+      - $ref: '#/components/parameters/Filter'
+      - $ref: '#/components/parameters/Page'
+      - $ref: '#/components/parameters/PageSize'
+      - name: q
+        in: query
+        schema:
+          type: string
+          example: openapi specification
+      - name: tagged
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: A page of search excerpts.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuestionsResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /similar:
+    get:
+      tags: [Search]
+      operationId: findSimilarQuestions
+      summary: Stack Exchange Find Similar Questions
+      description: Find questions similar to a candidate title.
+      parameters:
+      - $ref: '#/components/parameters/Site'
+      - $ref: '#/components/parameters/Key'
+      - $ref: '#/components/parameters/Filter'
+      - $ref: '#/components/parameters/Page'
+      - $ref: '#/components/parameters/PageSize'
+      - name: title
+        in: query
+        required: true
+        schema:
+          type: string
+          example: How do I parse JSON in Python?
+      - name: tagged
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: A page of similar questions.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuestionsResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /posts:
+    get:
+      tags: [Posts]
+      operationId: listPosts
+      summary: Stack Exchange List Posts
+      description: All posts (questions and answers) on a site.
+      parameters:
+      - $ref: '#/components/parameters/Site'
+      - $ref: '#/components/parameters/Key'
+      - $ref: '#/components/parameters/Filter'
+      - $ref: '#/components/parameters/Page'
+      - $ref: '#/components/parameters/PageSize'
+      responses:
+        '200':
+          description: A page of posts.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PostsResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /posts/{ids}:
+    get:
+      tags: [Posts]
+      operationId: getPostsByIds
+      summary: Stack Exchange Get Posts by Ids
+      description: Fetch up to 100 posts by semicolon-delimited ids.
+      parameters:
+      - $ref: '#/components/parameters/Ids'
+      - $ref: '#/components/parameters/Site'
+      - $ref: '#/components/parameters/Key'
+      - $ref: '#/components/parameters/Filter'
+      responses:
+        '200':
+          description: A page of posts.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PostsResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /posts/{ids}/comments:
+    get:
+      tags: [Posts]
+      operationId: listCommentsOnPosts
+      summary: Stack Exchange List Comments on Posts
+      description: Comments on the given posts.
+      parameters:
+      - $ref: '#/components/parameters/Ids'
+      - $ref: '#/components/parameters/Site'
+      - $ref: '#/components/parameters/Key'
+      - $ref: '#/components/parameters/Filter'
+      - $ref: '#/components/parameters/Page'
+      - $ref: '#/components/parameters/PageSize'
+      responses:
+        '200':
+          description: A page of comments.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommentsResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /posts/{ids}/revisions:
+    get:
+      tags: [Posts]
+      operationId: listPostsRevisions
+      summary: Stack Exchange List Posts Revisions
+      description: Revision history for the given posts.
+      parameters:
+      - $ref: '#/components/parameters/Ids'
+      - $ref: '#/components/parameters/Site'
+      - $ref: '#/components/parameters/Key'
+      - $ref: '#/components/parameters/Filter'
+      responses:
+        '200':
+          description: A page of revisions.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RevisionsResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /posts/{ids}/suggested-edits:
+    get:
+      tags: [Posts]
+      operationId: listPostsSuggestedEdits
+      summary: Stack Exchange List Posts Suggested Edits
+      description: Suggested edits for the given posts.
+      parameters:
+      - $ref: '#/components/parameters/Ids'
+      - $ref: '#/components/parameters/Site'
+      - $ref: '#/components/parameters/Key'
+      - $ref: '#/components/parameters/Filter'
+      responses:
+        '200':
+          description: A page of suggested edits.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuggestedEditsResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /revisions/{ids}:
+    get:
+      tags: [Revisions]
+      operationId: getRevisionsByGuids
+      summary: Stack Exchange Get Revisions by GUIDs
+      description: Fetch revisions by GUID.
+      parameters:
+      - name: ids
+        in: path
+        required: true
+        description: Up to 100 semicolon-delimited revision GUIDs.
+        schema:
+          type: string
+          example: 11227809-aaaa-bbbb-cccc-1234567890ab
+      - $ref: '#/components/parameters/Site'
+      - $ref: '#/components/parameters/Key'
+      - $ref: '#/components/parameters/Filter'
+      responses:
+        '200':
+          description: A page of revisions.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RevisionsResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /suggested-edits:
+    get:
+      tags: [Suggested Edits]
+      operationId: listSuggestedEdits
+      summary: Stack Exchange List Suggested Edits
+      description: All suggested edits across the site.
+      parameters:
+      - $ref: '#/components/parameters/Site'
+      - $ref: '#/components/parameters/Key'
+      - $ref: '#/components/parameters/Filter'
+      - $ref: '#/components/parameters/Page'
+      - $ref: '#/components/parameters/PageSize'
+      responses:
+        '200':
+          description: A page of suggested edits.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuggestedEditsResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /suggested-edits/{ids}:
+    get:
+      tags: [Suggested Edits]
+      operationId: getSuggestedEditsByIds
+      summary: Stack Exchange Get Suggested Edits by Ids
+      description: Fetch suggested edits by semicolon-delimited ids.
+      parameters:
+      - $ref: '#/components/parameters/Ids'
+      - $ref: '#/components/parameters/Site'
+      - $ref: '#/components/parameters/Key'
+      - $ref: '#/components/parameters/Filter'
+      responses:
+        '200':
+          description: A page of suggested edits.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuggestedEditsResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /events:
+    get:
+      tags: [Events]
+      operationId: listEvents
+      summary: Stack Exchange List Events
+      description: |
+        Recent network events (last ~15 seconds) for the authenticated user.
+        Requires authentication.
+      security:
+      - oauth2: [no_expiry]
+      parameters:
+      - $ref: '#/components/parameters/Site'
+      - $ref: '#/components/parameters/AccessToken'
+      - $ref: '#/components/parameters/Key'
+      - $ref: '#/components/parameters/Filter'
+      - name: since
+        in: query
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: A page of events.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventsResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /info:
+    get:
+      tags: [Info]
+      operationId: getSiteInfo
+      summary: Stack Exchange Get Site Info
+      description: Aggregate site totals and metadata.
+      parameters:
+      - $ref: '#/components/parameters/Site'
+      - $ref: '#/components/parameters/Key'
+      - $ref: '#/components/parameters/Filter'
+      responses:
+        '200':
+          description: A single-element list of site info.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InfoResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /access-tokens/{accessTokens}/invalidate:
+    get:
+      tags: [Access Tokens]
+      operationId: invalidateAccessTokens
+      summary: Stack Exchange Invalidate Access Tokens
+      description: Invalidate the given access tokens. Requires the app's `key`.
+      parameters:
+      - name: accessTokens
+        in: path
+        required: true
+        description: Up to 100 semicolon-delimited access tokens to invalidate.
+        schema:
+          type: string
+      - $ref: '#/components/parameters/Key'
+      - $ref: '#/components/parameters/Filter'
+      responses:
+        '200':
+          description: A page of access tokens with their invalidation status.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessTokensResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /access-tokens/{accessTokens}/read:
+    get:
+      tags: [Access Tokens]
+      operationId: readAccessTokens
+      summary: Stack Exchange Read Access Tokens
+      description: Inspect the given access tokens (scopes, expiry, account id).
+      parameters:
+      - name: accessTokens
+        in: path
+        required: true
+        description: Up to 100 semicolon-delimited access tokens to inspect.
+        schema:
+          type: string
+      - $ref: '#/components/parameters/Key'
+      - $ref: '#/components/parameters/Filter'
+      responses:
+        '200':
+          description: A page of access tokens.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessTokensResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /apps/{accessTokens}/de-authenticate:
+    get:
+      tags: [Access Tokens]
+      operationId: deauthenticateApp
+      summary: Stack Exchange De-Authenticate App
+      description: De-authenticate the named app for the holder(s) of the given access tokens.
+      parameters:
+      - name: accessTokens
+        in: path
+        required: true
+        schema:
+          type: string
+      - $ref: '#/components/parameters/Key'
+      - $ref: '#/components/parameters/Filter'
+      responses:
+        '200':
+          description: A page of access tokens.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessTokensResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /filters/create:
+    get:
+      tags: [Filters]
+      operationId: createFilter
+      summary: Stack Exchange Create Filter
+      description: Create a custom response filter.
+      parameters:
+      - name: include
+        in: query
+        schema:
+          type: string
+          example: question.body;question.body_markdown
+      - name: exclude
+        in: query
+        schema:
+          type: string
+      - name: base
+        in: query
+        schema:
+          type: string
+          enum: [default, none, withbody, total]
+          default: default
+      - name: unsafe
+        in: query
+        schema:
+          type: boolean
+          default: false
+      - $ref: '#/components/parameters/Key'
+      responses:
+        '200':
+          description: A single-element list with the new filter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FiltersResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /filters/{filters}:
+    get:
+      tags: [Filters]
+      operationId: getFiltersByIds
+      summary: Stack Exchange Get Filters by Ids
+      description: Inspect existing filters.
+      parameters:
+      - name: filters
+        in: path
+        required: true
+        description: Up to 20 semicolon-delimited filter ids.
+        schema:
+          type: string
+      - $ref: '#/components/parameters/Key'
+      responses:
+        '200':
+          description: A page of filters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FiltersResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
