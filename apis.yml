@@ -56,52 +56,52 @@ apis:
         url: https://api.stackexchange.com/docs
       - type: OpenAPI
         url: openapi/stackexchange-api-v2-3.yaml
-      - type: SignUp
+      - type: Signup
         url: https://stackapps.com/apps/oauth/register
       - type: Authentication
         url: https://api.stackexchange.com/docs/authentication
       - type: TermsOfService
         url: https://stackoverflow.com/legal/api-terms-of-use
-      - type: Throttling
+      - type: RateLimits
         url: https://api.stackexchange.com/docs/throttle
       - type: Filters
         url: https://api.stackexchange.com/docs/filters
       - type: ChangeLog
         url: https://api.stackexchange.com/docs/revisions
-      - type: SDK
+      - type: SDKs
         url: https://github.com/StackExchange/StacMan
         title: .NET (StacMan)
-      - type: NaftikoCapability
+      - type: X-NaftikoCapability
         url: capabilities/stack-exchange-questions.yaml
-      - type: NaftikoCapability
+      - type: X-NaftikoCapability
         url: capabilities/stack-exchange-answers.yaml
-      - type: NaftikoCapability
+      - type: X-NaftikoCapability
         url: capabilities/stack-exchange-comments.yaml
-      - type: NaftikoCapability
+      - type: X-NaftikoCapability
         url: capabilities/stack-exchange-users.yaml
-      - type: NaftikoCapability
+      - type: X-NaftikoCapability
         url: capabilities/stack-exchange-me.yaml
-      - type: NaftikoCapability
+      - type: X-NaftikoCapability
         url: capabilities/stack-exchange-tags.yaml
-      - type: NaftikoCapability
+      - type: X-NaftikoCapability
         url: capabilities/stack-exchange-badges.yaml
-      - type: NaftikoCapability
+      - type: X-NaftikoCapability
         url: capabilities/stack-exchange-sites.yaml
-      - type: NaftikoCapability
+      - type: X-NaftikoCapability
         url: capabilities/stack-exchange-search.yaml
-      - type: NaftikoCapability
+      - type: X-NaftikoCapability
         url: capabilities/stack-exchange-posts.yaml
-      - type: NaftikoCapability
+      - type: X-NaftikoCapability
         url: capabilities/stack-exchange-revisions.yaml
-      - type: NaftikoCapability
+      - type: X-NaftikoCapability
         url: capabilities/stack-exchange-suggested-edits.yaml
-      - type: NaftikoCapability
+      - type: X-NaftikoCapability
         url: capabilities/stack-exchange-events.yaml
-      - type: NaftikoCapability
+      - type: X-NaftikoCapability
         url: capabilities/stack-exchange-info.yaml
-      - type: NaftikoCapability
+      - type: X-NaftikoCapability
         url: capabilities/stack-exchange-access-tokens.yaml
-      - type: NaftikoCapability
+      - type: X-NaftikoCapability
         url: capabilities/stack-exchange-filters.yaml
   - name: Stack Overflow for Teams API v3
     description: >-
@@ -120,10 +120,10 @@ apis:
     properties:
       - type: Documentation
         url: https://stackoverflowteams.help/en/articles/9085836-api-v3-overview
-      - type: SDK
+      - type: SDKs
         url: https://www.npmjs.com/package/@stackoverflow/teams-sdk
         title: TypeScript SDK
-      - type: SDK
+      - type: SDKs
         url: https://github.com/StackExchange/StackOverflowSDK
         title: TypeScript SDK Source
       - type: Tools

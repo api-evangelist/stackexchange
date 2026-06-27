@@ -2,11 +2,11 @@
   "repo": "stackexchange",
   "feeds": [
     {
-      "source": "https://stackoverflow.blog/",
+      "source": "https://stackoverflow.blog/feed/",
       "feed_url": "https://stackoverflow.blog/feed/",
       "title": "",
-      "saved": 7,
-      "method": "discovered"
+      "saved": 5,
+      "method": "feed"
     },
     {
       "source": "https://github.com/StackExchange",
@@ -16,6 +16,6 @@
       "method": "none"
     }
   ],
-  "post_count": 7,
-  "fetched": "2026-06-14T20:42:17Z"
+  "post_count": 18,
+  "fetched": "2026-06-27T12:03:07Z"
 }
