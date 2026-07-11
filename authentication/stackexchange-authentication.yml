@@ -1,0 +1,35 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/stackexchange-api-v2-3.yaml
+summary:
+  types:
+  - apiKey
+  - oauth2
+  api_key_in:
+  - query
+  oauth2_flows:
+  - authorizationCode
+schemes:
+- name: oauth2
+  type: oauth2
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://stackoverflow.com/oauth
+    tokenUrl: https://stackoverflow.com/oauth/access_token
+    scopes: 4
+  description: |-
+    OAuth 2.0 explicit or implicit flow. Apps register on stackapps.com.
+    Read methods do not require auth; write methods require `write_access`.
+    `private_info` is needed for /me/notifications, /me/inbox, and similar
+    private surfaces. `no_expiry` issues tokens that never expire.
+  sources:
+  - openapi/stackexchange-api-v2-3.yaml
+- name: apiKey
+  type: apiKey
+  in: query
+  parameter: key
+  description: |-
+    Optional app key. Sending a key raises the daily quota from 300 to 10,000
+    requests per IP and is the recommended default for any non-trivial client.
+  sources:
+  - openapi/stackexchange-api-v2-3.yaml
