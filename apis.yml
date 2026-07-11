@@ -136,6 +136,10 @@ apis:
         url: https://github.com/StackExchange/langchain-stack-overflow-for-teams
         title: LangChain Integration
 common:
+  - type: Authentication
+    url: authentication/stackexchange-authentication.yml
+  - type: OAuthScopes
+    url: scopes/stackexchange-scopes.yml
   - type: Website
     url: https://stackexchange.com/
   - type: Documentation

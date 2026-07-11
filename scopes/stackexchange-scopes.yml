@@ -1,0 +1,40 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/stackexchange-api-v2-3.yaml
+schemes:
+- name: oauth2
+  source: openapi/stackexchange-api-v2-3.yaml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://stackoverflow.com/oauth
+    tokenUrl: https://stackoverflow.com/oauth/access_token
+  description: |-
+    OAuth 2.0 explicit or implicit flow. Apps register on stackapps.com.
+    Read methods do not require auth; write methods require `write_access`.
+    `private_info` is needed for /me/notifications, /me/inbox, and similar
+    private surfaces. `no_expiry` issues tokens that never expire.
+scopes:
+- scope: no_expiry
+  description: Issue a token that never expires.
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/stackexchange-api-v2-3.yaml
+- scope: private_info
+  description: Access endpoints that return personal information.
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/stackexchange-api-v2-3.yaml
+- scope: read_inbox
+  description: Access the authenticated user's inbox.
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/stackexchange-api-v2-3.yaml
+- scope: write_access
+  description: Vote, post, comment, flag, accept on the user's behalf.
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/stackexchange-api-v2-3.yaml
