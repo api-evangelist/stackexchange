@@ -1,52 +1,53 @@
-# Spectral ruleset for the Stack Exchange API (api.stackexchange.com v2.3).
+# stackexchange — Spectral ruleset (strengthened)
+# Plain Spectral. Existing hand-authored rules preserved; measured rules added
+# from this provider's own OpenAPI conventions by strengthen_ruleset.py,
+# then self-validated against the spec.
 #
-# These rules codify the conventions actually used by the public Stack Exchange
-# API: single base URL, lowercase resource paths, snake_case schema fields,
-# camelCase operationIds with verb prefixes, mandatory `site` query parameter
-# on every per-site method, and the universal Wrapper envelope.
-#
-# Pair with: openapi/stackexchange-api-v2-3.yaml
-extends: [[spectral:oas, recommended]]
-
+# Provenance:
+#   - servers-https-only: 100% of servers already https (error)
+#   - servers-expected-domain: 1/1 servers on stackexchange.com
+#   - path-params-casing: snake @ 92% (n=38)
+#   - query-params-casing: snake @ 100% (n=328)
+#   - operationid-casing: camel @ 100% (n=70)
+#   - schema-names-casing: pascal @ 100% (n=43)
+#   - schema-properties-casing: snake @ 100% (n=228)
+#   - security: global (root) — NOT emitting operation-security-required
+#   - pagination params observed: ['page']
+#   - merge: kept 44 existing, added 4 measured, upgraded 0
+#   - added: servers-expected-domain, query-params-casing, schema-names-casing, schema-properties-casing
+extends:
+  - spectral:oas
 rules:
-
-  # ────────────────────────────────────────────────────────────────────
-  # INFO / METADATA
-  # ────────────────────────────────────────────────────────────────────
-
   info-title-stack-exchange:
     description: info.title must start with "Stack Exchange".
-    message: "info.title should start with 'Stack Exchange' (was: {{value}})."
+    message: 'info.title should start with ''Stack Exchange'' (was: {{value}}).'
     severity: error
     given: $.info.title
     then:
       function: pattern
       functionOptions:
-        match: "^Stack Exchange"
-
+        match: ^Stack Exchange
   info-description-required:
     description: info.description is required and must be at least 60 characters.
-    message: "info.description must be present and ≥ 60 characters."
+    message: info.description must be present and ≥ 60 characters.
     severity: error
     given: $.info
     then:
-      - field: description
-        function: truthy
-      - field: description
-        function: length
-        functionOptions:
-          min: 60
-
+    - field: description
+      function: truthy
+    - field: description
+      function: length
+      functionOptions:
+        min: 60
   info-version-required:
     description: info.version must follow Stack Exchange API versioning (2.x).
-    message: "info.version must be of the form '2.x' (was: {{value}})."
+    message: 'info.version must be of the form ''2.x'' (was: {{value}}).'
     severity: error
     given: $.info.version
     then:
       function: pattern
       functionOptions:
-        match: "^2\\.[0-9]+$"
-
+        match: ^2\.[0-9]+$
   info-terms-of-service-required:
     description: Stack Exchange API specs must reference the API Terms of Use.
     severity: warn
@@ -54,7 +55,6 @@ rules:
     then:
       field: termsOfService
       function: truthy
-
   info-contact-url-required:
     description: info.contact.url must point to api.stackexchange.com.
     severity: warn
@@ -63,12 +63,7 @@ rules:
       field: url
       function: pattern
       functionOptions:
-        match: "stackexchange\\.com"
-
-  # ────────────────────────────────────────────────────────────────────
-  # OPENAPI VERSION
-  # ────────────────────────────────────────────────────────────────────
-
+        match: stackexchange\.com
   openapi-version-3:
     description: Only OpenAPI 3.0.x is supported for Stack Exchange specs.
     severity: error
@@ -76,12 +71,7 @@ rules:
     then:
       function: pattern
       functionOptions:
-        match: "^3\\.0\\."
-
-  # ────────────────────────────────────────────────────────────────────
-  # SERVERS
-  # ────────────────────────────────────────────────────────────────────
-
+        match: ^3\.0\.
   servers-defined:
     description: servers array must be present with at least one entry.
     severity: error
@@ -93,7 +83,6 @@ rules:
         schema:
           type: array
           minItems: 1
-
   servers-must-be-stackexchange-https:
     description: Server URL must be https://api.stackexchange.com/{version}.
     severity: error
@@ -101,8 +90,7 @@ rules:
     then:
       function: pattern
       functionOptions:
-        match: "^https://api\\.stackexchange\\.com/2\\.[0-9]+$"
-
+        match: ^https://api\.stackexchange\.com/2\.[0-9]+$
   servers-have-descriptions:
     description: Each server entry should have a description.
     severity: warn
@@ -110,22 +98,16 @@ rules:
     then:
       field: description
       function: truthy
-
-  # ────────────────────────────────────────────────────────────────────
-  # PATHS — NAMING CONVENTIONS
-  # ────────────────────────────────────────────────────────────────────
-
   paths-lowercase-kebab:
     description: Path segments must be lowercase with kebab-case for multi-word resources.
-    message: "Path '{{path}}' contains uppercase or non-kebab-case segments."
+    message: Path '{{path}}' contains uppercase or non-kebab-case segments.
     severity: warn
     given: $.paths
     then:
       function: pattern
       functionOptions:
-        match: "^/[a-z0-9{}/-]*$"
-      field: "@key"
-
+        match: ^/[a-z0-9{}/-]*$
+      field: '@key'
   paths-no-trailing-slash:
     description: Paths must not end with a trailing slash.
     severity: error
@@ -133,9 +115,8 @@ rules:
     then:
       function: pattern
       functionOptions:
-        notMatch: ".+/$"
-      field: "@key"
-
+        notMatch: .+/$
+      field: '@key'
   paths-no-query-strings:
     description: Paths must not contain query strings; use parameters instead.
     severity: error
@@ -143,9 +124,8 @@ rules:
     then:
       function: pattern
       functionOptions:
-        notMatch: "\\?"
-      field: "@key"
-
+        notMatch: \?
+      field: '@key'
   paths-camelcase-path-params:
     description: Path parameter placeholders should use camelCase (e.g. {ids}, {accessTokens}).
     severity: warn
@@ -153,23 +133,18 @@ rules:
     then:
       function: pattern
       functionOptions:
-        match: "^(/[a-z0-9-]+(/\\{[a-z][a-zA-Z0-9]*\\})?)*$"
-      field: "@key"
-
+        match: ^(/[a-z0-9-]+(/\{[a-z][a-zA-Z0-9]*\})?)*$
+      field: '@key'
   paths-known-collections-plural:
-    description: Stack Exchange root collections (questions, answers, comments, users, tags, badges, sites, posts, revisions, suggested-edits, events, filters, notifications) are plural nouns.
+    description: Stack Exchange root collections (questions, answers, comments, users, tags, badges, sites,
+      posts, revisions, suggested-edits, events, filters, notifications) are plural nouns.
     severity: info
     given: $.paths
     then:
       function: pattern
       functionOptions:
-        match: "^/(questions|answers|comments|users|tags|badges|sites|posts|revisions|suggested-edits|events|filters|notifications|inbox|search|search/(advanced|excerpts)|similar|info|me|me/.*|access-tokens/.*|apps/.*|/.*)"
-      field: "@key"
-
-  # ────────────────────────────────────────────────────────────────────
-  # OPERATIONS
-  # ────────────────────────────────────────────────────────────────────
-
+        match: ^/(questions|answers|comments|users|tags|badges|sites|posts|revisions|suggested-edits|events|filters|notifications|inbox|search|search/(advanced|excerpts)|similar|info|me|me/.*|access-tokens/.*|apps/.*|/.*)
+      field: '@key'
   operation-summary-required:
     description: Every operation must have a summary.
     severity: error
@@ -177,17 +152,15 @@ rules:
     then:
       field: summary
       function: truthy
-
   operation-summary-stack-exchange-prefix:
     description: Operation summaries must begin with the company name "Stack Exchange".
-    message: "Operation summary should begin with 'Stack Exchange' (was: {{value}})."
+    message: 'Operation summary should begin with ''Stack Exchange'' (was: {{value}}).'
     severity: warn
     given: $.paths[*][get,post,put,patch,delete].summary
     then:
       function: pattern
       functionOptions:
-        match: "^Stack Exchange "
-
+        match: '^Stack Exchange '
   operation-description-required:
     description: Every operation must have a description.
     severity: warn
@@ -195,7 +168,6 @@ rules:
     then:
       field: description
       function: truthy
-
   operation-id-required:
     description: Every operation must have an operationId.
     severity: error
@@ -203,7 +175,6 @@ rules:
     then:
       field: operationId
       function: truthy
-
   operation-id-camelcase:
     description: operationId must be camelCase.
     severity: warn
@@ -211,17 +182,16 @@ rules:
     then:
       function: pattern
       functionOptions:
-        match: "^[a-z][a-zA-Z0-9]*$"
-
+        match: ^[a-z][a-zA-Z0-9]*$
   operation-id-verb-prefix:
-    description: operationId should start with a known REST verb (list, get, search, find, create, update, delete, invalidate, read, deauthenticate).
+    description: operationId should start with a known REST verb (list, get, search, find, create, update,
+      delete, invalidate, read, deauthenticate).
     severity: warn
     given: $.paths[*][get,post,put,patch,delete].operationId
     then:
       function: pattern
       functionOptions:
-        match: "^(list|get|search|find|create|update|delete|invalidate|read|deauthenticate)[A-Z]"
-
+        match: ^(list|get|search|find|create|update|delete|invalidate|read|deauthenticate)[A-Z]
   operation-tags-required:
     description: Every operation must be tagged with at least one tag.
     severity: error
@@ -233,7 +203,6 @@ rules:
         schema:
           type: array
           minItems: 1
-
   operation-microcks-extension:
     description: Each operation should declare an x-microcks-operation block.
     severity: info
@@ -241,11 +210,6 @@ rules:
     then:
       field: x-microcks-operation
       function: truthy
-
-  # ────────────────────────────────────────────────────────────────────
-  # TAGS
-  # ────────────────────────────────────────────────────────────────────
-
   tags-global-defined:
     description: Global tags array must be present with entries.
     severity: warn
@@ -257,7 +221,6 @@ rules:
         schema:
           type: array
           minItems: 1
-
   tag-name-title-case:
     description: Tag names use Title Case (e.g. "Suggested Edits", "Access Tokens").
     severity: warn
@@ -265,8 +228,7 @@ rules:
     then:
       function: pattern
       functionOptions:
-        match: "^[A-Z][A-Za-z0-9]*( [A-Z][A-Za-z0-9]*)*$"
-
+        match: ^[A-Z][A-Za-z0-9]*( [A-Z][A-Za-z0-9]*)*$
   tag-description-required:
     description: Each tag should have a description.
     severity: info
@@ -274,11 +236,6 @@ rules:
     then:
       field: description
       function: truthy
-
-  # ────────────────────────────────────────────────────────────────────
-  # PARAMETERS
-  # ────────────────────────────────────────────────────────────────────
-
   parameter-description-required:
     description: Every reusable parameter must have a description.
     severity: warn
@@ -286,7 +243,6 @@ rules:
     then:
       field: description
       function: truthy
-
   parameter-snake-case-names:
     description: Query parameter names use snake_case (or single lowercase word).
     severity: warn
@@ -294,8 +250,7 @@ rules:
     then:
       function: pattern
       functionOptions:
-        match: "^[a-z][a-z0-9_]*$"
-
+        match: ^[a-z][a-z0-9_]*$
   parameter-pagination-canonical:
     description: Pagination uses `page` (1-indexed) and `pagesize` (max 100).
     severity: warn
@@ -304,33 +259,29 @@ rules:
       field: in
       function: enumeration
       functionOptions:
-        values: [query]
-
+        values:
+        - query
   parameter-site-required-on-per-site-methods:
     description: Per-site methods must declare the `site` query parameter as required.
     severity: warn
     given: $.paths[*][get].parameters[?(@.name=='site' || @.$ref=='#/components/parameters/Site')]
     then:
       function: truthy
-
   parameter-api-key-in-query:
     description: API key is exchanged via the `key` query parameter (per Stack Exchange convention).
     severity: info
     given: $.components.securitySchemes.apiKey
     then:
-      - field: in
-        function: enumeration
-        functionOptions:
-          values: [query]
-      - field: name
-        function: enumeration
-        functionOptions:
-          values: [key]
-
-  # ────────────────────────────────────────────────────────────────────
-  # RESPONSES
-  # ────────────────────────────────────────────────────────────────────
-
+    - field: in
+      function: enumeration
+      functionOptions:
+        values:
+        - query
+    - field: name
+      function: enumeration
+      functionOptions:
+        values:
+        - key
   response-success-required:
     description: Every operation must declare a 2xx response.
     severity: error
@@ -341,9 +292,8 @@ rules:
         schema:
           type: object
           patternProperties:
-            "^2[0-9]{2}$": {}
+            ^2[0-9]{2}$: {}
           minProperties: 1
-
   response-json-content:
     description: Success responses must include application/json content.
     severity: warn
@@ -351,7 +301,6 @@ rules:
     then:
       field: content.application/json
       function: truthy
-
   response-schema-references-wrapper:
     description: Every success response schema should be (or extend) the Wrapper envelope.
     severity: info
@@ -359,8 +308,7 @@ rules:
     then:
       function: pattern
       functionOptions:
-        match: "#/components/schemas/[A-Z][A-Za-z]+Response$"
-
+        match: '#/components/schemas/[A-Z][A-Za-z]+Response$'
   response-description-required:
     description: Every response must have a description.
     severity: error
@@ -368,11 +316,6 @@ rules:
     then:
       field: description
       function: truthy
-
-  # ────────────────────────────────────────────────────────────────────
-  # SCHEMAS — PROPERTY NAMING
-  # ────────────────────────────────────────────────────────────────────
-
   schema-property-snake-case:
     description: Schema properties use snake_case (Stack Exchange wire convention).
     severity: warn
@@ -380,8 +323,7 @@ rules:
     then:
       function: pattern
       functionOptions:
-        match: "^[a-z][a-z0-9_]*$"
-
+        match: ^[a-z][a-z0-9_]*$
   schema-wrapper-fields-present:
     description: The Wrapper schema must define has_more, quota_max, and quota_remaining.
     severity: error
@@ -391,8 +333,10 @@ rules:
       functionOptions:
         schema:
           type: object
-          required: [has_more, quota_max, quota_remaining]
-
+          required:
+          - has_more
+          - quota_max
+          - quota_remaining
   schema-timestamps-int64:
     description: Stack Exchange timestamps are Unix epoch seconds stored as int64.
     severity: info
@@ -405,7 +349,6 @@ rules:
           properties:
             type:
               const: integer
-
   schema-types-defined:
     description: Every component schema must declare a type (object/array/string/...).
     severity: warn
@@ -413,11 +356,6 @@ rules:
     then:
       field: type
       function: truthy
-
-  # ────────────────────────────────────────────────────────────────────
-  # SECURITY
-  # ────────────────────────────────────────────────────────────────────
-
   security-schemes-defined:
     description: securitySchemes must declare oauth2 (write/private) and apiKey (quota).
     severity: error
@@ -427,22 +365,22 @@ rules:
       functionOptions:
         schema:
           type: object
-          required: [oauth2, apiKey]
-
+          required:
+          - oauth2
+          - apiKey
   security-oauth2-stackexchange-endpoints:
     description: OAuth2 endpoints must point to stackoverflow.com.
     severity: error
     given: $.components.securitySchemes.oauth2.flows.authorizationCode
     then:
-      - field: authorizationUrl
-        function: pattern
-        functionOptions:
-          match: "^https://stackoverflow\\.com/oauth$"
-      - field: tokenUrl
-        function: pattern
-        functionOptions:
-          match: "^https://stackoverflow\\.com/oauth/access_token$"
-
+    - field: authorizationUrl
+      function: pattern
+      functionOptions:
+        match: ^https://stackoverflow\.com/oauth$
+    - field: tokenUrl
+      function: pattern
+      functionOptions:
+        match: ^https://stackoverflow\.com/oauth/access_token$
   security-oauth2-known-scopes:
     description: Only Stack Exchange OAuth scopes are allowed (read_inbox, no_expiry, write_access, private_info).
     severity: warn
@@ -454,15 +392,14 @@ rules:
           type: object
           additionalProperties: false
           properties:
-            read_inbox: { type: string }
-            no_expiry: { type: string }
-            write_access: { type: string }
-            private_info: { type: string }
-
-  # ────────────────────────────────────────────────────────────────────
-  # HTTP METHOD CONVENTIONS
-  # ────────────────────────────────────────────────────────────────────
-
+            read_inbox:
+              type: string
+            no_expiry:
+              type: string
+            write_access:
+              type: string
+            private_info:
+              type: string
   http-methods-read-mostly:
     description: Stack Exchange v2.3 is read-mostly — GET is the dominant verb.
     severity: info
@@ -475,18 +412,12 @@ rules:
           properties:
             get: {}
           minProperties: 1
-
-  # ────────────────────────────────────────────────────────────────────
-  # GENERAL QUALITY
-  # ────────────────────────────────────────────────────────────────────
-
   no-empty-descriptions:
     description: Descriptions must not be empty strings.
     severity: warn
     given: $..description
     then:
       function: truthy
-
   examples-encouraged:
     description: Schema properties should have example values for documentation and mocking.
     severity: info
@@ -494,3 +425,38 @@ rules:
     then:
       field: example
       function: truthy
+  servers-expected-domain:
+    description: Server URLs should be on the stackexchange.com domain.
+    severity: warn
+    given: $.servers[*].url
+    then:
+      function: pattern
+      functionOptions:
+        match: stackexchange\.com
+  query-params-casing:
+    description: Query parameters should be snake_case (the dominant convention in this API).
+    severity: warn
+    given: $.paths[*][get,post,put,patch,delete].parameters[?(@.in=='query')]
+    then:
+      field: name
+      function: casing
+      functionOptions:
+        type: snake
+  schema-names-casing:
+    description: Component schema names should be PascalCase (the dominant convention in this API).
+    severity: warn
+    given: $.components.schemas
+    then:
+      field: '@key'
+      function: casing
+      functionOptions:
+        type: pascal
+  schema-properties-casing:
+    description: Schema properties should be snake_case (the dominant convention in this API).
+    severity: warn
+    given: $.components.schemas[*].properties
+    then:
+      field: '@key'
+      function: casing
+      functionOptions:
+        type: snake
