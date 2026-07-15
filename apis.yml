@@ -136,6 +136,8 @@ apis:
         url: https://github.com/StackExchange/langchain-stack-overflow-for-teams
         title: LangChain Integration
 common:
+  - type: AgenticAccess
+    url: agentic-access/stackexchange-agentic-access.yml
   - type: DomainSecurity
     url: security/stackexchange-domain-security.yml
   - type: Authentication
