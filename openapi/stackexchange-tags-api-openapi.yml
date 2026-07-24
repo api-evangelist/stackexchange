@@ -1,0 +1,510 @@
+openapi: 3.0.3
+info:
+  title: Stack Exchange Access Tokens Tags API
+  description: 'Public, read-mostly HTTP/JSON API spanning all 180+ Stack Exchange sites
+
+    (Stack Overflow, Server Fault, Super User, Ask Ubuntu, Stats, Math Overflow, ...).
+
+
+    All method families live under a single base URL with a uniform wrapper
+
+    (`items`, `has_more`, `page`, `quota_max`, `quota_remaining`, `backoff`).
+
+    Read access is unauthenticated. Write methods require OAuth 2.0 with the
+
+    appropriate scopes (`write_access`, `private_info`, `no_expiry`).
+
+
+    Most paths take a required `site` query parameter naming the target Q&A
+
+    community (`stackoverflow`, `serverfault`, `superuser`, ...). Use `/sites`
+
+    to enumerate the network.
+
+    '
+  version: '2.3'
+  termsOfService: https://stackoverflow.com/legal/api-terms-of-use
+  contact:
+    name: Stack Exchange API
+    url: https://api.stackexchange.com/
+  license:
+    name: Creative Commons BY-SA 4.0 (content) / API Terms of Use
+    url: https://stackoverflow.com/legal/api-terms-of-use
+  x-generated-from: documentation
+  x-last-validated: '2026-05-29'
+servers:
+- url: https://api.stackexchange.com/2.3
+  description: Stack Exchange API v2.3 production endpoint
+security:
+- apiKey: []
+tags:
+- name: Tags
+  description: Tag catalog, synonyms, wikis, top askers/answerers, and related tags.
+paths:
+  /tags:
+    get:
+      tags:
+      - Tags
+      operationId: listTags
+      summary: Stack Exchange List Tags
+      description: All tags on a site.
+      parameters:
+      - $ref: '#/components/parameters/Site'
+      - $ref: '#/components/parameters/Key'
+      - $ref: '#/components/parameters/Filter'
+      - $ref: '#/components/parameters/Page'
+      - $ref: '#/components/parameters/PageSize'
+      - $ref: '#/components/parameters/Order'
+      - name: sort
+        in: query
+        schema:
+          type: string
+          enum:
+          - popular
+          - activity
+          - name
+          default: popular
+      - name: inname
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: A page of tags.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TagsResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /tags/synonyms:
+    get:
+      tags:
+      - Tags
+      operationId: listTagSynonyms
+      summary: Stack Exchange List Tag Synonyms
+      description: All tag synonyms on a site.
+      parameters:
+      - $ref: '#/components/parameters/Site'
+      - $ref: '#/components/parameters/Key'
+      - $ref: '#/components/parameters/Filter'
+      - $ref: '#/components/parameters/Page'
+      - $ref: '#/components/parameters/PageSize'
+      responses:
+        '200':
+          description: A page of tag synonyms.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TagSynonymsResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /tags/{tags}/info:
+    get:
+      tags:
+      - Tags
+      operationId: getTagsInfo
+      summary: Stack Exchange Get Tags Info
+      description: Metadata for the named tags.
+      parameters:
+      - name: tags
+        in: path
+        required: true
+        description: Up to 100 semicolon-delimited tag names.
+        schema:
+          type: string
+          example: openapi;rest
+      - $ref: '#/components/parameters/Site'
+      - $ref: '#/components/parameters/Key'
+      - $ref: '#/components/parameters/Filter'
+      responses:
+        '200':
+          description: A page of tag info entries.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TagsResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /tags/{tags}/top-askers/{period}:
+    get:
+      tags:
+      - Tags
+      operationId: listTopAskersInTags
+      summary: Stack Exchange List Top Askers in Tags
+      description: Top askers in the named tags over the chosen period.
+      parameters:
+      - name: tags
+        in: path
+        required: true
+        schema:
+          type: string
+          example: openapi
+      - name: period
+        in: path
+        required: true
+        schema:
+          type: string
+          enum:
+          - all_time
+          - month
+          example: all_time
+      - $ref: '#/components/parameters/Site'
+      - $ref: '#/components/parameters/Key'
+      - $ref: '#/components/parameters/Filter'
+      responses:
+        '200':
+          description: A page of tag scores.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TagScoresResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /tags/{tags}/top-answerers/{period}:
+    get:
+      tags:
+      - Tags
+      operationId: listTopAnswerersInTags
+      summary: Stack Exchange List Top Answerers in Tags
+      description: Top answerers in the named tags over the chosen period.
+      parameters:
+      - name: tags
+        in: path
+        required: true
+        schema:
+          type: string
+          example: openapi
+      - name: period
+        in: path
+        required: true
+        schema:
+          type: string
+          enum:
+          - all_time
+          - month
+          example: all_time
+      - $ref: '#/components/parameters/Site'
+      - $ref: '#/components/parameters/Key'
+      - $ref: '#/components/parameters/Filter'
+      responses:
+        '200':
+          description: A page of tag scores.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TagScoresResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /tags/{tags}/related:
+    get:
+      tags:
+      - Tags
+      operationId: listRelatedTags
+      summary: Stack Exchange List Related Tags
+      description: Tags frequently co-occurring with the named tags.
+      parameters:
+      - name: tags
+        in: path
+        required: true
+        schema:
+          type: string
+          example: openapi
+      - $ref: '#/components/parameters/Site'
+      - $ref: '#/components/parameters/Key'
+      - $ref: '#/components/parameters/Filter'
+      responses:
+        '200':
+          description: A page of tags.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TagsResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /tags/{tag}/wikis:
+    get:
+      tags:
+      - Tags
+      operationId: getTagWikis
+      summary: Stack Exchange Get Tag Wikis
+      description: Tag wiki content for the named tags.
+      parameters:
+      - name: tag
+        in: path
+        required: true
+        schema:
+          type: string
+          example: openapi
+      - $ref: '#/components/parameters/Site'
+      - $ref: '#/components/parameters/Key'
+      - $ref: '#/components/parameters/Filter'
+      responses:
+        '200':
+          description: A page of tag wikis.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TagsResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    TagScoresResponse:
+      allOf:
+      - $ref: '#/components/schemas/Wrapper'
+      - type: object
+        properties:
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/TagScore'
+    TagScore:
+      type: object
+      description: A user's score in a tag (top askers/answerers).
+      properties:
+        user:
+          $ref: '#/components/schemas/ShallowUser'
+        score:
+          type: integer
+          example: 1200
+        post_count:
+          type: integer
+          example: 45
+    Tag:
+      type: object
+      description: A tag on a Stack Exchange site.
+      properties:
+        name:
+          type: string
+          example: openapi
+        count:
+          type: integer
+          example: 3200
+        is_required:
+          type: boolean
+          example: false
+        is_moderator_only:
+          type: boolean
+          example: false
+        has_synonyms:
+          type: boolean
+          example: true
+        user_id:
+          type: integer
+          description: For tag-wikis, the most recent editor.
+        last_activity_date:
+          type: integer
+          format: int64
+    TagsResponse:
+      allOf:
+      - $ref: '#/components/schemas/Wrapper'
+      - type: object
+        properties:
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/Tag'
+    ShallowUser:
+      type: object
+      description: Lightweight user reference embedded in posts and comments.
+      properties:
+        user_id:
+          type: integer
+          format: int64
+          example: 22656
+        user_type:
+          type: string
+          enum:
+          - unregistered
+          - registered
+          - moderator
+          - team_admin
+          - does_not_exist
+          example: registered
+        display_name:
+          type: string
+          example: Jon Skeet
+        reputation:
+          type: integer
+          example: 1500000
+        profile_image:
+          type: string
+          format: uri
+          example: https://i.sstatic.net/lLZAr.jpg?s=128
+        link:
+          type: string
+          format: uri
+          example: https://stackoverflow.com/users/22656/jon-skeet
+        accept_rate:
+          type: integer
+          example: 92
+    TagSynonym:
+      type: object
+      properties:
+        from_tag:
+          type: string
+          example: oas3
+        to_tag:
+          type: string
+          example: openapi
+        applied_count:
+          type: integer
+          example: 145
+        last_applied_date:
+          type: integer
+          format: int64
+        creation_date:
+          type: integer
+          format: int64
+    Wrapper:
+      type: object
+      description: Common envelope returned by every Stack Exchange API method.
+      properties:
+        backoff:
+          type: integer
+          description: Seconds the client MUST wait before re-querying this same method. Returned when the API has identified the consumer as expensive.
+          example: 0
+        error_id:
+          type: integer
+          description: Numeric error code when the response is an error.
+        error_message:
+          type: string
+          description: Human-readable error message.
+        error_name:
+          type: string
+          description: Stable error name (e.g. `throttle_violation`).
+        has_more:
+          type: boolean
+          description: True when more pages exist past the returned `page`.
+          example: true
+        page:
+          type: integer
+          description: Page number echoed from the request.
+          example: 1
+        page_size:
+          type: integer
+          description: Page size echoed from the request.
+          example: 30
+        quota_max:
+          type: integer
+          description: Daily quota for the IP/key combination.
+          example: 10000
+        quota_remaining:
+          type: integer
+          description: Quota left after this request.
+          example: 9999
+        total:
+          type: integer
+          description: Total count when the consumer requested it via filter.
+        type:
+          type: string
+          description: Type name of the items returned.
+      required:
+      - has_more
+      - quota_max
+      - quota_remaining
+    TagSynonymsResponse:
+      allOf:
+      - $ref: '#/components/schemas/Wrapper'
+      - type: object
+        properties:
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/TagSynonym'
+  parameters:
+    Key:
+      name: key
+      in: query
+      required: false
+      description: App key from stackapps.com. Raises the daily quota to 10,000/IP.
+      schema:
+        type: string
+        example: example_app_key_abcdef
+    Filter:
+      name: filter
+      in: query
+      required: false
+      description: Custom response filter id created via /filters/create.
+      schema:
+        type: string
+        example: default
+    Site:
+      name: site
+      in: query
+      required: true
+      description: Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).
+      schema:
+        type: string
+        default: stackoverflow
+        example: stackoverflow
+    PageSize:
+      name: pagesize
+      in: query
+      required: false
+      description: Items per page (max 100).
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 30
+        example: 30
+    Order:
+      name: order
+      in: query
+      required: false
+      description: Sort direction.
+      schema:
+        type: string
+        enum:
+        - desc
+        - asc
+        default: desc
+    Page:
+      name: page
+      in: query
+      required: false
+      description: 1-indexed page number.
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+        example: 1
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      description: 'OAuth 2.0 explicit or implicit flow. Apps register on stackapps.com.
+
+        Read methods do not require auth; write methods require `write_access`.
+
+        `private_info` is needed for /me/notifications, /me/inbox, and similar
+
+        private surfaces. `no_expiry` issues tokens that never expire.
+
+        '
+      flows:
+        authorizationCode:
+          authorizationUrl: https://stackoverflow.com/oauth
+          tokenUrl: https://stackoverflow.com/oauth/access_token
+          scopes:
+            read_inbox: Access the authenticated user's inbox.
+            no_expiry: Issue a token that never expires.
+            write_access: Vote, post, comment, flag, accept on the user's behalf.
+            private_info: Access endpoints that return personal information.
+    apiKey:
+      type: apiKey
+      in: query
+      name: key
+      description: 'Optional app key. Sending a key raises the daily quota from 300 to 10,000
+
+        requests per IP and is the recommended default for any non-trivial client.
+
+        '

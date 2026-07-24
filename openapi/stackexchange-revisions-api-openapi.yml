@@ -1,0 +1,275 @@
+openapi: 3.0.3
+info:
+  title: Stack Exchange Access Tokens Revisions API
+  description: 'Public, read-mostly HTTP/JSON API spanning all 180+ Stack Exchange sites
+
+    (Stack Overflow, Server Fault, Super User, Ask Ubuntu, Stats, Math Overflow, ...).
+
+
+    All method families live under a single base URL with a uniform wrapper
+
+    (`items`, `has_more`, `page`, `quota_max`, `quota_remaining`, `backoff`).
+
+    Read access is unauthenticated. Write methods require OAuth 2.0 with the
+
+    appropriate scopes (`write_access`, `private_info`, `no_expiry`).
+
+
+    Most paths take a required `site` query parameter naming the target Q&A
+
+    community (`stackoverflow`, `serverfault`, `superuser`, ...). Use `/sites`
+
+    to enumerate the network.
+
+    '
+  version: '2.3'
+  termsOfService: https://stackoverflow.com/legal/api-terms-of-use
+  contact:
+    name: Stack Exchange API
+    url: https://api.stackexchange.com/
+  license:
+    name: Creative Commons BY-SA 4.0 (content) / API Terms of Use
+    url: https://stackoverflow.com/legal/api-terms-of-use
+  x-generated-from: documentation
+  x-last-validated: '2026-05-29'
+servers:
+- url: https://api.stackexchange.com/2.3
+  description: Stack Exchange API v2.3 production endpoint
+security:
+- apiKey: []
+tags:
+- name: Revisions
+  description: Revision history for posts.
+paths:
+  /revisions/{ids}:
+    get:
+      tags:
+      - Revisions
+      operationId: getRevisionsByGuids
+      summary: Stack Exchange Get Revisions by GUIDs
+      description: Fetch revisions by GUID.
+      parameters:
+      - name: ids
+        in: path
+        required: true
+        description: Up to 100 semicolon-delimited revision GUIDs.
+        schema:
+          type: string
+          example: 11227809-aaaa-bbbb-cccc-1234567890ab
+      - $ref: '#/components/parameters/Site'
+      - $ref: '#/components/parameters/Key'
+      - $ref: '#/components/parameters/Filter'
+      responses:
+        '200':
+          description: A page of revisions.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RevisionsResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  parameters:
+    Key:
+      name: key
+      in: query
+      required: false
+      description: App key from stackapps.com. Raises the daily quota to 10,000/IP.
+      schema:
+        type: string
+        example: example_app_key_abcdef
+    Site:
+      name: site
+      in: query
+      required: true
+      description: Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).
+      schema:
+        type: string
+        default: stackoverflow
+        example: stackoverflow
+    Filter:
+      name: filter
+      in: query
+      required: false
+      description: Custom response filter id created via /filters/create.
+      schema:
+        type: string
+        example: default
+  schemas:
+    RevisionsResponse:
+      allOf:
+      - $ref: '#/components/schemas/Wrapper'
+      - type: object
+        properties:
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/Revision'
+    ShallowUser:
+      type: object
+      description: Lightweight user reference embedded in posts and comments.
+      properties:
+        user_id:
+          type: integer
+          format: int64
+          example: 22656
+        user_type:
+          type: string
+          enum:
+          - unregistered
+          - registered
+          - moderator
+          - team_admin
+          - does_not_exist
+          example: registered
+        display_name:
+          type: string
+          example: Jon Skeet
+        reputation:
+          type: integer
+          example: 1500000
+        profile_image:
+          type: string
+          format: uri
+          example: https://i.sstatic.net/lLZAr.jpg?s=128
+        link:
+          type: string
+          format: uri
+          example: https://stackoverflow.com/users/22656/jon-skeet
+        accept_rate:
+          type: integer
+          example: 92
+    Wrapper:
+      type: object
+      description: Common envelope returned by every Stack Exchange API method.
+      properties:
+        backoff:
+          type: integer
+          description: Seconds the client MUST wait before re-querying this same method. Returned when the API has identified the consumer as expensive.
+          example: 0
+        error_id:
+          type: integer
+          description: Numeric error code when the response is an error.
+        error_message:
+          type: string
+          description: Human-readable error message.
+        error_name:
+          type: string
+          description: Stable error name (e.g. `throttle_violation`).
+        has_more:
+          type: boolean
+          description: True when more pages exist past the returned `page`.
+          example: true
+        page:
+          type: integer
+          description: Page number echoed from the request.
+          example: 1
+        page_size:
+          type: integer
+          description: Page size echoed from the request.
+          example: 30
+        quota_max:
+          type: integer
+          description: Daily quota for the IP/key combination.
+          example: 10000
+        quota_remaining:
+          type: integer
+          description: Quota left after this request.
+          example: 9999
+        total:
+          type: integer
+          description: Total count when the consumer requested it via filter.
+        type:
+          type: string
+          description: Type name of the items returned.
+      required:
+      - has_more
+      - quota_max
+      - quota_remaining
+    Revision:
+      type: object
+      description: A revision to a post.
+      properties:
+        revision_guid:
+          type: string
+          format: uuid
+          example: 9f1f1ad2-9bcb-4f0c-9eee-1234567890ab
+        revision_number:
+          type: integer
+          example: 4
+        revision_type:
+          type: string
+          enum:
+          - single_user
+          - vote_based
+          example: single_user
+        post_type:
+          type: string
+          enum:
+          - question
+          - answer
+          example: question
+        post_id:
+          type: integer
+          example: 11227809
+        comment:
+          type: string
+          example: Fixed typo
+        creation_date:
+          type: integer
+          format: int64
+          example: 1338800000
+        is_rollback:
+          type: boolean
+          example: false
+        last_body:
+          type: string
+        last_title:
+          type: string
+        last_tags:
+          type: array
+          items:
+            type: string
+        body:
+          type: string
+        title:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+        set_community_wiki:
+          type: boolean
+        user:
+          $ref: '#/components/schemas/ShallowUser'
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      description: 'OAuth 2.0 explicit or implicit flow. Apps register on stackapps.com.
+
+        Read methods do not require auth; write methods require `write_access`.
+
+        `private_info` is needed for /me/notifications, /me/inbox, and similar
+
+        private surfaces. `no_expiry` issues tokens that never expire.
+
+        '
+      flows:
+        authorizationCode:
+          authorizationUrl: https://stackoverflow.com/oauth
+          tokenUrl: https://stackoverflow.com/oauth/access_token
+          scopes:
+            read_inbox: Access the authenticated user's inbox.
+            no_expiry: Issue a token that never expires.
+            write_access: Vote, post, comment, flag, accept on the user's behalf.
+            private_info: Access endpoints that return personal information.
+    apiKey:
+      type: apiKey
+      in: query
+      name: key
+      description: 'Optional app key. Sending a key raises the daily quota from 300 to 10,000
+
+        requests per IP and is the recommended default for any non-trivial client.
+
+        '

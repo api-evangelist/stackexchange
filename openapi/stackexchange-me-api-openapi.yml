@@ -1,0 +1,1148 @@
+openapi: 3.0.3
+info:
+  title: Stack Exchange Access Tokens Me API
+  description: 'Public, read-mostly HTTP/JSON API spanning all 180+ Stack Exchange sites
+
+    (Stack Overflow, Server Fault, Super User, Ask Ubuntu, Stats, Math Overflow, ...).
+
+
+    All method families live under a single base URL with a uniform wrapper
+
+    (`items`, `has_more`, `page`, `quota_max`, `quota_remaining`, `backoff`).
+
+    Read access is unauthenticated. Write methods require OAuth 2.0 with the
+
+    appropriate scopes (`write_access`, `private_info`, `no_expiry`).
+
+
+    Most paths take a required `site` query parameter naming the target Q&A
+
+    community (`stackoverflow`, `serverfault`, `superuser`, ...). Use `/sites`
+
+    to enumerate the network.
+
+    '
+  version: '2.3'
+  termsOfService: https://stackoverflow.com/legal/api-terms-of-use
+  contact:
+    name: Stack Exchange API
+    url: https://api.stackexchange.com/
+  license:
+    name: Creative Commons BY-SA 4.0 (content) / API Terms of Use
+    url: https://stackoverflow.com/legal/api-terms-of-use
+  x-generated-from: documentation
+  x-last-validated: '2026-05-29'
+servers:
+- url: https://api.stackexchange.com/2.3
+  description: Stack Exchange API v2.3 production endpoint
+security:
+- apiKey: []
+tags:
+- name: Me
+  description: Convenience surfaces that infer the user from the OAuth access token.
+paths:
+  /me:
+    get:
+      tags:
+      - Me
+      operationId: getMe
+      summary: Stack Exchange Get Me
+      description: The authenticated user.
+      security:
+      - oauth2:
+        - private_info
+      parameters:
+      - $ref: '#/components/parameters/Site'
+      - $ref: '#/components/parameters/AccessToken'
+      - $ref: '#/components/parameters/Key'
+      - $ref: '#/components/parameters/Filter'
+      responses:
+        '200':
+          description: The authenticated user wrapped as a single-element list.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UsersResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /me/questions:
+    get:
+      tags:
+      - Me
+      operationId: listMyQuestions
+      summary: Stack Exchange List My Questions
+      description: Questions authored by the authenticated user.
+      security:
+      - oauth2:
+        - private_info
+      parameters:
+      - $ref: '#/components/parameters/Site'
+      - $ref: '#/components/parameters/AccessToken'
+      - $ref: '#/components/parameters/Key'
+      - $ref: '#/components/parameters/Filter'
+      - $ref: '#/components/parameters/Page'
+      - $ref: '#/components/parameters/PageSize'
+      responses:
+        '200':
+          description: A page of questions.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuestionsResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /me/answers:
+    get:
+      tags:
+      - Me
+      operationId: listMyAnswers
+      summary: Stack Exchange List My Answers
+      description: Answers authored by the authenticated user.
+      security:
+      - oauth2:
+        - private_info
+      parameters:
+      - $ref: '#/components/parameters/Site'
+      - $ref: '#/components/parameters/AccessToken'
+      - $ref: '#/components/parameters/Key'
+      - $ref: '#/components/parameters/Filter'
+      - $ref: '#/components/parameters/Page'
+      - $ref: '#/components/parameters/PageSize'
+      responses:
+        '200':
+          description: A page of answers.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnswersResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /me/comments:
+    get:
+      tags:
+      - Me
+      operationId: listMyComments
+      summary: Stack Exchange List My Comments
+      description: Comments authored by the authenticated user.
+      security:
+      - oauth2:
+        - private_info
+      parameters:
+      - $ref: '#/components/parameters/Site'
+      - $ref: '#/components/parameters/AccessToken'
+      - $ref: '#/components/parameters/Key'
+      - $ref: '#/components/parameters/Filter'
+      - $ref: '#/components/parameters/Page'
+      - $ref: '#/components/parameters/PageSize'
+      responses:
+        '200':
+          description: A page of comments.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommentsResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /me/tags:
+    get:
+      tags:
+      - Me
+      operationId: listMyTags
+      summary: Stack Exchange List My Tags
+      description: Tags the authenticated user has activity in.
+      security:
+      - oauth2:
+        - private_info
+      parameters:
+      - $ref: '#/components/parameters/Site'
+      - $ref: '#/components/parameters/AccessToken'
+      - $ref: '#/components/parameters/Key'
+      - $ref: '#/components/parameters/Filter'
+      responses:
+        '200':
+          description: A page of tags.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TagsResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /me/badges:
+    get:
+      tags:
+      - Me
+      operationId: listMyBadges
+      summary: Stack Exchange List My Badges
+      description: Badges earned by the authenticated user.
+      security:
+      - oauth2:
+        - private_info
+      parameters:
+      - $ref: '#/components/parameters/Site'
+      - $ref: '#/components/parameters/AccessToken'
+      - $ref: '#/components/parameters/Key'
+      - $ref: '#/components/parameters/Filter'
+      responses:
+        '200':
+          description: A page of badges.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadgesResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /me/reputation:
+    get:
+      tags:
+      - Me
+      operationId: getMyReputation
+      summary: Stack Exchange Get My Reputation
+      description: Reputation changes for the authenticated user.
+      security:
+      - oauth2:
+        - private_info
+      parameters:
+      - $ref: '#/components/parameters/Site'
+      - $ref: '#/components/parameters/AccessToken'
+      - $ref: '#/components/parameters/Key'
+      - $ref: '#/components/parameters/Filter'
+      responses:
+        '200':
+          description: A page of reputation changes.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReputationResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /me/notifications:
+    get:
+      tags:
+      - Me
+      operationId: listMyNotifications
+      summary: Stack Exchange List My Notifications
+      description: Notifications for the authenticated user.
+      security:
+      - oauth2:
+        - read_inbox
+        - private_info
+      parameters:
+      - $ref: '#/components/parameters/Site'
+      - $ref: '#/components/parameters/AccessToken'
+      - $ref: '#/components/parameters/Key'
+      - $ref: '#/components/parameters/Filter'
+      responses:
+        '200':
+          description: A page of notifications.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationsResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /me/notifications/unread:
+    get:
+      tags:
+      - Me
+      operationId: listMyUnreadNotifications
+      summary: Stack Exchange List My Unread Notifications
+      description: Unread notifications for the authenticated user.
+      security:
+      - oauth2:
+        - read_inbox
+        - private_info
+      parameters:
+      - $ref: '#/components/parameters/Site'
+      - $ref: '#/components/parameters/AccessToken'
+      - $ref: '#/components/parameters/Key'
+      - $ref: '#/components/parameters/Filter'
+      responses:
+        '200':
+          description: A page of notifications.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationsResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /me/inbox:
+    get:
+      tags:
+      - Me
+      operationId: listMyInbox
+      summary: Stack Exchange List My Inbox
+      description: Inbox items for the authenticated user.
+      security:
+      - oauth2:
+        - read_inbox
+        - private_info
+      parameters:
+      - $ref: '#/components/parameters/Site'
+      - $ref: '#/components/parameters/AccessToken'
+      - $ref: '#/components/parameters/Key'
+      - $ref: '#/components/parameters/Filter'
+      responses:
+        '200':
+          description: A page of inbox items.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InboxResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /me/inbox/unread:
+    get:
+      tags:
+      - Me
+      operationId: listMyUnreadInbox
+      summary: Stack Exchange List My Unread Inbox
+      description: Unread inbox items for the authenticated user.
+      security:
+      - oauth2:
+        - read_inbox
+        - private_info
+      parameters:
+      - $ref: '#/components/parameters/Site'
+      - $ref: '#/components/parameters/AccessToken'
+      - $ref: '#/components/parameters/Key'
+      - $ref: '#/components/parameters/Filter'
+      responses:
+        '200':
+          description: A page of unread inbox items.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InboxResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /me/timeline:
+    get:
+      tags:
+      - Me
+      operationId: listMyTimeline
+      summary: Stack Exchange List My Timeline
+      description: Activity timeline for the authenticated user.
+      security:
+      - oauth2:
+        - private_info
+      parameters:
+      - $ref: '#/components/parameters/Site'
+      - $ref: '#/components/parameters/AccessToken'
+      - $ref: '#/components/parameters/Key'
+      - $ref: '#/components/parameters/Filter'
+      responses:
+        '200':
+          description: A page of timeline events.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventsResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    Question:
+      type: object
+      description: A question on a Stack Exchange site.
+      properties:
+        question_id:
+          type: integer
+          example: 11227809
+        title:
+          type: string
+          example: Why is processing a sorted array faster than processing an unsorted array?
+        body:
+          type: string
+          description: HTML body of the question (only included via filter).
+        body_markdown:
+          type: string
+          description: Markdown body of the question (only included via filter).
+        link:
+          type: string
+          format: uri
+          example: https://stackoverflow.com/questions/11227809
+        score:
+          type: integer
+          example: 27000
+        view_count:
+          type: integer
+          example: 1900000
+        answer_count:
+          type: integer
+          example: 25
+        comment_count:
+          type: integer
+          example: 12
+        favorite_count:
+          type: integer
+          example: 4000
+        is_answered:
+          type: boolean
+          example: true
+        accepted_answer_id:
+          type: integer
+          example: 11227902
+        creation_date:
+          type: integer
+          format: int64
+          example: 1338717687
+        last_activity_date:
+          type: integer
+          format: int64
+          example: 1700000000
+        last_edit_date:
+          type: integer
+          format: int64
+          example: 1690000000
+        owner:
+          $ref: '#/components/schemas/ShallowUser'
+        tags:
+          type: array
+          items:
+            type: string
+          example:
+          - java
+          - c++
+          - performance
+          - cpu-architecture
+          - branch-prediction
+        content_license:
+          type: string
+          example: CC BY-SA 4.0
+        protected_date:
+          type: integer
+          format: int64
+        locked_date:
+          type: integer
+          format: int64
+        closed_date:
+          type: integer
+          format: int64
+        closed_reason:
+          type: string
+        bounty_amount:
+          type: integer
+        bounty_closes_date:
+          type: integer
+          format: int64
+    NotificationsResponse:
+      allOf:
+      - $ref: '#/components/schemas/Wrapper'
+      - type: object
+        properties:
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/Notification'
+    ReputationChange:
+      type: object
+      properties:
+        user_id:
+          type: integer
+          format: int64
+        post_id:
+          type: integer
+        post_type:
+          type: string
+          enum:
+          - question
+          - answer
+        vote_type:
+          type: string
+          enum:
+          - accepts
+          - bounties_won
+          - up_votes
+          - down_votes
+          - suggested_edit
+          - post_undeleted
+          - spam
+          - vote_fraud_reversal
+          - post_deleted
+          - post_migrated
+          - association_bonus
+        reputation_change:
+          type: integer
+        on_date:
+          type: integer
+          format: int64
+    Tag:
+      type: object
+      description: A tag on a Stack Exchange site.
+      properties:
+        name:
+          type: string
+          example: openapi
+        count:
+          type: integer
+          example: 3200
+        is_required:
+          type: boolean
+          example: false
+        is_moderator_only:
+          type: boolean
+          example: false
+        has_synonyms:
+          type: boolean
+          example: true
+        user_id:
+          type: integer
+          description: For tag-wikis, the most recent editor.
+        last_activity_date:
+          type: integer
+          format: int64
+    QuestionsResponse:
+      allOf:
+      - $ref: '#/components/schemas/Wrapper'
+      - type: object
+        properties:
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/Question'
+    InboxItem:
+      type: object
+      description: An inbox item for the authenticated user.
+      properties:
+        item_type:
+          type: string
+          example: comment
+        creation_date:
+          type: integer
+          format: int64
+        is_unread:
+          type: boolean
+        title:
+          type: string
+        body:
+          type: string
+        link:
+          type: string
+          format: uri
+        question_id:
+          type: integer
+        answer_id:
+          type: integer
+        comment_id:
+          type: integer
+        site:
+          $ref: '#/components/schemas/Site'
+    AnswersResponse:
+      allOf:
+      - $ref: '#/components/schemas/Wrapper'
+      - type: object
+        properties:
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/Answer'
+    BadgeCount:
+      type: object
+      description: Bronze/silver/gold badge counts for a user.
+      properties:
+        bronze:
+          type: integer
+          example: 10000
+        silver:
+          type: integer
+          example: 5000
+        gold:
+          type: integer
+          example: 800
+    Wrapper:
+      type: object
+      description: Common envelope returned by every Stack Exchange API method.
+      properties:
+        backoff:
+          type: integer
+          description: Seconds the client MUST wait before re-querying this same method. Returned when the API has identified the consumer as expensive.
+          example: 0
+        error_id:
+          type: integer
+          description: Numeric error code when the response is an error.
+        error_message:
+          type: string
+          description: Human-readable error message.
+        error_name:
+          type: string
+          description: Stable error name (e.g. `throttle_violation`).
+        has_more:
+          type: boolean
+          description: True when more pages exist past the returned `page`.
+          example: true
+        page:
+          type: integer
+          description: Page number echoed from the request.
+          example: 1
+        page_size:
+          type: integer
+          description: Page size echoed from the request.
+          example: 30
+        quota_max:
+          type: integer
+          description: Daily quota for the IP/key combination.
+          example: 10000
+        quota_remaining:
+          type: integer
+          description: Quota left after this request.
+          example: 9999
+        total:
+          type: integer
+          description: Total count when the consumer requested it via filter.
+        type:
+          type: string
+          description: Type name of the items returned.
+      required:
+      - has_more
+      - quota_max
+      - quota_remaining
+    Badge:
+      type: object
+      description: A badge definition.
+      properties:
+        badge_id:
+          type: integer
+          example: 23
+        name:
+          type: string
+          example: Nice Question
+        description:
+          type: string
+          example: Question score of 10 or more.
+        rank:
+          type: string
+          enum:
+          - bronze
+          - silver
+          - gold
+          example: bronze
+        badge_type:
+          type: string
+          enum:
+          - named
+          - tag_based
+          example: named
+        award_count:
+          type: integer
+          example: 500000
+        link:
+          type: string
+          format: uri
+          example: https://stackoverflow.com/help/badges/23/nice-question
+        user:
+          $ref: '#/components/schemas/ShallowUser'
+    Notification:
+      type: object
+      description: An in-product notification for the authenticated user.
+      properties:
+        notification_type:
+          type: string
+          example: badge_earned
+        creation_date:
+          type: integer
+          format: int64
+          example: 1735000000
+        is_unread:
+          type: boolean
+          example: true
+        body:
+          type: string
+          example: You earned the 'Nice Question' badge.
+        post_id:
+          type: integer
+        site:
+          $ref: '#/components/schemas/Site'
+    UsersResponse:
+      allOf:
+      - $ref: '#/components/schemas/Wrapper'
+      - type: object
+        properties:
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/User'
+    TagsResponse:
+      allOf:
+      - $ref: '#/components/schemas/Wrapper'
+      - type: object
+        properties:
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/Tag'
+    Event:
+      type: object
+      description: A network event (1.5 minute live window).
+      properties:
+        event_type:
+          type: string
+          example: question_posted
+        event_id:
+          type: integer
+        creation_date:
+          type: integer
+          format: int64
+        link:
+          type: string
+          format: uri
+        excerpt:
+          type: string
+    InboxResponse:
+      allOf:
+      - $ref: '#/components/schemas/Wrapper'
+      - type: object
+        properties:
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/InboxItem'
+    BadgesResponse:
+      allOf:
+      - $ref: '#/components/schemas/Wrapper'
+      - type: object
+        properties:
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/Badge'
+    Answer:
+      type: object
+      description: An answer on a Stack Exchange site.
+      properties:
+        answer_id:
+          type: integer
+          example: 11227902
+        question_id:
+          type: integer
+          example: 11227809
+        title:
+          type: string
+          example: Why is processing a sorted array faster than processing an unsorted array?
+        body:
+          type: string
+          description: HTML body (filter-dependent).
+        body_markdown:
+          type: string
+          description: Markdown body (filter-dependent).
+        link:
+          type: string
+          format: uri
+          example: https://stackoverflow.com/a/11227902
+        score:
+          type: integer
+          example: 36000
+        up_vote_count:
+          type: integer
+          example: 36500
+        down_vote_count:
+          type: integer
+          example: 500
+        is_accepted:
+          type: boolean
+          example: true
+        comment_count:
+          type: integer
+          example: 20
+        creation_date:
+          type: integer
+          format: int64
+          example: 1338719105
+        last_activity_date:
+          type: integer
+          format: int64
+          example: 1700000000
+        last_edit_date:
+          type: integer
+          format: int64
+        owner:
+          $ref: '#/components/schemas/ShallowUser'
+        last_editor:
+          $ref: '#/components/schemas/ShallowUser'
+        tags:
+          type: array
+          items:
+            type: string
+          example:
+          - java
+          - c++
+          - performance
+        content_license:
+          type: string
+          example: CC BY-SA 4.0
+        community_owned_date:
+          type: integer
+          format: int64
+        locked_date:
+          type: integer
+          format: int64
+        awarded_bounty_amount:
+          type: integer
+        awarded_bounty_users:
+          type: array
+          items:
+            $ref: '#/components/schemas/ShallowUser'
+    User:
+      type: object
+      description: A user account on a single Stack Exchange site.
+      properties:
+        user_id:
+          type: integer
+          format: int64
+          example: 22656
+        account_id:
+          type: integer
+          format: int64
+          example: 11683
+        user_type:
+          type: string
+          enum:
+          - unregistered
+          - registered
+          - moderator
+          - team_admin
+          - does_not_exist
+          example: registered
+        display_name:
+          type: string
+          example: Jon Skeet
+        reputation:
+          type: integer
+          example: 1500000
+        reputation_change_day:
+          type: integer
+          example: 10
+        reputation_change_week:
+          type: integer
+          example: 120
+        reputation_change_month:
+          type: integer
+          example: 540
+        reputation_change_quarter:
+          type: integer
+          example: 1600
+        reputation_change_year:
+          type: integer
+          example: 5400
+        creation_date:
+          type: integer
+          format: int64
+          example: 1217631542
+        last_modified_date:
+          type: integer
+          format: int64
+          example: 1735000000
+        last_access_date:
+          type: integer
+          format: int64
+          example: 1735200000
+        is_employee:
+          type: boolean
+          example: false
+        location:
+          type: string
+          example: Reading, United Kingdom
+        website_url:
+          type: string
+          format: uri
+          example: https://codeblog.jonskeet.uk
+        link:
+          type: string
+          format: uri
+          example: https://stackoverflow.com/users/22656/jon-skeet
+        profile_image:
+          type: string
+          format: uri
+          example: https://i.sstatic.net/lLZAr.jpg?s=128
+        accept_rate:
+          type: integer
+          example: 92
+        badge_counts:
+          $ref: '#/components/schemas/BadgeCount'
+        question_count:
+          type: integer
+          example: 56
+        answer_count:
+          type: integer
+          example: 36234
+        up_vote_count:
+          type: integer
+          example: 39120
+        down_vote_count:
+          type: integer
+          example: 1024
+        view_count:
+          type: integer
+          example: 99999999
+    ShallowUser:
+      type: object
+      description: Lightweight user reference embedded in posts and comments.
+      properties:
+        user_id:
+          type: integer
+          format: int64
+          example: 22656
+        user_type:
+          type: string
+          enum:
+          - unregistered
+          - registered
+          - moderator
+          - team_admin
+          - does_not_exist
+          example: registered
+        display_name:
+          type: string
+          example: Jon Skeet
+        reputation:
+          type: integer
+          example: 1500000
+        profile_image:
+          type: string
+          format: uri
+          example: https://i.sstatic.net/lLZAr.jpg?s=128
+        link:
+          type: string
+          format: uri
+          example: https://stackoverflow.com/users/22656/jon-skeet
+        accept_rate:
+          type: integer
+          example: 92
+    Site:
+      type: object
+      description: A Stack Exchange community site.
+      properties:
+        site_url:
+          type: string
+          format: uri
+          example: https://stackoverflow.com
+        api_site_parameter:
+          type: string
+          example: stackoverflow
+        name:
+          type: string
+          example: Stack Overflow
+        site_type:
+          type: string
+          enum:
+          - main_site
+          - meta_site
+          example: main_site
+        audience:
+          type: string
+          example: professional and enthusiast programmers
+        icon_url:
+          type: string
+          format: uri
+        logo_url:
+          type: string
+          format: uri
+        favicon_url:
+          type: string
+          format: uri
+        launch_date:
+          type: integer
+          format: int64
+          example: 1221177600
+        site_state:
+          type: string
+          enum:
+          - normal
+          - closed_beta
+          - open_beta
+          - linked_meta
+          example: normal
+        styling:
+          type: object
+          properties:
+            link_color:
+              type: string
+            tag_foreground_color:
+              type: string
+            tag_background_color:
+              type: string
+        related_sites:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              site_url:
+                type: string
+                format: uri
+              relation:
+                type: string
+                enum:
+                - parent
+                - meta
+                - chat
+        markdown_extensions:
+          type: array
+          items:
+            type: string
+    CommentsResponse:
+      allOf:
+      - $ref: '#/components/schemas/Wrapper'
+      - type: object
+        properties:
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/Comment'
+    ReputationResponse:
+      allOf:
+      - $ref: '#/components/schemas/Wrapper'
+      - type: object
+        properties:
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/ReputationChange'
+    Comment:
+      type: object
+      description: A comment attached to a question or answer.
+      properties:
+        comment_id:
+          type: integer
+          example: 14587302
+        post_id:
+          type: integer
+          example: 11227809
+        post_type:
+          type: string
+          enum:
+          - question
+          - answer
+          example: question
+        score:
+          type: integer
+          example: 12
+        body:
+          type: string
+          example: Great explanation, thank you.
+        body_markdown:
+          type: string
+        creation_date:
+          type: integer
+          format: int64
+          example: 1338800000
+        edited:
+          type: boolean
+          example: false
+        link:
+          type: string
+          format: uri
+          example: https://stackoverflow.com/questions/11227809#comment14587302_11227809
+        owner:
+          $ref: '#/components/schemas/ShallowUser'
+        reply_to_user:
+          $ref: '#/components/schemas/ShallowUser'
+        content_license:
+          type: string
+          example: CC BY-SA 4.0
+    EventsResponse:
+      allOf:
+      - $ref: '#/components/schemas/Wrapper'
+      - type: object
+        properties:
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/Event'
+  parameters:
+    Key:
+      name: key
+      in: query
+      required: false
+      description: App key from stackapps.com. Raises the daily quota to 10,000/IP.
+      schema:
+        type: string
+        example: example_app_key_abcdef
+    Page:
+      name: page
+      in: query
+      required: false
+      description: 1-indexed page number.
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+        example: 1
+    AccessToken:
+      name: access_token
+      in: query
+      required: false
+      description: OAuth 2.0 access token. Required for any /me surface and any write.
+      schema:
+        type: string
+        example: example_access_token_abcdef
+    Filter:
+      name: filter
+      in: query
+      required: false
+      description: Custom response filter id created via /filters/create.
+      schema:
+        type: string
+        example: default
+    Site:
+      name: site
+      in: query
+      required: true
+      description: Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).
+      schema:
+        type: string
+        default: stackoverflow
+        example: stackoverflow
+    PageSize:
+      name: pagesize
+      in: query
+      required: false
+      description: Items per page (max 100).
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 30
+        example: 30
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      description: 'OAuth 2.0 explicit or implicit flow. Apps register on stackapps.com.
+
+        Read methods do not require auth; write methods require `write_access`.
+
+        `private_info` is needed for /me/notifications, /me/inbox, and similar
+
+        private surfaces. `no_expiry` issues tokens that never expire.
+
+        '
+      flows:
+        authorizationCode:
+          authorizationUrl: https://stackoverflow.com/oauth
+          tokenUrl: https://stackoverflow.com/oauth/access_token
+          scopes:
+            read_inbox: Access the authenticated user's inbox.
+            no_expiry: Issue a token that never expires.
+            write_access: Vote, post, comment, flag, accept on the user's behalf.
+            private_info: Access endpoints that return personal information.
+    apiKey:
+      type: apiKey
+      in: query
+      name: key
+      description: 'Optional app key. Sending a key raises the daily quota from 300 to 10,000
+
+        requests per IP and is the recommended default for any non-trivial client.
+
+        '

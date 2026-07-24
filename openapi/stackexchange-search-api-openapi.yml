@@ -1,0 +1,486 @@
+openapi: 3.0.3
+info:
+  title: Stack Exchange Access Tokens Search API
+  description: 'Public, read-mostly HTTP/JSON API spanning all 180+ Stack Exchange sites
+
+    (Stack Overflow, Server Fault, Super User, Ask Ubuntu, Stats, Math Overflow, ...).
+
+
+    All method families live under a single base URL with a uniform wrapper
+
+    (`items`, `has_more`, `page`, `quota_max`, `quota_remaining`, `backoff`).
+
+    Read access is unauthenticated. Write methods require OAuth 2.0 with the
+
+    appropriate scopes (`write_access`, `private_info`, `no_expiry`).
+
+
+    Most paths take a required `site` query parameter naming the target Q&A
+
+    community (`stackoverflow`, `serverfault`, `superuser`, ...). Use `/sites`
+
+    to enumerate the network.
+
+    '
+  version: '2.3'
+  termsOfService: https://stackoverflow.com/legal/api-terms-of-use
+  contact:
+    name: Stack Exchange API
+    url: https://api.stackexchange.com/
+  license:
+    name: Creative Commons BY-SA 4.0 (content) / API Terms of Use
+    url: https://stackoverflow.com/legal/api-terms-of-use
+  x-generated-from: documentation
+  x-last-validated: '2026-05-29'
+servers:
+- url: https://api.stackexchange.com/2.3
+  description: Stack Exchange API v2.3 production endpoint
+security:
+- apiKey: []
+tags:
+- name: Search
+  description: Question search — basic title-match, full-text excerpts, and advanced.
+paths:
+  /search:
+    get:
+      tags:
+      - Search
+      operationId: searchQuestions
+      summary: Stack Exchange Search Questions
+      description: Title-match search for questions.
+      parameters:
+      - $ref: '#/components/parameters/Site'
+      - $ref: '#/components/parameters/Key'
+      - $ref: '#/components/parameters/Filter'
+      - $ref: '#/components/parameters/Page'
+      - $ref: '#/components/parameters/PageSize'
+      - name: intitle
+        in: query
+        required: true
+        schema:
+          type: string
+          example: openapi
+      - name: tagged
+        in: query
+        schema:
+          type: string
+      - name: nottagged
+        in: query
+        schema:
+          type: string
+      - name: sort
+        in: query
+        schema:
+          type: string
+          enum:
+          - activity
+          - votes
+          - creation
+          - relevance
+          default: activity
+      responses:
+        '200':
+          description: A page of matching questions.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuestionsResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /search/advanced:
+    get:
+      tags:
+      - Search
+      operationId: searchQuestionsAdvanced
+      summary: Stack Exchange Search Questions Advanced
+      description: Advanced search across question title, body, tags, and dates.
+      parameters:
+      - $ref: '#/components/parameters/Site'
+      - $ref: '#/components/parameters/Key'
+      - $ref: '#/components/parameters/Filter'
+      - $ref: '#/components/parameters/Page'
+      - $ref: '#/components/parameters/PageSize'
+      - name: q
+        in: query
+        schema:
+          type: string
+          example: openapi specification
+      - name: title
+        in: query
+        schema:
+          type: string
+      - name: body
+        in: query
+        schema:
+          type: string
+      - name: tagged
+        in: query
+        schema:
+          type: string
+      - name: nottagged
+        in: query
+        schema:
+          type: string
+      - name: accepted
+        in: query
+        schema:
+          type: boolean
+      - name: answers
+        in: query
+        schema:
+          type: integer
+      - name: closed
+        in: query
+        schema:
+          type: boolean
+      - name: migrated
+        in: query
+        schema:
+          type: boolean
+      - name: notice
+        in: query
+        schema:
+          type: boolean
+      - name: views
+        in: query
+        schema:
+          type: integer
+      - name: sort
+        in: query
+        schema:
+          type: string
+          enum:
+          - activity
+          - votes
+          - creation
+          - relevance
+          default: activity
+      responses:
+        '200':
+          description: A page of matching questions.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuestionsResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /search/excerpts:
+    get:
+      tags:
+      - Search
+      operationId: searchExcerpts
+      summary: Stack Exchange Search Excerpts
+      description: Full-text excerpt search across questions and answers.
+      parameters:
+      - $ref: '#/components/parameters/Site'
+      - $ref: '#/components/parameters/Key'
+      - $ref: '#/components/parameters/Filter'
+      - $ref: '#/components/parameters/Page'
+      - $ref: '#/components/parameters/PageSize'
+      - name: q
+        in: query
+        schema:
+          type: string
+          example: openapi specification
+      - name: tagged
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: A page of search excerpts.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuestionsResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /similar:
+    get:
+      tags:
+      - Search
+      operationId: findSimilarQuestions
+      summary: Stack Exchange Find Similar Questions
+      description: Find questions similar to a candidate title.
+      parameters:
+      - $ref: '#/components/parameters/Site'
+      - $ref: '#/components/parameters/Key'
+      - $ref: '#/components/parameters/Filter'
+      - $ref: '#/components/parameters/Page'
+      - $ref: '#/components/parameters/PageSize'
+      - name: title
+        in: query
+        required: true
+        schema:
+          type: string
+          example: How do I parse JSON in Python?
+      - name: tagged
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: A page of similar questions.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuestionsResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    Question:
+      type: object
+      description: A question on a Stack Exchange site.
+      properties:
+        question_id:
+          type: integer
+          example: 11227809
+        title:
+          type: string
+          example: Why is processing a sorted array faster than processing an unsorted array?
+        body:
+          type: string
+          description: HTML body of the question (only included via filter).
+        body_markdown:
+          type: string
+          description: Markdown body of the question (only included via filter).
+        link:
+          type: string
+          format: uri
+          example: https://stackoverflow.com/questions/11227809
+        score:
+          type: integer
+          example: 27000
+        view_count:
+          type: integer
+          example: 1900000
+        answer_count:
+          type: integer
+          example: 25
+        comment_count:
+          type: integer
+          example: 12
+        favorite_count:
+          type: integer
+          example: 4000
+        is_answered:
+          type: boolean
+          example: true
+        accepted_answer_id:
+          type: integer
+          example: 11227902
+        creation_date:
+          type: integer
+          format: int64
+          example: 1338717687
+        last_activity_date:
+          type: integer
+          format: int64
+          example: 1700000000
+        last_edit_date:
+          type: integer
+          format: int64
+          example: 1690000000
+        owner:
+          $ref: '#/components/schemas/ShallowUser'
+        tags:
+          type: array
+          items:
+            type: string
+          example:
+          - java
+          - c++
+          - performance
+          - cpu-architecture
+          - branch-prediction
+        content_license:
+          type: string
+          example: CC BY-SA 4.0
+        protected_date:
+          type: integer
+          format: int64
+        locked_date:
+          type: integer
+          format: int64
+        closed_date:
+          type: integer
+          format: int64
+        closed_reason:
+          type: string
+        bounty_amount:
+          type: integer
+        bounty_closes_date:
+          type: integer
+          format: int64
+    QuestionsResponse:
+      allOf:
+      - $ref: '#/components/schemas/Wrapper'
+      - type: object
+        properties:
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/Question'
+    ShallowUser:
+      type: object
+      description: Lightweight user reference embedded in posts and comments.
+      properties:
+        user_id:
+          type: integer
+          format: int64
+          example: 22656
+        user_type:
+          type: string
+          enum:
+          - unregistered
+          - registered
+          - moderator
+          - team_admin
+          - does_not_exist
+          example: registered
+        display_name:
+          type: string
+          example: Jon Skeet
+        reputation:
+          type: integer
+          example: 1500000
+        profile_image:
+          type: string
+          format: uri
+          example: https://i.sstatic.net/lLZAr.jpg?s=128
+        link:
+          type: string
+          format: uri
+          example: https://stackoverflow.com/users/22656/jon-skeet
+        accept_rate:
+          type: integer
+          example: 92
+    Wrapper:
+      type: object
+      description: Common envelope returned by every Stack Exchange API method.
+      properties:
+        backoff:
+          type: integer
+          description: Seconds the client MUST wait before re-querying this same method. Returned when the API has identified the consumer as expensive.
+          example: 0
+        error_id:
+          type: integer
+          description: Numeric error code when the response is an error.
+        error_message:
+          type: string
+          description: Human-readable error message.
+        error_name:
+          type: string
+          description: Stable error name (e.g. `throttle_violation`).
+        has_more:
+          type: boolean
+          description: True when more pages exist past the returned `page`.
+          example: true
+        page:
+          type: integer
+          description: Page number echoed from the request.
+          example: 1
+        page_size:
+          type: integer
+          description: Page size echoed from the request.
+          example: 30
+        quota_max:
+          type: integer
+          description: Daily quota for the IP/key combination.
+          example: 10000
+        quota_remaining:
+          type: integer
+          description: Quota left after this request.
+          example: 9999
+        total:
+          type: integer
+          description: Total count when the consumer requested it via filter.
+        type:
+          type: string
+          description: Type name of the items returned.
+      required:
+      - has_more
+      - quota_max
+      - quota_remaining
+  parameters:
+    Key:
+      name: key
+      in: query
+      required: false
+      description: App key from stackapps.com. Raises the daily quota to 10,000/IP.
+      schema:
+        type: string
+        example: example_app_key_abcdef
+    Site:
+      name: site
+      in: query
+      required: true
+      description: Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).
+      schema:
+        type: string
+        default: stackoverflow
+        example: stackoverflow
+    PageSize:
+      name: pagesize
+      in: query
+      required: false
+      description: Items per page (max 100).
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 30
+        example: 30
+    Page:
+      name: page
+      in: query
+      required: false
+      description: 1-indexed page number.
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+        example: 1
+    Filter:
+      name: filter
+      in: query
+      required: false
+      description: Custom response filter id created via /filters/create.
+      schema:
+        type: string
+        example: default
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      description: 'OAuth 2.0 explicit or implicit flow. Apps register on stackapps.com.
+
+        Read methods do not require auth; write methods require `write_access`.
+
+        `private_info` is needed for /me/notifications, /me/inbox, and similar
+
+        private surfaces. `no_expiry` issues tokens that never expire.
+
+        '
+      flows:
+        authorizationCode:
+          authorizationUrl: https://stackoverflow.com/oauth
+          tokenUrl: https://stackoverflow.com/oauth/access_token
+          scopes:
+            read_inbox: Access the authenticated user's inbox.
+            no_expiry: Issue a token that never expires.
+            write_access: Vote, post, comment, flag, accept on the user's behalf.
+            private_info: Access endpoints that return personal information.
+    apiKey:
+      type: apiKey
+      in: query
+      name: key
+      description: 'Optional app key. Sending a key raises the daily quota from 300 to 10,000
+
+        requests per IP and is the recommended default for any non-trivial client.
+
+        '
