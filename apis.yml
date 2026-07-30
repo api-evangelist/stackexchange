@@ -1,4 +1,18 @@
 aid: stackexchange
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/stackexchange.png
 name: Stack Exchange
 description: >-
   Stack Exchange is the network of Q&A communities founded by Joel Spolsky and
@@ -33,109 +47,968 @@ tags:
   - MCP
   - AI Grounding
 apis:
-  - name: Stack Exchange API v2.3
-    description: >-
-      Public, read-mostly HTTP/JSON API spanning all 180+ Stack Exchange sites.
-      All method families — questions, answers, comments, users, tags, badges,
-      sites, search, /me, access-tokens, notifications, inbox, events,
-      revisions, info, reputation, privileges, suggested-edits, posts — live
-      under a single base URL with a uniform response wrapper (items, has_more,
-      page, quota_max, quota_remaining, backoff). Read access requires no auth;
-      writes (posting, voting, flagging, accepting) require OAuth 2.0 with the
-      appropriate scopes (write_access, private_info, no_expiry).
-    humanURL: https://api.stackexchange.com/docs
-    baseURL: https://api.stackexchange.com/2.3
-    tags:
-      - Stack Exchange
-      - Public API
-      - Q And A
-      - Read-Mostly
-      - OAuth 2.0
-    properties:
-      - type: Documentation
-        url: https://api.stackexchange.com/docs
-      - type: OpenAPI
-        url: openapi/stackexchange-api-v2-3.yaml
-      - type: Signup
-        url: https://stackapps.com/apps/oauth/register
-      - type: Authentication
-        url: https://api.stackexchange.com/docs/authentication
-      - type: TermsOfService
-        url: https://stackoverflow.com/legal/api-terms-of-use
-      - type: RateLimits
-        url: https://api.stackexchange.com/docs/throttle
-      - type: Filters
-        url: https://api.stackexchange.com/docs/filters
-      - type: ChangeLog
-        url: https://api.stackexchange.com/docs/revisions
-      - type: SDKs
-        url: https://github.com/StackExchange/StacMan
-        title: .NET (StacMan)
-      - type: X-NaftikoCapability
-        url: capabilities/stack-exchange-questions.yaml
-      - type: X-NaftikoCapability
-        url: capabilities/stack-exchange-answers.yaml
-      - type: X-NaftikoCapability
-        url: capabilities/stack-exchange-comments.yaml
-      - type: X-NaftikoCapability
-        url: capabilities/stack-exchange-users.yaml
-      - type: X-NaftikoCapability
-        url: capabilities/stack-exchange-me.yaml
-      - type: X-NaftikoCapability
-        url: capabilities/stack-exchange-tags.yaml
-      - type: X-NaftikoCapability
-        url: capabilities/stack-exchange-badges.yaml
-      - type: X-NaftikoCapability
-        url: capabilities/stack-exchange-sites.yaml
-      - type: X-NaftikoCapability
-        url: capabilities/stack-exchange-search.yaml
-      - type: X-NaftikoCapability
-        url: capabilities/stack-exchange-posts.yaml
-      - type: X-NaftikoCapability
-        url: capabilities/stack-exchange-revisions.yaml
-      - type: X-NaftikoCapability
-        url: capabilities/stack-exchange-suggested-edits.yaml
-      - type: X-NaftikoCapability
-        url: capabilities/stack-exchange-events.yaml
-      - type: X-NaftikoCapability
-        url: capabilities/stack-exchange-info.yaml
-      - type: X-NaftikoCapability
-        url: capabilities/stack-exchange-access-tokens.yaml
-      - type: X-NaftikoCapability
-        url: capabilities/stack-exchange-filters.yaml
-  - name: Stack Overflow for Teams API v3
-    description: >-
-      Newer REST API powering Stack Overflow for Teams (private/internal
-      instances). Resource-oriented (questions, answers, articles, comments,
-      tags, users, collections, communities) with full CRUD and bearer-token
-      auth. This is the API the official TypeScript SDK and Terraform provider
-      target; it is distinct from the public v2.3 API.
-    humanURL: https://stackoverflowteams.help/en/articles/9085836-api-v3-overview
-    baseURL: https://api.stackoverflowteams.com/v3/teams/{team}/
-    tags:
-      - Stack Overflow for Teams
-      - Internal API
-      - REST
-      - Bearer Token
-    properties:
-      - type: Documentation
-        url: https://stackoverflowteams.help/en/articles/9085836-api-v3-overview
-      - type: SDKs
-        url: https://www.npmjs.com/package/@stackoverflow/teams-sdk
-        title: TypeScript SDK
-      - type: SDKs
-        url: https://github.com/StackExchange/StackOverflowSDK
-        title: TypeScript SDK Source
-      - type: Tools
-        url: https://github.com/StackExchange/terraform-provider-stackoverflow
-        title: Terraform Provider
-      - type: Tools
-        url: https://github.com/StackExchange/backstage-stackoverflow
-        title: Backstage Plugin
-      - type: Tools
-        url: https://github.com/StackExchange/langchain-stack-overflow-for-teams
-        title: LangChain Integration
+- name: Stack Overflow for Teams API v3
+  description: >-
+    Newer REST API powering Stack Overflow for Teams (private/internal instances). Resource-oriented (questions,
+    answers, articles, comments, tags, users, collections, communities) with full CRUD and bearer-token
+    auth. This is the API the official TypeScript SDK and Terraform provider target; it is distinct from
+    the public v2.3 API.
+  humanURL: https://stackoverflowteams.help/en/articles/9085836-api-v3-overview
+  baseURL: https://api.stackoverflowteams.com/v3/teams/{team}/
+  tags:
+  - Stack Overflow for Teams
+  - Internal API
+  - REST
+  - Bearer Token
+  properties:
+  - type: Documentation
+    url: https://stackoverflowteams.help/en/articles/9085836-api-v3-overview
+  - type: SDKs
+    url: https://www.npmjs.com/package/@stackoverflow/teams-sdk
+    title: TypeScript SDK
+  - type: SDKs
+    url: https://github.com/StackExchange/StackOverflowSDK
+    title: TypeScript SDK Source
+  - type: Tools
+    url: https://github.com/StackExchange/terraform-provider-stackoverflow
+    title: Terraform Provider
+  - type: Tools
+    url: https://github.com/StackExchange/backstage-stackoverflow
+    title: Backstage Plugin
+  - type: Tools
+    url: https://github.com/StackExchange/langchain-stack-overflow-for-teams
+    title: LangChain Integration
+- aid: stackexchange:stackexchange-access-tokens-api
+  name: Stack Exchange Access Tokens API
+  description: OAuth access token introspection and invalidation.
+  humanURL: https://api.stackexchange.com/docs
+  baseURL: https://api.stackexchange.com/2.3
+  tags:
+  - Access Tokens
+  properties:
+  - type: OpenAPI
+    url: openapi/stackexchange-access-tokens-api-openapi.yml
+  - type: Documentation
+    url: https://api.stackexchange.com/docs
+  - type: Signup
+    url: https://stackapps.com/apps/oauth/register
+  - type: Authentication
+    url: https://api.stackexchange.com/docs/authentication
+  - type: TermsOfService
+    url: https://stackoverflow.com/legal/api-terms-of-use
+  - type: RateLimits
+    url: https://api.stackexchange.com/docs/throttle
+  - type: Filters
+    url: https://api.stackexchange.com/docs/filters
+  - type: ChangeLog
+    url: https://api.stackexchange.com/docs/revisions
+  - type: SDKs
+    url: https://github.com/StackExchange/StacMan
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-questions.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-answers.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-comments.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-users.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-me.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-tags.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-badges.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-sites.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-search.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-posts.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-revisions.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-suggested-edits.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-events.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-info.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-access-tokens.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-filters.yaml
+- aid: stackexchange:stackexchange-answers-api
+  name: Stack Exchange Answers API
+  description: Answer objects — list, fetch by id, and per-question answers.
+  humanURL: https://api.stackexchange.com/docs
+  baseURL: https://api.stackexchange.com/2.3
+  tags:
+  - Answers
+  properties:
+  - type: OpenAPI
+    url: openapi/stackexchange-answers-api-openapi.yml
+  - type: Documentation
+    url: https://api.stackexchange.com/docs
+  - type: Signup
+    url: https://stackapps.com/apps/oauth/register
+  - type: Authentication
+    url: https://api.stackexchange.com/docs/authentication
+  - type: TermsOfService
+    url: https://stackoverflow.com/legal/api-terms-of-use
+  - type: RateLimits
+    url: https://api.stackexchange.com/docs/throttle
+  - type: Filters
+    url: https://api.stackexchange.com/docs/filters
+  - type: ChangeLog
+    url: https://api.stackexchange.com/docs/revisions
+  - type: SDKs
+    url: https://github.com/StackExchange/StacMan
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-questions.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-answers.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-comments.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-users.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-me.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-tags.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-badges.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-sites.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-search.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-posts.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-revisions.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-suggested-edits.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-events.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-info.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-access-tokens.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-filters.yaml
+- aid: stackexchange:stackexchange-badges-api
+  name: Stack Exchange Badges API
+  description: Badges defined on a site — by id, name, type, and recipients.
+  humanURL: https://api.stackexchange.com/docs
+  baseURL: https://api.stackexchange.com/2.3
+  tags:
+  - Badges
+  properties:
+  - type: OpenAPI
+    url: openapi/stackexchange-badges-api-openapi.yml
+  - type: Documentation
+    url: https://api.stackexchange.com/docs
+  - type: Signup
+    url: https://stackapps.com/apps/oauth/register
+  - type: Authentication
+    url: https://api.stackexchange.com/docs/authentication
+  - type: TermsOfService
+    url: https://stackoverflow.com/legal/api-terms-of-use
+  - type: RateLimits
+    url: https://api.stackexchange.com/docs/throttle
+  - type: Filters
+    url: https://api.stackexchange.com/docs/filters
+  - type: ChangeLog
+    url: https://api.stackexchange.com/docs/revisions
+  - type: SDKs
+    url: https://github.com/StackExchange/StacMan
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-questions.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-answers.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-comments.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-users.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-me.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-tags.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-badges.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-sites.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-search.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-posts.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-revisions.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-suggested-edits.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-events.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-info.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-access-tokens.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-filters.yaml
+- aid: stackexchange:stackexchange-comments-api
+  name: Stack Exchange Comments API
+  description: Comments attached to questions and answers across the network.
+  humanURL: https://api.stackexchange.com/docs
+  baseURL: https://api.stackexchange.com/2.3
+  tags:
+  - Comments
+  properties:
+  - type: OpenAPI
+    url: openapi/stackexchange-comments-api-openapi.yml
+  - type: Documentation
+    url: https://api.stackexchange.com/docs
+  - type: Signup
+    url: https://stackapps.com/apps/oauth/register
+  - type: Authentication
+    url: https://api.stackexchange.com/docs/authentication
+  - type: TermsOfService
+    url: https://stackoverflow.com/legal/api-terms-of-use
+  - type: RateLimits
+    url: https://api.stackexchange.com/docs/throttle
+  - type: Filters
+    url: https://api.stackexchange.com/docs/filters
+  - type: ChangeLog
+    url: https://api.stackexchange.com/docs/revisions
+  - type: SDKs
+    url: https://github.com/StackExchange/StacMan
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-questions.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-answers.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-comments.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-users.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-me.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-tags.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-badges.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-sites.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-search.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-posts.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-revisions.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-suggested-edits.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-events.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-info.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-access-tokens.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-filters.yaml
+- aid: stackexchange:stackexchange-events-api
+  name: Stack Exchange Events API
+  description: Recent network events (1.5 minute live window) for the authenticated user.
+  humanURL: https://api.stackexchange.com/docs
+  baseURL: https://api.stackexchange.com/2.3
+  tags:
+  - Events
+  properties:
+  - type: OpenAPI
+    url: openapi/stackexchange-events-api-openapi.yml
+  - type: Documentation
+    url: https://api.stackexchange.com/docs
+  - type: Signup
+    url: https://stackapps.com/apps/oauth/register
+  - type: Authentication
+    url: https://api.stackexchange.com/docs/authentication
+  - type: TermsOfService
+    url: https://stackoverflow.com/legal/api-terms-of-use
+  - type: RateLimits
+    url: https://api.stackexchange.com/docs/throttle
+  - type: Filters
+    url: https://api.stackexchange.com/docs/filters
+  - type: ChangeLog
+    url: https://api.stackexchange.com/docs/revisions
+  - type: SDKs
+    url: https://github.com/StackExchange/StacMan
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-questions.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-answers.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-comments.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-users.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-me.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-tags.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-badges.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-sites.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-search.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-posts.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-revisions.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-suggested-edits.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-events.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-info.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-access-tokens.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-filters.yaml
+- aid: stackexchange:stackexchange-filters-api
+  name: Stack Exchange Filters API
+  description: Custom response filter creation and inspection.
+  humanURL: https://api.stackexchange.com/docs
+  baseURL: https://api.stackexchange.com/2.3
+  tags:
+  - Filters
+  properties:
+  - type: OpenAPI
+    url: openapi/stackexchange-filters-api-openapi.yml
+  - type: Documentation
+    url: https://api.stackexchange.com/docs
+  - type: Signup
+    url: https://stackapps.com/apps/oauth/register
+  - type: Authentication
+    url: https://api.stackexchange.com/docs/authentication
+  - type: TermsOfService
+    url: https://stackoverflow.com/legal/api-terms-of-use
+  - type: RateLimits
+    url: https://api.stackexchange.com/docs/throttle
+  - type: Filters
+    url: https://api.stackexchange.com/docs/filters
+  - type: ChangeLog
+    url: https://api.stackexchange.com/docs/revisions
+  - type: SDKs
+    url: https://github.com/StackExchange/StacMan
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-questions.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-answers.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-comments.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-users.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-me.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-tags.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-badges.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-sites.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-search.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-posts.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-revisions.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-suggested-edits.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-events.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-info.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-access-tokens.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-filters.yaml
+- aid: stackexchange:stackexchange-info-api
+  name: Stack Exchange Info API
+  description: Site-wide statistics, totals, and metadata.
+  humanURL: https://api.stackexchange.com/docs
+  baseURL: https://api.stackexchange.com/2.3
+  tags:
+  - Info
+  properties:
+  - type: OpenAPI
+    url: openapi/stackexchange-info-api-openapi.yml
+  - type: Documentation
+    url: https://api.stackexchange.com/docs
+  - type: Signup
+    url: https://stackapps.com/apps/oauth/register
+  - type: Authentication
+    url: https://api.stackexchange.com/docs/authentication
+  - type: TermsOfService
+    url: https://stackoverflow.com/legal/api-terms-of-use
+  - type: RateLimits
+    url: https://api.stackexchange.com/docs/throttle
+  - type: Filters
+    url: https://api.stackexchange.com/docs/filters
+  - type: ChangeLog
+    url: https://api.stackexchange.com/docs/revisions
+  - type: SDKs
+    url: https://github.com/StackExchange/StacMan
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-questions.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-answers.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-comments.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-users.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-me.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-tags.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-badges.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-sites.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-search.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-posts.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-revisions.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-suggested-edits.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-events.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-info.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-access-tokens.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-filters.yaml
+- aid: stackexchange:stackexchange-me-api
+  name: Stack Exchange Me API
+  description: Convenience surfaces that infer the user from the OAuth access token.
+  humanURL: https://api.stackexchange.com/docs
+  baseURL: https://api.stackexchange.com/2.3
+  tags:
+  - Me
+  properties:
+  - type: OpenAPI
+    url: openapi/stackexchange-me-api-openapi.yml
+  - type: Documentation
+    url: https://api.stackexchange.com/docs
+  - type: Signup
+    url: https://stackapps.com/apps/oauth/register
+  - type: Authentication
+    url: https://api.stackexchange.com/docs/authentication
+  - type: TermsOfService
+    url: https://stackoverflow.com/legal/api-terms-of-use
+  - type: RateLimits
+    url: https://api.stackexchange.com/docs/throttle
+  - type: Filters
+    url: https://api.stackexchange.com/docs/filters
+  - type: ChangeLog
+    url: https://api.stackexchange.com/docs/revisions
+  - type: SDKs
+    url: https://github.com/StackExchange/StacMan
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-questions.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-answers.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-comments.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-users.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-me.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-tags.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-badges.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-sites.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-search.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-posts.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-revisions.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-suggested-edits.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-events.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-info.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-access-tokens.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-filters.yaml
+- aid: stackexchange:stackexchange-posts-api
+  name: Stack Exchange Posts API
+  description: Generic post surfaces covering both questions and answers as `post` objects.
+  humanURL: https://api.stackexchange.com/docs
+  baseURL: https://api.stackexchange.com/2.3
+  tags:
+  - Posts
+  properties:
+  - type: OpenAPI
+    url: openapi/stackexchange-posts-api-openapi.yml
+  - type: Documentation
+    url: https://api.stackexchange.com/docs
+  - type: Signup
+    url: https://stackapps.com/apps/oauth/register
+  - type: Authentication
+    url: https://api.stackexchange.com/docs/authentication
+  - type: TermsOfService
+    url: https://stackoverflow.com/legal/api-terms-of-use
+  - type: RateLimits
+    url: https://api.stackexchange.com/docs/throttle
+  - type: Filters
+    url: https://api.stackexchange.com/docs/filters
+  - type: ChangeLog
+    url: https://api.stackexchange.com/docs/revisions
+  - type: SDKs
+    url: https://github.com/StackExchange/StacMan
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-questions.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-answers.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-comments.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-users.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-me.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-tags.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-badges.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-sites.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-search.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-posts.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-revisions.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-suggested-edits.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-events.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-info.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-access-tokens.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-filters.yaml
+- aid: stackexchange:stackexchange-questions-api
+  name: Stack Exchange Questions API
+  description: Question objects across the network — list, fetch, related, linked, search-equivalents.
+  humanURL: https://api.stackexchange.com/docs
+  baseURL: https://api.stackexchange.com/2.3
+  tags:
+  - Questions
+  properties:
+  - type: OpenAPI
+    url: openapi/stackexchange-questions-api-openapi.yml
+  - type: Documentation
+    url: https://api.stackexchange.com/docs
+  - type: Signup
+    url: https://stackapps.com/apps/oauth/register
+  - type: Authentication
+    url: https://api.stackexchange.com/docs/authentication
+  - type: TermsOfService
+    url: https://stackoverflow.com/legal/api-terms-of-use
+  - type: RateLimits
+    url: https://api.stackexchange.com/docs/throttle
+  - type: Filters
+    url: https://api.stackexchange.com/docs/filters
+  - type: ChangeLog
+    url: https://api.stackexchange.com/docs/revisions
+  - type: SDKs
+    url: https://github.com/StackExchange/StacMan
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-questions.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-answers.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-comments.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-users.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-me.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-tags.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-badges.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-sites.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-search.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-posts.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-revisions.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-suggested-edits.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-events.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-info.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-access-tokens.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-filters.yaml
+- aid: stackexchange:stackexchange-revisions-api
+  name: Stack Exchange Revisions API
+  description: Revision history for posts.
+  humanURL: https://api.stackexchange.com/docs
+  baseURL: https://api.stackexchange.com/2.3
+  tags:
+  - Revisions
+  properties:
+  - type: OpenAPI
+    url: openapi/stackexchange-revisions-api-openapi.yml
+  - type: Documentation
+    url: https://api.stackexchange.com/docs
+  - type: Signup
+    url: https://stackapps.com/apps/oauth/register
+  - type: Authentication
+    url: https://api.stackexchange.com/docs/authentication
+  - type: TermsOfService
+    url: https://stackoverflow.com/legal/api-terms-of-use
+  - type: RateLimits
+    url: https://api.stackexchange.com/docs/throttle
+  - type: Filters
+    url: https://api.stackexchange.com/docs/filters
+  - type: ChangeLog
+    url: https://api.stackexchange.com/docs/revisions
+  - type: SDKs
+    url: https://github.com/StackExchange/StacMan
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-questions.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-answers.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-comments.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-users.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-me.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-tags.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-badges.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-sites.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-search.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-posts.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-revisions.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-suggested-edits.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-events.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-info.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-access-tokens.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-filters.yaml
+- aid: stackexchange:stackexchange-search-api
+  name: Stack Exchange Search API
+  description: Question search — basic title-match, full-text excerpts, and advanced.
+  humanURL: https://api.stackexchange.com/docs
+  baseURL: https://api.stackexchange.com/2.3
+  tags:
+  - Search
+  properties:
+  - type: OpenAPI
+    url: openapi/stackexchange-search-api-openapi.yml
+  - type: Documentation
+    url: https://api.stackexchange.com/docs
+  - type: Signup
+    url: https://stackapps.com/apps/oauth/register
+  - type: Authentication
+    url: https://api.stackexchange.com/docs/authentication
+  - type: TermsOfService
+    url: https://stackoverflow.com/legal/api-terms-of-use
+  - type: RateLimits
+    url: https://api.stackexchange.com/docs/throttle
+  - type: Filters
+    url: https://api.stackexchange.com/docs/filters
+  - type: ChangeLog
+    url: https://api.stackexchange.com/docs/revisions
+  - type: SDKs
+    url: https://github.com/StackExchange/StacMan
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-questions.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-answers.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-comments.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-users.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-me.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-tags.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-badges.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-sites.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-search.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-posts.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-revisions.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-suggested-edits.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-events.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-info.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-access-tokens.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-filters.yaml
+- aid: stackexchange:stackexchange-sites-api
+  name: Stack Exchange Sites API
+  description: Enumeration and metadata for the 180+ Stack Exchange Q&A sites.
+  humanURL: https://api.stackexchange.com/docs
+  baseURL: https://api.stackexchange.com/2.3
+  tags:
+  - Sites
+  properties:
+  - type: OpenAPI
+    url: openapi/stackexchange-sites-api-openapi.yml
+  - type: Documentation
+    url: https://api.stackexchange.com/docs
+  - type: Signup
+    url: https://stackapps.com/apps/oauth/register
+  - type: Authentication
+    url: https://api.stackexchange.com/docs/authentication
+  - type: TermsOfService
+    url: https://stackoverflow.com/legal/api-terms-of-use
+  - type: RateLimits
+    url: https://api.stackexchange.com/docs/throttle
+  - type: Filters
+    url: https://api.stackexchange.com/docs/filters
+  - type: ChangeLog
+    url: https://api.stackexchange.com/docs/revisions
+  - type: SDKs
+    url: https://github.com/StackExchange/StacMan
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-questions.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-answers.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-comments.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-users.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-me.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-tags.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-badges.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-sites.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-search.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-posts.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-revisions.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-suggested-edits.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-events.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-info.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-access-tokens.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-filters.yaml
+- aid: stackexchange:stackexchange-suggested-edits-api
+  name: Stack Exchange Suggested Edits API
+  description: Pending edits proposed by users awaiting review.
+  humanURL: https://api.stackexchange.com/docs
+  baseURL: https://api.stackexchange.com/2.3
+  tags:
+  - Suggested Edits
+  properties:
+  - type: OpenAPI
+    url: openapi/stackexchange-suggested-edits-api-openapi.yml
+  - type: Documentation
+    url: https://api.stackexchange.com/docs
+  - type: Signup
+    url: https://stackapps.com/apps/oauth/register
+  - type: Authentication
+    url: https://api.stackexchange.com/docs/authentication
+  - type: TermsOfService
+    url: https://stackoverflow.com/legal/api-terms-of-use
+  - type: RateLimits
+    url: https://api.stackexchange.com/docs/throttle
+  - type: Filters
+    url: https://api.stackexchange.com/docs/filters
+  - type: ChangeLog
+    url: https://api.stackexchange.com/docs/revisions
+  - type: SDKs
+    url: https://github.com/StackExchange/StacMan
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-questions.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-answers.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-comments.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-users.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-me.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-tags.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-badges.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-sites.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-search.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-posts.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-revisions.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-suggested-edits.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-events.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-info.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-access-tokens.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-filters.yaml
+- aid: stackexchange:stackexchange-tags-api
+  name: Stack Exchange Tags API
+  description: Tag catalog, synonyms, wikis, top askers/answerers, and related tags.
+  humanURL: https://api.stackexchange.com/docs
+  baseURL: https://api.stackexchange.com/2.3
+  tags:
+  - Tags
+  properties:
+  - type: OpenAPI
+    url: openapi/stackexchange-tags-api-openapi.yml
+  - type: Documentation
+    url: https://api.stackexchange.com/docs
+  - type: Signup
+    url: https://stackapps.com/apps/oauth/register
+  - type: Authentication
+    url: https://api.stackexchange.com/docs/authentication
+  - type: TermsOfService
+    url: https://stackoverflow.com/legal/api-terms-of-use
+  - type: RateLimits
+    url: https://api.stackexchange.com/docs/throttle
+  - type: Filters
+    url: https://api.stackexchange.com/docs/filters
+  - type: ChangeLog
+    url: https://api.stackexchange.com/docs/revisions
+  - type: SDKs
+    url: https://github.com/StackExchange/StacMan
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-questions.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-answers.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-comments.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-users.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-me.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-tags.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-badges.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-sites.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-search.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-posts.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-revisions.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-suggested-edits.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-events.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-info.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-access-tokens.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-filters.yaml
+- aid: stackexchange:stackexchange-users-api
+  name: Stack Exchange Users API
+  description: Site users, their reputation, badges, tags, top posts, timeline, and write surfaces.
+  humanURL: https://api.stackexchange.com/docs
+  baseURL: https://api.stackexchange.com/2.3
+  tags:
+  - Users
+  properties:
+  - type: OpenAPI
+    url: openapi/stackexchange-users-api-openapi.yml
+  - type: Documentation
+    url: https://api.stackexchange.com/docs
+  - type: Signup
+    url: https://stackapps.com/apps/oauth/register
+  - type: Authentication
+    url: https://api.stackexchange.com/docs/authentication
+  - type: TermsOfService
+    url: https://stackoverflow.com/legal/api-terms-of-use
+  - type: RateLimits
+    url: https://api.stackexchange.com/docs/throttle
+  - type: Filters
+    url: https://api.stackexchange.com/docs/filters
+  - type: ChangeLog
+    url: https://api.stackexchange.com/docs/revisions
+  - type: SDKs
+    url: https://github.com/StackExchange/StacMan
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-questions.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-answers.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-comments.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-users.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-me.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-tags.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-badges.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-sites.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-search.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-posts.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-revisions.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-suggested-edits.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-events.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-info.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-access-tokens.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/stack-exchange-filters.yaml
 common:
+  - type: PostmanWorkspace
+    url: https://www.postman.com/kinlaneapi/stack-exchange/overview
   - type: AgenticAccess
     url: agentic-access/stackexchange-agentic-access.yml
   - type: DomainSecurity
