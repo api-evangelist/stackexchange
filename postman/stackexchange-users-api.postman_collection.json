@@ -1,0 +1,1595 @@
+{
+  "info": {
+    "_postman_id": "16788bf7-53dd-4c46-86b8-f9c3dcfc66aa",
+    "name": "Stack Exchange Access Tokens Users API",
+    "description": "Public, read-mostly HTTP/JSON API spanning all 180+ Stack Exchange sites\n(Stack Overflow, Server Fault, Super User, Ask Ubuntu, Stats, Math Overflow, ...).\n\nAll method families live under a single base URL with a uniform wrapper\n(`items`, `has_more`, `page`, `quota_max`, `quota_remaining`, `backoff`).\nRead access is unauthenticated. Write methods require OAuth 2.0 with the\nappropriate scopes (`write_access`, `private_info`, `no_expiry`).\n\nMost paths take a required `site` query parameter naming the target Q&A\ncommunity (`stackoverflow`, `serverfault`, `superuser`, ...). Use `/sites`\nto enumerate the network.\n\n\nContact Support:\n Name: Stack Exchange API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:05:05.000Z",
+    "updatedAt": "2026-07-28T03:05:05.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-16788bf7-53dd-4c46-86b8-f9c3dcfc66aa"
+  },
+  "item": [
+    {
+      "name": "users",
+      "item": [
+        {
+          "name": "{ids}",
+          "item": [
+            {
+              "name": "answers",
+              "item": [
+                {
+                  "name": "Stack Exchange List Answers by Users",
+                  "id": "5618085a-18c8-4579-a823-11b289bc8eb9",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/users/:ids/answers?site=stackoverflow&key=<string>&filter=<string>&page=1&pagesize=30",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "users",
+                        ":ids",
+                        "answers"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).",
+                          "key": "site",
+                          "value": "stackoverflow"
+                        },
+                        {
+                          "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP.",
+                          "key": "key",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Custom response filter id created via /filters/create.",
+                          "key": "filter",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "1-indexed page number.",
+                          "key": "page",
+                          "value": "1"
+                        },
+                        {
+                          "description": "Items per page (max 100).",
+                          "key": "pagesize",
+                          "value": "30"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "dec9e3db-ce3f-4768-b033-10c56c3139ea",
+                          "key": "ids",
+                          "value": "<string>",
+                          "description": "(Required) Up to 100 semicolon-delimited ids of the resource."
+                        }
+                      ]
+                    },
+                    "description": "Answers authored by the given users."
+                  },
+                  "response": [
+                    {
+                      "id": "9de02676-3760-47ac-8576-0214eddac80d",
+                      "name": "A page of answers.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/users/:ids/answers?site=stackoverflow&key=<API Key>&filter=<string>&page=1&pagesize=30",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "users",
+                            ":ids",
+                            "answers"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).",
+                              "key": "site",
+                              "value": "stackoverflow"
+                            },
+                            {
+                              "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP.",
+                              "key": "key",
+                              "value": "<API Key>"
+                            },
+                            {
+                              "description": "Custom response filter id created via /filters/create.",
+                              "key": "filter",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "1-indexed page number.",
+                              "key": "page",
+                              "value": "1"
+                            },
+                            {
+                              "description": "Items per page (max 100).",
+                              "key": "pagesize",
+                              "value": "30"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "ids"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"has_more\": \"<boolean>\",\n  \"quota_max\": \"<integer>\",\n  \"quota_remaining\": \"<integer>\",\n  \"backoff\": \"<integer>\",\n  \"error_id\": \"<integer>\",\n  \"error_message\": \"<string>\",\n  \"error_name\": \"<string>\",\n  \"page\": \"<integer>\",\n  \"page_size\": \"<integer>\",\n  \"total\": \"<integer>\",\n  \"type\": \"<string>\",\n  \"items\": [\n    {\n      \"answer_id\": \"<integer>\",\n      \"question_id\": \"<integer>\",\n      \"title\": \"<string>\",\n      \"body\": \"<string>\",\n      \"body_markdown\": \"<string>\",\n      \"link\": \"<uri>\",\n      \"score\": \"<integer>\",\n      \"up_vote_count\": \"<integer>\",\n      \"down_vote_count\": \"<integer>\",\n      \"is_accepted\": \"<boolean>\",\n      \"comment_count\": \"<integer>\",\n      \"creation_date\": \"<long>\",\n      \"last_activity_date\": \"<long>\",\n      \"last_edit_date\": \"<long>\",\n      \"owner\": {\n        \"user_id\": \"<long>\",\n        \"user_type\": \"team_admin\",\n        \"display_name\": \"<string>\",\n        \"reputation\": \"<integer>\",\n        \"profile_image\": \"<uri>\",\n        \"link\": \"<uri>\",\n        \"accept_rate\": \"<integer>\"\n      },\n      \"last_editor\": {\n        \"user_id\": \"<long>\",\n        \"user_type\": \"unregistered\",\n        \"display_name\": \"<string>\",\n        \"reputation\": \"<integer>\",\n        \"profile_image\": \"<uri>\",\n        \"link\": \"<uri>\",\n        \"accept_rate\": \"<integer>\"\n      },\n      \"tags\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"content_license\": \"<string>\",\n      \"community_owned_date\": \"<long>\",\n      \"locked_date\": \"<long>\",\n      \"awarded_bounty_amount\": \"<integer>\",\n      \"awarded_bounty_users\": [\n        {\n          \"user_id\": \"<long>\",\n          \"user_type\": \"registered\",\n          \"display_name\": \"<string>\",\n          \"reputation\": \"<integer>\",\n          \"profile_image\": \"<uri>\",\n          \"link\": \"<uri>\",\n          \"accept_rate\": \"<integer>\"\n        },\n        {\n          \"user_id\": \"<long>\",\n          \"user_type\": \"team_admin\",\n          \"display_name\": \"<string>\",\n          \"reputation\": \"<integer>\",\n          \"profile_image\": \"<uri>\",\n          \"link\": \"<uri>\",\n          \"accept_rate\": \"<integer>\"\n        }\n      ]\n    },\n    {\n      \"answer_id\": \"<integer>\",\n      \"question_id\": \"<integer>\",\n      \"title\": \"<string>\",\n      \"body\": \"<string>\",\n      \"body_markdown\": \"<string>\",\n      \"link\": \"<uri>\",\n      \"score\": \"<integer>\",\n      \"up_vote_count\": \"<integer>\",\n      \"down_vote_count\": \"<integer>\",\n      \"is_accepted\": \"<boolean>\",\n      \"comment_count\": \"<integer>\",\n      \"creation_date\": \"<long>\",\n      \"last_activity_date\": \"<long>\",\n      \"last_edit_date\": \"<long>\",\n      \"owner\": {\n        \"user_id\": \"<long>\",\n        \"user_type\": \"does_not_exist\",\n        \"display_name\": \"<string>\",\n        \"reputation\": \"<integer>\",\n        \"profile_image\": \"<uri>\",\n        \"link\": \"<uri>\",\n        \"accept_rate\": \"<integer>\"\n      },\n      \"last_editor\": {\n        \"user_id\": \"<long>\",\n        \"user_type\": \"team_admin\",\n        \"display_name\": \"<string>\",\n        \"reputation\": \"<integer>\",\n        \"profile_image\": \"<uri>\",\n        \"link\": \"<uri>\",\n        \"accept_rate\": \"<integer>\"\n      },\n      \"tags\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"content_license\": \"<string>\",\n      \"community_owned_date\": \"<long>\",\n      \"locked_date\": \"<long>\",\n      \"awarded_bounty_amount\": \"<integer>\",\n      \"awarded_bounty_users\": [\n        {\n          \"user_id\": \"<long>\",\n          \"user_type\": \"registered\",\n          \"display_name\": \"<string>\",\n          \"reputation\": \"<integer>\",\n          \"profile_image\": \"<uri>\",\n          \"link\": \"<uri>\",\n          \"accept_rate\": \"<integer>\"\n        },\n        {\n          \"user_id\": \"<long>\",\n          \"user_type\": \"registered\",\n          \"display_name\": \"<string>\",\n          \"reputation\": \"<integer>\",\n          \"profile_image\": \"<uri>\",\n          \"link\": \"<uri>\",\n          \"accept_rate\": \"<integer>\"\n        }\n      ]\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T03:05:05.000Z",
+                      "updatedAt": "2026-07-28T03:05:05.000Z",
+                      "uid": "35240-9de02676-3760-47ac-8576-0214eddac80d"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:05:05.000Z",
+                  "updatedAt": "2026-07-28T03:05:05.000Z",
+                  "uid": "35240-5618085a-18c8-4579-a823-11b289bc8eb9"
+                }
+              ],
+              "id": "2fdfe19a-bdf8-48a1-9baa-f1318e8fba3d",
+              "createdAt": "2026-07-28T03:05:05.000Z",
+              "updatedAt": "2026-07-28T03:05:05.000Z",
+              "uid": "35240-2fdfe19a-bdf8-48a1-9baa-f1318e8fba3d"
+            },
+            {
+              "name": "questions",
+              "item": [
+                {
+                  "name": "Stack Exchange List Questions by Users",
+                  "id": "ca4494af-d913-435c-a768-dc1ea58b6e7a",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/users/:ids/questions?site=stackoverflow&key=<string>&filter=<string>&page=1&pagesize=30",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "users",
+                        ":ids",
+                        "questions"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).",
+                          "key": "site",
+                          "value": "stackoverflow"
+                        },
+                        {
+                          "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP.",
+                          "key": "key",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Custom response filter id created via /filters/create.",
+                          "key": "filter",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "1-indexed page number.",
+                          "key": "page",
+                          "value": "1"
+                        },
+                        {
+                          "description": "Items per page (max 100).",
+                          "key": "pagesize",
+                          "value": "30"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "20629c6e-c113-4a4c-ba8f-3b46ba9584a4",
+                          "key": "ids",
+                          "value": "<string>",
+                          "description": "(Required) Up to 100 semicolon-delimited ids of the resource."
+                        }
+                      ]
+                    },
+                    "description": "Questions authored by the given users."
+                  },
+                  "response": [
+                    {
+                      "id": "a860adf3-490c-48ae-a1a2-e7c60625963a",
+                      "name": "A page of questions.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/users/:ids/questions?site=stackoverflow&key=<API Key>&filter=<string>&page=1&pagesize=30",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "users",
+                            ":ids",
+                            "questions"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).",
+                              "key": "site",
+                              "value": "stackoverflow"
+                            },
+                            {
+                              "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP.",
+                              "key": "key",
+                              "value": "<API Key>"
+                            },
+                            {
+                              "description": "Custom response filter id created via /filters/create.",
+                              "key": "filter",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "1-indexed page number.",
+                              "key": "page",
+                              "value": "1"
+                            },
+                            {
+                              "description": "Items per page (max 100).",
+                              "key": "pagesize",
+                              "value": "30"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "ids"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"has_more\": \"<boolean>\",\n  \"quota_max\": \"<integer>\",\n  \"quota_remaining\": \"<integer>\",\n  \"backoff\": \"<integer>\",\n  \"error_id\": \"<integer>\",\n  \"error_message\": \"<string>\",\n  \"error_name\": \"<string>\",\n  \"page\": \"<integer>\",\n  \"page_size\": \"<integer>\",\n  \"total\": \"<integer>\",\n  \"type\": \"<string>\",\n  \"items\": [\n    {\n      \"question_id\": \"<integer>\",\n      \"title\": \"<string>\",\n      \"body\": \"<string>\",\n      \"body_markdown\": \"<string>\",\n      \"link\": \"<uri>\",\n      \"score\": \"<integer>\",\n      \"view_count\": \"<integer>\",\n      \"answer_count\": \"<integer>\",\n      \"comment_count\": \"<integer>\",\n      \"favorite_count\": \"<integer>\",\n      \"is_answered\": \"<boolean>\",\n      \"accepted_answer_id\": \"<integer>\",\n      \"creation_date\": \"<long>\",\n      \"last_activity_date\": \"<long>\",\n      \"last_edit_date\": \"<long>\",\n      \"owner\": {\n        \"user_id\": \"<long>\",\n        \"user_type\": \"team_admin\",\n        \"display_name\": \"<string>\",\n        \"reputation\": \"<integer>\",\n        \"profile_image\": \"<uri>\",\n        \"link\": \"<uri>\",\n        \"accept_rate\": \"<integer>\"\n      },\n      \"tags\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"content_license\": \"<string>\",\n      \"protected_date\": \"<long>\",\n      \"locked_date\": \"<long>\",\n      \"closed_date\": \"<long>\",\n      \"closed_reason\": \"<string>\",\n      \"bounty_amount\": \"<integer>\",\n      \"bounty_closes_date\": \"<long>\"\n    },\n    {\n      \"question_id\": \"<integer>\",\n      \"title\": \"<string>\",\n      \"body\": \"<string>\",\n      \"body_markdown\": \"<string>\",\n      \"link\": \"<uri>\",\n      \"score\": \"<integer>\",\n      \"view_count\": \"<integer>\",\n      \"answer_count\": \"<integer>\",\n      \"comment_count\": \"<integer>\",\n      \"favorite_count\": \"<integer>\",\n      \"is_answered\": \"<boolean>\",\n      \"accepted_answer_id\": \"<integer>\",\n      \"creation_date\": \"<long>\",\n      \"last_activity_date\": \"<long>\",\n      \"last_edit_date\": \"<long>\",\n      \"owner\": {\n        \"user_id\": \"<long>\",\n        \"user_type\": \"moderator\",\n        \"display_name\": \"<string>\",\n        \"reputation\": \"<integer>\",\n        \"profile_image\": \"<uri>\",\n        \"link\": \"<uri>\",\n        \"accept_rate\": \"<integer>\"\n      },\n      \"tags\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"content_license\": \"<string>\",\n      \"protected_date\": \"<long>\",\n      \"locked_date\": \"<long>\",\n      \"closed_date\": \"<long>\",\n      \"closed_reason\": \"<string>\",\n      \"bounty_amount\": \"<integer>\",\n      \"bounty_closes_date\": \"<long>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T03:05:05.000Z",
+                      "updatedAt": "2026-07-28T03:05:05.000Z",
+                      "uid": "35240-a860adf3-490c-48ae-a1a2-e7c60625963a"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:05:05.000Z",
+                  "updatedAt": "2026-07-28T03:05:05.000Z",
+                  "uid": "35240-ca4494af-d913-435c-a768-dc1ea58b6e7a"
+                }
+              ],
+              "id": "ccd687a7-c213-4d64-92bb-8d9942c964d5",
+              "createdAt": "2026-07-28T03:05:05.000Z",
+              "updatedAt": "2026-07-28T03:05:05.000Z",
+              "uid": "35240-ccd687a7-c213-4d64-92bb-8d9942c964d5"
+            },
+            {
+              "name": "comments",
+              "item": [
+                {
+                  "name": "Stack Exchange List Comments by Users",
+                  "id": "e11ec639-ac59-42d7-b145-aa435f824bc3",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/users/:ids/comments?site=stackoverflow&key=<string>&filter=<string>&page=1&pagesize=30",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "users",
+                        ":ids",
+                        "comments"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).",
+                          "key": "site",
+                          "value": "stackoverflow"
+                        },
+                        {
+                          "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP.",
+                          "key": "key",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Custom response filter id created via /filters/create.",
+                          "key": "filter",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "1-indexed page number.",
+                          "key": "page",
+                          "value": "1"
+                        },
+                        {
+                          "description": "Items per page (max 100).",
+                          "key": "pagesize",
+                          "value": "30"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "0202a9bb-f91f-4211-9fcf-efe371808f4e",
+                          "key": "ids",
+                          "value": "<string>",
+                          "description": "(Required) Up to 100 semicolon-delimited ids of the resource."
+                        }
+                      ]
+                    },
+                    "description": "Comments authored by the given users."
+                  },
+                  "response": [
+                    {
+                      "id": "e80da213-f776-4e19-a149-2a748bc9ff8d",
+                      "name": "A page of comments.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/users/:ids/comments?site=stackoverflow&key=<API Key>&filter=<string>&page=1&pagesize=30",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "users",
+                            ":ids",
+                            "comments"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).",
+                              "key": "site",
+                              "value": "stackoverflow"
+                            },
+                            {
+                              "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP.",
+                              "key": "key",
+                              "value": "<API Key>"
+                            },
+                            {
+                              "description": "Custom response filter id created via /filters/create.",
+                              "key": "filter",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "1-indexed page number.",
+                              "key": "page",
+                              "value": "1"
+                            },
+                            {
+                              "description": "Items per page (max 100).",
+                              "key": "pagesize",
+                              "value": "30"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "ids"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"has_more\": \"<boolean>\",\n  \"quota_max\": \"<integer>\",\n  \"quota_remaining\": \"<integer>\",\n  \"backoff\": \"<integer>\",\n  \"error_id\": \"<integer>\",\n  \"error_message\": \"<string>\",\n  \"error_name\": \"<string>\",\n  \"page\": \"<integer>\",\n  \"page_size\": \"<integer>\",\n  \"total\": \"<integer>\",\n  \"type\": \"<string>\",\n  \"items\": [\n    {\n      \"comment_id\": \"<integer>\",\n      \"post_id\": \"<integer>\",\n      \"post_type\": \"answer\",\n      \"score\": \"<integer>\",\n      \"body\": \"<string>\",\n      \"body_markdown\": \"<string>\",\n      \"creation_date\": \"<long>\",\n      \"edited\": \"<boolean>\",\n      \"link\": \"<uri>\",\n      \"owner\": {\n        \"user_id\": \"<long>\",\n        \"user_type\": \"registered\",\n        \"display_name\": \"<string>\",\n        \"reputation\": \"<integer>\",\n        \"profile_image\": \"<uri>\",\n        \"link\": \"<uri>\",\n        \"accept_rate\": \"<integer>\"\n      },\n      \"reply_to_user\": {\n        \"user_id\": \"<long>\",\n        \"user_type\": \"does_not_exist\",\n        \"display_name\": \"<string>\",\n        \"reputation\": \"<integer>\",\n        \"profile_image\": \"<uri>\",\n        \"link\": \"<uri>\",\n        \"accept_rate\": \"<integer>\"\n      },\n      \"content_license\": \"<string>\"\n    },\n    {\n      \"comment_id\": \"<integer>\",\n      \"post_id\": \"<integer>\",\n      \"post_type\": \"question\",\n      \"score\": \"<integer>\",\n      \"body\": \"<string>\",\n      \"body_markdown\": \"<string>\",\n      \"creation_date\": \"<long>\",\n      \"edited\": \"<boolean>\",\n      \"link\": \"<uri>\",\n      \"owner\": {\n        \"user_id\": \"<long>\",\n        \"user_type\": \"team_admin\",\n        \"display_name\": \"<string>\",\n        \"reputation\": \"<integer>\",\n        \"profile_image\": \"<uri>\",\n        \"link\": \"<uri>\",\n        \"accept_rate\": \"<integer>\"\n      },\n      \"reply_to_user\": {\n        \"user_id\": \"<long>\",\n        \"user_type\": \"unregistered\",\n        \"display_name\": \"<string>\",\n        \"reputation\": \"<integer>\",\n        \"profile_image\": \"<uri>\",\n        \"link\": \"<uri>\",\n        \"accept_rate\": \"<integer>\"\n      },\n      \"content_license\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T03:05:05.000Z",
+                      "updatedAt": "2026-07-28T03:05:05.000Z",
+                      "uid": "35240-e80da213-f776-4e19-a149-2a748bc9ff8d"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:05:05.000Z",
+                  "updatedAt": "2026-07-28T03:05:05.000Z",
+                  "uid": "35240-e11ec639-ac59-42d7-b145-aa435f824bc3"
+                }
+              ],
+              "id": "24b74b3b-f750-4514-8945-00fa7284b394",
+              "createdAt": "2026-07-28T03:05:05.000Z",
+              "updatedAt": "2026-07-28T03:05:05.000Z",
+              "uid": "35240-24b74b3b-f750-4514-8945-00fa7284b394"
+            },
+            {
+              "name": "badges",
+              "item": [
+                {
+                  "name": "Stack Exchange List Badges Earned by Users",
+                  "id": "c63018e4-2eff-4cda-a7a5-7eb276807bae",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/users/:ids/badges?site=stackoverflow&key=<string>&filter=<string>&page=1&pagesize=30",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "users",
+                        ":ids",
+                        "badges"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).",
+                          "key": "site",
+                          "value": "stackoverflow"
+                        },
+                        {
+                          "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP.",
+                          "key": "key",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Custom response filter id created via /filters/create.",
+                          "key": "filter",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "1-indexed page number.",
+                          "key": "page",
+                          "value": "1"
+                        },
+                        {
+                          "description": "Items per page (max 100).",
+                          "key": "pagesize",
+                          "value": "30"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "e4466589-0d2c-4e07-b128-76f6da1db111",
+                          "key": "ids",
+                          "value": "<string>",
+                          "description": "(Required) Up to 100 semicolon-delimited ids of the resource."
+                        }
+                      ]
+                    },
+                    "description": "Badges earned by the given users."
+                  },
+                  "response": [
+                    {
+                      "id": "8faa6636-093d-4d02-b7cc-a7eaac5b6e84",
+                      "name": "A page of badges.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/users/:ids/badges?site=stackoverflow&key=<API Key>&filter=<string>&page=1&pagesize=30",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "users",
+                            ":ids",
+                            "badges"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).",
+                              "key": "site",
+                              "value": "stackoverflow"
+                            },
+                            {
+                              "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP.",
+                              "key": "key",
+                              "value": "<API Key>"
+                            },
+                            {
+                              "description": "Custom response filter id created via /filters/create.",
+                              "key": "filter",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "1-indexed page number.",
+                              "key": "page",
+                              "value": "1"
+                            },
+                            {
+                              "description": "Items per page (max 100).",
+                              "key": "pagesize",
+                              "value": "30"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "ids"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"has_more\": \"<boolean>\",\n  \"quota_max\": \"<integer>\",\n  \"quota_remaining\": \"<integer>\",\n  \"backoff\": \"<integer>\",\n  \"error_id\": \"<integer>\",\n  \"error_message\": \"<string>\",\n  \"error_name\": \"<string>\",\n  \"page\": \"<integer>\",\n  \"page_size\": \"<integer>\",\n  \"total\": \"<integer>\",\n  \"type\": \"<string>\",\n  \"items\": [\n    {\n      \"badge_id\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"rank\": \"bronze\",\n      \"badge_type\": \"named\",\n      \"award_count\": \"<integer>\",\n      \"link\": \"<uri>\",\n      \"user\": {\n        \"user_id\": \"<long>\",\n        \"user_type\": \"unregistered\",\n        \"display_name\": \"<string>\",\n        \"reputation\": \"<integer>\",\n        \"profile_image\": \"<uri>\",\n        \"link\": \"<uri>\",\n        \"accept_rate\": \"<integer>\"\n      }\n    },\n    {\n      \"badge_id\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"rank\": \"silver\",\n      \"badge_type\": \"named\",\n      \"award_count\": \"<integer>\",\n      \"link\": \"<uri>\",\n      \"user\": {\n        \"user_id\": \"<long>\",\n        \"user_type\": \"registered\",\n        \"display_name\": \"<string>\",\n        \"reputation\": \"<integer>\",\n        \"profile_image\": \"<uri>\",\n        \"link\": \"<uri>\",\n        \"accept_rate\": \"<integer>\"\n      }\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T03:05:05.000Z",
+                      "updatedAt": "2026-07-28T03:05:05.000Z",
+                      "uid": "35240-8faa6636-093d-4d02-b7cc-a7eaac5b6e84"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:05:05.000Z",
+                  "updatedAt": "2026-07-28T03:05:05.000Z",
+                  "uid": "35240-c63018e4-2eff-4cda-a7a5-7eb276807bae"
+                }
+              ],
+              "id": "80f68d5b-e8e0-405e-b5ab-46872edfa560",
+              "createdAt": "2026-07-28T03:05:05.000Z",
+              "updatedAt": "2026-07-28T03:05:05.000Z",
+              "uid": "35240-80f68d5b-e8e0-405e-b5ab-46872edfa560"
+            },
+            {
+              "name": "tags",
+              "item": [
+                {
+                  "name": "Stack Exchange List Tags for Users",
+                  "id": "b1866fa9-b79a-4649-ace5-b00f4a1e11cc",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/users/:ids/tags?site=stackoverflow&key=<string>&filter=<string>&page=1&pagesize=30",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "users",
+                        ":ids",
+                        "tags"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).",
+                          "key": "site",
+                          "value": "stackoverflow"
+                        },
+                        {
+                          "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP.",
+                          "key": "key",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Custom response filter id created via /filters/create.",
+                          "key": "filter",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "1-indexed page number.",
+                          "key": "page",
+                          "value": "1"
+                        },
+                        {
+                          "description": "Items per page (max 100).",
+                          "key": "pagesize",
+                          "value": "30"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "d0826375-d764-4ac9-85f8-dba66c2aa575",
+                          "key": "ids",
+                          "value": "<string>",
+                          "description": "(Required) Up to 100 semicolon-delimited ids of the resource."
+                        }
+                      ]
+                    },
+                    "description": "Tags the given users have activity in."
+                  },
+                  "response": [
+                    {
+                      "id": "a5e3b163-1cfb-42f8-8149-24080a20363e",
+                      "name": "A page of tags.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/users/:ids/tags?site=stackoverflow&key=<API Key>&filter=<string>&page=1&pagesize=30",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "users",
+                            ":ids",
+                            "tags"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).",
+                              "key": "site",
+                              "value": "stackoverflow"
+                            },
+                            {
+                              "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP.",
+                              "key": "key",
+                              "value": "<API Key>"
+                            },
+                            {
+                              "description": "Custom response filter id created via /filters/create.",
+                              "key": "filter",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "1-indexed page number.",
+                              "key": "page",
+                              "value": "1"
+                            },
+                            {
+                              "description": "Items per page (max 100).",
+                              "key": "pagesize",
+                              "value": "30"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "ids"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"has_more\": \"<boolean>\",\n  \"quota_max\": \"<integer>\",\n  \"quota_remaining\": \"<integer>\",\n  \"backoff\": \"<integer>\",\n  \"error_id\": \"<integer>\",\n  \"error_message\": \"<string>\",\n  \"error_name\": \"<string>\",\n  \"page\": \"<integer>\",\n  \"page_size\": \"<integer>\",\n  \"total\": \"<integer>\",\n  \"type\": \"<string>\",\n  \"items\": [\n    {\n      \"name\": \"<string>\",\n      \"count\": \"<integer>\",\n      \"is_required\": \"<boolean>\",\n      \"is_moderator_only\": \"<boolean>\",\n      \"has_synonyms\": \"<boolean>\",\n      \"user_id\": \"<integer>\",\n      \"last_activity_date\": \"<long>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"count\": \"<integer>\",\n      \"is_required\": \"<boolean>\",\n      \"is_moderator_only\": \"<boolean>\",\n      \"has_synonyms\": \"<boolean>\",\n      \"user_id\": \"<integer>\",\n      \"last_activity_date\": \"<long>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T03:05:05.000Z",
+                      "updatedAt": "2026-07-28T03:05:05.000Z",
+                      "uid": "35240-a5e3b163-1cfb-42f8-8149-24080a20363e"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:05:05.000Z",
+                  "updatedAt": "2026-07-28T03:05:05.000Z",
+                  "uid": "35240-b1866fa9-b79a-4649-ace5-b00f4a1e11cc"
+                }
+              ],
+              "id": "53a91775-c57e-48b4-8079-143896dd6a0c",
+              "createdAt": "2026-07-28T03:05:05.000Z",
+              "updatedAt": "2026-07-28T03:05:05.000Z",
+              "uid": "35240-53a91775-c57e-48b4-8079-143896dd6a0c"
+            },
+            {
+              "name": "top-answer-tags",
+              "item": [
+                {
+                  "name": "Stack Exchange List Top Answer Tags for Users",
+                  "id": "98956df3-4b6c-4716-855e-467c83a0e62c",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/users/:ids/top-answer-tags?site=stackoverflow&key=<string>&filter=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "users",
+                        ":ids",
+                        "top-answer-tags"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).",
+                          "key": "site",
+                          "value": "stackoverflow"
+                        },
+                        {
+                          "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP.",
+                          "key": "key",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Custom response filter id created via /filters/create.",
+                          "key": "filter",
+                          "value": "<string>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "f1ca722b-df8c-4162-8c6b-1b084f29d4d0",
+                          "key": "ids",
+                          "value": "<string>",
+                          "description": "(Required) Up to 100 semicolon-delimited ids of the resource."
+                        }
+                      ]
+                    },
+                    "description": "Top tags by answer score for the given users."
+                  },
+                  "response": [
+                    {
+                      "id": "b7306c5d-9688-4494-9869-294612bc54f1",
+                      "name": "A page of tag scores.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/users/:ids/top-answer-tags?site=stackoverflow&key=<API Key>&filter=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "users",
+                            ":ids",
+                            "top-answer-tags"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).",
+                              "key": "site",
+                              "value": "stackoverflow"
+                            },
+                            {
+                              "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP.",
+                              "key": "key",
+                              "value": "<API Key>"
+                            },
+                            {
+                              "description": "Custom response filter id created via /filters/create.",
+                              "key": "filter",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "ids"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"has_more\": \"<boolean>\",\n  \"quota_max\": \"<integer>\",\n  \"quota_remaining\": \"<integer>\",\n  \"backoff\": \"<integer>\",\n  \"error_id\": \"<integer>\",\n  \"error_message\": \"<string>\",\n  \"error_name\": \"<string>\",\n  \"page\": \"<integer>\",\n  \"page_size\": \"<integer>\",\n  \"total\": \"<integer>\",\n  \"type\": \"<string>\",\n  \"items\": [\n    {\n      \"user\": {\n        \"user_id\": \"<long>\",\n        \"user_type\": \"moderator\",\n        \"display_name\": \"<string>\",\n        \"reputation\": \"<integer>\",\n        \"profile_image\": \"<uri>\",\n        \"link\": \"<uri>\",\n        \"accept_rate\": \"<integer>\"\n      },\n      \"score\": \"<integer>\",\n      \"post_count\": \"<integer>\"\n    },\n    {\n      \"user\": {\n        \"user_id\": \"<long>\",\n        \"user_type\": \"unregistered\",\n        \"display_name\": \"<string>\",\n        \"reputation\": \"<integer>\",\n        \"profile_image\": \"<uri>\",\n        \"link\": \"<uri>\",\n        \"accept_rate\": \"<integer>\"\n      },\n      \"score\": \"<integer>\",\n      \"post_count\": \"<integer>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T03:05:05.000Z",
+                      "updatedAt": "2026-07-28T03:05:05.000Z",
+                      "uid": "35240-b7306c5d-9688-4494-9869-294612bc54f1"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:05:05.000Z",
+                  "updatedAt": "2026-07-28T03:05:05.000Z",
+                  "uid": "35240-98956df3-4b6c-4716-855e-467c83a0e62c"
+                }
+              ],
+              "id": "c999cce4-06a0-44da-9ef5-0d241cf64a28",
+              "createdAt": "2026-07-28T03:05:05.000Z",
+              "updatedAt": "2026-07-28T03:05:05.000Z",
+              "uid": "35240-c999cce4-06a0-44da-9ef5-0d241cf64a28"
+            },
+            {
+              "name": "top-question-tags",
+              "item": [
+                {
+                  "name": "Stack Exchange List Top Question Tags for Users",
+                  "id": "00a28635-2987-40df-a603-12fbaee6a624",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/users/:ids/top-question-tags?site=stackoverflow&key=<string>&filter=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "users",
+                        ":ids",
+                        "top-question-tags"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).",
+                          "key": "site",
+                          "value": "stackoverflow"
+                        },
+                        {
+                          "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP.",
+                          "key": "key",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Custom response filter id created via /filters/create.",
+                          "key": "filter",
+                          "value": "<string>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "e84c8046-1a3a-4e91-ba7a-13a413129994",
+                          "key": "ids",
+                          "value": "<string>",
+                          "description": "(Required) Up to 100 semicolon-delimited ids of the resource."
+                        }
+                      ]
+                    },
+                    "description": "Top tags by question score for the given users."
+                  },
+                  "response": [
+                    {
+                      "id": "284e022c-fe2c-4955-9e61-ff4efb1e2d2b",
+                      "name": "A page of tag scores.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/users/:ids/top-question-tags?site=stackoverflow&key=<API Key>&filter=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "users",
+                            ":ids",
+                            "top-question-tags"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).",
+                              "key": "site",
+                              "value": "stackoverflow"
+                            },
+                            {
+                              "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP.",
+                              "key": "key",
+                              "value": "<API Key>"
+                            },
+                            {
+                              "description": "Custom response filter id created via /filters/create.",
+                              "key": "filter",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "ids"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"has_more\": \"<boolean>\",\n  \"quota_max\": \"<integer>\",\n  \"quota_remaining\": \"<integer>\",\n  \"backoff\": \"<integer>\",\n  \"error_id\": \"<integer>\",\n  \"error_message\": \"<string>\",\n  \"error_name\": \"<string>\",\n  \"page\": \"<integer>\",\n  \"page_size\": \"<integer>\",\n  \"total\": \"<integer>\",\n  \"type\": \"<string>\",\n  \"items\": [\n    {\n      \"user\": {\n        \"user_id\": \"<long>\",\n        \"user_type\": \"moderator\",\n        \"display_name\": \"<string>\",\n        \"reputation\": \"<integer>\",\n        \"profile_image\": \"<uri>\",\n        \"link\": \"<uri>\",\n        \"accept_rate\": \"<integer>\"\n      },\n      \"score\": \"<integer>\",\n      \"post_count\": \"<integer>\"\n    },\n    {\n      \"user\": {\n        \"user_id\": \"<long>\",\n        \"user_type\": \"unregistered\",\n        \"display_name\": \"<string>\",\n        \"reputation\": \"<integer>\",\n        \"profile_image\": \"<uri>\",\n        \"link\": \"<uri>\",\n        \"accept_rate\": \"<integer>\"\n      },\n      \"score\": \"<integer>\",\n      \"post_count\": \"<integer>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T03:05:05.000Z",
+                      "updatedAt": "2026-07-28T03:05:05.000Z",
+                      "uid": "35240-284e022c-fe2c-4955-9e61-ff4efb1e2d2b"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:05:05.000Z",
+                  "updatedAt": "2026-07-28T03:05:05.000Z",
+                  "uid": "35240-00a28635-2987-40df-a603-12fbaee6a624"
+                }
+              ],
+              "id": "ee07b10c-42ac-4464-aba7-3f416a2e2af5",
+              "createdAt": "2026-07-28T03:05:05.000Z",
+              "updatedAt": "2026-07-28T03:05:05.000Z",
+              "uid": "35240-ee07b10c-42ac-4464-aba7-3f416a2e2af5"
+            },
+            {
+              "name": "reputation",
+              "item": [
+                {
+                  "name": "Stack Exchange Get Users Reputation Changes",
+                  "id": "adc1b21f-a585-4691-90a8-431c63e279c2",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/users/:ids/reputation?site=stackoverflow&key=<string>&filter=<string>&page=1&pagesize=30",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "users",
+                        ":ids",
+                        "reputation"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).",
+                          "key": "site",
+                          "value": "stackoverflow"
+                        },
+                        {
+                          "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP.",
+                          "key": "key",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Custom response filter id created via /filters/create.",
+                          "key": "filter",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "1-indexed page number.",
+                          "key": "page",
+                          "value": "1"
+                        },
+                        {
+                          "description": "Items per page (max 100).",
+                          "key": "pagesize",
+                          "value": "30"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "3f7d7a46-b177-4689-854e-df19d7e3efa8",
+                          "key": "ids",
+                          "value": "<string>",
+                          "description": "(Required) Up to 100 semicolon-delimited ids of the resource."
+                        }
+                      ]
+                    },
+                    "description": "A subset of reputation changes for the given users."
+                  },
+                  "response": [
+                    {
+                      "id": "ece7e645-7626-4dba-baa5-019c1c538a8c",
+                      "name": "A page of reputation changes.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/users/:ids/reputation?site=stackoverflow&key=<API Key>&filter=<string>&page=1&pagesize=30",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "users",
+                            ":ids",
+                            "reputation"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).",
+                              "key": "site",
+                              "value": "stackoverflow"
+                            },
+                            {
+                              "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP.",
+                              "key": "key",
+                              "value": "<API Key>"
+                            },
+                            {
+                              "description": "Custom response filter id created via /filters/create.",
+                              "key": "filter",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "1-indexed page number.",
+                              "key": "page",
+                              "value": "1"
+                            },
+                            {
+                              "description": "Items per page (max 100).",
+                              "key": "pagesize",
+                              "value": "30"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "ids"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"has_more\": \"<boolean>\",\n  \"quota_max\": \"<integer>\",\n  \"quota_remaining\": \"<integer>\",\n  \"backoff\": \"<integer>\",\n  \"error_id\": \"<integer>\",\n  \"error_message\": \"<string>\",\n  \"error_name\": \"<string>\",\n  \"page\": \"<integer>\",\n  \"page_size\": \"<integer>\",\n  \"total\": \"<integer>\",\n  \"type\": \"<string>\",\n  \"items\": [\n    {\n      \"user_id\": \"<long>\",\n      \"post_id\": \"<integer>\",\n      \"post_type\": \"answer\",\n      \"vote_type\": \"bounties_won\",\n      \"reputation_change\": \"<integer>\",\n      \"on_date\": \"<long>\"\n    },\n    {\n      \"user_id\": \"<long>\",\n      \"post_id\": \"<integer>\",\n      \"post_type\": \"question\",\n      \"vote_type\": \"bounties_won\",\n      \"reputation_change\": \"<integer>\",\n      \"on_date\": \"<long>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T03:05:05.000Z",
+                      "updatedAt": "2026-07-28T03:05:05.000Z",
+                      "uid": "35240-ece7e645-7626-4dba-baa5-019c1c538a8c"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:05:05.000Z",
+                  "updatedAt": "2026-07-28T03:05:05.000Z",
+                  "uid": "35240-adc1b21f-a585-4691-90a8-431c63e279c2"
+                }
+              ],
+              "id": "5a6099a4-1d02-47e5-b214-b8c8c16b06d0",
+              "createdAt": "2026-07-28T03:05:05.000Z",
+              "updatedAt": "2026-07-28T03:05:05.000Z",
+              "uid": "35240-5a6099a4-1d02-47e5-b214-b8c8c16b06d0"
+            },
+            {
+              "name": "privileges",
+              "item": [
+                {
+                  "name": "Stack Exchange List User Privileges",
+                  "id": "867d1e55-0cce-4f0b-a9bb-4e78617d29d8",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/users/:ids/privileges?site=stackoverflow&key=<string>&filter=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "users",
+                        ":ids",
+                        "privileges"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).",
+                          "key": "site",
+                          "value": "stackoverflow"
+                        },
+                        {
+                          "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP.",
+                          "key": "key",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Custom response filter id created via /filters/create.",
+                          "key": "filter",
+                          "value": "<string>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "b1220a15-c6ec-4fda-8052-7f41658ebd05",
+                          "key": "ids",
+                          "value": "<string>",
+                          "description": "(Required) Up to 100 semicolon-delimited ids of the resource."
+                        }
+                      ]
+                    },
+                    "description": "Privileges available to the given users."
+                  },
+                  "response": [
+                    {
+                      "id": "d106954a-b5a2-4163-a60a-75ad0cc3ec89",
+                      "name": "A page of privileges.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/users/:ids/privileges?site=stackoverflow&key=<API Key>&filter=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "users",
+                            ":ids",
+                            "privileges"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).",
+                              "key": "site",
+                              "value": "stackoverflow"
+                            },
+                            {
+                              "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP.",
+                              "key": "key",
+                              "value": "<API Key>"
+                            },
+                            {
+                              "description": "Custom response filter id created via /filters/create.",
+                              "key": "filter",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "ids"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"has_more\": \"<boolean>\",\n  \"quota_max\": \"<integer>\",\n  \"quota_remaining\": \"<integer>\",\n  \"backoff\": \"<integer>\",\n  \"error_id\": \"<integer>\",\n  \"error_message\": \"<string>\",\n  \"error_name\": \"<string>\",\n  \"page\": \"<integer>\",\n  \"page_size\": \"<integer>\",\n  \"total\": \"<integer>\",\n  \"type\": \"<string>\",\n  \"items\": [\n    {\n      \"short_description\": \"<string>\",\n      \"description\": \"<string>\",\n      \"reputation\": \"<integer>\"\n    },\n    {\n      \"short_description\": \"<string>\",\n      \"description\": \"<string>\",\n      \"reputation\": \"<integer>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T03:05:05.000Z",
+                      "updatedAt": "2026-07-28T03:05:05.000Z",
+                      "uid": "35240-d106954a-b5a2-4163-a60a-75ad0cc3ec89"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:05:05.000Z",
+                  "updatedAt": "2026-07-28T03:05:05.000Z",
+                  "uid": "35240-867d1e55-0cce-4f0b-a9bb-4e78617d29d8"
+                }
+              ],
+              "id": "b8394aef-be98-46e6-b4df-ac36eae8281a",
+              "createdAt": "2026-07-28T03:05:05.000Z",
+              "updatedAt": "2026-07-28T03:05:05.000Z",
+              "uid": "35240-b8394aef-be98-46e6-b4df-ac36eae8281a"
+            },
+            {
+              "name": "Stack Exchange Get Users by Ids",
+              "id": "81ecbd19-8eee-4b4a-94b9-c6b517b9ca64",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/users/:ids?site=stackoverflow&key=<string>&filter=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users",
+                    ":ids"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).",
+                      "key": "site",
+                      "value": "stackoverflow"
+                    },
+                    {
+                      "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP.",
+                      "key": "key",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Custom response filter id created via /filters/create.",
+                      "key": "filter",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "id": "21387919-b434-49a1-84b8-931314c089df",
+                      "key": "ids",
+                      "value": "<string>",
+                      "description": "(Required) Up to 100 semicolon-delimited ids of the resource."
+                    }
+                  ]
+                },
+                "description": "Fetch up to 100 users by semicolon-delimited ids."
+              },
+              "response": [
+                {
+                  "id": "2c7ea75b-c89d-48d2-bb54-e584bc4f0e7d",
+                  "name": "A page of users.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/users/:ids?site=stackoverflow&key=<API Key>&filter=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "users",
+                        ":ids"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).",
+                          "key": "site",
+                          "value": "stackoverflow"
+                        },
+                        {
+                          "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP.",
+                          "key": "key",
+                          "value": "<API Key>"
+                        },
+                        {
+                          "description": "Custom response filter id created via /filters/create.",
+                          "key": "filter",
+                          "value": "<string>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "ids"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"has_more\": \"<boolean>\",\n  \"quota_max\": \"<integer>\",\n  \"quota_remaining\": \"<integer>\",\n  \"backoff\": \"<integer>\",\n  \"error_id\": \"<integer>\",\n  \"error_message\": \"<string>\",\n  \"error_name\": \"<string>\",\n  \"page\": \"<integer>\",\n  \"page_size\": \"<integer>\",\n  \"total\": \"<integer>\",\n  \"type\": \"<string>\",\n  \"items\": [\n    {\n      \"user_id\": \"<long>\",\n      \"account_id\": \"<long>\",\n      \"user_type\": \"registered\",\n      \"display_name\": \"<string>\",\n      \"reputation\": \"<integer>\",\n      \"reputation_change_day\": \"<integer>\",\n      \"reputation_change_week\": \"<integer>\",\n      \"reputation_change_month\": \"<integer>\",\n      \"reputation_change_quarter\": \"<integer>\",\n      \"reputation_change_year\": \"<integer>\",\n      \"creation_date\": \"<long>\",\n      \"last_modified_date\": \"<long>\",\n      \"last_access_date\": \"<long>\",\n      \"is_employee\": \"<boolean>\",\n      \"location\": \"<string>\",\n      \"website_url\": \"<uri>\",\n      \"link\": \"<uri>\",\n      \"profile_image\": \"<uri>\",\n      \"accept_rate\": \"<integer>\",\n      \"badge_counts\": {\n        \"bronze\": \"<integer>\",\n        \"silver\": \"<integer>\",\n        \"gold\": \"<integer>\"\n      },\n      \"question_count\": \"<integer>\",\n      \"answer_count\": \"<integer>\",\n      \"up_vote_count\": \"<integer>\",\n      \"down_vote_count\": \"<integer>\",\n      \"view_count\": \"<integer>\"\n    },\n    {\n      \"user_id\": \"<long>\",\n      \"account_id\": \"<long>\",\n      \"user_type\": \"does_not_exist\",\n      \"display_name\": \"<string>\",\n      \"reputation\": \"<integer>\",\n      \"reputation_change_day\": \"<integer>\",\n      \"reputation_change_week\": \"<integer>\",\n      \"reputation_change_month\": \"<integer>\",\n      \"reputation_change_quarter\": \"<integer>\",\n      \"reputation_change_year\": \"<integer>\",\n      \"creation_date\": \"<long>\",\n      \"last_modified_date\": \"<long>\",\n      \"last_access_date\": \"<long>\",\n      \"is_employee\": \"<boolean>\",\n      \"location\": \"<string>\",\n      \"website_url\": \"<uri>\",\n      \"link\": \"<uri>\",\n      \"profile_image\": \"<uri>\",\n      \"accept_rate\": \"<integer>\",\n      \"badge_counts\": {\n        \"bronze\": \"<integer>\",\n        \"silver\": \"<integer>\",\n        \"gold\": \"<integer>\"\n      },\n      \"question_count\": \"<integer>\",\n      \"answer_count\": \"<integer>\",\n      \"up_vote_count\": \"<integer>\",\n      \"down_vote_count\": \"<integer>\",\n      \"view_count\": \"<integer>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-07-28T03:05:05.000Z",
+                  "updatedAt": "2026-07-28T03:05:05.000Z",
+                  "uid": "35240-2c7ea75b-c89d-48d2-bb54-e584bc4f0e7d"
+                }
+              ],
+              "createdAt": "2026-07-28T03:05:05.000Z",
+              "updatedAt": "2026-07-28T03:05:05.000Z",
+              "uid": "35240-81ecbd19-8eee-4b4a-94b9-c6b517b9ca64"
+            }
+          ],
+          "id": "5390a335-651a-4caf-b070-84387727ee48",
+          "createdAt": "2026-07-28T03:05:05.000Z",
+          "updatedAt": "2026-07-28T03:05:05.000Z",
+          "uid": "35240-5390a335-651a-4caf-b070-84387727ee48"
+        },
+        {
+          "name": "Stack Exchange List Users",
+          "id": "470e7b66-2699-4194-a84c-4d323e5d09fb",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/users?site=stackoverflow&key=<string>&filter=<string>&page=1&pagesize=30&order=desc&inname=<string>&sort=reputation",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users"
+              ],
+              "query": [
+                {
+                  "description": "(Required) Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).",
+                  "key": "site",
+                  "value": "stackoverflow"
+                },
+                {
+                  "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP.",
+                  "key": "key",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Custom response filter id created via /filters/create.",
+                  "key": "filter",
+                  "value": "<string>"
+                },
+                {
+                  "description": "1-indexed page number.",
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "description": "Items per page (max 100).",
+                  "key": "pagesize",
+                  "value": "30"
+                },
+                {
+                  "description": "Sort direction.",
+                  "key": "order",
+                  "value": "desc"
+                },
+                {
+                  "key": "inname",
+                  "value": "<string>"
+                },
+                {
+                  "key": "sort",
+                  "value": "reputation"
+                }
+              ]
+            },
+            "description": "All users on a site, filterable by display-name substring (inname)."
+          },
+          "response": [
+            {
+              "id": "2831ce13-bf30-4413-8b4e-5e98cd3591e3",
+              "name": "A page of users.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/users?site=stackoverflow&key=<API Key>&filter=<string>&page=1&pagesize=30&order=desc&inname=<string>&sort=reputation",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).",
+                      "key": "site",
+                      "value": "stackoverflow"
+                    },
+                    {
+                      "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP.",
+                      "key": "key",
+                      "value": "<API Key>"
+                    },
+                    {
+                      "description": "Custom response filter id created via /filters/create.",
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "1-indexed page number.",
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "description": "Items per page (max 100).",
+                      "key": "pagesize",
+                      "value": "30"
+                    },
+                    {
+                      "description": "Sort direction.",
+                      "key": "order",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "inname",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "reputation"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"has_more\": \"<boolean>\",\n  \"quota_max\": \"<integer>\",\n  \"quota_remaining\": \"<integer>\",\n  \"backoff\": \"<integer>\",\n  \"error_id\": \"<integer>\",\n  \"error_message\": \"<string>\",\n  \"error_name\": \"<string>\",\n  \"page\": \"<integer>\",\n  \"page_size\": \"<integer>\",\n  \"total\": \"<integer>\",\n  \"type\": \"<string>\",\n  \"items\": [\n    {\n      \"user_id\": \"<long>\",\n      \"account_id\": \"<long>\",\n      \"user_type\": \"registered\",\n      \"display_name\": \"<string>\",\n      \"reputation\": \"<integer>\",\n      \"reputation_change_day\": \"<integer>\",\n      \"reputation_change_week\": \"<integer>\",\n      \"reputation_change_month\": \"<integer>\",\n      \"reputation_change_quarter\": \"<integer>\",\n      \"reputation_change_year\": \"<integer>\",\n      \"creation_date\": \"<long>\",\n      \"last_modified_date\": \"<long>\",\n      \"last_access_date\": \"<long>\",\n      \"is_employee\": \"<boolean>\",\n      \"location\": \"<string>\",\n      \"website_url\": \"<uri>\",\n      \"link\": \"<uri>\",\n      \"profile_image\": \"<uri>\",\n      \"accept_rate\": \"<integer>\",\n      \"badge_counts\": {\n        \"bronze\": \"<integer>\",\n        \"silver\": \"<integer>\",\n        \"gold\": \"<integer>\"\n      },\n      \"question_count\": \"<integer>\",\n      \"answer_count\": \"<integer>\",\n      \"up_vote_count\": \"<integer>\",\n      \"down_vote_count\": \"<integer>\",\n      \"view_count\": \"<integer>\"\n    },\n    {\n      \"user_id\": \"<long>\",\n      \"account_id\": \"<long>\",\n      \"user_type\": \"does_not_exist\",\n      \"display_name\": \"<string>\",\n      \"reputation\": \"<integer>\",\n      \"reputation_change_day\": \"<integer>\",\n      \"reputation_change_week\": \"<integer>\",\n      \"reputation_change_month\": \"<integer>\",\n      \"reputation_change_quarter\": \"<integer>\",\n      \"reputation_change_year\": \"<integer>\",\n      \"creation_date\": \"<long>\",\n      \"last_modified_date\": \"<long>\",\n      \"last_access_date\": \"<long>\",\n      \"is_employee\": \"<boolean>\",\n      \"location\": \"<string>\",\n      \"website_url\": \"<uri>\",\n      \"link\": \"<uri>\",\n      \"profile_image\": \"<uri>\",\n      \"accept_rate\": \"<integer>\",\n      \"badge_counts\": {\n        \"bronze\": \"<integer>\",\n        \"silver\": \"<integer>\",\n        \"gold\": \"<integer>\"\n      },\n      \"question_count\": \"<integer>\",\n      \"answer_count\": \"<integer>\",\n      \"up_vote_count\": \"<integer>\",\n      \"down_vote_count\": \"<integer>\",\n      \"view_count\": \"<integer>\"\n    }\n  ]\n}",
+              "createdAt": "2026-07-28T03:05:05.000Z",
+              "updatedAt": "2026-07-28T03:05:05.000Z",
+              "uid": "35240-2831ce13-bf30-4413-8b4e-5e98cd3591e3"
+            }
+          ],
+          "createdAt": "2026-07-28T03:05:05.000Z",
+          "updatedAt": "2026-07-28T03:05:05.000Z",
+          "uid": "35240-470e7b66-2699-4194-a84c-4d323e5d09fb"
+        }
+      ],
+      "id": "23a97d45-9961-4ccb-9a2d-cc0999bd31fa",
+      "createdAt": "2026-07-28T03:05:05.000Z",
+      "updatedAt": "2026-07-28T03:05:05.000Z",
+      "uid": "35240-23a97d45-9961-4ccb-9a2d-cc0999bd31fa"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "key",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "query",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.stackexchange.com/2.3"
+    }
+  ]
+}

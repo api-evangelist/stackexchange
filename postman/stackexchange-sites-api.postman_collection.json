@@ -1,0 +1,161 @@
+{
+  "info": {
+    "_postman_id": "4278b5c5-c3fb-4197-9bb0-310d8011f62f",
+    "name": "Stack Exchange Access Tokens Sites API",
+    "description": "Public, read-mostly HTTP/JSON API spanning all 180+ Stack Exchange sites\n(Stack Overflow, Server Fault, Super User, Ask Ubuntu, Stats, Math Overflow, ...).\n\nAll method families live under a single base URL with a uniform wrapper\n(`items`, `has_more`, `page`, `quota_max`, `quota_remaining`, `backoff`).\nRead access is unauthenticated. Write methods require OAuth 2.0 with the\nappropriate scopes (`write_access`, `private_info`, `no_expiry`).\n\nMost paths take a required `site` query parameter naming the target Q&A\ncommunity (`stackoverflow`, `serverfault`, `superuser`, ...). Use `/sites`\nto enumerate the network.\n\n\nContact Support:\n Name: Stack Exchange API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:05:01.000Z",
+    "updatedAt": "2026-07-28T03:05:02.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-4278b5c5-c3fb-4197-9bb0-310d8011f62f"
+  },
+  "item": [
+    {
+      "name": "sites",
+      "item": [
+        {
+          "name": "Stack Exchange List Sites",
+          "id": "c5427f14-a446-4c2d-aa17-80fb1a6abbc5",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/sites?key=<string>&filter=<string>&page=1&pagesize=30",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "sites"
+              ],
+              "query": [
+                {
+                  "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP.",
+                  "key": "key",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Custom response filter id created via /filters/create.",
+                  "key": "filter",
+                  "value": "<string>"
+                },
+                {
+                  "description": "1-indexed page number.",
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "description": "Items per page (max 100).",
+                  "key": "pagesize",
+                  "value": "30"
+                }
+              ]
+            },
+            "description": "All Stack Exchange sites in the network."
+          },
+          "response": [
+            {
+              "id": "210dc08f-d863-475a-897a-dda11a40e7e8",
+              "name": "A page of sites.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/sites?key=<API Key>&filter=<string>&page=1&pagesize=30",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "sites"
+                  ],
+                  "query": [
+                    {
+                      "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP.",
+                      "key": "key",
+                      "value": "<API Key>"
+                    },
+                    {
+                      "description": "Custom response filter id created via /filters/create.",
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "1-indexed page number.",
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "description": "Items per page (max 100).",
+                      "key": "pagesize",
+                      "value": "30"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"has_more\": \"<boolean>\",\n  \"quota_max\": \"<integer>\",\n  \"quota_remaining\": \"<integer>\",\n  \"backoff\": \"<integer>\",\n  \"error_id\": \"<integer>\",\n  \"error_message\": \"<string>\",\n  \"error_name\": \"<string>\",\n  \"page\": \"<integer>\",\n  \"page_size\": \"<integer>\",\n  \"total\": \"<integer>\",\n  \"type\": \"<string>\",\n  \"items\": [\n    {\n      \"site_url\": \"<uri>\",\n      \"api_site_parameter\": \"<string>\",\n      \"name\": \"<string>\",\n      \"site_type\": \"main_site\",\n      \"audience\": \"<string>\",\n      \"icon_url\": \"<uri>\",\n      \"logo_url\": \"<uri>\",\n      \"favicon_url\": \"<uri>\",\n      \"launch_date\": \"<long>\",\n      \"site_state\": \"open_beta\",\n      \"styling\": {\n        \"link_color\": \"<string>\",\n        \"tag_foreground_color\": \"<string>\",\n        \"tag_background_color\": \"<string>\"\n      },\n      \"related_sites\": [\n        {\n          \"name\": \"<string>\",\n          \"site_url\": \"<uri>\",\n          \"relation\": \"parent\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"site_url\": \"<uri>\",\n          \"relation\": \"parent\"\n        }\n      ],\n      \"markdown_extensions\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"site_url\": \"<uri>\",\n      \"api_site_parameter\": \"<string>\",\n      \"name\": \"<string>\",\n      \"site_type\": \"meta_site\",\n      \"audience\": \"<string>\",\n      \"icon_url\": \"<uri>\",\n      \"logo_url\": \"<uri>\",\n      \"favicon_url\": \"<uri>\",\n      \"launch_date\": \"<long>\",\n      \"site_state\": \"closed_beta\",\n      \"styling\": {\n        \"link_color\": \"<string>\",\n        \"tag_foreground_color\": \"<string>\",\n        \"tag_background_color\": \"<string>\"\n      },\n      \"related_sites\": [\n        {\n          \"name\": \"<string>\",\n          \"site_url\": \"<uri>\",\n          \"relation\": \"meta\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"site_url\": \"<uri>\",\n          \"relation\": \"chat\"\n        }\n      ],\n      \"markdown_extensions\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ]\n}",
+              "createdAt": "2026-07-28T03:05:02.000Z",
+              "updatedAt": "2026-07-28T03:05:02.000Z",
+              "uid": "35240-210dc08f-d863-475a-897a-dda11a40e7e8"
+            }
+          ],
+          "createdAt": "2026-07-28T03:05:02.000Z",
+          "updatedAt": "2026-07-28T03:05:02.000Z",
+          "uid": "35240-c5427f14-a446-4c2d-aa17-80fb1a6abbc5"
+        }
+      ],
+      "id": "f3979bda-de6a-4d50-abc1-725a678393e5",
+      "createdAt": "2026-07-28T03:05:02.000Z",
+      "updatedAt": "2026-07-28T03:05:02.000Z",
+      "uid": "35240-f3979bda-de6a-4d50-abc1-725a678393e5"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "key",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "query",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.stackexchange.com/2.3"
+    }
+  ]
+}

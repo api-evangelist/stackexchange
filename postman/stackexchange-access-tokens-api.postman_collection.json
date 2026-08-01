@@ -1,0 +1,430 @@
+{
+  "info": {
+    "_postman_id": "6723039d-14b1-4cdc-b26a-7911d1ba178d",
+    "name": "Stack Exchange Access Tokens API",
+    "description": "Public, read-mostly HTTP/JSON API spanning all 180+ Stack Exchange sites\n(Stack Overflow, Server Fault, Super User, Ask Ubuntu, Stats, Math Overflow, ...).\n\nAll method families live under a single base URL with a uniform wrapper\n(`items`, `has_more`, `page`, `quota_max`, `quota_remaining`, `backoff`).\nRead access is unauthenticated. Write methods require OAuth 2.0 with the\nappropriate scopes (`write_access`, `private_info`, `no_expiry`).\n\nMost paths take a required `site` query parameter naming the target Q&A\ncommunity (`stackoverflow`, `serverfault`, `superuser`, ...). Use `/sites`\nto enumerate the network.\n\n\nContact Support:\n Name: Stack Exchange API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:04:34.000Z",
+    "updatedAt": "2026-07-28T03:04:34.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-6723039d-14b1-4cdc-b26a-7911d1ba178d"
+  },
+  "item": [
+    {
+      "name": "access-tokens",
+      "item": [
+        {
+          "name": "{accessTokens}",
+          "item": [
+            {
+              "name": "invalidate",
+              "item": [
+                {
+                  "name": "Stack Exchange Invalidate Access Tokens",
+                  "id": "b50a485b-189f-4cfa-8d08-fcfa3d01cad2",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/access-tokens/:accessTokens/invalidate?key=<string>&filter=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "access-tokens",
+                        ":accessTokens",
+                        "invalidate"
+                      ],
+                      "query": [
+                        {
+                          "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP.",
+                          "key": "key",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Custom response filter id created via /filters/create.",
+                          "key": "filter",
+                          "value": "<string>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "6a46b18c-639c-4192-8558-a8bb563034d9",
+                          "key": "accessTokens",
+                          "value": "<string>",
+                          "description": "(Required) Up to 100 semicolon-delimited access tokens to invalidate."
+                        }
+                      ]
+                    },
+                    "description": "Invalidate the given access tokens. Requires the app's `key`."
+                  },
+                  "response": [
+                    {
+                      "id": "8893a213-b7bc-4ca0-be38-144c5e20b7f3",
+                      "name": "A page of access tokens with their invalidation status.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/access-tokens/:accessTokens/invalidate?key=<API Key>&filter=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "access-tokens",
+                            ":accessTokens",
+                            "invalidate"
+                          ],
+                          "query": [
+                            {
+                              "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP.",
+                              "key": "key",
+                              "value": "<API Key>"
+                            },
+                            {
+                              "description": "Custom response filter id created via /filters/create.",
+                              "key": "filter",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "accessTokens"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"has_more\": \"<boolean>\",\n  \"quota_max\": \"<integer>\",\n  \"quota_remaining\": \"<integer>\",\n  \"backoff\": \"<integer>\",\n  \"error_id\": \"<integer>\",\n  \"error_message\": \"<string>\",\n  \"error_name\": \"<string>\",\n  \"page\": \"<integer>\",\n  \"page_size\": \"<integer>\",\n  \"total\": \"<integer>\",\n  \"type\": \"<string>\",\n  \"items\": [\n    {\n      \"access_token\": \"<string>\",\n      \"expires_on_date\": \"<long>\",\n      \"account_id\": \"<long>\",\n      \"scope\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"access_token\": \"<string>\",\n      \"expires_on_date\": \"<long>\",\n      \"account_id\": \"<long>\",\n      \"scope\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T03:04:35.000Z",
+                      "updatedAt": "2026-07-28T03:04:35.000Z",
+                      "uid": "35240-8893a213-b7bc-4ca0-be38-144c5e20b7f3"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:04:34.000Z",
+                  "updatedAt": "2026-07-28T03:04:34.000Z",
+                  "uid": "35240-b50a485b-189f-4cfa-8d08-fcfa3d01cad2"
+                }
+              ],
+              "id": "b08066c2-1ce8-44d7-b973-5882f9c34419",
+              "createdAt": "2026-07-28T03:04:34.000Z",
+              "updatedAt": "2026-07-28T03:04:34.000Z",
+              "uid": "35240-b08066c2-1ce8-44d7-b973-5882f9c34419"
+            },
+            {
+              "name": "read",
+              "item": [
+                {
+                  "name": "Stack Exchange Read Access Tokens",
+                  "id": "14a1152d-54ac-4425-a36b-d8543f7cca49",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/access-tokens/:accessTokens/read?key=<string>&filter=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "access-tokens",
+                        ":accessTokens",
+                        "read"
+                      ],
+                      "query": [
+                        {
+                          "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP.",
+                          "key": "key",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Custom response filter id created via /filters/create.",
+                          "key": "filter",
+                          "value": "<string>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "d248fe8e-46ff-49d8-be39-4cff9a8522eb",
+                          "key": "accessTokens",
+                          "value": "<string>",
+                          "description": "(Required) Up to 100 semicolon-delimited access tokens to inspect."
+                        }
+                      ]
+                    },
+                    "description": "Inspect the given access tokens (scopes, expiry, account id)."
+                  },
+                  "response": [
+                    {
+                      "id": "61e854b0-b2a8-4a41-a6fd-9d1be678a166",
+                      "name": "A page of access tokens.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/access-tokens/:accessTokens/read?key=<API Key>&filter=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "access-tokens",
+                            ":accessTokens",
+                            "read"
+                          ],
+                          "query": [
+                            {
+                              "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP.",
+                              "key": "key",
+                              "value": "<API Key>"
+                            },
+                            {
+                              "description": "Custom response filter id created via /filters/create.",
+                              "key": "filter",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "accessTokens"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"has_more\": \"<boolean>\",\n  \"quota_max\": \"<integer>\",\n  \"quota_remaining\": \"<integer>\",\n  \"backoff\": \"<integer>\",\n  \"error_id\": \"<integer>\",\n  \"error_message\": \"<string>\",\n  \"error_name\": \"<string>\",\n  \"page\": \"<integer>\",\n  \"page_size\": \"<integer>\",\n  \"total\": \"<integer>\",\n  \"type\": \"<string>\",\n  \"items\": [\n    {\n      \"access_token\": \"<string>\",\n      \"expires_on_date\": \"<long>\",\n      \"account_id\": \"<long>\",\n      \"scope\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"access_token\": \"<string>\",\n      \"expires_on_date\": \"<long>\",\n      \"account_id\": \"<long>\",\n      \"scope\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T03:04:35.000Z",
+                      "updatedAt": "2026-07-28T03:04:35.000Z",
+                      "uid": "35240-61e854b0-b2a8-4a41-a6fd-9d1be678a166"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:04:34.000Z",
+                  "updatedAt": "2026-07-28T03:04:34.000Z",
+                  "uid": "35240-14a1152d-54ac-4425-a36b-d8543f7cca49"
+                }
+              ],
+              "id": "37157c9b-dafe-4e89-aa18-b23855e99c49",
+              "createdAt": "2026-07-28T03:04:34.000Z",
+              "updatedAt": "2026-07-28T03:04:34.000Z",
+              "uid": "35240-37157c9b-dafe-4e89-aa18-b23855e99c49"
+            }
+          ],
+          "id": "24d3f296-70a2-4c12-aa2a-dd41e9ec10a6",
+          "createdAt": "2026-07-28T03:04:34.000Z",
+          "updatedAt": "2026-07-28T03:04:34.000Z",
+          "uid": "35240-24d3f296-70a2-4c12-aa2a-dd41e9ec10a6"
+        }
+      ],
+      "id": "b8fc0c29-844f-4577-84fd-99bff9c3f592",
+      "createdAt": "2026-07-28T03:04:34.000Z",
+      "updatedAt": "2026-07-28T03:04:34.000Z",
+      "uid": "35240-b8fc0c29-844f-4577-84fd-99bff9c3f592"
+    },
+    {
+      "name": "apps",
+      "item": [
+        {
+          "name": "{accessTokens}",
+          "item": [
+            {
+              "name": "de-authenticate",
+              "item": [
+                {
+                  "name": "Stack Exchange De-Authenticate App",
+                  "id": "1265b10c-d9c9-4870-a574-184bb78d47d8",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/apps/:accessTokens/de-authenticate?key=<string>&filter=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "apps",
+                        ":accessTokens",
+                        "de-authenticate"
+                      ],
+                      "query": [
+                        {
+                          "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP.",
+                          "key": "key",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Custom response filter id created via /filters/create.",
+                          "key": "filter",
+                          "value": "<string>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "877a8bb9-3cc0-423d-aa50-47334feb5280",
+                          "key": "accessTokens",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    },
+                    "description": "De-authenticate the named app for the holder(s) of the given access tokens."
+                  },
+                  "response": [
+                    {
+                      "id": "e9fa80ec-0220-43cb-aeee-6b1f95315c9c",
+                      "name": "A page of access tokens.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/apps/:accessTokens/de-authenticate?key=<API Key>&filter=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "apps",
+                            ":accessTokens",
+                            "de-authenticate"
+                          ],
+                          "query": [
+                            {
+                              "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP.",
+                              "key": "key",
+                              "value": "<API Key>"
+                            },
+                            {
+                              "description": "Custom response filter id created via /filters/create.",
+                              "key": "filter",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "accessTokens"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"has_more\": \"<boolean>\",\n  \"quota_max\": \"<integer>\",\n  \"quota_remaining\": \"<integer>\",\n  \"backoff\": \"<integer>\",\n  \"error_id\": \"<integer>\",\n  \"error_message\": \"<string>\",\n  \"error_name\": \"<string>\",\n  \"page\": \"<integer>\",\n  \"page_size\": \"<integer>\",\n  \"total\": \"<integer>\",\n  \"type\": \"<string>\",\n  \"items\": [\n    {\n      \"access_token\": \"<string>\",\n      \"expires_on_date\": \"<long>\",\n      \"account_id\": \"<long>\",\n      \"scope\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"access_token\": \"<string>\",\n      \"expires_on_date\": \"<long>\",\n      \"account_id\": \"<long>\",\n      \"scope\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T03:04:35.000Z",
+                      "updatedAt": "2026-07-28T03:04:35.000Z",
+                      "uid": "35240-e9fa80ec-0220-43cb-aeee-6b1f95315c9c"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:04:34.000Z",
+                  "updatedAt": "2026-07-28T03:04:34.000Z",
+                  "uid": "35240-1265b10c-d9c9-4870-a574-184bb78d47d8"
+                }
+              ],
+              "id": "e4415385-b13e-4e06-b084-0698a6ad3758",
+              "createdAt": "2026-07-28T03:04:34.000Z",
+              "updatedAt": "2026-07-28T03:04:34.000Z",
+              "uid": "35240-e4415385-b13e-4e06-b084-0698a6ad3758"
+            }
+          ],
+          "id": "9d88842b-4ee2-458a-a816-f3bd0ca3eb40",
+          "createdAt": "2026-07-28T03:04:34.000Z",
+          "updatedAt": "2026-07-28T03:04:34.000Z",
+          "uid": "35240-9d88842b-4ee2-458a-a816-f3bd0ca3eb40"
+        }
+      ],
+      "id": "505be16c-2ddf-45b5-86e3-0d32c1cee579",
+      "createdAt": "2026-07-28T03:04:34.000Z",
+      "updatedAt": "2026-07-28T03:04:34.000Z",
+      "uid": "35240-505be16c-2ddf-45b5-86e3-0d32c1cee579"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "key",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "query",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.stackexchange.com/2.3"
+    }
+  ]
+}

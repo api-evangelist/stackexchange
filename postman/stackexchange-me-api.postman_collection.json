@@ -1,0 +1,1938 @@
+{
+  "info": {
+    "_postman_id": "3765fb7b-f8ed-4f26-aa0e-badc0d1d8475",
+    "name": "Stack Exchange Access Tokens Me API",
+    "description": "Public, read-mostly HTTP/JSON API spanning all 180+ Stack Exchange sites\n(Stack Overflow, Server Fault, Super User, Ask Ubuntu, Stats, Math Overflow, ...).\n\nAll method families live under a single base URL with a uniform wrapper\n(`items`, `has_more`, `page`, `quota_max`, `quota_remaining`, `backoff`).\nRead access is unauthenticated. Write methods require OAuth 2.0 with the\nappropriate scopes (`write_access`, `private_info`, `no_expiry`).\n\nMost paths take a required `site` query parameter naming the target Q&A\ncommunity (`stackoverflow`, `serverfault`, `superuser`, ...). Use `/sites`\nto enumerate the network.\n\n\nContact Support:\n Name: Stack Exchange API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:04:53.000Z",
+    "updatedAt": "2026-07-28T03:04:53.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-3765fb7b-f8ed-4f26-aa0e-badc0d1d8475"
+  },
+  "item": [
+    {
+      "name": "me",
+      "item": [
+        {
+          "name": "questions",
+          "item": [
+            {
+              "name": "Stack Exchange List My Questions",
+              "id": "6a829c33-042e-4eb6-b923-44b6fca63c16",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "oauth2",
+                  "oauth2": [
+                    {
+                      "key": "scope",
+                      "value": "read_inbox no_expiry write_access private_info",
+                      "type": "string"
+                    },
+                    {
+                      "key": "accessTokenUrl",
+                      "value": "https://stackoverflow.com/oauth/access_token",
+                      "type": "string"
+                    },
+                    {
+                      "key": "authUrl",
+                      "value": "https://stackoverflow.com/oauth",
+                      "type": "string"
+                    },
+                    {
+                      "key": "grant_type",
+                      "value": "authorization_code",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/me/questions?site=stackoverflow&access_token=<string>&key=<string>&filter=<string>&page=1&pagesize=30",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "me",
+                    "questions"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).",
+                      "key": "site",
+                      "value": "stackoverflow"
+                    },
+                    {
+                      "description": "OAuth 2.0 access token. Required for any /me surface and any write.",
+                      "key": "access_token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP.",
+                      "key": "key",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Custom response filter id created via /filters/create.",
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "1-indexed page number.",
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "description": "Items per page (max 100).",
+                      "key": "pagesize",
+                      "value": "30"
+                    }
+                  ]
+                },
+                "description": "Questions authored by the authenticated user."
+              },
+              "response": [
+                {
+                  "id": "50e146e2-38f0-477b-9d5b-388ff8b2920b",
+                  "name": "A page of questions.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/me/questions?site=stackoverflow&access_token=<string>&key=<string>&filter=<string>&page=1&pagesize=30",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "me",
+                        "questions"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).",
+                          "key": "site",
+                          "value": "stackoverflow"
+                        },
+                        {
+                          "description": "OAuth 2.0 access token. Required for any /me surface and any write.",
+                          "key": "access_token",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP.",
+                          "key": "key",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Custom response filter id created via /filters/create.",
+                          "key": "filter",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "1-indexed page number.",
+                          "key": "page",
+                          "value": "1"
+                        },
+                        {
+                          "description": "Items per page (max 100).",
+                          "key": "pagesize",
+                          "value": "30"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"has_more\": \"<boolean>\",\n  \"quota_max\": \"<integer>\",\n  \"quota_remaining\": \"<integer>\",\n  \"backoff\": \"<integer>\",\n  \"error_id\": \"<integer>\",\n  \"error_message\": \"<string>\",\n  \"error_name\": \"<string>\",\n  \"page\": \"<integer>\",\n  \"page_size\": \"<integer>\",\n  \"total\": \"<integer>\",\n  \"type\": \"<string>\",\n  \"items\": [\n    {\n      \"question_id\": \"<integer>\",\n      \"title\": \"<string>\",\n      \"body\": \"<string>\",\n      \"body_markdown\": \"<string>\",\n      \"link\": \"<uri>\",\n      \"score\": \"<integer>\",\n      \"view_count\": \"<integer>\",\n      \"answer_count\": \"<integer>\",\n      \"comment_count\": \"<integer>\",\n      \"favorite_count\": \"<integer>\",\n      \"is_answered\": \"<boolean>\",\n      \"accepted_answer_id\": \"<integer>\",\n      \"creation_date\": \"<long>\",\n      \"last_activity_date\": \"<long>\",\n      \"last_edit_date\": \"<long>\",\n      \"owner\": {\n        \"user_id\": \"<long>\",\n        \"user_type\": \"moderator\",\n        \"display_name\": \"<string>\",\n        \"reputation\": \"<integer>\",\n        \"profile_image\": \"<uri>\",\n        \"link\": \"<uri>\",\n        \"accept_rate\": \"<integer>\"\n      },\n      \"tags\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"content_license\": \"<string>\",\n      \"protected_date\": \"<long>\",\n      \"locked_date\": \"<long>\",\n      \"closed_date\": \"<long>\",\n      \"closed_reason\": \"<string>\",\n      \"bounty_amount\": \"<integer>\",\n      \"bounty_closes_date\": \"<long>\"\n    },\n    {\n      \"question_id\": \"<integer>\",\n      \"title\": \"<string>\",\n      \"body\": \"<string>\",\n      \"body_markdown\": \"<string>\",\n      \"link\": \"<uri>\",\n      \"score\": \"<integer>\",\n      \"view_count\": \"<integer>\",\n      \"answer_count\": \"<integer>\",\n      \"comment_count\": \"<integer>\",\n      \"favorite_count\": \"<integer>\",\n      \"is_answered\": \"<boolean>\",\n      \"accepted_answer_id\": \"<integer>\",\n      \"creation_date\": \"<long>\",\n      \"last_activity_date\": \"<long>\",\n      \"last_edit_date\": \"<long>\",\n      \"owner\": {\n        \"user_id\": \"<long>\",\n        \"user_type\": \"does_not_exist\",\n        \"display_name\": \"<string>\",\n        \"reputation\": \"<integer>\",\n        \"profile_image\": \"<uri>\",\n        \"link\": \"<uri>\",\n        \"accept_rate\": \"<integer>\"\n      },\n      \"tags\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"content_license\": \"<string>\",\n      \"protected_date\": \"<long>\",\n      \"locked_date\": \"<long>\",\n      \"closed_date\": \"<long>\",\n      \"closed_reason\": \"<string>\",\n      \"bounty_amount\": \"<integer>\",\n      \"bounty_closes_date\": \"<long>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-07-28T03:04:53.000Z",
+                  "updatedAt": "2026-07-28T03:04:53.000Z",
+                  "uid": "35240-50e146e2-38f0-477b-9d5b-388ff8b2920b"
+                }
+              ],
+              "createdAt": "2026-07-28T03:04:53.000Z",
+              "updatedAt": "2026-07-28T03:04:53.000Z",
+              "uid": "35240-6a829c33-042e-4eb6-b923-44b6fca63c16"
+            }
+          ],
+          "id": "147c5b52-5fd9-4e66-a9be-44779a871f32",
+          "createdAt": "2026-07-28T03:04:53.000Z",
+          "updatedAt": "2026-07-28T03:04:53.000Z",
+          "uid": "35240-147c5b52-5fd9-4e66-a9be-44779a871f32"
+        },
+        {
+          "name": "answers",
+          "item": [
+            {
+              "name": "Stack Exchange List My Answers",
+              "id": "a00b8581-e5b2-4172-9842-93def6564800",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "oauth2",
+                  "oauth2": [
+                    {
+                      "key": "scope",
+                      "value": "read_inbox no_expiry write_access private_info",
+                      "type": "string"
+                    },
+                    {
+                      "key": "accessTokenUrl",
+                      "value": "https://stackoverflow.com/oauth/access_token",
+                      "type": "string"
+                    },
+                    {
+                      "key": "authUrl",
+                      "value": "https://stackoverflow.com/oauth",
+                      "type": "string"
+                    },
+                    {
+                      "key": "grant_type",
+                      "value": "authorization_code",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/me/answers?site=stackoverflow&access_token=<string>&key=<string>&filter=<string>&page=1&pagesize=30",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "me",
+                    "answers"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).",
+                      "key": "site",
+                      "value": "stackoverflow"
+                    },
+                    {
+                      "description": "OAuth 2.0 access token. Required for any /me surface and any write.",
+                      "key": "access_token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP.",
+                      "key": "key",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Custom response filter id created via /filters/create.",
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "1-indexed page number.",
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "description": "Items per page (max 100).",
+                      "key": "pagesize",
+                      "value": "30"
+                    }
+                  ]
+                },
+                "description": "Answers authored by the authenticated user."
+              },
+              "response": [
+                {
+                  "id": "ce4db8df-f38b-4329-b004-cac8dbc36f2d",
+                  "name": "A page of answers.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/me/answers?site=stackoverflow&access_token=<string>&key=<string>&filter=<string>&page=1&pagesize=30",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "me",
+                        "answers"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).",
+                          "key": "site",
+                          "value": "stackoverflow"
+                        },
+                        {
+                          "description": "OAuth 2.0 access token. Required for any /me surface and any write.",
+                          "key": "access_token",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP.",
+                          "key": "key",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Custom response filter id created via /filters/create.",
+                          "key": "filter",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "1-indexed page number.",
+                          "key": "page",
+                          "value": "1"
+                        },
+                        {
+                          "description": "Items per page (max 100).",
+                          "key": "pagesize",
+                          "value": "30"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"has_more\": \"<boolean>\",\n  \"quota_max\": \"<integer>\",\n  \"quota_remaining\": \"<integer>\",\n  \"backoff\": \"<integer>\",\n  \"error_id\": \"<integer>\",\n  \"error_message\": \"<string>\",\n  \"error_name\": \"<string>\",\n  \"page\": \"<integer>\",\n  \"page_size\": \"<integer>\",\n  \"total\": \"<integer>\",\n  \"type\": \"<string>\",\n  \"items\": [\n    {\n      \"answer_id\": \"<integer>\",\n      \"question_id\": \"<integer>\",\n      \"title\": \"<string>\",\n      \"body\": \"<string>\",\n      \"body_markdown\": \"<string>\",\n      \"link\": \"<uri>\",\n      \"score\": \"<integer>\",\n      \"up_vote_count\": \"<integer>\",\n      \"down_vote_count\": \"<integer>\",\n      \"is_accepted\": \"<boolean>\",\n      \"comment_count\": \"<integer>\",\n      \"creation_date\": \"<long>\",\n      \"last_activity_date\": \"<long>\",\n      \"last_edit_date\": \"<long>\",\n      \"owner\": {\n        \"user_id\": \"<long>\",\n        \"user_type\": \"moderator\",\n        \"display_name\": \"<string>\",\n        \"reputation\": \"<integer>\",\n        \"profile_image\": \"<uri>\",\n        \"link\": \"<uri>\",\n        \"accept_rate\": \"<integer>\"\n      },\n      \"last_editor\": {\n        \"user_id\": \"<long>\",\n        \"user_type\": \"team_admin\",\n        \"display_name\": \"<string>\",\n        \"reputation\": \"<integer>\",\n        \"profile_image\": \"<uri>\",\n        \"link\": \"<uri>\",\n        \"accept_rate\": \"<integer>\"\n      },\n      \"tags\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"content_license\": \"<string>\",\n      \"community_owned_date\": \"<long>\",\n      \"locked_date\": \"<long>\",\n      \"awarded_bounty_amount\": \"<integer>\",\n      \"awarded_bounty_users\": [\n        {\n          \"user_id\": \"<long>\",\n          \"user_type\": \"unregistered\",\n          \"display_name\": \"<string>\",\n          \"reputation\": \"<integer>\",\n          \"profile_image\": \"<uri>\",\n          \"link\": \"<uri>\",\n          \"accept_rate\": \"<integer>\"\n        },\n        {\n          \"user_id\": \"<long>\",\n          \"user_type\": \"unregistered\",\n          \"display_name\": \"<string>\",\n          \"reputation\": \"<integer>\",\n          \"profile_image\": \"<uri>\",\n          \"link\": \"<uri>\",\n          \"accept_rate\": \"<integer>\"\n        }\n      ]\n    },\n    {\n      \"answer_id\": \"<integer>\",\n      \"question_id\": \"<integer>\",\n      \"title\": \"<string>\",\n      \"body\": \"<string>\",\n      \"body_markdown\": \"<string>\",\n      \"link\": \"<uri>\",\n      \"score\": \"<integer>\",\n      \"up_vote_count\": \"<integer>\",\n      \"down_vote_count\": \"<integer>\",\n      \"is_accepted\": \"<boolean>\",\n      \"comment_count\": \"<integer>\",\n      \"creation_date\": \"<long>\",\n      \"last_activity_date\": \"<long>\",\n      \"last_edit_date\": \"<long>\",\n      \"owner\": {\n        \"user_id\": \"<long>\",\n        \"user_type\": \"does_not_exist\",\n        \"display_name\": \"<string>\",\n        \"reputation\": \"<integer>\",\n        \"profile_image\": \"<uri>\",\n        \"link\": \"<uri>\",\n        \"accept_rate\": \"<integer>\"\n      },\n      \"last_editor\": {\n        \"user_id\": \"<long>\",\n        \"user_type\": \"unregistered\",\n        \"display_name\": \"<string>\",\n        \"reputation\": \"<integer>\",\n        \"profile_image\": \"<uri>\",\n        \"link\": \"<uri>\",\n        \"accept_rate\": \"<integer>\"\n      },\n      \"tags\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"content_license\": \"<string>\",\n      \"community_owned_date\": \"<long>\",\n      \"locked_date\": \"<long>\",\n      \"awarded_bounty_amount\": \"<integer>\",\n      \"awarded_bounty_users\": [\n        {\n          \"user_id\": \"<long>\",\n          \"user_type\": \"moderator\",\n          \"display_name\": \"<string>\",\n          \"reputation\": \"<integer>\",\n          \"profile_image\": \"<uri>\",\n          \"link\": \"<uri>\",\n          \"accept_rate\": \"<integer>\"\n        },\n        {\n          \"user_id\": \"<long>\",\n          \"user_type\": \"registered\",\n          \"display_name\": \"<string>\",\n          \"reputation\": \"<integer>\",\n          \"profile_image\": \"<uri>\",\n          \"link\": \"<uri>\",\n          \"accept_rate\": \"<integer>\"\n        }\n      ]\n    }\n  ]\n}",
+                  "createdAt": "2026-07-28T03:04:53.000Z",
+                  "updatedAt": "2026-07-28T03:04:53.000Z",
+                  "uid": "35240-ce4db8df-f38b-4329-b004-cac8dbc36f2d"
+                }
+              ],
+              "createdAt": "2026-07-28T03:04:53.000Z",
+              "updatedAt": "2026-07-28T03:04:53.000Z",
+              "uid": "35240-a00b8581-e5b2-4172-9842-93def6564800"
+            }
+          ],
+          "id": "91d6af36-915a-48dd-b24b-48b46bb6b39d",
+          "createdAt": "2026-07-28T03:04:53.000Z",
+          "updatedAt": "2026-07-28T03:04:53.000Z",
+          "uid": "35240-91d6af36-915a-48dd-b24b-48b46bb6b39d"
+        },
+        {
+          "name": "comments",
+          "item": [
+            {
+              "name": "Stack Exchange List My Comments",
+              "id": "c1d20a3d-419d-4db8-924f-89be8715e94d",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "oauth2",
+                  "oauth2": [
+                    {
+                      "key": "scope",
+                      "value": "read_inbox no_expiry write_access private_info",
+                      "type": "string"
+                    },
+                    {
+                      "key": "accessTokenUrl",
+                      "value": "https://stackoverflow.com/oauth/access_token",
+                      "type": "string"
+                    },
+                    {
+                      "key": "authUrl",
+                      "value": "https://stackoverflow.com/oauth",
+                      "type": "string"
+                    },
+                    {
+                      "key": "grant_type",
+                      "value": "authorization_code",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/me/comments?site=stackoverflow&access_token=<string>&key=<string>&filter=<string>&page=1&pagesize=30",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "me",
+                    "comments"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).",
+                      "key": "site",
+                      "value": "stackoverflow"
+                    },
+                    {
+                      "description": "OAuth 2.0 access token. Required for any /me surface and any write.",
+                      "key": "access_token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP.",
+                      "key": "key",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Custom response filter id created via /filters/create.",
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "1-indexed page number.",
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "description": "Items per page (max 100).",
+                      "key": "pagesize",
+                      "value": "30"
+                    }
+                  ]
+                },
+                "description": "Comments authored by the authenticated user."
+              },
+              "response": [
+                {
+                  "id": "340320e7-3c90-45dc-80d0-226e5a9d0ac1",
+                  "name": "A page of comments.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/me/comments?site=stackoverflow&access_token=<string>&key=<string>&filter=<string>&page=1&pagesize=30",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "me",
+                        "comments"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).",
+                          "key": "site",
+                          "value": "stackoverflow"
+                        },
+                        {
+                          "description": "OAuth 2.0 access token. Required for any /me surface and any write.",
+                          "key": "access_token",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP.",
+                          "key": "key",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Custom response filter id created via /filters/create.",
+                          "key": "filter",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "1-indexed page number.",
+                          "key": "page",
+                          "value": "1"
+                        },
+                        {
+                          "description": "Items per page (max 100).",
+                          "key": "pagesize",
+                          "value": "30"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"has_more\": \"<boolean>\",\n  \"quota_max\": \"<integer>\",\n  \"quota_remaining\": \"<integer>\",\n  \"backoff\": \"<integer>\",\n  \"error_id\": \"<integer>\",\n  \"error_message\": \"<string>\",\n  \"error_name\": \"<string>\",\n  \"page\": \"<integer>\",\n  \"page_size\": \"<integer>\",\n  \"total\": \"<integer>\",\n  \"type\": \"<string>\",\n  \"items\": [\n    {\n      \"comment_id\": \"<integer>\",\n      \"post_id\": \"<integer>\",\n      \"post_type\": \"answer\",\n      \"score\": \"<integer>\",\n      \"body\": \"<string>\",\n      \"body_markdown\": \"<string>\",\n      \"creation_date\": \"<long>\",\n      \"edited\": \"<boolean>\",\n      \"link\": \"<uri>\",\n      \"owner\": {\n        \"user_id\": \"<long>\",\n        \"user_type\": \"team_admin\",\n        \"display_name\": \"<string>\",\n        \"reputation\": \"<integer>\",\n        \"profile_image\": \"<uri>\",\n        \"link\": \"<uri>\",\n        \"accept_rate\": \"<integer>\"\n      },\n      \"reply_to_user\": {\n        \"user_id\": \"<long>\",\n        \"user_type\": \"does_not_exist\",\n        \"display_name\": \"<string>\",\n        \"reputation\": \"<integer>\",\n        \"profile_image\": \"<uri>\",\n        \"link\": \"<uri>\",\n        \"accept_rate\": \"<integer>\"\n      },\n      \"content_license\": \"<string>\"\n    },\n    {\n      \"comment_id\": \"<integer>\",\n      \"post_id\": \"<integer>\",\n      \"post_type\": \"answer\",\n      \"score\": \"<integer>\",\n      \"body\": \"<string>\",\n      \"body_markdown\": \"<string>\",\n      \"creation_date\": \"<long>\",\n      \"edited\": \"<boolean>\",\n      \"link\": \"<uri>\",\n      \"owner\": {\n        \"user_id\": \"<long>\",\n        \"user_type\": \"team_admin\",\n        \"display_name\": \"<string>\",\n        \"reputation\": \"<integer>\",\n        \"profile_image\": \"<uri>\",\n        \"link\": \"<uri>\",\n        \"accept_rate\": \"<integer>\"\n      },\n      \"reply_to_user\": {\n        \"user_id\": \"<long>\",\n        \"user_type\": \"unregistered\",\n        \"display_name\": \"<string>\",\n        \"reputation\": \"<integer>\",\n        \"profile_image\": \"<uri>\",\n        \"link\": \"<uri>\",\n        \"accept_rate\": \"<integer>\"\n      },\n      \"content_license\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-07-28T03:04:53.000Z",
+                  "updatedAt": "2026-07-28T03:04:53.000Z",
+                  "uid": "35240-340320e7-3c90-45dc-80d0-226e5a9d0ac1"
+                }
+              ],
+              "createdAt": "2026-07-28T03:04:53.000Z",
+              "updatedAt": "2026-07-28T03:04:53.000Z",
+              "uid": "35240-c1d20a3d-419d-4db8-924f-89be8715e94d"
+            }
+          ],
+          "id": "161a6585-f0ed-4023-8c76-90cfe1c55a61",
+          "createdAt": "2026-07-28T03:04:53.000Z",
+          "updatedAt": "2026-07-28T03:04:53.000Z",
+          "uid": "35240-161a6585-f0ed-4023-8c76-90cfe1c55a61"
+        },
+        {
+          "name": "tags",
+          "item": [
+            {
+              "name": "Stack Exchange List My Tags",
+              "id": "81585027-9479-4bb5-9bb2-eaf6cf4b282f",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "oauth2",
+                  "oauth2": [
+                    {
+                      "key": "scope",
+                      "value": "read_inbox no_expiry write_access private_info",
+                      "type": "string"
+                    },
+                    {
+                      "key": "accessTokenUrl",
+                      "value": "https://stackoverflow.com/oauth/access_token",
+                      "type": "string"
+                    },
+                    {
+                      "key": "authUrl",
+                      "value": "https://stackoverflow.com/oauth",
+                      "type": "string"
+                    },
+                    {
+                      "key": "grant_type",
+                      "value": "authorization_code",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/me/tags?site=stackoverflow&access_token=<string>&key=<string>&filter=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "me",
+                    "tags"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).",
+                      "key": "site",
+                      "value": "stackoverflow"
+                    },
+                    {
+                      "description": "OAuth 2.0 access token. Required for any /me surface and any write.",
+                      "key": "access_token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP.",
+                      "key": "key",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Custom response filter id created via /filters/create.",
+                      "key": "filter",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "description": "Tags the authenticated user has activity in."
+              },
+              "response": [
+                {
+                  "id": "47497808-5968-4c66-9ed2-869098bd36a1",
+                  "name": "A page of tags.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/me/tags?site=stackoverflow&access_token=<string>&key=<string>&filter=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "me",
+                        "tags"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).",
+                          "key": "site",
+                          "value": "stackoverflow"
+                        },
+                        {
+                          "description": "OAuth 2.0 access token. Required for any /me surface and any write.",
+                          "key": "access_token",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP.",
+                          "key": "key",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Custom response filter id created via /filters/create.",
+                          "key": "filter",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"has_more\": \"<boolean>\",\n  \"quota_max\": \"<integer>\",\n  \"quota_remaining\": \"<integer>\",\n  \"backoff\": \"<integer>\",\n  \"error_id\": \"<integer>\",\n  \"error_message\": \"<string>\",\n  \"error_name\": \"<string>\",\n  \"page\": \"<integer>\",\n  \"page_size\": \"<integer>\",\n  \"total\": \"<integer>\",\n  \"type\": \"<string>\",\n  \"items\": [\n    {\n      \"name\": \"<string>\",\n      \"count\": \"<integer>\",\n      \"is_required\": \"<boolean>\",\n      \"is_moderator_only\": \"<boolean>\",\n      \"has_synonyms\": \"<boolean>\",\n      \"user_id\": \"<integer>\",\n      \"last_activity_date\": \"<long>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"count\": \"<integer>\",\n      \"is_required\": \"<boolean>\",\n      \"is_moderator_only\": \"<boolean>\",\n      \"has_synonyms\": \"<boolean>\",\n      \"user_id\": \"<integer>\",\n      \"last_activity_date\": \"<long>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-07-28T03:04:53.000Z",
+                  "updatedAt": "2026-07-28T03:04:53.000Z",
+                  "uid": "35240-47497808-5968-4c66-9ed2-869098bd36a1"
+                }
+              ],
+              "createdAt": "2026-07-28T03:04:53.000Z",
+              "updatedAt": "2026-07-28T03:04:53.000Z",
+              "uid": "35240-81585027-9479-4bb5-9bb2-eaf6cf4b282f"
+            }
+          ],
+          "id": "7c07a764-a682-472a-9568-d783295f358b",
+          "createdAt": "2026-07-28T03:04:53.000Z",
+          "updatedAt": "2026-07-28T03:04:53.000Z",
+          "uid": "35240-7c07a764-a682-472a-9568-d783295f358b"
+        },
+        {
+          "name": "badges",
+          "item": [
+            {
+              "name": "Stack Exchange List My Badges",
+              "id": "9db5c964-137c-4ee6-a9d5-092564be40d9",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "oauth2",
+                  "oauth2": [
+                    {
+                      "key": "scope",
+                      "value": "read_inbox no_expiry write_access private_info",
+                      "type": "string"
+                    },
+                    {
+                      "key": "accessTokenUrl",
+                      "value": "https://stackoverflow.com/oauth/access_token",
+                      "type": "string"
+                    },
+                    {
+                      "key": "authUrl",
+                      "value": "https://stackoverflow.com/oauth",
+                      "type": "string"
+                    },
+                    {
+                      "key": "grant_type",
+                      "value": "authorization_code",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/me/badges?site=stackoverflow&access_token=<string>&key=<string>&filter=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "me",
+                    "badges"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).",
+                      "key": "site",
+                      "value": "stackoverflow"
+                    },
+                    {
+                      "description": "OAuth 2.0 access token. Required for any /me surface and any write.",
+                      "key": "access_token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP.",
+                      "key": "key",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Custom response filter id created via /filters/create.",
+                      "key": "filter",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "description": "Badges earned by the authenticated user."
+              },
+              "response": [
+                {
+                  "id": "32f37b58-552b-4180-a049-74c39a351eeb",
+                  "name": "A page of badges.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/me/badges?site=stackoverflow&access_token=<string>&key=<string>&filter=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "me",
+                        "badges"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).",
+                          "key": "site",
+                          "value": "stackoverflow"
+                        },
+                        {
+                          "description": "OAuth 2.0 access token. Required for any /me surface and any write.",
+                          "key": "access_token",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP.",
+                          "key": "key",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Custom response filter id created via /filters/create.",
+                          "key": "filter",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"has_more\": \"<boolean>\",\n  \"quota_max\": \"<integer>\",\n  \"quota_remaining\": \"<integer>\",\n  \"backoff\": \"<integer>\",\n  \"error_id\": \"<integer>\",\n  \"error_message\": \"<string>\",\n  \"error_name\": \"<string>\",\n  \"page\": \"<integer>\",\n  \"page_size\": \"<integer>\",\n  \"total\": \"<integer>\",\n  \"type\": \"<string>\",\n  \"items\": [\n    {\n      \"badge_id\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"rank\": \"bronze\",\n      \"badge_type\": \"tag_based\",\n      \"award_count\": \"<integer>\",\n      \"link\": \"<uri>\",\n      \"user\": {\n        \"user_id\": \"<long>\",\n        \"user_type\": \"team_admin\",\n        \"display_name\": \"<string>\",\n        \"reputation\": \"<integer>\",\n        \"profile_image\": \"<uri>\",\n        \"link\": \"<uri>\",\n        \"accept_rate\": \"<integer>\"\n      }\n    },\n    {\n      \"badge_id\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"rank\": \"bronze\",\n      \"badge_type\": \"tag_based\",\n      \"award_count\": \"<integer>\",\n      \"link\": \"<uri>\",\n      \"user\": {\n        \"user_id\": \"<long>\",\n        \"user_type\": \"does_not_exist\",\n        \"display_name\": \"<string>\",\n        \"reputation\": \"<integer>\",\n        \"profile_image\": \"<uri>\",\n        \"link\": \"<uri>\",\n        \"accept_rate\": \"<integer>\"\n      }\n    }\n  ]\n}",
+                  "createdAt": "2026-07-28T03:04:53.000Z",
+                  "updatedAt": "2026-07-28T03:04:53.000Z",
+                  "uid": "35240-32f37b58-552b-4180-a049-74c39a351eeb"
+                }
+              ],
+              "createdAt": "2026-07-28T03:04:53.000Z",
+              "updatedAt": "2026-07-28T03:04:53.000Z",
+              "uid": "35240-9db5c964-137c-4ee6-a9d5-092564be40d9"
+            }
+          ],
+          "id": "7a2e6976-7e3a-4daa-b7d7-7a945a193812",
+          "createdAt": "2026-07-28T03:04:53.000Z",
+          "updatedAt": "2026-07-28T03:04:53.000Z",
+          "uid": "35240-7a2e6976-7e3a-4daa-b7d7-7a945a193812"
+        },
+        {
+          "name": "reputation",
+          "item": [
+            {
+              "name": "Stack Exchange Get My Reputation",
+              "id": "afc240d6-7bab-4a33-accf-857ad25c1cc4",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "oauth2",
+                  "oauth2": [
+                    {
+                      "key": "scope",
+                      "value": "read_inbox no_expiry write_access private_info",
+                      "type": "string"
+                    },
+                    {
+                      "key": "accessTokenUrl",
+                      "value": "https://stackoverflow.com/oauth/access_token",
+                      "type": "string"
+                    },
+                    {
+                      "key": "authUrl",
+                      "value": "https://stackoverflow.com/oauth",
+                      "type": "string"
+                    },
+                    {
+                      "key": "grant_type",
+                      "value": "authorization_code",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/me/reputation?site=stackoverflow&access_token=<string>&key=<string>&filter=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "me",
+                    "reputation"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).",
+                      "key": "site",
+                      "value": "stackoverflow"
+                    },
+                    {
+                      "description": "OAuth 2.0 access token. Required for any /me surface and any write.",
+                      "key": "access_token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP.",
+                      "key": "key",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Custom response filter id created via /filters/create.",
+                      "key": "filter",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "description": "Reputation changes for the authenticated user."
+              },
+              "response": [
+                {
+                  "id": "bd137e7d-1418-4ebb-8b72-e0ea6616769b",
+                  "name": "A page of reputation changes.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/me/reputation?site=stackoverflow&access_token=<string>&key=<string>&filter=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "me",
+                        "reputation"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).",
+                          "key": "site",
+                          "value": "stackoverflow"
+                        },
+                        {
+                          "description": "OAuth 2.0 access token. Required for any /me surface and any write.",
+                          "key": "access_token",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP.",
+                          "key": "key",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Custom response filter id created via /filters/create.",
+                          "key": "filter",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"has_more\": \"<boolean>\",\n  \"quota_max\": \"<integer>\",\n  \"quota_remaining\": \"<integer>\",\n  \"backoff\": \"<integer>\",\n  \"error_id\": \"<integer>\",\n  \"error_message\": \"<string>\",\n  \"error_name\": \"<string>\",\n  \"page\": \"<integer>\",\n  \"page_size\": \"<integer>\",\n  \"total\": \"<integer>\",\n  \"type\": \"<string>\",\n  \"items\": [\n    {\n      \"user_id\": \"<long>\",\n      \"post_id\": \"<integer>\",\n      \"post_type\": \"answer\",\n      \"vote_type\": \"post_undeleted\",\n      \"reputation_change\": \"<integer>\",\n      \"on_date\": \"<long>\"\n    },\n    {\n      \"user_id\": \"<long>\",\n      \"post_id\": \"<integer>\",\n      \"post_type\": \"answer\",\n      \"vote_type\": \"bounties_won\",\n      \"reputation_change\": \"<integer>\",\n      \"on_date\": \"<long>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-07-28T03:04:53.000Z",
+                  "updatedAt": "2026-07-28T03:04:53.000Z",
+                  "uid": "35240-bd137e7d-1418-4ebb-8b72-e0ea6616769b"
+                }
+              ],
+              "createdAt": "2026-07-28T03:04:53.000Z",
+              "updatedAt": "2026-07-28T03:04:53.000Z",
+              "uid": "35240-afc240d6-7bab-4a33-accf-857ad25c1cc4"
+            }
+          ],
+          "id": "ef0241d7-92c0-4852-95c3-f429dce3cd4c",
+          "createdAt": "2026-07-28T03:04:53.000Z",
+          "updatedAt": "2026-07-28T03:04:53.000Z",
+          "uid": "35240-ef0241d7-92c0-4852-95c3-f429dce3cd4c"
+        },
+        {
+          "name": "notifications",
+          "item": [
+            {
+              "name": "unread",
+              "item": [
+                {
+                  "name": "Stack Exchange List My Unread Notifications",
+                  "id": "71b738d5-0a33-4fe1-93ed-d660b74a30b0",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "oauth2",
+                      "oauth2": [
+                        {
+                          "key": "scope",
+                          "value": "read_inbox no_expiry write_access private_info",
+                          "type": "string"
+                        },
+                        {
+                          "key": "accessTokenUrl",
+                          "value": "https://stackoverflow.com/oauth/access_token",
+                          "type": "string"
+                        },
+                        {
+                          "key": "authUrl",
+                          "value": "https://stackoverflow.com/oauth",
+                          "type": "string"
+                        },
+                        {
+                          "key": "grant_type",
+                          "value": "authorization_code",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/me/notifications/unread?site=stackoverflow&access_token=<string>&key=<string>&filter=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "me",
+                        "notifications",
+                        "unread"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).",
+                          "key": "site",
+                          "value": "stackoverflow"
+                        },
+                        {
+                          "description": "OAuth 2.0 access token. Required for any /me surface and any write.",
+                          "key": "access_token",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP.",
+                          "key": "key",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Custom response filter id created via /filters/create.",
+                          "key": "filter",
+                          "value": "<string>"
+                        }
+                      ]
+                    },
+                    "description": "Unread notifications for the authenticated user."
+                  },
+                  "response": [
+                    {
+                      "id": "97241eb4-053d-456b-af4d-11bc16d7d8f2",
+                      "name": "A page of notifications.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/me/notifications/unread?site=stackoverflow&access_token=<string>&key=<string>&filter=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "me",
+                            "notifications",
+                            "unread"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).",
+                              "key": "site",
+                              "value": "stackoverflow"
+                            },
+                            {
+                              "description": "OAuth 2.0 access token. Required for any /me surface and any write.",
+                              "key": "access_token",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP.",
+                              "key": "key",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Custom response filter id created via /filters/create.",
+                              "key": "filter",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"has_more\": \"<boolean>\",\n  \"quota_max\": \"<integer>\",\n  \"quota_remaining\": \"<integer>\",\n  \"backoff\": \"<integer>\",\n  \"error_id\": \"<integer>\",\n  \"error_message\": \"<string>\",\n  \"error_name\": \"<string>\",\n  \"page\": \"<integer>\",\n  \"page_size\": \"<integer>\",\n  \"total\": \"<integer>\",\n  \"type\": \"<string>\",\n  \"items\": [\n    {\n      \"notification_type\": \"<string>\",\n      \"creation_date\": \"<long>\",\n      \"is_unread\": \"<boolean>\",\n      \"body\": \"<string>\",\n      \"post_id\": \"<integer>\",\n      \"site\": {\n        \"site_url\": \"<uri>\",\n        \"api_site_parameter\": \"<string>\",\n        \"name\": \"<string>\",\n        \"site_type\": \"main_site\",\n        \"audience\": \"<string>\",\n        \"icon_url\": \"<uri>\",\n        \"logo_url\": \"<uri>\",\n        \"favicon_url\": \"<uri>\",\n        \"launch_date\": \"<long>\",\n        \"site_state\": \"linked_meta\",\n        \"styling\": {\n          \"link_color\": \"<string>\",\n          \"tag_foreground_color\": \"<string>\",\n          \"tag_background_color\": \"<string>\"\n        },\n        \"related_sites\": [\n          {\n            \"name\": \"<string>\",\n            \"site_url\": \"<uri>\",\n            \"relation\": \"parent\"\n          },\n          {\n            \"name\": \"<string>\",\n            \"site_url\": \"<uri>\",\n            \"relation\": \"meta\"\n          }\n        ],\n        \"markdown_extensions\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      }\n    },\n    {\n      \"notification_type\": \"<string>\",\n      \"creation_date\": \"<long>\",\n      \"is_unread\": \"<boolean>\",\n      \"body\": \"<string>\",\n      \"post_id\": \"<integer>\",\n      \"site\": {\n        \"site_url\": \"<uri>\",\n        \"api_site_parameter\": \"<string>\",\n        \"name\": \"<string>\",\n        \"site_type\": \"meta_site\",\n        \"audience\": \"<string>\",\n        \"icon_url\": \"<uri>\",\n        \"logo_url\": \"<uri>\",\n        \"favicon_url\": \"<uri>\",\n        \"launch_date\": \"<long>\",\n        \"site_state\": \"linked_meta\",\n        \"styling\": {\n          \"link_color\": \"<string>\",\n          \"tag_foreground_color\": \"<string>\",\n          \"tag_background_color\": \"<string>\"\n        },\n        \"related_sites\": [\n          {\n            \"name\": \"<string>\",\n            \"site_url\": \"<uri>\",\n            \"relation\": \"chat\"\n          },\n          {\n            \"name\": \"<string>\",\n            \"site_url\": \"<uri>\",\n            \"relation\": \"chat\"\n          }\n        ],\n        \"markdown_extensions\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      }\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T03:04:53.000Z",
+                      "updatedAt": "2026-07-28T03:04:53.000Z",
+                      "uid": "35240-97241eb4-053d-456b-af4d-11bc16d7d8f2"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:04:53.000Z",
+                  "updatedAt": "2026-07-28T03:04:53.000Z",
+                  "uid": "35240-71b738d5-0a33-4fe1-93ed-d660b74a30b0"
+                }
+              ],
+              "id": "f857d739-b4d8-41d4-ad8f-ea42e695e355",
+              "createdAt": "2026-07-28T03:04:53.000Z",
+              "updatedAt": "2026-07-28T03:04:53.000Z",
+              "uid": "35240-f857d739-b4d8-41d4-ad8f-ea42e695e355"
+            },
+            {
+              "name": "Stack Exchange List My Notifications",
+              "id": "87482e37-8f5d-4fe8-96a1-37b65beac86c",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "oauth2",
+                  "oauth2": [
+                    {
+                      "key": "scope",
+                      "value": "read_inbox no_expiry write_access private_info",
+                      "type": "string"
+                    },
+                    {
+                      "key": "accessTokenUrl",
+                      "value": "https://stackoverflow.com/oauth/access_token",
+                      "type": "string"
+                    },
+                    {
+                      "key": "authUrl",
+                      "value": "https://stackoverflow.com/oauth",
+                      "type": "string"
+                    },
+                    {
+                      "key": "grant_type",
+                      "value": "authorization_code",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/me/notifications?site=stackoverflow&access_token=<string>&key=<string>&filter=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "me",
+                    "notifications"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).",
+                      "key": "site",
+                      "value": "stackoverflow"
+                    },
+                    {
+                      "description": "OAuth 2.0 access token. Required for any /me surface and any write.",
+                      "key": "access_token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP.",
+                      "key": "key",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Custom response filter id created via /filters/create.",
+                      "key": "filter",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "description": "Notifications for the authenticated user."
+              },
+              "response": [
+                {
+                  "id": "ca8454ee-771a-441e-be30-cd06528aee43",
+                  "name": "A page of notifications.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/me/notifications?site=stackoverflow&access_token=<string>&key=<string>&filter=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "me",
+                        "notifications"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).",
+                          "key": "site",
+                          "value": "stackoverflow"
+                        },
+                        {
+                          "description": "OAuth 2.0 access token. Required for any /me surface and any write.",
+                          "key": "access_token",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP.",
+                          "key": "key",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Custom response filter id created via /filters/create.",
+                          "key": "filter",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"has_more\": \"<boolean>\",\n  \"quota_max\": \"<integer>\",\n  \"quota_remaining\": \"<integer>\",\n  \"backoff\": \"<integer>\",\n  \"error_id\": \"<integer>\",\n  \"error_message\": \"<string>\",\n  \"error_name\": \"<string>\",\n  \"page\": \"<integer>\",\n  \"page_size\": \"<integer>\",\n  \"total\": \"<integer>\",\n  \"type\": \"<string>\",\n  \"items\": [\n    {\n      \"notification_type\": \"<string>\",\n      \"creation_date\": \"<long>\",\n      \"is_unread\": \"<boolean>\",\n      \"body\": \"<string>\",\n      \"post_id\": \"<integer>\",\n      \"site\": {\n        \"site_url\": \"<uri>\",\n        \"api_site_parameter\": \"<string>\",\n        \"name\": \"<string>\",\n        \"site_type\": \"main_site\",\n        \"audience\": \"<string>\",\n        \"icon_url\": \"<uri>\",\n        \"logo_url\": \"<uri>\",\n        \"favicon_url\": \"<uri>\",\n        \"launch_date\": \"<long>\",\n        \"site_state\": \"linked_meta\",\n        \"styling\": {\n          \"link_color\": \"<string>\",\n          \"tag_foreground_color\": \"<string>\",\n          \"tag_background_color\": \"<string>\"\n        },\n        \"related_sites\": [\n          {\n            \"name\": \"<string>\",\n            \"site_url\": \"<uri>\",\n            \"relation\": \"parent\"\n          },\n          {\n            \"name\": \"<string>\",\n            \"site_url\": \"<uri>\",\n            \"relation\": \"meta\"\n          }\n        ],\n        \"markdown_extensions\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      }\n    },\n    {\n      \"notification_type\": \"<string>\",\n      \"creation_date\": \"<long>\",\n      \"is_unread\": \"<boolean>\",\n      \"body\": \"<string>\",\n      \"post_id\": \"<integer>\",\n      \"site\": {\n        \"site_url\": \"<uri>\",\n        \"api_site_parameter\": \"<string>\",\n        \"name\": \"<string>\",\n        \"site_type\": \"meta_site\",\n        \"audience\": \"<string>\",\n        \"icon_url\": \"<uri>\",\n        \"logo_url\": \"<uri>\",\n        \"favicon_url\": \"<uri>\",\n        \"launch_date\": \"<long>\",\n        \"site_state\": \"linked_meta\",\n        \"styling\": {\n          \"link_color\": \"<string>\",\n          \"tag_foreground_color\": \"<string>\",\n          \"tag_background_color\": \"<string>\"\n        },\n        \"related_sites\": [\n          {\n            \"name\": \"<string>\",\n            \"site_url\": \"<uri>\",\n            \"relation\": \"chat\"\n          },\n          {\n            \"name\": \"<string>\",\n            \"site_url\": \"<uri>\",\n            \"relation\": \"chat\"\n          }\n        ],\n        \"markdown_extensions\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      }\n    }\n  ]\n}",
+                  "createdAt": "2026-07-28T03:04:53.000Z",
+                  "updatedAt": "2026-07-28T03:04:53.000Z",
+                  "uid": "35240-ca8454ee-771a-441e-be30-cd06528aee43"
+                }
+              ],
+              "createdAt": "2026-07-28T03:04:53.000Z",
+              "updatedAt": "2026-07-28T03:04:53.000Z",
+              "uid": "35240-87482e37-8f5d-4fe8-96a1-37b65beac86c"
+            }
+          ],
+          "id": "4cd5b747-ece4-423f-87fe-d064f7510c23",
+          "createdAt": "2026-07-28T03:04:53.000Z",
+          "updatedAt": "2026-07-28T03:04:53.000Z",
+          "uid": "35240-4cd5b747-ece4-423f-87fe-d064f7510c23"
+        },
+        {
+          "name": "inbox",
+          "item": [
+            {
+              "name": "unread",
+              "item": [
+                {
+                  "name": "Stack Exchange List My Unread Inbox",
+                  "id": "af4ffee4-5bc1-4c49-8f0f-41fcfa4cd08d",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "oauth2",
+                      "oauth2": [
+                        {
+                          "key": "scope",
+                          "value": "read_inbox no_expiry write_access private_info",
+                          "type": "string"
+                        },
+                        {
+                          "key": "accessTokenUrl",
+                          "value": "https://stackoverflow.com/oauth/access_token",
+                          "type": "string"
+                        },
+                        {
+                          "key": "authUrl",
+                          "value": "https://stackoverflow.com/oauth",
+                          "type": "string"
+                        },
+                        {
+                          "key": "grant_type",
+                          "value": "authorization_code",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/me/inbox/unread?site=stackoverflow&access_token=<string>&key=<string>&filter=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "me",
+                        "inbox",
+                        "unread"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).",
+                          "key": "site",
+                          "value": "stackoverflow"
+                        },
+                        {
+                          "description": "OAuth 2.0 access token. Required for any /me surface and any write.",
+                          "key": "access_token",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP.",
+                          "key": "key",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Custom response filter id created via /filters/create.",
+                          "key": "filter",
+                          "value": "<string>"
+                        }
+                      ]
+                    },
+                    "description": "Unread inbox items for the authenticated user."
+                  },
+                  "response": [
+                    {
+                      "id": "fc116012-0700-471a-82f6-92dbc7da01b9",
+                      "name": "A page of unread inbox items.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/me/inbox/unread?site=stackoverflow&access_token=<string>&key=<string>&filter=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "me",
+                            "inbox",
+                            "unread"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).",
+                              "key": "site",
+                              "value": "stackoverflow"
+                            },
+                            {
+                              "description": "OAuth 2.0 access token. Required for any /me surface and any write.",
+                              "key": "access_token",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP.",
+                              "key": "key",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Custom response filter id created via /filters/create.",
+                              "key": "filter",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"has_more\": \"<boolean>\",\n  \"quota_max\": \"<integer>\",\n  \"quota_remaining\": \"<integer>\",\n  \"backoff\": \"<integer>\",\n  \"error_id\": \"<integer>\",\n  \"error_message\": \"<string>\",\n  \"error_name\": \"<string>\",\n  \"page\": \"<integer>\",\n  \"page_size\": \"<integer>\",\n  \"total\": \"<integer>\",\n  \"type\": \"<string>\",\n  \"items\": [\n    {\n      \"item_type\": \"<string>\",\n      \"creation_date\": \"<long>\",\n      \"is_unread\": \"<boolean>\",\n      \"title\": \"<string>\",\n      \"body\": \"<string>\",\n      \"link\": \"<uri>\",\n      \"question_id\": \"<integer>\",\n      \"answer_id\": \"<integer>\",\n      \"comment_id\": \"<integer>\",\n      \"site\": {\n        \"site_url\": \"<uri>\",\n        \"api_site_parameter\": \"<string>\",\n        \"name\": \"<string>\",\n        \"site_type\": \"main_site\",\n        \"audience\": \"<string>\",\n        \"icon_url\": \"<uri>\",\n        \"logo_url\": \"<uri>\",\n        \"favicon_url\": \"<uri>\",\n        \"launch_date\": \"<long>\",\n        \"site_state\": \"open_beta\",\n        \"styling\": {\n          \"link_color\": \"<string>\",\n          \"tag_foreground_color\": \"<string>\",\n          \"tag_background_color\": \"<string>\"\n        },\n        \"related_sites\": [\n          {\n            \"name\": \"<string>\",\n            \"site_url\": \"<uri>\",\n            \"relation\": \"parent\"\n          },\n          {\n            \"name\": \"<string>\",\n            \"site_url\": \"<uri>\",\n            \"relation\": \"meta\"\n          }\n        ],\n        \"markdown_extensions\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      }\n    },\n    {\n      \"item_type\": \"<string>\",\n      \"creation_date\": \"<long>\",\n      \"is_unread\": \"<boolean>\",\n      \"title\": \"<string>\",\n      \"body\": \"<string>\",\n      \"link\": \"<uri>\",\n      \"question_id\": \"<integer>\",\n      \"answer_id\": \"<integer>\",\n      \"comment_id\": \"<integer>\",\n      \"site\": {\n        \"site_url\": \"<uri>\",\n        \"api_site_parameter\": \"<string>\",\n        \"name\": \"<string>\",\n        \"site_type\": \"main_site\",\n        \"audience\": \"<string>\",\n        \"icon_url\": \"<uri>\",\n        \"logo_url\": \"<uri>\",\n        \"favicon_url\": \"<uri>\",\n        \"launch_date\": \"<long>\",\n        \"site_state\": \"linked_meta\",\n        \"styling\": {\n          \"link_color\": \"<string>\",\n          \"tag_foreground_color\": \"<string>\",\n          \"tag_background_color\": \"<string>\"\n        },\n        \"related_sites\": [\n          {\n            \"name\": \"<string>\",\n            \"site_url\": \"<uri>\",\n            \"relation\": \"chat\"\n          },\n          {\n            \"name\": \"<string>\",\n            \"site_url\": \"<uri>\",\n            \"relation\": \"chat\"\n          }\n        ],\n        \"markdown_extensions\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      }\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T03:04:53.000Z",
+                      "updatedAt": "2026-07-28T03:04:53.000Z",
+                      "uid": "35240-fc116012-0700-471a-82f6-92dbc7da01b9"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:04:53.000Z",
+                  "updatedAt": "2026-07-28T03:04:53.000Z",
+                  "uid": "35240-af4ffee4-5bc1-4c49-8f0f-41fcfa4cd08d"
+                }
+              ],
+              "id": "2bde01b4-8272-4c49-ba38-75771d9eadcf",
+              "createdAt": "2026-07-28T03:04:53.000Z",
+              "updatedAt": "2026-07-28T03:04:53.000Z",
+              "uid": "35240-2bde01b4-8272-4c49-ba38-75771d9eadcf"
+            },
+            {
+              "name": "Stack Exchange List My Inbox",
+              "id": "ad80cd98-49b3-4226-a5c9-5889d5eb2a23",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "oauth2",
+                  "oauth2": [
+                    {
+                      "key": "scope",
+                      "value": "read_inbox no_expiry write_access private_info",
+                      "type": "string"
+                    },
+                    {
+                      "key": "accessTokenUrl",
+                      "value": "https://stackoverflow.com/oauth/access_token",
+                      "type": "string"
+                    },
+                    {
+                      "key": "authUrl",
+                      "value": "https://stackoverflow.com/oauth",
+                      "type": "string"
+                    },
+                    {
+                      "key": "grant_type",
+                      "value": "authorization_code",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/me/inbox?site=stackoverflow&access_token=<string>&key=<string>&filter=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "me",
+                    "inbox"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).",
+                      "key": "site",
+                      "value": "stackoverflow"
+                    },
+                    {
+                      "description": "OAuth 2.0 access token. Required for any /me surface and any write.",
+                      "key": "access_token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP.",
+                      "key": "key",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Custom response filter id created via /filters/create.",
+                      "key": "filter",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "description": "Inbox items for the authenticated user."
+              },
+              "response": [
+                {
+                  "id": "214e4d59-c2d4-4d4f-b06a-ed1cc083af8d",
+                  "name": "A page of inbox items.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/me/inbox?site=stackoverflow&access_token=<string>&key=<string>&filter=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "me",
+                        "inbox"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).",
+                          "key": "site",
+                          "value": "stackoverflow"
+                        },
+                        {
+                          "description": "OAuth 2.0 access token. Required for any /me surface and any write.",
+                          "key": "access_token",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP.",
+                          "key": "key",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Custom response filter id created via /filters/create.",
+                          "key": "filter",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"has_more\": \"<boolean>\",\n  \"quota_max\": \"<integer>\",\n  \"quota_remaining\": \"<integer>\",\n  \"backoff\": \"<integer>\",\n  \"error_id\": \"<integer>\",\n  \"error_message\": \"<string>\",\n  \"error_name\": \"<string>\",\n  \"page\": \"<integer>\",\n  \"page_size\": \"<integer>\",\n  \"total\": \"<integer>\",\n  \"type\": \"<string>\",\n  \"items\": [\n    {\n      \"item_type\": \"<string>\",\n      \"creation_date\": \"<long>\",\n      \"is_unread\": \"<boolean>\",\n      \"title\": \"<string>\",\n      \"body\": \"<string>\",\n      \"link\": \"<uri>\",\n      \"question_id\": \"<integer>\",\n      \"answer_id\": \"<integer>\",\n      \"comment_id\": \"<integer>\",\n      \"site\": {\n        \"site_url\": \"<uri>\",\n        \"api_site_parameter\": \"<string>\",\n        \"name\": \"<string>\",\n        \"site_type\": \"main_site\",\n        \"audience\": \"<string>\",\n        \"icon_url\": \"<uri>\",\n        \"logo_url\": \"<uri>\",\n        \"favicon_url\": \"<uri>\",\n        \"launch_date\": \"<long>\",\n        \"site_state\": \"open_beta\",\n        \"styling\": {\n          \"link_color\": \"<string>\",\n          \"tag_foreground_color\": \"<string>\",\n          \"tag_background_color\": \"<string>\"\n        },\n        \"related_sites\": [\n          {\n            \"name\": \"<string>\",\n            \"site_url\": \"<uri>\",\n            \"relation\": \"parent\"\n          },\n          {\n            \"name\": \"<string>\",\n            \"site_url\": \"<uri>\",\n            \"relation\": \"meta\"\n          }\n        ],\n        \"markdown_extensions\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      }\n    },\n    {\n      \"item_type\": \"<string>\",\n      \"creation_date\": \"<long>\",\n      \"is_unread\": \"<boolean>\",\n      \"title\": \"<string>\",\n      \"body\": \"<string>\",\n      \"link\": \"<uri>\",\n      \"question_id\": \"<integer>\",\n      \"answer_id\": \"<integer>\",\n      \"comment_id\": \"<integer>\",\n      \"site\": {\n        \"site_url\": \"<uri>\",\n        \"api_site_parameter\": \"<string>\",\n        \"name\": \"<string>\",\n        \"site_type\": \"main_site\",\n        \"audience\": \"<string>\",\n        \"icon_url\": \"<uri>\",\n        \"logo_url\": \"<uri>\",\n        \"favicon_url\": \"<uri>\",\n        \"launch_date\": \"<long>\",\n        \"site_state\": \"linked_meta\",\n        \"styling\": {\n          \"link_color\": \"<string>\",\n          \"tag_foreground_color\": \"<string>\",\n          \"tag_background_color\": \"<string>\"\n        },\n        \"related_sites\": [\n          {\n            \"name\": \"<string>\",\n            \"site_url\": \"<uri>\",\n            \"relation\": \"chat\"\n          },\n          {\n            \"name\": \"<string>\",\n            \"site_url\": \"<uri>\",\n            \"relation\": \"chat\"\n          }\n        ],\n        \"markdown_extensions\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      }\n    }\n  ]\n}",
+                  "createdAt": "2026-07-28T03:04:53.000Z",
+                  "updatedAt": "2026-07-28T03:04:53.000Z",
+                  "uid": "35240-214e4d59-c2d4-4d4f-b06a-ed1cc083af8d"
+                }
+              ],
+              "createdAt": "2026-07-28T03:04:53.000Z",
+              "updatedAt": "2026-07-28T03:04:53.000Z",
+              "uid": "35240-ad80cd98-49b3-4226-a5c9-5889d5eb2a23"
+            }
+          ],
+          "id": "23a47001-76e5-4397-a221-97436340eb9b",
+          "createdAt": "2026-07-28T03:04:53.000Z",
+          "updatedAt": "2026-07-28T03:04:53.000Z",
+          "uid": "35240-23a47001-76e5-4397-a221-97436340eb9b"
+        },
+        {
+          "name": "timeline",
+          "item": [
+            {
+              "name": "Stack Exchange List My Timeline",
+              "id": "37bb9e47-4f7a-455a-8b76-31c11d7e31c8",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "oauth2",
+                  "oauth2": [
+                    {
+                      "key": "scope",
+                      "value": "read_inbox no_expiry write_access private_info",
+                      "type": "string"
+                    },
+                    {
+                      "key": "accessTokenUrl",
+                      "value": "https://stackoverflow.com/oauth/access_token",
+                      "type": "string"
+                    },
+                    {
+                      "key": "authUrl",
+                      "value": "https://stackoverflow.com/oauth",
+                      "type": "string"
+                    },
+                    {
+                      "key": "grant_type",
+                      "value": "authorization_code",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/me/timeline?site=stackoverflow&access_token=<string>&key=<string>&filter=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "me",
+                    "timeline"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).",
+                      "key": "site",
+                      "value": "stackoverflow"
+                    },
+                    {
+                      "description": "OAuth 2.0 access token. Required for any /me surface and any write.",
+                      "key": "access_token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP.",
+                      "key": "key",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Custom response filter id created via /filters/create.",
+                      "key": "filter",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "description": "Activity timeline for the authenticated user."
+              },
+              "response": [
+                {
+                  "id": "7c88a1f1-fe3e-427a-8837-baf5305b0c13",
+                  "name": "A page of timeline events.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/me/timeline?site=stackoverflow&access_token=<string>&key=<string>&filter=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "me",
+                        "timeline"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).",
+                          "key": "site",
+                          "value": "stackoverflow"
+                        },
+                        {
+                          "description": "OAuth 2.0 access token. Required for any /me surface and any write.",
+                          "key": "access_token",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP.",
+                          "key": "key",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Custom response filter id created via /filters/create.",
+                          "key": "filter",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"has_more\": \"<boolean>\",\n  \"quota_max\": \"<integer>\",\n  \"quota_remaining\": \"<integer>\",\n  \"backoff\": \"<integer>\",\n  \"error_id\": \"<integer>\",\n  \"error_message\": \"<string>\",\n  \"error_name\": \"<string>\",\n  \"page\": \"<integer>\",\n  \"page_size\": \"<integer>\",\n  \"total\": \"<integer>\",\n  \"type\": \"<string>\",\n  \"items\": [\n    {\n      \"event_type\": \"<string>\",\n      \"event_id\": \"<integer>\",\n      \"creation_date\": \"<long>\",\n      \"link\": \"<uri>\",\n      \"excerpt\": \"<string>\"\n    },\n    {\n      \"event_type\": \"<string>\",\n      \"event_id\": \"<integer>\",\n      \"creation_date\": \"<long>\",\n      \"link\": \"<uri>\",\n      \"excerpt\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-07-28T03:04:53.000Z",
+                  "updatedAt": "2026-07-28T03:04:53.000Z",
+                  "uid": "35240-7c88a1f1-fe3e-427a-8837-baf5305b0c13"
+                }
+              ],
+              "createdAt": "2026-07-28T03:04:53.000Z",
+              "updatedAt": "2026-07-28T03:04:53.000Z",
+              "uid": "35240-37bb9e47-4f7a-455a-8b76-31c11d7e31c8"
+            }
+          ],
+          "id": "5dfb5012-4bdd-4723-8007-b81f071cf4c0",
+          "createdAt": "2026-07-28T03:04:53.000Z",
+          "updatedAt": "2026-07-28T03:04:53.000Z",
+          "uid": "35240-5dfb5012-4bdd-4723-8007-b81f071cf4c0"
+        },
+        {
+          "name": "Stack Exchange Get Me",
+          "id": "481fbc47-089f-429f-b989-4826b96809a9",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read_inbox no_expiry write_access private_info",
+                  "type": "string"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://stackoverflow.com/oauth/access_token",
+                  "type": "string"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://stackoverflow.com/oauth",
+                  "type": "string"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/me?site=stackoverflow&access_token=<string>&key=<string>&filter=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "me"
+              ],
+              "query": [
+                {
+                  "description": "(Required) Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).",
+                  "key": "site",
+                  "value": "stackoverflow"
+                },
+                {
+                  "description": "OAuth 2.0 access token. Required for any /me surface and any write.",
+                  "key": "access_token",
+                  "value": "<string>"
+                },
+                {
+                  "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP.",
+                  "key": "key",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Custom response filter id created via /filters/create.",
+                  "key": "filter",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "The authenticated user."
+          },
+          "response": [
+            {
+              "id": "b1b3abd2-d6d6-4da8-8192-6b56f12269fb",
+              "name": "The authenticated user wrapped as a single-element list.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/me?site=stackoverflow&access_token=<string>&key=<string>&filter=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "me"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).",
+                      "key": "site",
+                      "value": "stackoverflow"
+                    },
+                    {
+                      "description": "OAuth 2.0 access token. Required for any /me surface and any write.",
+                      "key": "access_token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP.",
+                      "key": "key",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Custom response filter id created via /filters/create.",
+                      "key": "filter",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"has_more\": \"<boolean>\",\n  \"quota_max\": \"<integer>\",\n  \"quota_remaining\": \"<integer>\",\n  \"backoff\": \"<integer>\",\n  \"error_id\": \"<integer>\",\n  \"error_message\": \"<string>\",\n  \"error_name\": \"<string>\",\n  \"page\": \"<integer>\",\n  \"page_size\": \"<integer>\",\n  \"total\": \"<integer>\",\n  \"type\": \"<string>\",\n  \"items\": [\n    {\n      \"user_id\": \"<long>\",\n      \"account_id\": \"<long>\",\n      \"user_type\": \"registered\",\n      \"display_name\": \"<string>\",\n      \"reputation\": \"<integer>\",\n      \"reputation_change_day\": \"<integer>\",\n      \"reputation_change_week\": \"<integer>\",\n      \"reputation_change_month\": \"<integer>\",\n      \"reputation_change_quarter\": \"<integer>\",\n      \"reputation_change_year\": \"<integer>\",\n      \"creation_date\": \"<long>\",\n      \"last_modified_date\": \"<long>\",\n      \"last_access_date\": \"<long>\",\n      \"is_employee\": \"<boolean>\",\n      \"location\": \"<string>\",\n      \"website_url\": \"<uri>\",\n      \"link\": \"<uri>\",\n      \"profile_image\": \"<uri>\",\n      \"accept_rate\": \"<integer>\",\n      \"badge_counts\": {\n        \"bronze\": \"<integer>\",\n        \"silver\": \"<integer>\",\n        \"gold\": \"<integer>\"\n      },\n      \"question_count\": \"<integer>\",\n      \"answer_count\": \"<integer>\",\n      \"up_vote_count\": \"<integer>\",\n      \"down_vote_count\": \"<integer>\",\n      \"view_count\": \"<integer>\"\n    },\n    {\n      \"user_id\": \"<long>\",\n      \"account_id\": \"<long>\",\n      \"user_type\": \"team_admin\",\n      \"display_name\": \"<string>\",\n      \"reputation\": \"<integer>\",\n      \"reputation_change_day\": \"<integer>\",\n      \"reputation_change_week\": \"<integer>\",\n      \"reputation_change_month\": \"<integer>\",\n      \"reputation_change_quarter\": \"<integer>\",\n      \"reputation_change_year\": \"<integer>\",\n      \"creation_date\": \"<long>\",\n      \"last_modified_date\": \"<long>\",\n      \"last_access_date\": \"<long>\",\n      \"is_employee\": \"<boolean>\",\n      \"location\": \"<string>\",\n      \"website_url\": \"<uri>\",\n      \"link\": \"<uri>\",\n      \"profile_image\": \"<uri>\",\n      \"accept_rate\": \"<integer>\",\n      \"badge_counts\": {\n        \"bronze\": \"<integer>\",\n        \"silver\": \"<integer>\",\n        \"gold\": \"<integer>\"\n      },\n      \"question_count\": \"<integer>\",\n      \"answer_count\": \"<integer>\",\n      \"up_vote_count\": \"<integer>\",\n      \"down_vote_count\": \"<integer>\",\n      \"view_count\": \"<integer>\"\n    }\n  ]\n}",
+              "createdAt": "2026-07-28T03:04:53.000Z",
+              "updatedAt": "2026-07-28T03:04:53.000Z",
+              "uid": "35240-b1b3abd2-d6d6-4da8-8192-6b56f12269fb"
+            }
+          ],
+          "createdAt": "2026-07-28T03:04:53.000Z",
+          "updatedAt": "2026-07-28T03:04:53.000Z",
+          "uid": "35240-481fbc47-089f-429f-b989-4826b96809a9"
+        }
+      ],
+      "id": "4c07fe08-1a19-4b9e-917e-3759c15280d8",
+      "createdAt": "2026-07-28T03:04:53.000Z",
+      "updatedAt": "2026-07-28T03:04:53.000Z",
+      "uid": "35240-4c07fe08-1a19-4b9e-917e-3759c15280d8"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "key",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "query",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.stackexchange.com/2.3"
+    }
+  ]
+}

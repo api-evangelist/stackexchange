@@ -1,0 +1,1028 @@
+{
+  "info": {
+    "_postman_id": "5abd6e00-a7d5-49af-8bae-d1dc7fb17655",
+    "name": "Stack Exchange Access Tokens Tags API",
+    "description": "Public, read-mostly HTTP/JSON API spanning all 180+ Stack Exchange sites\n(Stack Overflow, Server Fault, Super User, Ask Ubuntu, Stats, Math Overflow, ...).\n\nAll method families live under a single base URL with a uniform wrapper\n(`items`, `has_more`, `page`, `quota_max`, `quota_remaining`, `backoff`).\nRead access is unauthenticated. Write methods require OAuth 2.0 with the\nappropriate scopes (`write_access`, `private_info`, `no_expiry`).\n\nMost paths take a required `site` query parameter naming the target Q&A\ncommunity (`stackoverflow`, `serverfault`, `superuser`, ...). Use `/sites`\nto enumerate the network.\n\n\nContact Support:\n Name: Stack Exchange API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:05:03.000Z",
+    "updatedAt": "2026-07-28T03:05:04.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-5abd6e00-a7d5-49af-8bae-d1dc7fb17655"
+  },
+  "item": [
+    {
+      "name": "tags",
+      "item": [
+        {
+          "name": "synonyms",
+          "item": [
+            {
+              "name": "Stack Exchange List Tag Synonyms",
+              "id": "1295b7cd-c6b1-410a-a2d5-a5955a10c854",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/tags/synonyms?site=stackoverflow&key=<string>&filter=<string>&page=1&pagesize=30",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "tags",
+                    "synonyms"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).",
+                      "key": "site",
+                      "value": "stackoverflow"
+                    },
+                    {
+                      "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP.",
+                      "key": "key",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Custom response filter id created via /filters/create.",
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "1-indexed page number.",
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "description": "Items per page (max 100).",
+                      "key": "pagesize",
+                      "value": "30"
+                    }
+                  ]
+                },
+                "description": "All tag synonyms on a site."
+              },
+              "response": [
+                {
+                  "id": "c3dbe8c3-a731-4ecc-873c-f8df6116229a",
+                  "name": "A page of tag synonyms.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/tags/synonyms?site=stackoverflow&key=<API Key>&filter=<string>&page=1&pagesize=30",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "tags",
+                        "synonyms"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).",
+                          "key": "site",
+                          "value": "stackoverflow"
+                        },
+                        {
+                          "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP.",
+                          "key": "key",
+                          "value": "<API Key>"
+                        },
+                        {
+                          "description": "Custom response filter id created via /filters/create.",
+                          "key": "filter",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "1-indexed page number.",
+                          "key": "page",
+                          "value": "1"
+                        },
+                        {
+                          "description": "Items per page (max 100).",
+                          "key": "pagesize",
+                          "value": "30"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"has_more\": \"<boolean>\",\n  \"quota_max\": \"<integer>\",\n  \"quota_remaining\": \"<integer>\",\n  \"backoff\": \"<integer>\",\n  \"error_id\": \"<integer>\",\n  \"error_message\": \"<string>\",\n  \"error_name\": \"<string>\",\n  \"page\": \"<integer>\",\n  \"page_size\": \"<integer>\",\n  \"total\": \"<integer>\",\n  \"type\": \"<string>\",\n  \"items\": [\n    {\n      \"from_tag\": \"<string>\",\n      \"to_tag\": \"<string>\",\n      \"applied_count\": \"<integer>\",\n      \"last_applied_date\": \"<long>\",\n      \"creation_date\": \"<long>\"\n    },\n    {\n      \"from_tag\": \"<string>\",\n      \"to_tag\": \"<string>\",\n      \"applied_count\": \"<integer>\",\n      \"last_applied_date\": \"<long>\",\n      \"creation_date\": \"<long>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-07-28T03:05:04.000Z",
+                  "updatedAt": "2026-07-28T03:05:04.000Z",
+                  "uid": "35240-c3dbe8c3-a731-4ecc-873c-f8df6116229a"
+                }
+              ],
+              "createdAt": "2026-07-28T03:05:04.000Z",
+              "updatedAt": "2026-07-28T03:05:04.000Z",
+              "uid": "35240-1295b7cd-c6b1-410a-a2d5-a5955a10c854"
+            }
+          ],
+          "id": "0e4d6077-d041-445b-a1f5-68d8f5dc195c",
+          "createdAt": "2026-07-28T03:05:04.000Z",
+          "updatedAt": "2026-07-28T03:05:04.000Z",
+          "uid": "35240-0e4d6077-d041-445b-a1f5-68d8f5dc195c"
+        },
+        {
+          "name": "{tags}",
+          "item": [
+            {
+              "name": "info",
+              "item": [
+                {
+                  "name": "Stack Exchange Get Tags Info",
+                  "id": "32faac82-c56d-4468-831c-79972995ca54",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/tags/:tags/info?site=stackoverflow&key=<string>&filter=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "tags",
+                        ":tags",
+                        "info"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).",
+                          "key": "site",
+                          "value": "stackoverflow"
+                        },
+                        {
+                          "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP.",
+                          "key": "key",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Custom response filter id created via /filters/create.",
+                          "key": "filter",
+                          "value": "<string>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "86cd2c85-2c67-4c0d-a94c-55c7dbd56a56",
+                          "key": "tags",
+                          "value": "<string>",
+                          "description": "(Required) Up to 100 semicolon-delimited tag names."
+                        }
+                      ]
+                    },
+                    "description": "Metadata for the named tags."
+                  },
+                  "response": [
+                    {
+                      "id": "ae63f241-cb69-4a92-a5fc-4a7e44508ac0",
+                      "name": "A page of tag info entries.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/tags/:tags/info?site=stackoverflow&key=<API Key>&filter=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "tags",
+                            ":tags",
+                            "info"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).",
+                              "key": "site",
+                              "value": "stackoverflow"
+                            },
+                            {
+                              "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP.",
+                              "key": "key",
+                              "value": "<API Key>"
+                            },
+                            {
+                              "description": "Custom response filter id created via /filters/create.",
+                              "key": "filter",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "tags"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"has_more\": \"<boolean>\",\n  \"quota_max\": \"<integer>\",\n  \"quota_remaining\": \"<integer>\",\n  \"backoff\": \"<integer>\",\n  \"error_id\": \"<integer>\",\n  \"error_message\": \"<string>\",\n  \"error_name\": \"<string>\",\n  \"page\": \"<integer>\",\n  \"page_size\": \"<integer>\",\n  \"total\": \"<integer>\",\n  \"type\": \"<string>\",\n  \"items\": [\n    {\n      \"name\": \"<string>\",\n      \"count\": \"<integer>\",\n      \"is_required\": \"<boolean>\",\n      \"is_moderator_only\": \"<boolean>\",\n      \"has_synonyms\": \"<boolean>\",\n      \"user_id\": \"<integer>\",\n      \"last_activity_date\": \"<long>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"count\": \"<integer>\",\n      \"is_required\": \"<boolean>\",\n      \"is_moderator_only\": \"<boolean>\",\n      \"has_synonyms\": \"<boolean>\",\n      \"user_id\": \"<integer>\",\n      \"last_activity_date\": \"<long>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T03:05:04.000Z",
+                      "updatedAt": "2026-07-28T03:05:04.000Z",
+                      "uid": "35240-ae63f241-cb69-4a92-a5fc-4a7e44508ac0"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:05:04.000Z",
+                  "updatedAt": "2026-07-28T03:05:04.000Z",
+                  "uid": "35240-32faac82-c56d-4468-831c-79972995ca54"
+                }
+              ],
+              "id": "d887695b-ac3e-4518-9781-dfb5acbe8dc0",
+              "createdAt": "2026-07-28T03:05:04.000Z",
+              "updatedAt": "2026-07-28T03:05:04.000Z",
+              "uid": "35240-d887695b-ac3e-4518-9781-dfb5acbe8dc0"
+            },
+            {
+              "name": "top-askers",
+              "item": [
+                {
+                  "name": "{period}",
+                  "item": [
+                    {
+                      "name": "Stack Exchange List Top Askers in Tags",
+                      "id": "338ce94b-f9cb-4f08-9511-2577b48c9879",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/tags/:tags/top-askers/:period?site=stackoverflow&key=<string>&filter=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "tags",
+                            ":tags",
+                            "top-askers",
+                            ":period"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).",
+                              "key": "site",
+                              "value": "stackoverflow"
+                            },
+                            {
+                              "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP.",
+                              "key": "key",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Custom response filter id created via /filters/create.",
+                              "key": "filter",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "id": "06e7b759-ddcd-4228-914c-6a3571b818d9",
+                              "key": "tags",
+                              "value": "<string>",
+                              "description": "(Required) "
+                            },
+                            {
+                              "id": "db59f6b6-9ddd-403f-89e7-36fa46f5def0",
+                              "key": "period",
+                              "value": "month",
+                              "description": "(Required) "
+                            }
+                          ]
+                        },
+                        "description": "Top askers in the named tags over the chosen period."
+                      },
+                      "response": [
+                        {
+                          "id": "4fc26041-2c81-4d64-898b-e4681c42ad7a",
+                          "name": "A page of tag scores.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/tags/:tags/top-askers/:period?site=stackoverflow&key=<API Key>&filter=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "tags",
+                                ":tags",
+                                "top-askers",
+                                ":period"
+                              ],
+                              "query": [
+                                {
+                                  "description": "(Required) Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).",
+                                  "key": "site",
+                                  "value": "stackoverflow"
+                                },
+                                {
+                                  "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP.",
+                                  "key": "key",
+                                  "value": "<API Key>"
+                                },
+                                {
+                                  "description": "Custom response filter id created via /filters/create.",
+                                  "key": "filter",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "tags"
+                                },
+                                {
+                                  "key": "period"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"has_more\": \"<boolean>\",\n  \"quota_max\": \"<integer>\",\n  \"quota_remaining\": \"<integer>\",\n  \"backoff\": \"<integer>\",\n  \"error_id\": \"<integer>\",\n  \"error_message\": \"<string>\",\n  \"error_name\": \"<string>\",\n  \"page\": \"<integer>\",\n  \"page_size\": \"<integer>\",\n  \"total\": \"<integer>\",\n  \"type\": \"<string>\",\n  \"items\": [\n    {\n      \"user\": {\n        \"user_id\": \"<long>\",\n        \"user_type\": \"moderator\",\n        \"display_name\": \"<string>\",\n        \"reputation\": \"<integer>\",\n        \"profile_image\": \"<uri>\",\n        \"link\": \"<uri>\",\n        \"accept_rate\": \"<integer>\"\n      },\n      \"score\": \"<integer>\",\n      \"post_count\": \"<integer>\"\n    },\n    {\n      \"user\": {\n        \"user_id\": \"<long>\",\n        \"user_type\": \"moderator\",\n        \"display_name\": \"<string>\",\n        \"reputation\": \"<integer>\",\n        \"profile_image\": \"<uri>\",\n        \"link\": \"<uri>\",\n        \"accept_rate\": \"<integer>\"\n      },\n      \"score\": \"<integer>\",\n      \"post_count\": \"<integer>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-07-28T03:05:04.000Z",
+                          "updatedAt": "2026-07-28T03:05:04.000Z",
+                          "uid": "35240-4fc26041-2c81-4d64-898b-e4681c42ad7a"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T03:05:04.000Z",
+                      "updatedAt": "2026-07-28T03:05:04.000Z",
+                      "uid": "35240-338ce94b-f9cb-4f08-9511-2577b48c9879"
+                    }
+                  ],
+                  "id": "596322cb-3154-46aa-b52d-9130cf0e2157",
+                  "createdAt": "2026-07-28T03:05:04.000Z",
+                  "updatedAt": "2026-07-28T03:05:04.000Z",
+                  "uid": "35240-596322cb-3154-46aa-b52d-9130cf0e2157"
+                }
+              ],
+              "id": "10a4777c-e54f-43dd-b260-de20fbedc208",
+              "createdAt": "2026-07-28T03:05:04.000Z",
+              "updatedAt": "2026-07-28T03:05:04.000Z",
+              "uid": "35240-10a4777c-e54f-43dd-b260-de20fbedc208"
+            },
+            {
+              "name": "top-answerers",
+              "item": [
+                {
+                  "name": "{period}",
+                  "item": [
+                    {
+                      "name": "Stack Exchange List Top Answerers in Tags",
+                      "id": "0de1b639-a055-4282-be6a-4079f3a873f5",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/tags/:tags/top-answerers/:period?site=stackoverflow&key=<string>&filter=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "tags",
+                            ":tags",
+                            "top-answerers",
+                            ":period"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).",
+                              "key": "site",
+                              "value": "stackoverflow"
+                            },
+                            {
+                              "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP.",
+                              "key": "key",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Custom response filter id created via /filters/create.",
+                              "key": "filter",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "id": "9e885d69-5f25-4fb8-b0cd-d7af0eacda75",
+                              "key": "tags",
+                              "value": "<string>",
+                              "description": "(Required) "
+                            },
+                            {
+                              "id": "2ee5cf2c-11ff-4666-aebe-83ad7f10c3a5",
+                              "key": "period",
+                              "value": "month",
+                              "description": "(Required) "
+                            }
+                          ]
+                        },
+                        "description": "Top answerers in the named tags over the chosen period."
+                      },
+                      "response": [
+                        {
+                          "id": "3ded22dc-1112-4796-9052-fcc9992f57fc",
+                          "name": "A page of tag scores.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/tags/:tags/top-answerers/:period?site=stackoverflow&key=<API Key>&filter=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "tags",
+                                ":tags",
+                                "top-answerers",
+                                ":period"
+                              ],
+                              "query": [
+                                {
+                                  "description": "(Required) Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).",
+                                  "key": "site",
+                                  "value": "stackoverflow"
+                                },
+                                {
+                                  "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP.",
+                                  "key": "key",
+                                  "value": "<API Key>"
+                                },
+                                {
+                                  "description": "Custom response filter id created via /filters/create.",
+                                  "key": "filter",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "tags"
+                                },
+                                {
+                                  "key": "period"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"has_more\": \"<boolean>\",\n  \"quota_max\": \"<integer>\",\n  \"quota_remaining\": \"<integer>\",\n  \"backoff\": \"<integer>\",\n  \"error_id\": \"<integer>\",\n  \"error_message\": \"<string>\",\n  \"error_name\": \"<string>\",\n  \"page\": \"<integer>\",\n  \"page_size\": \"<integer>\",\n  \"total\": \"<integer>\",\n  \"type\": \"<string>\",\n  \"items\": [\n    {\n      \"user\": {\n        \"user_id\": \"<long>\",\n        \"user_type\": \"moderator\",\n        \"display_name\": \"<string>\",\n        \"reputation\": \"<integer>\",\n        \"profile_image\": \"<uri>\",\n        \"link\": \"<uri>\",\n        \"accept_rate\": \"<integer>\"\n      },\n      \"score\": \"<integer>\",\n      \"post_count\": \"<integer>\"\n    },\n    {\n      \"user\": {\n        \"user_id\": \"<long>\",\n        \"user_type\": \"moderator\",\n        \"display_name\": \"<string>\",\n        \"reputation\": \"<integer>\",\n        \"profile_image\": \"<uri>\",\n        \"link\": \"<uri>\",\n        \"accept_rate\": \"<integer>\"\n      },\n      \"score\": \"<integer>\",\n      \"post_count\": \"<integer>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-07-28T03:05:04.000Z",
+                          "updatedAt": "2026-07-28T03:05:04.000Z",
+                          "uid": "35240-3ded22dc-1112-4796-9052-fcc9992f57fc"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T03:05:04.000Z",
+                      "updatedAt": "2026-07-28T03:05:04.000Z",
+                      "uid": "35240-0de1b639-a055-4282-be6a-4079f3a873f5"
+                    }
+                  ],
+                  "id": "bf9230a9-4a04-4d43-b23a-9a642c6f712b",
+                  "createdAt": "2026-07-28T03:05:04.000Z",
+                  "updatedAt": "2026-07-28T03:05:04.000Z",
+                  "uid": "35240-bf9230a9-4a04-4d43-b23a-9a642c6f712b"
+                }
+              ],
+              "id": "30beb9f6-5e1f-4dc6-a96a-961b9e4b6ea8",
+              "createdAt": "2026-07-28T03:05:04.000Z",
+              "updatedAt": "2026-07-28T03:05:04.000Z",
+              "uid": "35240-30beb9f6-5e1f-4dc6-a96a-961b9e4b6ea8"
+            },
+            {
+              "name": "related",
+              "item": [
+                {
+                  "name": "Stack Exchange List Related Tags",
+                  "id": "718c5394-3dbf-453c-9b2f-66b36bddd37e",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/tags/:tags/related?site=stackoverflow&key=<string>&filter=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "tags",
+                        ":tags",
+                        "related"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).",
+                          "key": "site",
+                          "value": "stackoverflow"
+                        },
+                        {
+                          "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP.",
+                          "key": "key",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Custom response filter id created via /filters/create.",
+                          "key": "filter",
+                          "value": "<string>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "0374d613-fd6a-4a23-9923-c38fd0655516",
+                          "key": "tags",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    },
+                    "description": "Tags frequently co-occurring with the named tags."
+                  },
+                  "response": [
+                    {
+                      "id": "b8faf5dd-e459-44e9-a783-5348dce0275a",
+                      "name": "A page of tags.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/tags/:tags/related?site=stackoverflow&key=<API Key>&filter=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "tags",
+                            ":tags",
+                            "related"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).",
+                              "key": "site",
+                              "value": "stackoverflow"
+                            },
+                            {
+                              "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP.",
+                              "key": "key",
+                              "value": "<API Key>"
+                            },
+                            {
+                              "description": "Custom response filter id created via /filters/create.",
+                              "key": "filter",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "tags"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"has_more\": \"<boolean>\",\n  \"quota_max\": \"<integer>\",\n  \"quota_remaining\": \"<integer>\",\n  \"backoff\": \"<integer>\",\n  \"error_id\": \"<integer>\",\n  \"error_message\": \"<string>\",\n  \"error_name\": \"<string>\",\n  \"page\": \"<integer>\",\n  \"page_size\": \"<integer>\",\n  \"total\": \"<integer>\",\n  \"type\": \"<string>\",\n  \"items\": [\n    {\n      \"name\": \"<string>\",\n      \"count\": \"<integer>\",\n      \"is_required\": \"<boolean>\",\n      \"is_moderator_only\": \"<boolean>\",\n      \"has_synonyms\": \"<boolean>\",\n      \"user_id\": \"<integer>\",\n      \"last_activity_date\": \"<long>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"count\": \"<integer>\",\n      \"is_required\": \"<boolean>\",\n      \"is_moderator_only\": \"<boolean>\",\n      \"has_synonyms\": \"<boolean>\",\n      \"user_id\": \"<integer>\",\n      \"last_activity_date\": \"<long>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T03:05:04.000Z",
+                      "updatedAt": "2026-07-28T03:05:04.000Z",
+                      "uid": "35240-b8faf5dd-e459-44e9-a783-5348dce0275a"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:05:04.000Z",
+                  "updatedAt": "2026-07-28T03:05:04.000Z",
+                  "uid": "35240-718c5394-3dbf-453c-9b2f-66b36bddd37e"
+                }
+              ],
+              "id": "fb136ee7-8d62-44e5-840c-a7494c28a663",
+              "createdAt": "2026-07-28T03:05:04.000Z",
+              "updatedAt": "2026-07-28T03:05:04.000Z",
+              "uid": "35240-fb136ee7-8d62-44e5-840c-a7494c28a663"
+            }
+          ],
+          "id": "f5c67aa1-530c-40b0-bfbd-893a08700d54",
+          "createdAt": "2026-07-28T03:05:04.000Z",
+          "updatedAt": "2026-07-28T03:05:04.000Z",
+          "uid": "35240-f5c67aa1-530c-40b0-bfbd-893a08700d54"
+        },
+        {
+          "name": "{tag}",
+          "item": [
+            {
+              "name": "wikis",
+              "item": [
+                {
+                  "name": "Stack Exchange Get Tag Wikis",
+                  "id": "d530fa85-e7ba-4c86-bee3-7be2bce8d1cd",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/tags/:tag/wikis?site=stackoverflow&key=<string>&filter=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "tags",
+                        ":tag",
+                        "wikis"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).",
+                          "key": "site",
+                          "value": "stackoverflow"
+                        },
+                        {
+                          "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP.",
+                          "key": "key",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Custom response filter id created via /filters/create.",
+                          "key": "filter",
+                          "value": "<string>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "98021903-44a6-43e5-be46-f4aeca1f42de",
+                          "key": "tag",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    },
+                    "description": "Tag wiki content for the named tags."
+                  },
+                  "response": [
+                    {
+                      "id": "7cdd13a4-4903-4633-a4d9-0752bf0f8064",
+                      "name": "A page of tag wikis.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/tags/:tag/wikis?site=stackoverflow&key=<API Key>&filter=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "tags",
+                            ":tag",
+                            "wikis"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).",
+                              "key": "site",
+                              "value": "stackoverflow"
+                            },
+                            {
+                              "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP.",
+                              "key": "key",
+                              "value": "<API Key>"
+                            },
+                            {
+                              "description": "Custom response filter id created via /filters/create.",
+                              "key": "filter",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "tag"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"has_more\": \"<boolean>\",\n  \"quota_max\": \"<integer>\",\n  \"quota_remaining\": \"<integer>\",\n  \"backoff\": \"<integer>\",\n  \"error_id\": \"<integer>\",\n  \"error_message\": \"<string>\",\n  \"error_name\": \"<string>\",\n  \"page\": \"<integer>\",\n  \"page_size\": \"<integer>\",\n  \"total\": \"<integer>\",\n  \"type\": \"<string>\",\n  \"items\": [\n    {\n      \"name\": \"<string>\",\n      \"count\": \"<integer>\",\n      \"is_required\": \"<boolean>\",\n      \"is_moderator_only\": \"<boolean>\",\n      \"has_synonyms\": \"<boolean>\",\n      \"user_id\": \"<integer>\",\n      \"last_activity_date\": \"<long>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"count\": \"<integer>\",\n      \"is_required\": \"<boolean>\",\n      \"is_moderator_only\": \"<boolean>\",\n      \"has_synonyms\": \"<boolean>\",\n      \"user_id\": \"<integer>\",\n      \"last_activity_date\": \"<long>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T03:05:04.000Z",
+                      "updatedAt": "2026-07-28T03:05:04.000Z",
+                      "uid": "35240-7cdd13a4-4903-4633-a4d9-0752bf0f8064"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:05:04.000Z",
+                  "updatedAt": "2026-07-28T03:05:04.000Z",
+                  "uid": "35240-d530fa85-e7ba-4c86-bee3-7be2bce8d1cd"
+                }
+              ],
+              "id": "535ddf78-958b-4125-9b2d-129182a0402e",
+              "createdAt": "2026-07-28T03:05:04.000Z",
+              "updatedAt": "2026-07-28T03:05:04.000Z",
+              "uid": "35240-535ddf78-958b-4125-9b2d-129182a0402e"
+            }
+          ],
+          "id": "52459f08-6770-413d-9abf-0508ce7846b1",
+          "createdAt": "2026-07-28T03:05:04.000Z",
+          "updatedAt": "2026-07-28T03:05:04.000Z",
+          "uid": "35240-52459f08-6770-413d-9abf-0508ce7846b1"
+        },
+        {
+          "name": "Stack Exchange List Tags",
+          "id": "3db1c2b0-3722-4205-b633-c29058e568cd",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/tags?site=stackoverflow&key=<string>&filter=<string>&page=1&pagesize=30&order=desc&sort=popular&inname=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "tags"
+              ],
+              "query": [
+                {
+                  "description": "(Required) Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).",
+                  "key": "site",
+                  "value": "stackoverflow"
+                },
+                {
+                  "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP.",
+                  "key": "key",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Custom response filter id created via /filters/create.",
+                  "key": "filter",
+                  "value": "<string>"
+                },
+                {
+                  "description": "1-indexed page number.",
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "description": "Items per page (max 100).",
+                  "key": "pagesize",
+                  "value": "30"
+                },
+                {
+                  "description": "Sort direction.",
+                  "key": "order",
+                  "value": "desc"
+                },
+                {
+                  "key": "sort",
+                  "value": "popular"
+                },
+                {
+                  "key": "inname",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "All tags on a site."
+          },
+          "response": [
+            {
+              "id": "63e93a0d-809a-4db4-afac-56c9a6838bed",
+              "name": "A page of tags.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/tags?site=stackoverflow&key=<API Key>&filter=<string>&page=1&pagesize=30&order=desc&sort=popular&inname=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "tags"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).",
+                      "key": "site",
+                      "value": "stackoverflow"
+                    },
+                    {
+                      "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP.",
+                      "key": "key",
+                      "value": "<API Key>"
+                    },
+                    {
+                      "description": "Custom response filter id created via /filters/create.",
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "1-indexed page number.",
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "description": "Items per page (max 100).",
+                      "key": "pagesize",
+                      "value": "30"
+                    },
+                    {
+                      "description": "Sort direction.",
+                      "key": "order",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "popular"
+                    },
+                    {
+                      "key": "inname",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"has_more\": \"<boolean>\",\n  \"quota_max\": \"<integer>\",\n  \"quota_remaining\": \"<integer>\",\n  \"backoff\": \"<integer>\",\n  \"error_id\": \"<integer>\",\n  \"error_message\": \"<string>\",\n  \"error_name\": \"<string>\",\n  \"page\": \"<integer>\",\n  \"page_size\": \"<integer>\",\n  \"total\": \"<integer>\",\n  \"type\": \"<string>\",\n  \"items\": [\n    {\n      \"name\": \"<string>\",\n      \"count\": \"<integer>\",\n      \"is_required\": \"<boolean>\",\n      \"is_moderator_only\": \"<boolean>\",\n      \"has_synonyms\": \"<boolean>\",\n      \"user_id\": \"<integer>\",\n      \"last_activity_date\": \"<long>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"count\": \"<integer>\",\n      \"is_required\": \"<boolean>\",\n      \"is_moderator_only\": \"<boolean>\",\n      \"has_synonyms\": \"<boolean>\",\n      \"user_id\": \"<integer>\",\n      \"last_activity_date\": \"<long>\"\n    }\n  ]\n}",
+              "createdAt": "2026-07-28T03:05:04.000Z",
+              "updatedAt": "2026-07-28T03:05:04.000Z",
+              "uid": "35240-63e93a0d-809a-4db4-afac-56c9a6838bed"
+            }
+          ],
+          "createdAt": "2026-07-28T03:05:04.000Z",
+          "updatedAt": "2026-07-28T03:05:04.000Z",
+          "uid": "35240-3db1c2b0-3722-4205-b633-c29058e568cd"
+        }
+      ],
+      "id": "6d36a1d0-6006-4f86-9199-9446f9097e8f",
+      "createdAt": "2026-07-28T03:05:04.000Z",
+      "updatedAt": "2026-07-28T03:05:04.000Z",
+      "uid": "35240-6d36a1d0-6006-4f86-9199-9446f9097e8f"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "key",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "query",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.stackexchange.com/2.3"
+    }
+  ]
+}

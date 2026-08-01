@@ -1,0 +1,699 @@
+{
+  "info": {
+    "_postman_id": "cf54e445-cba1-45ad-9002-a8dce0f854fa",
+    "name": "Stack Exchange Access Tokens Badges API",
+    "description": "Public, read-mostly HTTP/JSON API spanning all 180+ Stack Exchange sites\n(Stack Overflow, Server Fault, Super User, Ask Ubuntu, Stats, Math Overflow, ...).\n\nAll method families live under a single base URL with a uniform wrapper\n(`items`, `has_more`, `page`, `quota_max`, `quota_remaining`, `backoff`).\nRead access is unauthenticated. Write methods require OAuth 2.0 with the\nappropriate scopes (`write_access`, `private_info`, `no_expiry`).\n\nMost paths take a required `site` query parameter naming the target Q&A\ncommunity (`stackoverflow`, `serverfault`, `superuser`, ...). Use `/sites`\nto enumerate the network.\n\n\nContact Support:\n Name: Stack Exchange API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:04:41.000Z",
+    "updatedAt": "2026-07-28T03:04:42.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-cf54e445-cba1-45ad-9002-a8dce0f854fa"
+  },
+  "item": [
+    {
+      "name": "badges",
+      "item": [
+        {
+          "name": "{ids}",
+          "item": [
+            {
+              "name": "recipients",
+              "item": [
+                {
+                  "name": "Stack Exchange List Badge Recipients",
+                  "id": "9c02e874-69c6-415c-b4ec-f9f46f029566",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/badges/:ids/recipients?site=stackoverflow&key=<string>&filter=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "badges",
+                        ":ids",
+                        "recipients"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).",
+                          "key": "site",
+                          "value": "stackoverflow"
+                        },
+                        {
+                          "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP.",
+                          "key": "key",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Custom response filter id created via /filters/create.",
+                          "key": "filter",
+                          "value": "<string>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "680a43c1-ec28-4d5f-b412-572b2960f090",
+                          "key": "ids",
+                          "value": "<string>",
+                          "description": "(Required) Up to 100 semicolon-delimited ids of the resource."
+                        }
+                      ]
+                    },
+                    "description": "Recent recipients of the named badges."
+                  },
+                  "response": [
+                    {
+                      "id": "56e4974d-6a0f-46c2-9fdc-e7c11ef0956d",
+                      "name": "A page of badges with their recipients.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/badges/:ids/recipients?site=stackoverflow&key=<API Key>&filter=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "badges",
+                            ":ids",
+                            "recipients"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).",
+                              "key": "site",
+                              "value": "stackoverflow"
+                            },
+                            {
+                              "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP.",
+                              "key": "key",
+                              "value": "<API Key>"
+                            },
+                            {
+                              "description": "Custom response filter id created via /filters/create.",
+                              "key": "filter",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "ids"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"has_more\": \"<boolean>\",\n  \"quota_max\": \"<integer>\",\n  \"quota_remaining\": \"<integer>\",\n  \"backoff\": \"<integer>\",\n  \"error_id\": \"<integer>\",\n  \"error_message\": \"<string>\",\n  \"error_name\": \"<string>\",\n  \"page\": \"<integer>\",\n  \"page_size\": \"<integer>\",\n  \"total\": \"<integer>\",\n  \"type\": \"<string>\",\n  \"items\": [\n    {\n      \"badge_id\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"rank\": \"silver\",\n      \"badge_type\": \"tag_based\",\n      \"award_count\": \"<integer>\",\n      \"link\": \"<uri>\",\n      \"user\": {\n        \"user_id\": \"<long>\",\n        \"user_type\": \"unregistered\",\n        \"display_name\": \"<string>\",\n        \"reputation\": \"<integer>\",\n        \"profile_image\": \"<uri>\",\n        \"link\": \"<uri>\",\n        \"accept_rate\": \"<integer>\"\n      }\n    },\n    {\n      \"badge_id\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"rank\": \"bronze\",\n      \"badge_type\": \"named\",\n      \"award_count\": \"<integer>\",\n      \"link\": \"<uri>\",\n      \"user\": {\n        \"user_id\": \"<long>\",\n        \"user_type\": \"unregistered\",\n        \"display_name\": \"<string>\",\n        \"reputation\": \"<integer>\",\n        \"profile_image\": \"<uri>\",\n        \"link\": \"<uri>\",\n        \"accept_rate\": \"<integer>\"\n      }\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T03:04:42.000Z",
+                      "updatedAt": "2026-07-28T03:04:42.000Z",
+                      "uid": "35240-56e4974d-6a0f-46c2-9fdc-e7c11ef0956d"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:04:42.000Z",
+                  "updatedAt": "2026-07-28T03:04:42.000Z",
+                  "uid": "35240-9c02e874-69c6-415c-b4ec-f9f46f029566"
+                }
+              ],
+              "id": "d7c8228e-471d-4f10-9991-367861c1ab1b",
+              "createdAt": "2026-07-28T03:04:42.000Z",
+              "updatedAt": "2026-07-28T03:04:42.000Z",
+              "uid": "35240-d7c8228e-471d-4f10-9991-367861c1ab1b"
+            },
+            {
+              "name": "Stack Exchange Get Badges by Ids",
+              "id": "7e022699-bc3a-400c-bbc6-507c18f0997b",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/badges/:ids?site=stackoverflow&key=<string>&filter=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "badges",
+                    ":ids"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).",
+                      "key": "site",
+                      "value": "stackoverflow"
+                    },
+                    {
+                      "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP.",
+                      "key": "key",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Custom response filter id created via /filters/create.",
+                      "key": "filter",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "id": "869080f6-3572-45f6-9b36-b9deb62876fe",
+                      "key": "ids",
+                      "value": "<string>",
+                      "description": "(Required) Up to 100 semicolon-delimited ids of the resource."
+                    }
+                  ]
+                },
+                "description": "Fetch badges by semicolon-delimited ids."
+              },
+              "response": [
+                {
+                  "id": "f7a1c767-e926-4061-97fc-53148b56d3f1",
+                  "name": "A page of badges.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/badges/:ids?site=stackoverflow&key=<API Key>&filter=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "badges",
+                        ":ids"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).",
+                          "key": "site",
+                          "value": "stackoverflow"
+                        },
+                        {
+                          "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP.",
+                          "key": "key",
+                          "value": "<API Key>"
+                        },
+                        {
+                          "description": "Custom response filter id created via /filters/create.",
+                          "key": "filter",
+                          "value": "<string>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "ids"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"has_more\": \"<boolean>\",\n  \"quota_max\": \"<integer>\",\n  \"quota_remaining\": \"<integer>\",\n  \"backoff\": \"<integer>\",\n  \"error_id\": \"<integer>\",\n  \"error_message\": \"<string>\",\n  \"error_name\": \"<string>\",\n  \"page\": \"<integer>\",\n  \"page_size\": \"<integer>\",\n  \"total\": \"<integer>\",\n  \"type\": \"<string>\",\n  \"items\": [\n    {\n      \"badge_id\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"rank\": \"silver\",\n      \"badge_type\": \"tag_based\",\n      \"award_count\": \"<integer>\",\n      \"link\": \"<uri>\",\n      \"user\": {\n        \"user_id\": \"<long>\",\n        \"user_type\": \"unregistered\",\n        \"display_name\": \"<string>\",\n        \"reputation\": \"<integer>\",\n        \"profile_image\": \"<uri>\",\n        \"link\": \"<uri>\",\n        \"accept_rate\": \"<integer>\"\n      }\n    },\n    {\n      \"badge_id\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"rank\": \"bronze\",\n      \"badge_type\": \"named\",\n      \"award_count\": \"<integer>\",\n      \"link\": \"<uri>\",\n      \"user\": {\n        \"user_id\": \"<long>\",\n        \"user_type\": \"unregistered\",\n        \"display_name\": \"<string>\",\n        \"reputation\": \"<integer>\",\n        \"profile_image\": \"<uri>\",\n        \"link\": \"<uri>\",\n        \"accept_rate\": \"<integer>\"\n      }\n    }\n  ]\n}",
+                  "createdAt": "2026-07-28T03:04:42.000Z",
+                  "updatedAt": "2026-07-28T03:04:42.000Z",
+                  "uid": "35240-f7a1c767-e926-4061-97fc-53148b56d3f1"
+                }
+              ],
+              "createdAt": "2026-07-28T03:04:42.000Z",
+              "updatedAt": "2026-07-28T03:04:42.000Z",
+              "uid": "35240-7e022699-bc3a-400c-bbc6-507c18f0997b"
+            }
+          ],
+          "id": "7d41594f-4e25-4bf2-8655-1b45f22beb04",
+          "createdAt": "2026-07-28T03:04:42.000Z",
+          "updatedAt": "2026-07-28T03:04:42.000Z",
+          "uid": "35240-7d41594f-4e25-4bf2-8655-1b45f22beb04"
+        },
+        {
+          "name": "name",
+          "item": [
+            {
+              "name": "Stack Exchange List Named Badges",
+              "id": "4f603c50-4880-4f69-b3ff-cf360520acea",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/badges/name?site=stackoverflow&key=<string>&filter=<string>&page=1&pagesize=30",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "badges",
+                    "name"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).",
+                      "key": "site",
+                      "value": "stackoverflow"
+                    },
+                    {
+                      "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP.",
+                      "key": "key",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Custom response filter id created via /filters/create.",
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "1-indexed page number.",
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "description": "Items per page (max 100).",
+                      "key": "pagesize",
+                      "value": "30"
+                    }
+                  ]
+                },
+                "description": "All named (non-tag-based) badges."
+              },
+              "response": [
+                {
+                  "id": "20efd5c6-a619-4f7e-92f5-bd8d45ecac62",
+                  "name": "A page of named badges.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/badges/name?site=stackoverflow&key=<API Key>&filter=<string>&page=1&pagesize=30",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "badges",
+                        "name"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).",
+                          "key": "site",
+                          "value": "stackoverflow"
+                        },
+                        {
+                          "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP.",
+                          "key": "key",
+                          "value": "<API Key>"
+                        },
+                        {
+                          "description": "Custom response filter id created via /filters/create.",
+                          "key": "filter",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "1-indexed page number.",
+                          "key": "page",
+                          "value": "1"
+                        },
+                        {
+                          "description": "Items per page (max 100).",
+                          "key": "pagesize",
+                          "value": "30"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"has_more\": \"<boolean>\",\n  \"quota_max\": \"<integer>\",\n  \"quota_remaining\": \"<integer>\",\n  \"backoff\": \"<integer>\",\n  \"error_id\": \"<integer>\",\n  \"error_message\": \"<string>\",\n  \"error_name\": \"<string>\",\n  \"page\": \"<integer>\",\n  \"page_size\": \"<integer>\",\n  \"total\": \"<integer>\",\n  \"type\": \"<string>\",\n  \"items\": [\n    {\n      \"badge_id\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"rank\": \"silver\",\n      \"badge_type\": \"tag_based\",\n      \"award_count\": \"<integer>\",\n      \"link\": \"<uri>\",\n      \"user\": {\n        \"user_id\": \"<long>\",\n        \"user_type\": \"unregistered\",\n        \"display_name\": \"<string>\",\n        \"reputation\": \"<integer>\",\n        \"profile_image\": \"<uri>\",\n        \"link\": \"<uri>\",\n        \"accept_rate\": \"<integer>\"\n      }\n    },\n    {\n      \"badge_id\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"rank\": \"bronze\",\n      \"badge_type\": \"named\",\n      \"award_count\": \"<integer>\",\n      \"link\": \"<uri>\",\n      \"user\": {\n        \"user_id\": \"<long>\",\n        \"user_type\": \"unregistered\",\n        \"display_name\": \"<string>\",\n        \"reputation\": \"<integer>\",\n        \"profile_image\": \"<uri>\",\n        \"link\": \"<uri>\",\n        \"accept_rate\": \"<integer>\"\n      }\n    }\n  ]\n}",
+                  "createdAt": "2026-07-28T03:04:42.000Z",
+                  "updatedAt": "2026-07-28T03:04:42.000Z",
+                  "uid": "35240-20efd5c6-a619-4f7e-92f5-bd8d45ecac62"
+                }
+              ],
+              "createdAt": "2026-07-28T03:04:42.000Z",
+              "updatedAt": "2026-07-28T03:04:42.000Z",
+              "uid": "35240-4f603c50-4880-4f69-b3ff-cf360520acea"
+            }
+          ],
+          "id": "534eac68-e48a-4893-bd49-67e22311f50f",
+          "createdAt": "2026-07-28T03:04:42.000Z",
+          "updatedAt": "2026-07-28T03:04:42.000Z",
+          "uid": "35240-534eac68-e48a-4893-bd49-67e22311f50f"
+        },
+        {
+          "name": "tags",
+          "item": [
+            {
+              "name": "Stack Exchange List Tag-Based Badges",
+              "id": "40da7ae7-4d73-486d-9098-347ba2d558b1",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/badges/tags?site=stackoverflow&key=<string>&filter=<string>&page=1&pagesize=30",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "badges",
+                    "tags"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).",
+                      "key": "site",
+                      "value": "stackoverflow"
+                    },
+                    {
+                      "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP.",
+                      "key": "key",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Custom response filter id created via /filters/create.",
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "1-indexed page number.",
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "description": "Items per page (max 100).",
+                      "key": "pagesize",
+                      "value": "30"
+                    }
+                  ]
+                },
+                "description": "All tag-based badges."
+              },
+              "response": [
+                {
+                  "id": "0c8eb9df-c477-4b07-bd3f-e1e9969bd0f9",
+                  "name": "A page of tag-based badges.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/badges/tags?site=stackoverflow&key=<API Key>&filter=<string>&page=1&pagesize=30",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "badges",
+                        "tags"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).",
+                          "key": "site",
+                          "value": "stackoverflow"
+                        },
+                        {
+                          "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP.",
+                          "key": "key",
+                          "value": "<API Key>"
+                        },
+                        {
+                          "description": "Custom response filter id created via /filters/create.",
+                          "key": "filter",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "1-indexed page number.",
+                          "key": "page",
+                          "value": "1"
+                        },
+                        {
+                          "description": "Items per page (max 100).",
+                          "key": "pagesize",
+                          "value": "30"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"has_more\": \"<boolean>\",\n  \"quota_max\": \"<integer>\",\n  \"quota_remaining\": \"<integer>\",\n  \"backoff\": \"<integer>\",\n  \"error_id\": \"<integer>\",\n  \"error_message\": \"<string>\",\n  \"error_name\": \"<string>\",\n  \"page\": \"<integer>\",\n  \"page_size\": \"<integer>\",\n  \"total\": \"<integer>\",\n  \"type\": \"<string>\",\n  \"items\": [\n    {\n      \"badge_id\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"rank\": \"silver\",\n      \"badge_type\": \"tag_based\",\n      \"award_count\": \"<integer>\",\n      \"link\": \"<uri>\",\n      \"user\": {\n        \"user_id\": \"<long>\",\n        \"user_type\": \"unregistered\",\n        \"display_name\": \"<string>\",\n        \"reputation\": \"<integer>\",\n        \"profile_image\": \"<uri>\",\n        \"link\": \"<uri>\",\n        \"accept_rate\": \"<integer>\"\n      }\n    },\n    {\n      \"badge_id\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"rank\": \"bronze\",\n      \"badge_type\": \"named\",\n      \"award_count\": \"<integer>\",\n      \"link\": \"<uri>\",\n      \"user\": {\n        \"user_id\": \"<long>\",\n        \"user_type\": \"unregistered\",\n        \"display_name\": \"<string>\",\n        \"reputation\": \"<integer>\",\n        \"profile_image\": \"<uri>\",\n        \"link\": \"<uri>\",\n        \"accept_rate\": \"<integer>\"\n      }\n    }\n  ]\n}",
+                  "createdAt": "2026-07-28T03:04:42.000Z",
+                  "updatedAt": "2026-07-28T03:04:42.000Z",
+                  "uid": "35240-0c8eb9df-c477-4b07-bd3f-e1e9969bd0f9"
+                }
+              ],
+              "createdAt": "2026-07-28T03:04:42.000Z",
+              "updatedAt": "2026-07-28T03:04:42.000Z",
+              "uid": "35240-40da7ae7-4d73-486d-9098-347ba2d558b1"
+            }
+          ],
+          "id": "3defad8c-770e-4b03-843e-3fa85c1bdd5d",
+          "createdAt": "2026-07-28T03:04:42.000Z",
+          "updatedAt": "2026-07-28T03:04:42.000Z",
+          "uid": "35240-3defad8c-770e-4b03-843e-3fa85c1bdd5d"
+        },
+        {
+          "name": "Stack Exchange List Badges",
+          "id": "6b948a44-9efd-42cb-863d-1bea79608105",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/badges?site=stackoverflow&key=<string>&filter=<string>&page=1&pagesize=30&sort=rank",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "badges"
+              ],
+              "query": [
+                {
+                  "description": "(Required) Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).",
+                  "key": "site",
+                  "value": "stackoverflow"
+                },
+                {
+                  "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP.",
+                  "key": "key",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Custom response filter id created via /filters/create.",
+                  "key": "filter",
+                  "value": "<string>"
+                },
+                {
+                  "description": "1-indexed page number.",
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "description": "Items per page (max 100).",
+                  "key": "pagesize",
+                  "value": "30"
+                },
+                {
+                  "key": "sort",
+                  "value": "rank"
+                }
+              ]
+            },
+            "description": "All badges defined on a site."
+          },
+          "response": [
+            {
+              "id": "da0a3223-3f5c-4555-ba9c-17bd9433cf75",
+              "name": "A page of badges.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/badges?site=stackoverflow&key=<API Key>&filter=<string>&page=1&pagesize=30&sort=rank",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "badges"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).",
+                      "key": "site",
+                      "value": "stackoverflow"
+                    },
+                    {
+                      "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP.",
+                      "key": "key",
+                      "value": "<API Key>"
+                    },
+                    {
+                      "description": "Custom response filter id created via /filters/create.",
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "1-indexed page number.",
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "description": "Items per page (max 100).",
+                      "key": "pagesize",
+                      "value": "30"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "rank"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"has_more\": \"<boolean>\",\n  \"quota_max\": \"<integer>\",\n  \"quota_remaining\": \"<integer>\",\n  \"backoff\": \"<integer>\",\n  \"error_id\": \"<integer>\",\n  \"error_message\": \"<string>\",\n  \"error_name\": \"<string>\",\n  \"page\": \"<integer>\",\n  \"page_size\": \"<integer>\",\n  \"total\": \"<integer>\",\n  \"type\": \"<string>\",\n  \"items\": [\n    {\n      \"badge_id\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"rank\": \"silver\",\n      \"badge_type\": \"tag_based\",\n      \"award_count\": \"<integer>\",\n      \"link\": \"<uri>\",\n      \"user\": {\n        \"user_id\": \"<long>\",\n        \"user_type\": \"unregistered\",\n        \"display_name\": \"<string>\",\n        \"reputation\": \"<integer>\",\n        \"profile_image\": \"<uri>\",\n        \"link\": \"<uri>\",\n        \"accept_rate\": \"<integer>\"\n      }\n    },\n    {\n      \"badge_id\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"rank\": \"bronze\",\n      \"badge_type\": \"named\",\n      \"award_count\": \"<integer>\",\n      \"link\": \"<uri>\",\n      \"user\": {\n        \"user_id\": \"<long>\",\n        \"user_type\": \"unregistered\",\n        \"display_name\": \"<string>\",\n        \"reputation\": \"<integer>\",\n        \"profile_image\": \"<uri>\",\n        \"link\": \"<uri>\",\n        \"accept_rate\": \"<integer>\"\n      }\n    }\n  ]\n}",
+              "createdAt": "2026-07-28T03:04:42.000Z",
+              "updatedAt": "2026-07-28T03:04:42.000Z",
+              "uid": "35240-da0a3223-3f5c-4555-ba9c-17bd9433cf75"
+            }
+          ],
+          "createdAt": "2026-07-28T03:04:42.000Z",
+          "updatedAt": "2026-07-28T03:04:42.000Z",
+          "uid": "35240-6b948a44-9efd-42cb-863d-1bea79608105"
+        }
+      ],
+      "id": "2440ce71-8a41-4543-9730-28b7cf1656c9",
+      "createdAt": "2026-07-28T03:04:42.000Z",
+      "updatedAt": "2026-07-28T03:04:42.000Z",
+      "uid": "35240-2440ce71-8a41-4543-9730-28b7cf1656c9"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "key",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "query",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.stackexchange.com/2.3"
+    }
+  ]
+}

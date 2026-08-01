@@ -1,0 +1,280 @@
+{
+  "info": {
+    "_postman_id": "d57129a0-ee5e-426b-95c0-624be0ce9acb",
+    "name": "Stack Exchange Access Tokens Filters API",
+    "description": "Public, read-mostly HTTP/JSON API spanning all 180+ Stack Exchange sites\n(Stack Overflow, Server Fault, Super User, Ask Ubuntu, Stats, Math Overflow, ...).\n\nAll method families live under a single base URL with a uniform wrapper\n(`items`, `has_more`, `page`, `quota_max`, `quota_remaining`, `backoff`).\nRead access is unauthenticated. Write methods require OAuth 2.0 with the\nappropriate scopes (`write_access`, `private_info`, `no_expiry`).\n\nMost paths take a required `site` query parameter naming the target Q&A\ncommunity (`stackoverflow`, `serverfault`, `superuser`, ...). Use `/sites`\nto enumerate the network.\n\n\nContact Support:\n Name: Stack Exchange API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:04:51.000Z",
+    "updatedAt": "2026-07-28T03:04:51.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-d57129a0-ee5e-426b-95c0-624be0ce9acb"
+  },
+  "item": [
+    {
+      "name": "filters",
+      "item": [
+        {
+          "name": "create",
+          "item": [
+            {
+              "name": "Stack Exchange Create Filter",
+              "id": "998a044b-233d-41c9-b98a-f1fcfbb717f1",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/filters/create?include=<string>&exclude=<string>&base=default&unsafe=false&key=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "filters",
+                    "create"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "exclude",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "base",
+                      "value": "default"
+                    },
+                    {
+                      "key": "unsafe",
+                      "value": "false"
+                    },
+                    {
+                      "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP.",
+                      "key": "key",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "description": "Create a custom response filter."
+              },
+              "response": [
+                {
+                  "id": "4b980d90-9fa9-44b9-8f19-94db1e0003dc",
+                  "name": "A single-element list with the new filter.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/filters/create?include=<string>&exclude=<string>&base=default&unsafe=false&key=<API Key>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "filters",
+                        "create"
+                      ],
+                      "query": [
+                        {
+                          "key": "include",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "exclude",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "base",
+                          "value": "default"
+                        },
+                        {
+                          "key": "unsafe",
+                          "value": "false"
+                        },
+                        {
+                          "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP.",
+                          "key": "key",
+                          "value": "<API Key>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"has_more\": \"<boolean>\",\n  \"quota_max\": \"<integer>\",\n  \"quota_remaining\": \"<integer>\",\n  \"backoff\": \"<integer>\",\n  \"error_id\": \"<integer>\",\n  \"error_message\": \"<string>\",\n  \"error_name\": \"<string>\",\n  \"page\": \"<integer>\",\n  \"page_size\": \"<integer>\",\n  \"total\": \"<integer>\",\n  \"type\": \"<string>\",\n  \"items\": [\n    {\n      \"filter\": \"<string>\",\n      \"filter_type\": \"unsafe\",\n      \"included_fields\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"filter\": \"<string>\",\n      \"filter_type\": \"safe\",\n      \"included_fields\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ]\n}",
+                  "createdAt": "2026-07-28T03:04:51.000Z",
+                  "updatedAt": "2026-07-28T03:04:51.000Z",
+                  "uid": "35240-4b980d90-9fa9-44b9-8f19-94db1e0003dc"
+                }
+              ],
+              "createdAt": "2026-07-28T03:04:51.000Z",
+              "updatedAt": "2026-07-28T03:04:51.000Z",
+              "uid": "35240-998a044b-233d-41c9-b98a-f1fcfbb717f1"
+            }
+          ],
+          "id": "6c11010d-c394-4ce5-9c89-ec60120518a2",
+          "createdAt": "2026-07-28T03:04:51.000Z",
+          "updatedAt": "2026-07-28T03:04:51.000Z",
+          "uid": "35240-6c11010d-c394-4ce5-9c89-ec60120518a2"
+        },
+        {
+          "name": "{filters}",
+          "item": [
+            {
+              "name": "Stack Exchange Get Filters by Ids",
+              "id": "5ec76693-1397-4b41-bb86-6b33776b401c",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/filters/:filters?key=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "filters",
+                    ":filters"
+                  ],
+                  "query": [
+                    {
+                      "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP.",
+                      "key": "key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "id": "5a671a0a-4fdc-4590-ab34-9c79c1ae9057",
+                      "key": "filters",
+                      "value": "<string>",
+                      "description": "(Required) Up to 20 semicolon-delimited filter ids."
+                    }
+                  ]
+                },
+                "description": "Inspect existing filters."
+              },
+              "response": [
+                {
+                  "id": "b6aff61c-106f-4cd9-b9b6-c50661733cb9",
+                  "name": "A page of filters.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/filters/:filters?key=<API Key>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "filters",
+                        ":filters"
+                      ],
+                      "query": [
+                        {
+                          "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP.",
+                          "key": "key",
+                          "value": "<API Key>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "filters"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"has_more\": \"<boolean>\",\n  \"quota_max\": \"<integer>\",\n  \"quota_remaining\": \"<integer>\",\n  \"backoff\": \"<integer>\",\n  \"error_id\": \"<integer>\",\n  \"error_message\": \"<string>\",\n  \"error_name\": \"<string>\",\n  \"page\": \"<integer>\",\n  \"page_size\": \"<integer>\",\n  \"total\": \"<integer>\",\n  \"type\": \"<string>\",\n  \"items\": [\n    {\n      \"filter\": \"<string>\",\n      \"filter_type\": \"unsafe\",\n      \"included_fields\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"filter\": \"<string>\",\n      \"filter_type\": \"safe\",\n      \"included_fields\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ]\n}",
+                  "createdAt": "2026-07-28T03:04:51.000Z",
+                  "updatedAt": "2026-07-28T03:04:51.000Z",
+                  "uid": "35240-b6aff61c-106f-4cd9-b9b6-c50661733cb9"
+                }
+              ],
+              "createdAt": "2026-07-28T03:04:51.000Z",
+              "updatedAt": "2026-07-28T03:04:51.000Z",
+              "uid": "35240-5ec76693-1397-4b41-bb86-6b33776b401c"
+            }
+          ],
+          "id": "4c50bb17-5058-46a5-90c6-87ded291b9ee",
+          "createdAt": "2026-07-28T03:04:51.000Z",
+          "updatedAt": "2026-07-28T03:04:51.000Z",
+          "uid": "35240-4c50bb17-5058-46a5-90c6-87ded291b9ee"
+        }
+      ],
+      "id": "98dc0049-c3ca-42d4-a97e-4014a2ec3399",
+      "createdAt": "2026-07-28T03:04:51.000Z",
+      "updatedAt": "2026-07-28T03:04:51.000Z",
+      "uid": "35240-98dc0049-c3ca-42d4-a97e-4014a2ec3399"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "key",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "query",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.stackexchange.com/2.3"
+    }
+  ]
+}

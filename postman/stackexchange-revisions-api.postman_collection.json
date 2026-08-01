@@ -1,0 +1,175 @@
+{
+  "info": {
+    "_postman_id": "692420e1-e1cc-46d2-be71-ad0bc3b122d3",
+    "name": "Stack Exchange Access Tokens Revisions API",
+    "description": "Public, read-mostly HTTP/JSON API spanning all 180+ Stack Exchange sites\n(Stack Overflow, Server Fault, Super User, Ask Ubuntu, Stats, Math Overflow, ...).\n\nAll method families live under a single base URL with a uniform wrapper\n(`items`, `has_more`, `page`, `quota_max`, `quota_remaining`, `backoff`).\nRead access is unauthenticated. Write methods require OAuth 2.0 with the\nappropriate scopes (`write_access`, `private_info`, `no_expiry`).\n\nMost paths take a required `site` query parameter naming the target Q&A\ncommunity (`stackoverflow`, `serverfault`, `superuser`, ...). Use `/sites`\nto enumerate the network.\n\n\nContact Support:\n Name: Stack Exchange API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:04:59.000Z",
+    "updatedAt": "2026-07-28T03:05:00.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-692420e1-e1cc-46d2-be71-ad0bc3b122d3"
+  },
+  "item": [
+    {
+      "name": "revisions",
+      "item": [
+        {
+          "name": "{ids}",
+          "item": [
+            {
+              "name": "Stack Exchange Get Revisions by GUIDs",
+              "id": "f63e392a-4375-4cee-a5ca-111dfb6d96df",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/revisions/:ids?site=stackoverflow&key=<string>&filter=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "revisions",
+                    ":ids"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).",
+                      "key": "site",
+                      "value": "stackoverflow"
+                    },
+                    {
+                      "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP.",
+                      "key": "key",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Custom response filter id created via /filters/create.",
+                      "key": "filter",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "id": "62360a0d-7c93-4402-a092-45e811060368",
+                      "key": "ids",
+                      "value": "<string>",
+                      "description": "(Required) Up to 100 semicolon-delimited revision GUIDs."
+                    }
+                  ]
+                },
+                "description": "Fetch revisions by GUID."
+              },
+              "response": [
+                {
+                  "id": "854a580b-5181-481d-869a-7902c227a5c9",
+                  "name": "A page of revisions.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/revisions/:ids?site=stackoverflow&key=<API Key>&filter=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "revisions",
+                        ":ids"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).",
+                          "key": "site",
+                          "value": "stackoverflow"
+                        },
+                        {
+                          "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP.",
+                          "key": "key",
+                          "value": "<API Key>"
+                        },
+                        {
+                          "description": "Custom response filter id created via /filters/create.",
+                          "key": "filter",
+                          "value": "<string>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "ids"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"has_more\": \"<boolean>\",\n  \"quota_max\": \"<integer>\",\n  \"quota_remaining\": \"<integer>\",\n  \"backoff\": \"<integer>\",\n  \"error_id\": \"<integer>\",\n  \"error_message\": \"<string>\",\n  \"error_name\": \"<string>\",\n  \"page\": \"<integer>\",\n  \"page_size\": \"<integer>\",\n  \"total\": \"<integer>\",\n  \"type\": \"<string>\",\n  \"items\": [\n    {\n      \"revision_guid\": \"<uuid>\",\n      \"revision_number\": \"<integer>\",\n      \"revision_type\": \"single_user\",\n      \"post_type\": \"answer\",\n      \"post_id\": \"<integer>\",\n      \"comment\": \"<string>\",\n      \"creation_date\": \"<long>\",\n      \"is_rollback\": \"<boolean>\",\n      \"last_body\": \"<string>\",\n      \"last_title\": \"<string>\",\n      \"last_tags\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"body\": \"<string>\",\n      \"title\": \"<string>\",\n      \"tags\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"set_community_wiki\": \"<boolean>\",\n      \"user\": {\n        \"user_id\": \"<long>\",\n        \"user_type\": \"moderator\",\n        \"display_name\": \"<string>\",\n        \"reputation\": \"<integer>\",\n        \"profile_image\": \"<uri>\",\n        \"link\": \"<uri>\",\n        \"accept_rate\": \"<integer>\"\n      }\n    },\n    {\n      \"revision_guid\": \"<uuid>\",\n      \"revision_number\": \"<integer>\",\n      \"revision_type\": \"vote_based\",\n      \"post_type\": \"question\",\n      \"post_id\": \"<integer>\",\n      \"comment\": \"<string>\",\n      \"creation_date\": \"<long>\",\n      \"is_rollback\": \"<boolean>\",\n      \"last_body\": \"<string>\",\n      \"last_title\": \"<string>\",\n      \"last_tags\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"body\": \"<string>\",\n      \"title\": \"<string>\",\n      \"tags\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"set_community_wiki\": \"<boolean>\",\n      \"user\": {\n        \"user_id\": \"<long>\",\n        \"user_type\": \"registered\",\n        \"display_name\": \"<string>\",\n        \"reputation\": \"<integer>\",\n        \"profile_image\": \"<uri>\",\n        \"link\": \"<uri>\",\n        \"accept_rate\": \"<integer>\"\n      }\n    }\n  ]\n}",
+                  "createdAt": "2026-07-28T03:05:00.000Z",
+                  "updatedAt": "2026-07-28T03:05:00.000Z",
+                  "uid": "35240-854a580b-5181-481d-869a-7902c227a5c9"
+                }
+              ],
+              "createdAt": "2026-07-28T03:05:00.000Z",
+              "updatedAt": "2026-07-28T03:05:00.000Z",
+              "uid": "35240-f63e392a-4375-4cee-a5ca-111dfb6d96df"
+            }
+          ],
+          "id": "ffa4a0c1-8899-4737-8280-1b2d40d8435f",
+          "createdAt": "2026-07-28T03:05:00.000Z",
+          "updatedAt": "2026-07-28T03:05:00.000Z",
+          "uid": "35240-ffa4a0c1-8899-4737-8280-1b2d40d8435f"
+        }
+      ],
+      "id": "9ff1700d-38f9-43be-895b-07a8f7a5bcb3",
+      "createdAt": "2026-07-28T03:05:00.000Z",
+      "updatedAt": "2026-07-28T03:05:00.000Z",
+      "uid": "35240-9ff1700d-38f9-43be-895b-07a8f7a5bcb3"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "key",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "query",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.stackexchange.com/2.3"
+    }
+  ]
+}
