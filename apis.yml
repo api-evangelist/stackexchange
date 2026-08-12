@@ -104,38 +104,6 @@ apis:
     url: https://api.stackexchange.com/docs/revisions
   - type: SDKs
     url: https://github.com/StackExchange/StacMan
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-questions.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-answers.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-comments.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-users.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-me.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-tags.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-badges.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-sites.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-search.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-posts.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-revisions.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-suggested-edits.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-events.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-info.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-access-tokens.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-filters.yaml
 - aid: stackexchange:stackexchange-answers-api
   name: Stack Exchange Answers API
   description: Answer objects — list, fetch by id, and per-question answers.
@@ -162,38 +130,6 @@ apis:
     url: https://api.stackexchange.com/docs/revisions
   - type: SDKs
     url: https://github.com/StackExchange/StacMan
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-questions.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-answers.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-comments.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-users.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-me.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-tags.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-badges.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-sites.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-search.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-posts.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-revisions.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-suggested-edits.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-events.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-info.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-access-tokens.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-filters.yaml
 - aid: stackexchange:stackexchange-badges-api
   name: Stack Exchange Badges API
   description: Badges defined on a site — by id, name, type, and recipients.
@@ -220,38 +156,6 @@ apis:
     url: https://api.stackexchange.com/docs/revisions
   - type: SDKs
     url: https://github.com/StackExchange/StacMan
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-questions.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-answers.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-comments.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-users.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-me.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-tags.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-badges.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-sites.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-search.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-posts.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-revisions.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-suggested-edits.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-events.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-info.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-access-tokens.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-filters.yaml
 - aid: stackexchange:stackexchange-comments-api
   name: Stack Exchange Comments API
   description: Comments attached to questions and answers across the network.
@@ -278,38 +182,6 @@ apis:
     url: https://api.stackexchange.com/docs/revisions
   - type: SDKs
     url: https://github.com/StackExchange/StacMan
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-questions.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-answers.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-comments.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-users.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-me.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-tags.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-badges.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-sites.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-search.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-posts.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-revisions.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-suggested-edits.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-events.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-info.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-access-tokens.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-filters.yaml
 - aid: stackexchange:stackexchange-events-api
   name: Stack Exchange Events API
   description: Recent network events (1.5 minute live window) for the authenticated user.
@@ -336,38 +208,6 @@ apis:
     url: https://api.stackexchange.com/docs/revisions
   - type: SDKs
     url: https://github.com/StackExchange/StacMan
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-questions.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-answers.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-comments.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-users.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-me.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-tags.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-badges.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-sites.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-search.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-posts.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-revisions.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-suggested-edits.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-events.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-info.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-access-tokens.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-filters.yaml
 - aid: stackexchange:stackexchange-filters-api
   name: Stack Exchange Filters API
   description: Custom response filter creation and inspection.
@@ -394,38 +234,6 @@ apis:
     url: https://api.stackexchange.com/docs/revisions
   - type: SDKs
     url: https://github.com/StackExchange/StacMan
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-questions.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-answers.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-comments.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-users.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-me.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-tags.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-badges.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-sites.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-search.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-posts.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-revisions.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-suggested-edits.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-events.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-info.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-access-tokens.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-filters.yaml
 - aid: stackexchange:stackexchange-info-api
   name: Stack Exchange Info API
   description: Site-wide statistics, totals, and metadata.
@@ -452,38 +260,6 @@ apis:
     url: https://api.stackexchange.com/docs/revisions
   - type: SDKs
     url: https://github.com/StackExchange/StacMan
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-questions.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-answers.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-comments.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-users.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-me.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-tags.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-badges.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-sites.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-search.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-posts.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-revisions.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-suggested-edits.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-events.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-info.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-access-tokens.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-filters.yaml
 - aid: stackexchange:stackexchange-me-api
   name: Stack Exchange Me API
   description: Convenience surfaces that infer the user from the OAuth access token.
@@ -510,38 +286,6 @@ apis:
     url: https://api.stackexchange.com/docs/revisions
   - type: SDKs
     url: https://github.com/StackExchange/StacMan
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-questions.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-answers.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-comments.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-users.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-me.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-tags.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-badges.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-sites.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-search.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-posts.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-revisions.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-suggested-edits.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-events.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-info.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-access-tokens.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-filters.yaml
 - aid: stackexchange:stackexchange-posts-api
   name: Stack Exchange Posts API
   description: Generic post surfaces covering both questions and answers as `post` objects.
@@ -568,38 +312,6 @@ apis:
     url: https://api.stackexchange.com/docs/revisions
   - type: SDKs
     url: https://github.com/StackExchange/StacMan
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-questions.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-answers.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-comments.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-users.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-me.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-tags.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-badges.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-sites.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-search.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-posts.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-revisions.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-suggested-edits.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-events.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-info.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-access-tokens.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-filters.yaml
 - aid: stackexchange:stackexchange-questions-api
   name: Stack Exchange Questions API
   description: Question objects across the network — list, fetch, related, linked, search-equivalents.
@@ -626,38 +338,6 @@ apis:
     url: https://api.stackexchange.com/docs/revisions
   - type: SDKs
     url: https://github.com/StackExchange/StacMan
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-questions.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-answers.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-comments.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-users.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-me.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-tags.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-badges.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-sites.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-search.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-posts.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-revisions.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-suggested-edits.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-events.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-info.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-access-tokens.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-filters.yaml
 - aid: stackexchange:stackexchange-revisions-api
   name: Stack Exchange Revisions API
   description: Revision history for posts.
@@ -684,38 +364,6 @@ apis:
     url: https://api.stackexchange.com/docs/revisions
   - type: SDKs
     url: https://github.com/StackExchange/StacMan
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-questions.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-answers.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-comments.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-users.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-me.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-tags.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-badges.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-sites.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-search.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-posts.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-revisions.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-suggested-edits.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-events.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-info.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-access-tokens.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-filters.yaml
 - aid: stackexchange:stackexchange-search-api
   name: Stack Exchange Search API
   description: Question search — basic title-match, full-text excerpts, and advanced.
@@ -742,38 +390,6 @@ apis:
     url: https://api.stackexchange.com/docs/revisions
   - type: SDKs
     url: https://github.com/StackExchange/StacMan
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-questions.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-answers.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-comments.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-users.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-me.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-tags.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-badges.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-sites.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-search.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-posts.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-revisions.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-suggested-edits.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-events.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-info.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-access-tokens.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-filters.yaml
 - aid: stackexchange:stackexchange-sites-api
   name: Stack Exchange Sites API
   description: Enumeration and metadata for the 180+ Stack Exchange Q&A sites.
@@ -800,38 +416,6 @@ apis:
     url: https://api.stackexchange.com/docs/revisions
   - type: SDKs
     url: https://github.com/StackExchange/StacMan
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-questions.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-answers.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-comments.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-users.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-me.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-tags.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-badges.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-sites.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-search.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-posts.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-revisions.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-suggested-edits.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-events.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-info.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-access-tokens.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-filters.yaml
 - aid: stackexchange:stackexchange-suggested-edits-api
   name: Stack Exchange Suggested Edits API
   description: Pending edits proposed by users awaiting review.
@@ -858,38 +442,6 @@ apis:
     url: https://api.stackexchange.com/docs/revisions
   - type: SDKs
     url: https://github.com/StackExchange/StacMan
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-questions.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-answers.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-comments.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-users.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-me.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-tags.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-badges.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-sites.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-search.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-posts.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-revisions.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-suggested-edits.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-events.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-info.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-access-tokens.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-filters.yaml
 - aid: stackexchange:stackexchange-tags-api
   name: Stack Exchange Tags API
   description: Tag catalog, synonyms, wikis, top askers/answerers, and related tags.
@@ -916,38 +468,6 @@ apis:
     url: https://api.stackexchange.com/docs/revisions
   - type: SDKs
     url: https://github.com/StackExchange/StacMan
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-questions.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-answers.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-comments.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-users.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-me.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-tags.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-badges.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-sites.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-search.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-posts.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-revisions.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-suggested-edits.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-events.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-info.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-access-tokens.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-filters.yaml
 - aid: stackexchange:stackexchange-users-api
   name: Stack Exchange Users API
   description: Site users, their reputation, badges, tags, top posts, timeline, and write surfaces.
@@ -974,38 +494,6 @@ apis:
     url: https://api.stackexchange.com/docs/revisions
   - type: SDKs
     url: https://github.com/StackExchange/StacMan
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-questions.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-answers.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-comments.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-users.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-me.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-tags.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-badges.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-sites.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-search.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-posts.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-revisions.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-suggested-edits.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-events.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-info.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-access-tokens.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/stack-exchange-filters.yaml
 common:
   - type: PostmanWorkspace
     url: https://www.postman.com/kinlaneapi/stack-exchange/overview
