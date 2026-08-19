@@ -1,0 +1,165 @@
+{
+  "item": [
+    {
+      "id": "853179f1-6138-44f8-a391-1d489ade9f5c",
+      "name": "Sites",
+      "description": {
+        "content": "Enumeration and metadata for the 180+ Stack Exchange Q&A sites.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b8148ef8-4cb7-42d5-9073-e472b5be0f35",
+          "name": "Stack Exchange List Sites",
+          "request": {
+            "name": "Stack Exchange List Sites",
+            "description": {
+              "content": "All Stack Exchange sites in the network.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "sites"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "key",
+                  "value": "<string>",
+                  "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "<string>",
+                  "description": "Custom response filter id created via /filters/create."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "1-indexed page number."
+                },
+                {
+                  "disabled": false,
+                  "key": "pagesize",
+                  "value": "30",
+                  "description": "Items per page (max 100)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "969837a2-9d81-418c-a91d-80fbe01e426e",
+              "name": "A page of sites.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sites"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "example_app_key_abcdef"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "default"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "pagesize",
+                      "value": "30"
+                    },
+                    {
+                      "key": "key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"has_more\": true,\n  \"quota_max\": 10000,\n  \"quota_remaining\": 9999,\n  \"backoff\": 0,\n  \"error_id\": 7179,\n  \"error_message\": \"string\",\n  \"error_name\": \"string\",\n  \"page\": 1,\n  \"page_size\": 30,\n  \"total\": 3249,\n  \"type\": \"string\",\n  \"items\": [\n    {\n      \"site_url\": \"https://stackoverflow.com\",\n      \"api_site_parameter\": \"stackoverflow\",\n      \"name\": \"Stack Overflow\",\n      \"site_type\": \"main_site\",\n      \"audience\": \"professional and enthusiast programmers\",\n      \"icon_url\": \"https://yPQfIaPu.efkyb4y7EjUpmx2a6pYw7SvxvrK2rgyMiY5cfG5B,XPl.7G5AI\",\n      \"logo_url\": \"http://m.hwbb-fVMSCAVF.M7uGFbdGtQmVq6tUftjWk+X\",\n      \"favicon_url\": \"https://qllFMejJsvPyvQekAKZIPFl.uyjQ8zLoPL2nxWvfxwODMk2HUWzepxVFX\",\n      \"launch_date\": 1221177600,\n      \"site_state\": \"normal\",\n      \"styling\": {\n        \"link_color\": \"string\",\n        \"tag_foreground_color\": \"string\",\n        \"tag_background_color\": \"string\"\n      },\n      \"related_sites\": [\n        {\n          \"name\": \"string\",\n          \"site_url\": \"https://nWzTOEuSCSvSBBUAmAurvSNQYSkfzRCpl.ddphIgk,4TycmND\",\n          \"relation\": \"chat\"\n        },\n        {\n          \"name\": \"string\",\n          \"site_url\": \"https://NcaHWZycXFpJZDDhHcJjDiUBTJtDuChJ.hjaeXKWiOW2NNAlwCbXmIqDOuKzznkjpNvdp7oVx9uCafvy+tkFW.fbXfO4woKGQGEQg\",\n          \"relation\": \"meta\"\n        }\n      ],\n      \"markdown_extensions\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    {\n      \"site_url\": \"https://stackoverflow.com\",\n      \"api_site_parameter\": \"stackoverflow\",\n      \"name\": \"Stack Overflow\",\n      \"site_type\": \"main_site\",\n      \"audience\": \"professional and enthusiast programmers\",\n      \"icon_url\": \"http://CRCiFWLEylJhYszEzVtbaaRxMgrYukC.uugMoArdb+-uOdX3CVLI1WZZrSyiRZcT.oxvunqvsZ-9blb0\",\n      \"logo_url\": \"http://AOYyQNDIgrS.rcP5maNXRTVTnchkbB2TiQJYT1yT8S7JEPIEgXHbyZ804L0orQwTIUIO\",\n      \"favicon_url\": \"https://MlqusponyYczBweLpeNVQxtvcePcmEJkt.cgrotbKoE-lRsOKN\",\n      \"launch_date\": 1221177600,\n      \"site_state\": \"normal\",\n      \"styling\": {\n        \"link_color\": \"string\",\n        \"tag_foreground_color\": \"string\",\n        \"tag_background_color\": \"string\"\n      },\n      \"related_sites\": [\n        {\n          \"name\": \"string\",\n          \"site_url\": \"https://FPPpYivV.jaNdSwTdg.F8De03WBi4PlwbfYvnYdrLFOO,ZXIY67WQ\",\n          \"relation\": \"meta\"\n        },\n        {\n          \"name\": \"string\",\n          \"site_url\": \"https://ymmQjuqgmKCApPQJptvJ.xpanXcrOVdvPqWSIaVcjHMUNKmzoR\",\n          \"relation\": \"chat\"\n        }\n      ],\n      \"markdown_extensions\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.stackexchange.com/2.3",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "bb17923a-445e-4cbd-8c71-97d4b53d9471",
+    "name": "Stack Exchange Access Tokens Sites API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Public, read-mostly HTTP/JSON API spanning all 180+ Stack Exchange sites\n(Stack Overflow, Server Fault, Super User, Ask Ubuntu, Stats, Math Overflow, ...).\n\nAll method families live under a single base URL with a uniform wrapper\n(`items`, `has_more`, `page`, `quota_max`, `quota_remaining`, `backoff`).\nRead access is unauthenticated. Write methods require OAuth 2.0 with the\nappropriate scopes (`write_access`, `private_info`, `no_expiry`).\n\nMost paths take a required `site` query parameter naming the target Q&A\ncommunity (`stackoverflow`, `serverfault`, `superuser`, ...). Use `/sites`\nto enumerate the network.\n\n\nContact Support:\n Name: Stack Exchange API",
+      "type": "text/plain"
+    }
+  }
+}

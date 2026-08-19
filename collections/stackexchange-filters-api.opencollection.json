@@ -1,0 +1,90 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Stack Exchange Access Tokens Filters API",
+    "version": "2.3"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "key",
+      "value": "{{key}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Filters",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Stack Exchange Create Filter",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.stackexchange.com/2.3/filters/create",
+            "params": [
+              {
+                "name": "include",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "exclude",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "base",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "unsafe",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP."
+              }
+            ]
+          },
+          "docs": "Create a custom response filter."
+        },
+        {
+          "info": {
+            "name": "Stack Exchange Get Filters by Ids",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.stackexchange.com/2.3/filters/:filters",
+            "params": [
+              {
+                "name": "filters",
+                "value": "",
+                "type": "path",
+                "description": "Up to 20 semicolon-delimited filter ids."
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP."
+              }
+            ]
+          },
+          "docs": "Inspect existing filters."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

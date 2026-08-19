@@ -1,0 +1,626 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Stack Exchange Access Tokens Me API",
+    "version": "2.3"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "key",
+      "value": "{{key}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Me",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Stack Exchange Get Me",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.stackexchange.com/2.3/me",
+            "params": [
+              {
+                "name": "site",
+                "value": "",
+                "type": "query",
+                "description": "Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`)."
+              },
+              {
+                "name": "access_token",
+                "value": "",
+                "type": "query",
+                "description": "OAuth 2.0 access token. Required for any /me surface and any write."
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP."
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Custom response filter id created via /filters/create."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://stackoverflow.com/oauth",
+              "accessTokenUrl": "https://stackoverflow.com/oauth/access_token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "The authenticated user."
+        },
+        {
+          "info": {
+            "name": "Stack Exchange List My Questions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.stackexchange.com/2.3/me/questions",
+            "params": [
+              {
+                "name": "site",
+                "value": "",
+                "type": "query",
+                "description": "Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`)."
+              },
+              {
+                "name": "access_token",
+                "value": "",
+                "type": "query",
+                "description": "OAuth 2.0 access token. Required for any /me surface and any write."
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP."
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Custom response filter id created via /filters/create."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "1-indexed page number."
+              },
+              {
+                "name": "pagesize",
+                "value": "",
+                "type": "query",
+                "description": "Items per page (max 100)."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://stackoverflow.com/oauth",
+              "accessTokenUrl": "https://stackoverflow.com/oauth/access_token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Questions authored by the authenticated user."
+        },
+        {
+          "info": {
+            "name": "Stack Exchange List My Answers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.stackexchange.com/2.3/me/answers",
+            "params": [
+              {
+                "name": "site",
+                "value": "",
+                "type": "query",
+                "description": "Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`)."
+              },
+              {
+                "name": "access_token",
+                "value": "",
+                "type": "query",
+                "description": "OAuth 2.0 access token. Required for any /me surface and any write."
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP."
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Custom response filter id created via /filters/create."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "1-indexed page number."
+              },
+              {
+                "name": "pagesize",
+                "value": "",
+                "type": "query",
+                "description": "Items per page (max 100)."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://stackoverflow.com/oauth",
+              "accessTokenUrl": "https://stackoverflow.com/oauth/access_token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Answers authored by the authenticated user."
+        },
+        {
+          "info": {
+            "name": "Stack Exchange List My Comments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.stackexchange.com/2.3/me/comments",
+            "params": [
+              {
+                "name": "site",
+                "value": "",
+                "type": "query",
+                "description": "Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`)."
+              },
+              {
+                "name": "access_token",
+                "value": "",
+                "type": "query",
+                "description": "OAuth 2.0 access token. Required for any /me surface and any write."
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP."
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Custom response filter id created via /filters/create."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "1-indexed page number."
+              },
+              {
+                "name": "pagesize",
+                "value": "",
+                "type": "query",
+                "description": "Items per page (max 100)."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://stackoverflow.com/oauth",
+              "accessTokenUrl": "https://stackoverflow.com/oauth/access_token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Comments authored by the authenticated user."
+        },
+        {
+          "info": {
+            "name": "Stack Exchange List My Tags",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.stackexchange.com/2.3/me/tags",
+            "params": [
+              {
+                "name": "site",
+                "value": "",
+                "type": "query",
+                "description": "Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`)."
+              },
+              {
+                "name": "access_token",
+                "value": "",
+                "type": "query",
+                "description": "OAuth 2.0 access token. Required for any /me surface and any write."
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP."
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Custom response filter id created via /filters/create."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://stackoverflow.com/oauth",
+              "accessTokenUrl": "https://stackoverflow.com/oauth/access_token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Tags the authenticated user has activity in."
+        },
+        {
+          "info": {
+            "name": "Stack Exchange List My Badges",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.stackexchange.com/2.3/me/badges",
+            "params": [
+              {
+                "name": "site",
+                "value": "",
+                "type": "query",
+                "description": "Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`)."
+              },
+              {
+                "name": "access_token",
+                "value": "",
+                "type": "query",
+                "description": "OAuth 2.0 access token. Required for any /me surface and any write."
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP."
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Custom response filter id created via /filters/create."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://stackoverflow.com/oauth",
+              "accessTokenUrl": "https://stackoverflow.com/oauth/access_token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Badges earned by the authenticated user."
+        },
+        {
+          "info": {
+            "name": "Stack Exchange Get My Reputation",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.stackexchange.com/2.3/me/reputation",
+            "params": [
+              {
+                "name": "site",
+                "value": "",
+                "type": "query",
+                "description": "Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`)."
+              },
+              {
+                "name": "access_token",
+                "value": "",
+                "type": "query",
+                "description": "OAuth 2.0 access token. Required for any /me surface and any write."
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP."
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Custom response filter id created via /filters/create."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://stackoverflow.com/oauth",
+              "accessTokenUrl": "https://stackoverflow.com/oauth/access_token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Reputation changes for the authenticated user."
+        },
+        {
+          "info": {
+            "name": "Stack Exchange List My Notifications",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.stackexchange.com/2.3/me/notifications",
+            "params": [
+              {
+                "name": "site",
+                "value": "",
+                "type": "query",
+                "description": "Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`)."
+              },
+              {
+                "name": "access_token",
+                "value": "",
+                "type": "query",
+                "description": "OAuth 2.0 access token. Required for any /me surface and any write."
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP."
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Custom response filter id created via /filters/create."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://stackoverflow.com/oauth",
+              "accessTokenUrl": "https://stackoverflow.com/oauth/access_token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Notifications for the authenticated user."
+        },
+        {
+          "info": {
+            "name": "Stack Exchange List My Unread Notifications",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.stackexchange.com/2.3/me/notifications/unread",
+            "params": [
+              {
+                "name": "site",
+                "value": "",
+                "type": "query",
+                "description": "Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`)."
+              },
+              {
+                "name": "access_token",
+                "value": "",
+                "type": "query",
+                "description": "OAuth 2.0 access token. Required for any /me surface and any write."
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP."
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Custom response filter id created via /filters/create."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://stackoverflow.com/oauth",
+              "accessTokenUrl": "https://stackoverflow.com/oauth/access_token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Unread notifications for the authenticated user."
+        },
+        {
+          "info": {
+            "name": "Stack Exchange List My Inbox",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.stackexchange.com/2.3/me/inbox",
+            "params": [
+              {
+                "name": "site",
+                "value": "",
+                "type": "query",
+                "description": "Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`)."
+              },
+              {
+                "name": "access_token",
+                "value": "",
+                "type": "query",
+                "description": "OAuth 2.0 access token. Required for any /me surface and any write."
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP."
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Custom response filter id created via /filters/create."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://stackoverflow.com/oauth",
+              "accessTokenUrl": "https://stackoverflow.com/oauth/access_token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Inbox items for the authenticated user."
+        },
+        {
+          "info": {
+            "name": "Stack Exchange List My Unread Inbox",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.stackexchange.com/2.3/me/inbox/unread",
+            "params": [
+              {
+                "name": "site",
+                "value": "",
+                "type": "query",
+                "description": "Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`)."
+              },
+              {
+                "name": "access_token",
+                "value": "",
+                "type": "query",
+                "description": "OAuth 2.0 access token. Required for any /me surface and any write."
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP."
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Custom response filter id created via /filters/create."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://stackoverflow.com/oauth",
+              "accessTokenUrl": "https://stackoverflow.com/oauth/access_token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Unread inbox items for the authenticated user."
+        },
+        {
+          "info": {
+            "name": "Stack Exchange List My Timeline",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.stackexchange.com/2.3/me/timeline",
+            "params": [
+              {
+                "name": "site",
+                "value": "",
+                "type": "query",
+                "description": "Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`)."
+              },
+              {
+                "name": "access_token",
+                "value": "",
+                "type": "query",
+                "description": "OAuth 2.0 access token. Required for any /me surface and any write."
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP."
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Custom response filter id created via /filters/create."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://stackoverflow.com/oauth",
+              "accessTokenUrl": "https://stackoverflow.com/oauth/access_token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Activity timeline for the authenticated user."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

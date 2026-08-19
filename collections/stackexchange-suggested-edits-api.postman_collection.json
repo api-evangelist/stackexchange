@@ -1,0 +1,299 @@
+{
+  "item": [
+    {
+      "id": "3ce85761-3641-469b-b402-113ab72c8233",
+      "name": "Suggested Edits",
+      "description": {
+        "content": "Pending edits proposed by users awaiting review.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "22f5db3c-2e7a-4a2f-92e4-1118dbfc4711",
+          "name": "Stack Exchange List Suggested Edits",
+          "request": {
+            "name": "Stack Exchange List Suggested Edits",
+            "description": {
+              "content": "All suggested edits across the site.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "suggested-edits"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "site",
+                  "value": "stackoverflow",
+                  "description": "(Required) Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`)."
+                },
+                {
+                  "disabled": false,
+                  "key": "key",
+                  "value": "<string>",
+                  "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "<string>",
+                  "description": "Custom response filter id created via /filters/create."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "1-indexed page number."
+                },
+                {
+                  "disabled": false,
+                  "key": "pagesize",
+                  "value": "30",
+                  "description": "Items per page (max 100)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6dc64a2b-7c45-4889-ad4a-44bf27b7d1fd",
+              "name": "A page of suggested edits.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "suggested-edits"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "site",
+                      "value": "stackoverflow"
+                    },
+                    {
+                      "key": "key",
+                      "value": "example_app_key_abcdef"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "default"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "pagesize",
+                      "value": "30"
+                    },
+                    {
+                      "key": "key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"has_more\": true,\n  \"quota_max\": 10000,\n  \"quota_remaining\": 9999,\n  \"backoff\": 0,\n  \"error_id\": 3000,\n  \"error_message\": \"string\",\n  \"error_name\": \"string\",\n  \"page\": 1,\n  \"page_size\": 30,\n  \"total\": 4082,\n  \"type\": \"string\",\n  \"items\": [\n    {\n      \"suggested_edit_id\": 12345,\n      \"post_id\": 11227809,\n      \"post_type\": \"question\",\n      \"body\": \"string\",\n      \"title\": \"string\",\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"comment\": \"string\",\n      \"creation_date\": 8962,\n      \"approval_date\": 4734,\n      \"rejection_date\": 3134,\n      \"proposing_user\": {\n        \"user_id\": 22656,\n        \"user_type\": \"registered\",\n        \"display_name\": \"Jon Skeet\",\n        \"reputation\": 1500000,\n        \"profile_image\": \"https://i.sstatic.net/lLZAr.jpg?s=128\",\n        \"link\": \"https://stackoverflow.com/users/22656/jon-skeet\",\n        \"accept_rate\": 92\n      }\n    },\n    {\n      \"suggested_edit_id\": 12345,\n      \"post_id\": 11227809,\n      \"post_type\": \"question\",\n      \"body\": \"string\",\n      \"title\": \"string\",\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"comment\": \"string\",\n      \"creation_date\": 9960,\n      \"approval_date\": 2597,\n      \"rejection_date\": 8805,\n      \"proposing_user\": {\n        \"user_id\": 22656,\n        \"user_type\": \"registered\",\n        \"display_name\": \"Jon Skeet\",\n        \"reputation\": 1500000,\n        \"profile_image\": \"https://i.sstatic.net/lLZAr.jpg?s=128\",\n        \"link\": \"https://stackoverflow.com/users/22656/jon-skeet\",\n        \"accept_rate\": 92\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "690af58e-7d48-4ed6-9033-085c8578d57a",
+          "name": "Stack Exchange Get Suggested Edits by Ids",
+          "request": {
+            "name": "Stack Exchange Get Suggested Edits by Ids",
+            "description": {
+              "content": "Fetch suggested edits by semicolon-delimited ids.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "suggested-edits",
+                ":ids"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "site",
+                  "value": "stackoverflow",
+                  "description": "(Required) Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`)."
+                },
+                {
+                  "disabled": false,
+                  "key": "key",
+                  "value": "<string>",
+                  "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "<string>",
+                  "description": "Custom response filter id created via /filters/create."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ids",
+                  "description": "(Required) Up to 100 semicolon-delimited ids of the resource."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0dc0ab61-9eda-4726-ad0c-7016490284ae",
+              "name": "A page of suggested edits.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "suggested-edits",
+                    ":ids"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "site",
+                      "value": "stackoverflow"
+                    },
+                    {
+                      "key": "key",
+                      "value": "example_app_key_abcdef"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "default"
+                    },
+                    {
+                      "key": "key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ids",
+                      "description": "(Required) Up to 100 semicolon-delimited ids of the resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"has_more\": true,\n  \"quota_max\": 10000,\n  \"quota_remaining\": 9999,\n  \"backoff\": 0,\n  \"error_id\": 3998,\n  \"error_message\": \"string\",\n  \"error_name\": \"string\",\n  \"page\": 1,\n  \"page_size\": 30,\n  \"total\": 8065,\n  \"type\": \"string\",\n  \"items\": [\n    {\n      \"suggested_edit_id\": 12345,\n      \"post_id\": 11227809,\n      \"post_type\": \"question\",\n      \"body\": \"string\",\n      \"title\": \"string\",\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"comment\": \"string\",\n      \"creation_date\": 2512,\n      \"approval_date\": 7853,\n      \"rejection_date\": 6068,\n      \"proposing_user\": {\n        \"user_id\": 22656,\n        \"user_type\": \"registered\",\n        \"display_name\": \"Jon Skeet\",\n        \"reputation\": 1500000,\n        \"profile_image\": \"https://i.sstatic.net/lLZAr.jpg?s=128\",\n        \"link\": \"https://stackoverflow.com/users/22656/jon-skeet\",\n        \"accept_rate\": 92\n      }\n    },\n    {\n      \"suggested_edit_id\": 12345,\n      \"post_id\": 11227809,\n      \"post_type\": \"question\",\n      \"body\": \"string\",\n      \"title\": \"string\",\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"comment\": \"string\",\n      \"creation_date\": 2650,\n      \"approval_date\": 6523,\n      \"rejection_date\": 7111,\n      \"proposing_user\": {\n        \"user_id\": 22656,\n        \"user_type\": \"registered\",\n        \"display_name\": \"Jon Skeet\",\n        \"reputation\": 1500000,\n        \"profile_image\": \"https://i.sstatic.net/lLZAr.jpg?s=128\",\n        \"link\": \"https://stackoverflow.com/users/22656/jon-skeet\",\n        \"accept_rate\": 92\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.stackexchange.com/2.3",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "a6be0e08-ef39-4ff9-b12f-d94669e803b6",
+    "name": "Stack Exchange Access Tokens Suggested Edits API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Public, read-mostly HTTP/JSON API spanning all 180+ Stack Exchange sites\n(Stack Overflow, Server Fault, Super User, Ask Ubuntu, Stats, Math Overflow, ...).\n\nAll method families live under a single base URL with a uniform wrapper\n(`items`, `has_more`, `page`, `quota_max`, `quota_remaining`, `backoff`).\nRead access is unauthenticated. Write methods require OAuth 2.0 with the\nappropriate scopes (`write_access`, `private_info`, `no_expiry`).\n\nMost paths take a required `site` query parameter naming the target Q&A\ncommunity (`stackoverflow`, `serverfault`, `superuser`, ...). Use `/sites`\nto enumerate the network.\n\n\nContact Support:\n Name: Stack Exchange API",
+      "type": "text/plain"
+    }
+  }
+}

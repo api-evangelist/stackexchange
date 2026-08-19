@@ -1,0 +1,610 @@
+{
+  "item": [
+    {
+      "id": "58020b6c-2277-4620-a1a3-9942a4d2025a",
+      "name": "Answers",
+      "description": {
+        "content": "Answer objects — list, fetch by id, and per-question answers.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "539698c2-fbee-460e-92f9-7587403ed5df",
+          "name": "Stack Exchange List Answers",
+          "request": {
+            "name": "Stack Exchange List Answers",
+            "description": {
+              "content": "All answers on a site, with sort and date filters.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "answers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "site",
+                  "value": "stackoverflow",
+                  "description": "(Required) Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`)."
+                },
+                {
+                  "disabled": false,
+                  "key": "key",
+                  "value": "<string>",
+                  "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "<string>",
+                  "description": "Custom response filter id created via /filters/create."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "1-indexed page number."
+                },
+                {
+                  "disabled": false,
+                  "key": "pagesize",
+                  "value": "30",
+                  "description": "Items per page (max 100)."
+                },
+                {
+                  "disabled": false,
+                  "key": "order",
+                  "value": "desc",
+                  "description": "Sort direction."
+                },
+                {
+                  "disabled": false,
+                  "key": "fromdate",
+                  "value": "<long>",
+                  "description": "Unix epoch seconds — earliest creation_date."
+                },
+                {
+                  "disabled": false,
+                  "key": "todate",
+                  "value": "<long>",
+                  "description": "Unix epoch seconds — latest creation_date."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "activity"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "306b2cf0-b16b-487e-b72e-19cfa847784f",
+              "name": "A page of answers.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "answers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "site",
+                      "value": "stackoverflow"
+                    },
+                    {
+                      "key": "key",
+                      "value": "example_app_key_abcdef"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "default"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "pagesize",
+                      "value": "30"
+                    },
+                    {
+                      "key": "order",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "fromdate",
+                      "value": "1700000000"
+                    },
+                    {
+                      "key": "todate",
+                      "value": "1735689600"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "activity"
+                    },
+                    {
+                      "key": "key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"has_more\": true,\n  \"quota_max\": 10000,\n  \"quota_remaining\": 9999,\n  \"backoff\": 0,\n  \"error_id\": 220,\n  \"error_message\": \"string\",\n  \"error_name\": \"string\",\n  \"page\": 1,\n  \"page_size\": 30,\n  \"total\": 4591,\n  \"type\": \"string\",\n  \"items\": [\n    {\n      \"answer_id\": 11227902,\n      \"question_id\": 11227809,\n      \"title\": \"Why is processing a sorted array faster than processing an unsorted array?\",\n      \"body\": \"string\",\n      \"body_markdown\": \"string\",\n      \"link\": \"https://stackoverflow.com/a/11227902\",\n      \"score\": 36000,\n      \"up_vote_count\": 36500,\n      \"down_vote_count\": 500,\n      \"is_accepted\": true,\n      \"comment_count\": 20,\n      \"creation_date\": 1338719105,\n      \"last_activity_date\": 1700000000,\n      \"last_edit_date\": 9594,\n      \"owner\": {\n        \"user_id\": 22656,\n        \"user_type\": \"registered\",\n        \"display_name\": \"Jon Skeet\",\n        \"reputation\": 1500000,\n        \"profile_image\": \"https://i.sstatic.net/lLZAr.jpg?s=128\",\n        \"link\": \"https://stackoverflow.com/users/22656/jon-skeet\",\n        \"accept_rate\": 92\n      },\n      \"last_editor\": {\n        \"user_id\": 22656,\n        \"user_type\": \"registered\",\n        \"display_name\": \"Jon Skeet\",\n        \"reputation\": 1500000,\n        \"profile_image\": \"https://i.sstatic.net/lLZAr.jpg?s=128\",\n        \"link\": \"https://stackoverflow.com/users/22656/jon-skeet\",\n        \"accept_rate\": 92\n      },\n      \"tags\": [\n        \"java\",\n        \"c++\",\n        \"performance\"\n      ],\n      \"content_license\": \"CC BY-SA 4.0\",\n      \"community_owned_date\": 7727,\n      \"locked_date\": 8377,\n      \"awarded_bounty_amount\": 526,\n      \"awarded_bounty_users\": [\n        {\n          \"user_id\": 22656,\n          \"user_type\": \"registered\",\n          \"display_name\": \"Jon Skeet\",\n          \"reputation\": 1500000,\n          \"profile_image\": \"https://i.sstatic.net/lLZAr.jpg?s=128\",\n          \"link\": \"https://stackoverflow.com/users/22656/jon-skeet\",\n          \"accept_rate\": 92\n        },\n        {\n          \"user_id\": 22656,\n          \"user_type\": \"registered\",\n          \"display_name\": \"Jon Skeet\",\n          \"reputation\": 1500000,\n          \"profile_image\": \"https://i.sstatic.net/lLZAr.jpg?s=128\",\n          \"link\": \"https://stackoverflow.com/users/22656/jon-skeet\",\n          \"accept_rate\": 92\n        }\n      ]\n    },\n    {\n      \"answer_id\": 11227902,\n      \"question_id\": 11227809,\n      \"title\": \"Why is processing a sorted array faster than processing an unsorted array?\",\n      \"body\": \"string\",\n      \"body_markdown\": \"string\",\n      \"link\": \"https://stackoverflow.com/a/11227902\",\n      \"score\": 36000,\n      \"up_vote_count\": 36500,\n      \"down_vote_count\": 500,\n      \"is_accepted\": true,\n      \"comment_count\": 20,\n      \"creation_date\": 1338719105,\n      \"last_activity_date\": 1700000000,\n      \"last_edit_date\": 8894,\n      \"owner\": {\n        \"user_id\": 22656,\n        \"user_type\": \"registered\",\n        \"display_name\": \"Jon Skeet\",\n        \"reputation\": 1500000,\n        \"profile_image\": \"https://i.sstatic.net/lLZAr.jpg?s=128\",\n        \"link\": \"https://stackoverflow.com/users/22656/jon-skeet\",\n        \"accept_rate\": 92\n      },\n      \"last_editor\": {\n        \"user_id\": 22656,\n        \"user_type\": \"registered\",\n        \"display_name\": \"Jon Skeet\",\n        \"reputation\": 1500000,\n        \"profile_image\": \"https://i.sstatic.net/lLZAr.jpg?s=128\",\n        \"link\": \"https://stackoverflow.com/users/22656/jon-skeet\",\n        \"accept_rate\": 92\n      },\n      \"tags\": [\n        \"java\",\n        \"c++\",\n        \"performance\"\n      ],\n      \"content_license\": \"CC BY-SA 4.0\",\n      \"community_owned_date\": 1444,\n      \"locked_date\": 1628,\n      \"awarded_bounty_amount\": 9585,\n      \"awarded_bounty_users\": [\n        {\n          \"user_id\": 22656,\n          \"user_type\": \"registered\",\n          \"display_name\": \"Jon Skeet\",\n          \"reputation\": 1500000,\n          \"profile_image\": \"https://i.sstatic.net/lLZAr.jpg?s=128\",\n          \"link\": \"https://stackoverflow.com/users/22656/jon-skeet\",\n          \"accept_rate\": 92\n        },\n        {\n          \"user_id\": 22656,\n          \"user_type\": \"registered\",\n          \"display_name\": \"Jon Skeet\",\n          \"reputation\": 1500000,\n          \"profile_image\": \"https://i.sstatic.net/lLZAr.jpg?s=128\",\n          \"link\": \"https://stackoverflow.com/users/22656/jon-skeet\",\n          \"accept_rate\": 92\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b05918d8-e02d-49ba-8dbf-400991de45a3",
+          "name": "Stack Exchange Get Answers by Ids",
+          "request": {
+            "name": "Stack Exchange Get Answers by Ids",
+            "description": {
+              "content": "Fetch up to 100 answers in a single call by semicolon-delimited ids.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "answers",
+                ":ids"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "site",
+                  "value": "stackoverflow",
+                  "description": "(Required) Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`)."
+                },
+                {
+                  "disabled": false,
+                  "key": "key",
+                  "value": "<string>",
+                  "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "<string>",
+                  "description": "Custom response filter id created via /filters/create."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ids",
+                  "description": "(Required) Up to 100 semicolon-delimited ids of the resource."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "aa212414-59d7-4f47-9289-4f30ededf2bc",
+              "name": "A page of answers.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "answers",
+                    ":ids"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "site",
+                      "value": "stackoverflow"
+                    },
+                    {
+                      "key": "key",
+                      "value": "example_app_key_abcdef"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "default"
+                    },
+                    {
+                      "key": "key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ids",
+                      "description": "(Required) Up to 100 semicolon-delimited ids of the resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"has_more\": true,\n  \"quota_max\": 10000,\n  \"quota_remaining\": 9999,\n  \"backoff\": 0,\n  \"error_id\": 5127,\n  \"error_message\": \"string\",\n  \"error_name\": \"string\",\n  \"page\": 1,\n  \"page_size\": 30,\n  \"total\": 8755,\n  \"type\": \"string\",\n  \"items\": [\n    {\n      \"answer_id\": 11227902,\n      \"question_id\": 11227809,\n      \"title\": \"Why is processing a sorted array faster than processing an unsorted array?\",\n      \"body\": \"string\",\n      \"body_markdown\": \"string\",\n      \"link\": \"https://stackoverflow.com/a/11227902\",\n      \"score\": 36000,\n      \"up_vote_count\": 36500,\n      \"down_vote_count\": 500,\n      \"is_accepted\": true,\n      \"comment_count\": 20,\n      \"creation_date\": 1338719105,\n      \"last_activity_date\": 1700000000,\n      \"last_edit_date\": 150,\n      \"owner\": {\n        \"user_id\": 22656,\n        \"user_type\": \"registered\",\n        \"display_name\": \"Jon Skeet\",\n        \"reputation\": 1500000,\n        \"profile_image\": \"https://i.sstatic.net/lLZAr.jpg?s=128\",\n        \"link\": \"https://stackoverflow.com/users/22656/jon-skeet\",\n        \"accept_rate\": 92\n      },\n      \"last_editor\": {\n        \"user_id\": 22656,\n        \"user_type\": \"registered\",\n        \"display_name\": \"Jon Skeet\",\n        \"reputation\": 1500000,\n        \"profile_image\": \"https://i.sstatic.net/lLZAr.jpg?s=128\",\n        \"link\": \"https://stackoverflow.com/users/22656/jon-skeet\",\n        \"accept_rate\": 92\n      },\n      \"tags\": [\n        \"java\",\n        \"c++\",\n        \"performance\"\n      ],\n      \"content_license\": \"CC BY-SA 4.0\",\n      \"community_owned_date\": 8881,\n      \"locked_date\": 6673,\n      \"awarded_bounty_amount\": 2104,\n      \"awarded_bounty_users\": [\n        {\n          \"user_id\": 22656,\n          \"user_type\": \"registered\",\n          \"display_name\": \"Jon Skeet\",\n          \"reputation\": 1500000,\n          \"profile_image\": \"https://i.sstatic.net/lLZAr.jpg?s=128\",\n          \"link\": \"https://stackoverflow.com/users/22656/jon-skeet\",\n          \"accept_rate\": 92\n        },\n        {\n          \"user_id\": 22656,\n          \"user_type\": \"registered\",\n          \"display_name\": \"Jon Skeet\",\n          \"reputation\": 1500000,\n          \"profile_image\": \"https://i.sstatic.net/lLZAr.jpg?s=128\",\n          \"link\": \"https://stackoverflow.com/users/22656/jon-skeet\",\n          \"accept_rate\": 92\n        }\n      ]\n    },\n    {\n      \"answer_id\": 11227902,\n      \"question_id\": 11227809,\n      \"title\": \"Why is processing a sorted array faster than processing an unsorted array?\",\n      \"body\": \"string\",\n      \"body_markdown\": \"string\",\n      \"link\": \"https://stackoverflow.com/a/11227902\",\n      \"score\": 36000,\n      \"up_vote_count\": 36500,\n      \"down_vote_count\": 500,\n      \"is_accepted\": true,\n      \"comment_count\": 20,\n      \"creation_date\": 1338719105,\n      \"last_activity_date\": 1700000000,\n      \"last_edit_date\": 2874,\n      \"owner\": {\n        \"user_id\": 22656,\n        \"user_type\": \"registered\",\n        \"display_name\": \"Jon Skeet\",\n        \"reputation\": 1500000,\n        \"profile_image\": \"https://i.sstatic.net/lLZAr.jpg?s=128\",\n        \"link\": \"https://stackoverflow.com/users/22656/jon-skeet\",\n        \"accept_rate\": 92\n      },\n      \"last_editor\": {\n        \"user_id\": 22656,\n        \"user_type\": \"registered\",\n        \"display_name\": \"Jon Skeet\",\n        \"reputation\": 1500000,\n        \"profile_image\": \"https://i.sstatic.net/lLZAr.jpg?s=128\",\n        \"link\": \"https://stackoverflow.com/users/22656/jon-skeet\",\n        \"accept_rate\": 92\n      },\n      \"tags\": [\n        \"java\",\n        \"c++\",\n        \"performance\"\n      ],\n      \"content_license\": \"CC BY-SA 4.0\",\n      \"community_owned_date\": 4586,\n      \"locked_date\": 8291,\n      \"awarded_bounty_amount\": 2959,\n      \"awarded_bounty_users\": [\n        {\n          \"user_id\": 22656,\n          \"user_type\": \"registered\",\n          \"display_name\": \"Jon Skeet\",\n          \"reputation\": 1500000,\n          \"profile_image\": \"https://i.sstatic.net/lLZAr.jpg?s=128\",\n          \"link\": \"https://stackoverflow.com/users/22656/jon-skeet\",\n          \"accept_rate\": 92\n        },\n        {\n          \"user_id\": 22656,\n          \"user_type\": \"registered\",\n          \"display_name\": \"Jon Skeet\",\n          \"reputation\": 1500000,\n          \"profile_image\": \"https://i.sstatic.net/lLZAr.jpg?s=128\",\n          \"link\": \"https://stackoverflow.com/users/22656/jon-skeet\",\n          \"accept_rate\": 92\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "15b68c42-bba2-49bf-b6f2-73c245381e3e",
+          "name": "Stack Exchange List Comments on Answers",
+          "request": {
+            "name": "Stack Exchange List Comments on Answers",
+            "description": {
+              "content": "All comments on the given answers.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "answers",
+                ":ids",
+                "comments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "site",
+                  "value": "stackoverflow",
+                  "description": "(Required) Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`)."
+                },
+                {
+                  "disabled": false,
+                  "key": "key",
+                  "value": "<string>",
+                  "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "<string>",
+                  "description": "Custom response filter id created via /filters/create."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "1-indexed page number."
+                },
+                {
+                  "disabled": false,
+                  "key": "pagesize",
+                  "value": "30",
+                  "description": "Items per page (max 100)."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ids",
+                  "description": "(Required) Up to 100 semicolon-delimited ids of the resource."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5bdd4b2f-e4a0-4a46-aae3-6ecf76698758",
+              "name": "A page of comments.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "answers",
+                    ":ids",
+                    "comments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "site",
+                      "value": "stackoverflow"
+                    },
+                    {
+                      "key": "key",
+                      "value": "example_app_key_abcdef"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "default"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "pagesize",
+                      "value": "30"
+                    },
+                    {
+                      "key": "key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ids",
+                      "description": "(Required) Up to 100 semicolon-delimited ids of the resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"has_more\": true,\n  \"quota_max\": 10000,\n  \"quota_remaining\": 9999,\n  \"backoff\": 0,\n  \"error_id\": 5160,\n  \"error_message\": \"string\",\n  \"error_name\": \"string\",\n  \"page\": 1,\n  \"page_size\": 30,\n  \"total\": 790,\n  \"type\": \"string\",\n  \"items\": [\n    {\n      \"comment_id\": 14587302,\n      \"post_id\": 11227809,\n      \"post_type\": \"question\",\n      \"score\": 12,\n      \"body\": \"Great explanation, thank you.\",\n      \"body_markdown\": \"string\",\n      \"creation_date\": 1338800000,\n      \"edited\": false,\n      \"link\": \"https://stackoverflow.com/questions/11227809#comment14587302_11227809\",\n      \"owner\": {\n        \"user_id\": 22656,\n        \"user_type\": \"registered\",\n        \"display_name\": \"Jon Skeet\",\n        \"reputation\": 1500000,\n        \"profile_image\": \"https://i.sstatic.net/lLZAr.jpg?s=128\",\n        \"link\": \"https://stackoverflow.com/users/22656/jon-skeet\",\n        \"accept_rate\": 92\n      },\n      \"reply_to_user\": {\n        \"user_id\": 22656,\n        \"user_type\": \"registered\",\n        \"display_name\": \"Jon Skeet\",\n        \"reputation\": 1500000,\n        \"profile_image\": \"https://i.sstatic.net/lLZAr.jpg?s=128\",\n        \"link\": \"https://stackoverflow.com/users/22656/jon-skeet\",\n        \"accept_rate\": 92\n      },\n      \"content_license\": \"CC BY-SA 4.0\"\n    },\n    {\n      \"comment_id\": 14587302,\n      \"post_id\": 11227809,\n      \"post_type\": \"question\",\n      \"score\": 12,\n      \"body\": \"Great explanation, thank you.\",\n      \"body_markdown\": \"string\",\n      \"creation_date\": 1338800000,\n      \"edited\": false,\n      \"link\": \"https://stackoverflow.com/questions/11227809#comment14587302_11227809\",\n      \"owner\": {\n        \"user_id\": 22656,\n        \"user_type\": \"registered\",\n        \"display_name\": \"Jon Skeet\",\n        \"reputation\": 1500000,\n        \"profile_image\": \"https://i.sstatic.net/lLZAr.jpg?s=128\",\n        \"link\": \"https://stackoverflow.com/users/22656/jon-skeet\",\n        \"accept_rate\": 92\n      },\n      \"reply_to_user\": {\n        \"user_id\": 22656,\n        \"user_type\": \"registered\",\n        \"display_name\": \"Jon Skeet\",\n        \"reputation\": 1500000,\n        \"profile_image\": \"https://i.sstatic.net/lLZAr.jpg?s=128\",\n        \"link\": \"https://stackoverflow.com/users/22656/jon-skeet\",\n        \"accept_rate\": 92\n      },\n      \"content_license\": \"CC BY-SA 4.0\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4b74c7ec-82d1-4322-9de2-1d506e61dcb8",
+          "name": "Stack Exchange Get Questions for Answers",
+          "request": {
+            "name": "Stack Exchange Get Questions for Answers",
+            "description": {
+              "content": "The parent questions for the given answers.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "answers",
+                ":ids",
+                "questions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "site",
+                  "value": "stackoverflow",
+                  "description": "(Required) Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`)."
+                },
+                {
+                  "disabled": false,
+                  "key": "key",
+                  "value": "<string>",
+                  "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "<string>",
+                  "description": "Custom response filter id created via /filters/create."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ids",
+                  "description": "(Required) Up to 100 semicolon-delimited ids of the resource."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "53c18da8-5f88-4273-bfb6-dad410ad43df",
+              "name": "A page of questions.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "answers",
+                    ":ids",
+                    "questions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "site",
+                      "value": "stackoverflow"
+                    },
+                    {
+                      "key": "key",
+                      "value": "example_app_key_abcdef"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "default"
+                    },
+                    {
+                      "key": "key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ids",
+                      "description": "(Required) Up to 100 semicolon-delimited ids of the resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"has_more\": true,\n  \"quota_max\": 10000,\n  \"quota_remaining\": 9999,\n  \"backoff\": 0,\n  \"error_id\": 5479,\n  \"error_message\": \"string\",\n  \"error_name\": \"string\",\n  \"page\": 1,\n  \"page_size\": 30,\n  \"total\": 5371,\n  \"type\": \"string\",\n  \"items\": [\n    {\n      \"question_id\": 11227809,\n      \"title\": \"Why is processing a sorted array faster than processing an unsorted array?\",\n      \"body\": \"string\",\n      \"body_markdown\": \"string\",\n      \"link\": \"https://stackoverflow.com/questions/11227809\",\n      \"score\": 27000,\n      \"view_count\": 1900000,\n      \"answer_count\": 25,\n      \"comment_count\": 12,\n      \"favorite_count\": 4000,\n      \"is_answered\": true,\n      \"accepted_answer_id\": 11227902,\n      \"creation_date\": 1338717687,\n      \"last_activity_date\": 1700000000,\n      \"last_edit_date\": 1690000000,\n      \"owner\": {\n        \"user_id\": 22656,\n        \"user_type\": \"registered\",\n        \"display_name\": \"Jon Skeet\",\n        \"reputation\": 1500000,\n        \"profile_image\": \"https://i.sstatic.net/lLZAr.jpg?s=128\",\n        \"link\": \"https://stackoverflow.com/users/22656/jon-skeet\",\n        \"accept_rate\": 92\n      },\n      \"tags\": [\n        \"java\",\n        \"c++\",\n        \"performance\",\n        \"cpu-architecture\",\n        \"branch-prediction\"\n      ],\n      \"content_license\": \"CC BY-SA 4.0\",\n      \"protected_date\": 6317,\n      \"locked_date\": 8598,\n      \"closed_date\": 43,\n      \"closed_reason\": \"string\",\n      \"bounty_amount\": 8485,\n      \"bounty_closes_date\": 8878\n    },\n    {\n      \"question_id\": 11227809,\n      \"title\": \"Why is processing a sorted array faster than processing an unsorted array?\",\n      \"body\": \"string\",\n      \"body_markdown\": \"string\",\n      \"link\": \"https://stackoverflow.com/questions/11227809\",\n      \"score\": 27000,\n      \"view_count\": 1900000,\n      \"answer_count\": 25,\n      \"comment_count\": 12,\n      \"favorite_count\": 4000,\n      \"is_answered\": true,\n      \"accepted_answer_id\": 11227902,\n      \"creation_date\": 1338717687,\n      \"last_activity_date\": 1700000000,\n      \"last_edit_date\": 1690000000,\n      \"owner\": {\n        \"user_id\": 22656,\n        \"user_type\": \"registered\",\n        \"display_name\": \"Jon Skeet\",\n        \"reputation\": 1500000,\n        \"profile_image\": \"https://i.sstatic.net/lLZAr.jpg?s=128\",\n        \"link\": \"https://stackoverflow.com/users/22656/jon-skeet\",\n        \"accept_rate\": 92\n      },\n      \"tags\": [\n        \"java\",\n        \"c++\",\n        \"performance\",\n        \"cpu-architecture\",\n        \"branch-prediction\"\n      ],\n      \"content_license\": \"CC BY-SA 4.0\",\n      \"protected_date\": 3677,\n      \"locked_date\": 6785,\n      \"closed_date\": 9601,\n      \"closed_reason\": \"string\",\n      \"bounty_amount\": 14,\n      \"bounty_closes_date\": 5158\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.stackexchange.com/2.3",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "513e50b1-e1d6-4a63-9bae-f427bc01ad88",
+    "name": "Stack Exchange Access Tokens Answers API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Public, read-mostly HTTP/JSON API spanning all 180+ Stack Exchange sites\n(Stack Overflow, Server Fault, Super User, Ask Ubuntu, Stats, Math Overflow, ...).\n\nAll method families live under a single base URL with a uniform wrapper\n(`items`, `has_more`, `page`, `quota_max`, `quota_remaining`, `backoff`).\nRead access is unauthenticated. Write methods require OAuth 2.0 with the\nappropriate scopes (`write_access`, `private_info`, `no_expiry`).\n\nMost paths take a required `site` query parameter naming the target Q&A\ncommunity (`stackoverflow`, `serverfault`, `superuser`, ...). Use `/sites`\nto enumerate the network.\n\n\nContact Support:\n Name: Stack Exchange API",
+      "type": "text/plain"
+    }
+  }
+}

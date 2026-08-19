@@ -1,0 +1,338 @@
+{
+  "item": [
+    {
+      "id": "3fedfe1a-04a3-4e62-ab2b-8601f876216f",
+      "name": "Comments",
+      "description": {
+        "content": "Comments attached to questions and answers across the network.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "23e5076b-b30d-42ab-a986-65e526df8002",
+          "name": "Stack Exchange List Comments",
+          "request": {
+            "name": "Stack Exchange List Comments",
+            "description": {
+              "content": "All comments on a site.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "comments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "site",
+                  "value": "stackoverflow",
+                  "description": "(Required) Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`)."
+                },
+                {
+                  "disabled": false,
+                  "key": "key",
+                  "value": "<string>",
+                  "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "<string>",
+                  "description": "Custom response filter id created via /filters/create."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "1-indexed page number."
+                },
+                {
+                  "disabled": false,
+                  "key": "pagesize",
+                  "value": "30",
+                  "description": "Items per page (max 100)."
+                },
+                {
+                  "disabled": false,
+                  "key": "order",
+                  "value": "desc",
+                  "description": "Sort direction."
+                },
+                {
+                  "disabled": false,
+                  "key": "fromdate",
+                  "value": "<long>",
+                  "description": "Unix epoch seconds — earliest creation_date."
+                },
+                {
+                  "disabled": false,
+                  "key": "todate",
+                  "value": "<long>",
+                  "description": "Unix epoch seconds — latest creation_date."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "creation"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "aa085df3-c316-4bf9-bc7b-e6c1c371375f",
+              "name": "A page of comments.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "comments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "site",
+                      "value": "stackoverflow"
+                    },
+                    {
+                      "key": "key",
+                      "value": "example_app_key_abcdef"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "default"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "pagesize",
+                      "value": "30"
+                    },
+                    {
+                      "key": "order",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "fromdate",
+                      "value": "1700000000"
+                    },
+                    {
+                      "key": "todate",
+                      "value": "1735689600"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "creation"
+                    },
+                    {
+                      "key": "key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"has_more\": true,\n  \"quota_max\": 10000,\n  \"quota_remaining\": 9999,\n  \"backoff\": 0,\n  \"error_id\": 3531,\n  \"error_message\": \"string\",\n  \"error_name\": \"string\",\n  \"page\": 1,\n  \"page_size\": 30,\n  \"total\": 4000,\n  \"type\": \"string\",\n  \"items\": [\n    {\n      \"comment_id\": 14587302,\n      \"post_id\": 11227809,\n      \"post_type\": \"question\",\n      \"score\": 12,\n      \"body\": \"Great explanation, thank you.\",\n      \"body_markdown\": \"string\",\n      \"creation_date\": 1338800000,\n      \"edited\": false,\n      \"link\": \"https://stackoverflow.com/questions/11227809#comment14587302_11227809\",\n      \"owner\": {\n        \"user_id\": 22656,\n        \"user_type\": \"registered\",\n        \"display_name\": \"Jon Skeet\",\n        \"reputation\": 1500000,\n        \"profile_image\": \"https://i.sstatic.net/lLZAr.jpg?s=128\",\n        \"link\": \"https://stackoverflow.com/users/22656/jon-skeet\",\n        \"accept_rate\": 92\n      },\n      \"reply_to_user\": {\n        \"user_id\": 22656,\n        \"user_type\": \"registered\",\n        \"display_name\": \"Jon Skeet\",\n        \"reputation\": 1500000,\n        \"profile_image\": \"https://i.sstatic.net/lLZAr.jpg?s=128\",\n        \"link\": \"https://stackoverflow.com/users/22656/jon-skeet\",\n        \"accept_rate\": 92\n      },\n      \"content_license\": \"CC BY-SA 4.0\"\n    },\n    {\n      \"comment_id\": 14587302,\n      \"post_id\": 11227809,\n      \"post_type\": \"question\",\n      \"score\": 12,\n      \"body\": \"Great explanation, thank you.\",\n      \"body_markdown\": \"string\",\n      \"creation_date\": 1338800000,\n      \"edited\": false,\n      \"link\": \"https://stackoverflow.com/questions/11227809#comment14587302_11227809\",\n      \"owner\": {\n        \"user_id\": 22656,\n        \"user_type\": \"registered\",\n        \"display_name\": \"Jon Skeet\",\n        \"reputation\": 1500000,\n        \"profile_image\": \"https://i.sstatic.net/lLZAr.jpg?s=128\",\n        \"link\": \"https://stackoverflow.com/users/22656/jon-skeet\",\n        \"accept_rate\": 92\n      },\n      \"reply_to_user\": {\n        \"user_id\": 22656,\n        \"user_type\": \"registered\",\n        \"display_name\": \"Jon Skeet\",\n        \"reputation\": 1500000,\n        \"profile_image\": \"https://i.sstatic.net/lLZAr.jpg?s=128\",\n        \"link\": \"https://stackoverflow.com/users/22656/jon-skeet\",\n        \"accept_rate\": 92\n      },\n      \"content_license\": \"CC BY-SA 4.0\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ba89ae98-45ab-451d-a19f-17161147e026",
+          "name": "Stack Exchange Get Comments by Ids",
+          "request": {
+            "name": "Stack Exchange Get Comments by Ids",
+            "description": {
+              "content": "Fetch up to 100 comments by semicolon-delimited ids.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "comments",
+                ":ids"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "site",
+                  "value": "stackoverflow",
+                  "description": "(Required) Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`)."
+                },
+                {
+                  "disabled": false,
+                  "key": "key",
+                  "value": "<string>",
+                  "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "<string>",
+                  "description": "Custom response filter id created via /filters/create."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ids",
+                  "description": "(Required) Up to 100 semicolon-delimited ids of the resource."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "67f9e61b-0081-4ecf-bc69-dc07b33c476a",
+              "name": "A page of comments.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "comments",
+                    ":ids"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "site",
+                      "value": "stackoverflow"
+                    },
+                    {
+                      "key": "key",
+                      "value": "example_app_key_abcdef"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "default"
+                    },
+                    {
+                      "key": "key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ids",
+                      "description": "(Required) Up to 100 semicolon-delimited ids of the resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"has_more\": true,\n  \"quota_max\": 10000,\n  \"quota_remaining\": 9999,\n  \"backoff\": 0,\n  \"error_id\": 1806,\n  \"error_message\": \"string\",\n  \"error_name\": \"string\",\n  \"page\": 1,\n  \"page_size\": 30,\n  \"total\": 2118,\n  \"type\": \"string\",\n  \"items\": [\n    {\n      \"comment_id\": 14587302,\n      \"post_id\": 11227809,\n      \"post_type\": \"question\",\n      \"score\": 12,\n      \"body\": \"Great explanation, thank you.\",\n      \"body_markdown\": \"string\",\n      \"creation_date\": 1338800000,\n      \"edited\": false,\n      \"link\": \"https://stackoverflow.com/questions/11227809#comment14587302_11227809\",\n      \"owner\": {\n        \"user_id\": 22656,\n        \"user_type\": \"registered\",\n        \"display_name\": \"Jon Skeet\",\n        \"reputation\": 1500000,\n        \"profile_image\": \"https://i.sstatic.net/lLZAr.jpg?s=128\",\n        \"link\": \"https://stackoverflow.com/users/22656/jon-skeet\",\n        \"accept_rate\": 92\n      },\n      \"reply_to_user\": {\n        \"user_id\": 22656,\n        \"user_type\": \"registered\",\n        \"display_name\": \"Jon Skeet\",\n        \"reputation\": 1500000,\n        \"profile_image\": \"https://i.sstatic.net/lLZAr.jpg?s=128\",\n        \"link\": \"https://stackoverflow.com/users/22656/jon-skeet\",\n        \"accept_rate\": 92\n      },\n      \"content_license\": \"CC BY-SA 4.0\"\n    },\n    {\n      \"comment_id\": 14587302,\n      \"post_id\": 11227809,\n      \"post_type\": \"question\",\n      \"score\": 12,\n      \"body\": \"Great explanation, thank you.\",\n      \"body_markdown\": \"string\",\n      \"creation_date\": 1338800000,\n      \"edited\": false,\n      \"link\": \"https://stackoverflow.com/questions/11227809#comment14587302_11227809\",\n      \"owner\": {\n        \"user_id\": 22656,\n        \"user_type\": \"registered\",\n        \"display_name\": \"Jon Skeet\",\n        \"reputation\": 1500000,\n        \"profile_image\": \"https://i.sstatic.net/lLZAr.jpg?s=128\",\n        \"link\": \"https://stackoverflow.com/users/22656/jon-skeet\",\n        \"accept_rate\": 92\n      },\n      \"reply_to_user\": {\n        \"user_id\": 22656,\n        \"user_type\": \"registered\",\n        \"display_name\": \"Jon Skeet\",\n        \"reputation\": 1500000,\n        \"profile_image\": \"https://i.sstatic.net/lLZAr.jpg?s=128\",\n        \"link\": \"https://stackoverflow.com/users/22656/jon-skeet\",\n        \"accept_rate\": 92\n      },\n      \"content_license\": \"CC BY-SA 4.0\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.stackexchange.com/2.3",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "e0bd152d-f864-48b4-b4c0-dfc5b1212611",
+    "name": "Stack Exchange Access Tokens Comments API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Public, read-mostly HTTP/JSON API spanning all 180+ Stack Exchange sites\n(Stack Overflow, Server Fault, Super User, Ask Ubuntu, Stats, Math Overflow, ...).\n\nAll method families live under a single base URL with a uniform wrapper\n(`items`, `has_more`, `page`, `quota_max`, `quota_remaining`, `backoff`).\nRead access is unauthenticated. Write methods require OAuth 2.0 with the\nappropriate scopes (`write_access`, `private_info`, `no_expiry`).\n\nMost paths take a required `site` query parameter naming the target Q&A\ncommunity (`stackoverflow`, `serverfault`, `superuser`, ...). Use `/sites`\nto enumerate the network.\n\n\nContact Support:\n Name: Stack Exchange API",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,397 @@
+{
+  "item": [
+    {
+      "id": "5b8906ee-b9f3-4744-aaa6-a898d738b908",
+      "name": "Access Tokens",
+      "description": {
+        "content": "OAuth access token introspection and invalidation.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "16baea60-764f-4004-a225-5e7b30d1f96d",
+          "name": "Stack Exchange Invalidate Access Tokens",
+          "request": {
+            "name": "Stack Exchange Invalidate Access Tokens",
+            "description": {
+              "content": "Invalidate the given access tokens. Requires the app's `key`.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "access-tokens",
+                ":accessTokens",
+                "invalidate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "key",
+                  "value": "<string>",
+                  "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "<string>",
+                  "description": "Custom response filter id created via /filters/create."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accessTokens",
+                  "description": "(Required) Up to 100 semicolon-delimited access tokens to invalidate."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "bd6a4fd2-7b8e-41d5-a826-0122e4b71c06",
+              "name": "A page of access tokens with their invalidation status.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "access-tokens",
+                    ":accessTokens",
+                    "invalidate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "example_app_key_abcdef"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "default"
+                    },
+                    {
+                      "key": "key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accessTokens",
+                      "description": "(Required) Up to 100 semicolon-delimited access tokens to invalidate."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"has_more\": true,\n  \"quota_max\": 10000,\n  \"quota_remaining\": 9999,\n  \"backoff\": 0,\n  \"error_id\": 1359,\n  \"error_message\": \"string\",\n  \"error_name\": \"string\",\n  \"page\": 1,\n  \"page_size\": 30,\n  \"total\": 5307,\n  \"type\": \"string\",\n  \"items\": [\n    {\n      \"access_token\": \"string\",\n      \"expires_on_date\": 3537,\n      \"account_id\": 4676,\n      \"scope\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    {\n      \"access_token\": \"string\",\n      \"expires_on_date\": 704,\n      \"account_id\": 6100,\n      \"scope\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d48c5421-b780-44ac-a8a5-0454d3c97eeb",
+          "name": "Stack Exchange Read Access Tokens",
+          "request": {
+            "name": "Stack Exchange Read Access Tokens",
+            "description": {
+              "content": "Inspect the given access tokens (scopes, expiry, account id).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "access-tokens",
+                ":accessTokens",
+                "read"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "key",
+                  "value": "<string>",
+                  "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "<string>",
+                  "description": "Custom response filter id created via /filters/create."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accessTokens",
+                  "description": "(Required) Up to 100 semicolon-delimited access tokens to inspect."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "bb332922-415a-470f-8d76-292b437e389a",
+              "name": "A page of access tokens.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "access-tokens",
+                    ":accessTokens",
+                    "read"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "example_app_key_abcdef"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "default"
+                    },
+                    {
+                      "key": "key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accessTokens",
+                      "description": "(Required) Up to 100 semicolon-delimited access tokens to inspect."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"has_more\": true,\n  \"quota_max\": 10000,\n  \"quota_remaining\": 9999,\n  \"backoff\": 0,\n  \"error_id\": 1646,\n  \"error_message\": \"string\",\n  \"error_name\": \"string\",\n  \"page\": 1,\n  \"page_size\": 30,\n  \"total\": 8612,\n  \"type\": \"string\",\n  \"items\": [\n    {\n      \"access_token\": \"string\",\n      \"expires_on_date\": 7848,\n      \"account_id\": 7512,\n      \"scope\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    {\n      \"access_token\": \"string\",\n      \"expires_on_date\": 999,\n      \"account_id\": 3022,\n      \"scope\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1841999b-c7ee-4394-9f83-eeb94cf6c688",
+          "name": "Stack Exchange De-Authenticate App",
+          "request": {
+            "name": "Stack Exchange De-Authenticate App",
+            "description": {
+              "content": "De-authenticate the named app for the holder(s) of the given access tokens.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "apps",
+                ":accessTokens",
+                "de-authenticate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "key",
+                  "value": "<string>",
+                  "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "<string>",
+                  "description": "Custom response filter id created via /filters/create."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accessTokens",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f273fc5f-5f26-4157-971f-98c56ec18d0c",
+              "name": "A page of access tokens.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apps",
+                    ":accessTokens",
+                    "de-authenticate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "example_app_key_abcdef"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "default"
+                    },
+                    {
+                      "key": "key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accessTokens",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"has_more\": true,\n  \"quota_max\": 10000,\n  \"quota_remaining\": 9999,\n  \"backoff\": 0,\n  \"error_id\": 1646,\n  \"error_message\": \"string\",\n  \"error_name\": \"string\",\n  \"page\": 1,\n  \"page_size\": 30,\n  \"total\": 8612,\n  \"type\": \"string\",\n  \"items\": [\n    {\n      \"access_token\": \"string\",\n      \"expires_on_date\": 7848,\n      \"account_id\": 7512,\n      \"scope\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    {\n      \"access_token\": \"string\",\n      \"expires_on_date\": 999,\n      \"account_id\": 3022,\n      \"scope\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.stackexchange.com/2.3",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "f012ef2c-88ce-461d-8305-14041ad9f175",
+    "name": "Stack Exchange Access Tokens API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Public, read-mostly HTTP/JSON API spanning all 180+ Stack Exchange sites\n(Stack Overflow, Server Fault, Super User, Ask Ubuntu, Stats, Math Overflow, ...).\n\nAll method families live under a single base URL with a uniform wrapper\n(`items`, `has_more`, `page`, `quota_max`, `quota_remaining`, `backoff`).\nRead access is unauthenticated. Write methods require OAuth 2.0 with the\nappropriate scopes (`write_access`, `private_info`, `no_expiry`).\n\nMost paths take a required `site` query parameter naming the target Q&A\ncommunity (`stackoverflow`, `serverfault`, `superuser`, ...). Use `/sites`\nto enumerate the network.\n\n\nContact Support:\n Name: Stack Exchange API",
+      "type": "text/plain"
+    }
+  }
+}

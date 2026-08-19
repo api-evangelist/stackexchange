@@ -1,0 +1,118 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Stack Exchange Access Tokens API",
+    "version": "2.3"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "key",
+      "value": "{{key}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Access Tokens",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Stack Exchange Invalidate Access Tokens",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.stackexchange.com/2.3/access-tokens/:accessTokens/invalidate",
+            "params": [
+              {
+                "name": "accessTokens",
+                "value": "",
+                "type": "path",
+                "description": "Up to 100 semicolon-delimited access tokens to invalidate."
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP."
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Custom response filter id created via /filters/create."
+              }
+            ]
+          },
+          "docs": "Invalidate the given access tokens. Requires the app's `key`."
+        },
+        {
+          "info": {
+            "name": "Stack Exchange Read Access Tokens",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.stackexchange.com/2.3/access-tokens/:accessTokens/read",
+            "params": [
+              {
+                "name": "accessTokens",
+                "value": "",
+                "type": "path",
+                "description": "Up to 100 semicolon-delimited access tokens to inspect."
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP."
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Custom response filter id created via /filters/create."
+              }
+            ]
+          },
+          "docs": "Inspect the given access tokens (scopes, expiry, account id)."
+        },
+        {
+          "info": {
+            "name": "Stack Exchange De-Authenticate App",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.stackexchange.com/2.3/apps/:accessTokens/de-authenticate",
+            "params": [
+              {
+                "name": "accessTokens",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP."
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Custom response filter id created via /filters/create."
+              }
+            ]
+          },
+          "docs": "De-authenticate the named app for the holder(s) of the given access tokens."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,739 @@
+{
+  "item": [
+    {
+      "id": "316049a1-a3af-4b64-b556-a0680a61860c",
+      "name": "Search",
+      "description": {
+        "content": "Question search — basic title-match, full-text excerpts, and advanced.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "05c184de-b0a9-4d96-b87a-9f914c414622",
+          "name": "Stack Exchange Search Questions",
+          "request": {
+            "name": "Stack Exchange Search Questions",
+            "description": {
+              "content": "Title-match search for questions.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "site",
+                  "value": "stackoverflow",
+                  "description": "(Required) Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`)."
+                },
+                {
+                  "disabled": false,
+                  "key": "key",
+                  "value": "<string>",
+                  "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "<string>",
+                  "description": "Custom response filter id created via /filters/create."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "1-indexed page number."
+                },
+                {
+                  "disabled": false,
+                  "key": "pagesize",
+                  "value": "30",
+                  "description": "Items per page (max 100)."
+                },
+                {
+                  "disabled": false,
+                  "key": "intitle",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "tagged",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "nottagged",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "activity"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7fabd539-85a2-4c3a-a827-aa2cc49cc576",
+              "name": "A page of matching questions.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "site",
+                      "value": "stackoverflow"
+                    },
+                    {
+                      "key": "key",
+                      "value": "example_app_key_abcdef"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "default"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "pagesize",
+                      "value": "30"
+                    },
+                    {
+                      "key": "intitle",
+                      "value": "openapi"
+                    },
+                    {
+                      "key": "tagged",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "nottagged",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "activity"
+                    },
+                    {
+                      "key": "key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"has_more\": true,\n  \"quota_max\": 10000,\n  \"quota_remaining\": 9999,\n  \"backoff\": 0,\n  \"error_id\": 7766,\n  \"error_message\": \"string\",\n  \"error_name\": \"string\",\n  \"page\": 1,\n  \"page_size\": 30,\n  \"total\": 3863,\n  \"type\": \"string\",\n  \"items\": [\n    {\n      \"question_id\": 11227809,\n      \"title\": \"Why is processing a sorted array faster than processing an unsorted array?\",\n      \"body\": \"string\",\n      \"body_markdown\": \"string\",\n      \"link\": \"https://stackoverflow.com/questions/11227809\",\n      \"score\": 27000,\n      \"view_count\": 1900000,\n      \"answer_count\": 25,\n      \"comment_count\": 12,\n      \"favorite_count\": 4000,\n      \"is_answered\": true,\n      \"accepted_answer_id\": 11227902,\n      \"creation_date\": 1338717687,\n      \"last_activity_date\": 1700000000,\n      \"last_edit_date\": 1690000000,\n      \"owner\": {\n        \"user_id\": 22656,\n        \"user_type\": \"registered\",\n        \"display_name\": \"Jon Skeet\",\n        \"reputation\": 1500000,\n        \"profile_image\": \"https://i.sstatic.net/lLZAr.jpg?s=128\",\n        \"link\": \"https://stackoverflow.com/users/22656/jon-skeet\",\n        \"accept_rate\": 92\n      },\n      \"tags\": [\n        \"java\",\n        \"c++\",\n        \"performance\",\n        \"cpu-architecture\",\n        \"branch-prediction\"\n      ],\n      \"content_license\": \"CC BY-SA 4.0\",\n      \"protected_date\": 599,\n      \"locked_date\": 5910,\n      \"closed_date\": 2379,\n      \"closed_reason\": \"string\",\n      \"bounty_amount\": 6178,\n      \"bounty_closes_date\": 5959\n    },\n    {\n      \"question_id\": 11227809,\n      \"title\": \"Why is processing a sorted array faster than processing an unsorted array?\",\n      \"body\": \"string\",\n      \"body_markdown\": \"string\",\n      \"link\": \"https://stackoverflow.com/questions/11227809\",\n      \"score\": 27000,\n      \"view_count\": 1900000,\n      \"answer_count\": 25,\n      \"comment_count\": 12,\n      \"favorite_count\": 4000,\n      \"is_answered\": true,\n      \"accepted_answer_id\": 11227902,\n      \"creation_date\": 1338717687,\n      \"last_activity_date\": 1700000000,\n      \"last_edit_date\": 1690000000,\n      \"owner\": {\n        \"user_id\": 22656,\n        \"user_type\": \"registered\",\n        \"display_name\": \"Jon Skeet\",\n        \"reputation\": 1500000,\n        \"profile_image\": \"https://i.sstatic.net/lLZAr.jpg?s=128\",\n        \"link\": \"https://stackoverflow.com/users/22656/jon-skeet\",\n        \"accept_rate\": 92\n      },\n      \"tags\": [\n        \"java\",\n        \"c++\",\n        \"performance\",\n        \"cpu-architecture\",\n        \"branch-prediction\"\n      ],\n      \"content_license\": \"CC BY-SA 4.0\",\n      \"protected_date\": 9634,\n      \"locked_date\": 9721,\n      \"closed_date\": 4551,\n      \"closed_reason\": \"string\",\n      \"bounty_amount\": 6304,\n      \"bounty_closes_date\": 3722\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "de8200b9-37f4-4730-b38e-adb5dba01d39",
+          "name": "Stack Exchange Search Questions Advanced",
+          "request": {
+            "name": "Stack Exchange Search Questions Advanced",
+            "description": {
+              "content": "Advanced search across question title, body, tags, and dates.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "search",
+                "advanced"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "site",
+                  "value": "stackoverflow",
+                  "description": "(Required) Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`)."
+                },
+                {
+                  "disabled": false,
+                  "key": "key",
+                  "value": "<string>",
+                  "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "<string>",
+                  "description": "Custom response filter id created via /filters/create."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "1-indexed page number."
+                },
+                {
+                  "disabled": false,
+                  "key": "pagesize",
+                  "value": "30",
+                  "description": "Items per page (max 100)."
+                },
+                {
+                  "disabled": false,
+                  "key": "q",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "title",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "body",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "tagged",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "nottagged",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "accepted",
+                  "value": "<boolean>"
+                },
+                {
+                  "disabled": false,
+                  "key": "answers",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "closed",
+                  "value": "<boolean>"
+                },
+                {
+                  "disabled": false,
+                  "key": "migrated",
+                  "value": "<boolean>"
+                },
+                {
+                  "disabled": false,
+                  "key": "notice",
+                  "value": "<boolean>"
+                },
+                {
+                  "disabled": false,
+                  "key": "views",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "activity"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "db6ed342-680b-4dd0-9e13-44da3199ca5b",
+              "name": "A page of matching questions.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "search",
+                    "advanced"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "site",
+                      "value": "stackoverflow"
+                    },
+                    {
+                      "key": "key",
+                      "value": "example_app_key_abcdef"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "default"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "pagesize",
+                      "value": "30"
+                    },
+                    {
+                      "key": "q",
+                      "value": "openapi specification"
+                    },
+                    {
+                      "key": "title",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "body",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tagged",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "nottagged",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "accepted",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "answers",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "closed",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "migrated",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "notice",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "views",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "activity"
+                    },
+                    {
+                      "key": "key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"has_more\": true,\n  \"quota_max\": 10000,\n  \"quota_remaining\": 9999,\n  \"backoff\": 0,\n  \"error_id\": 5422,\n  \"error_message\": \"string\",\n  \"error_name\": \"string\",\n  \"page\": 1,\n  \"page_size\": 30,\n  \"total\": 7719,\n  \"type\": \"string\",\n  \"items\": [\n    {\n      \"question_id\": 11227809,\n      \"title\": \"Why is processing a sorted array faster than processing an unsorted array?\",\n      \"body\": \"string\",\n      \"body_markdown\": \"string\",\n      \"link\": \"https://stackoverflow.com/questions/11227809\",\n      \"score\": 27000,\n      \"view_count\": 1900000,\n      \"answer_count\": 25,\n      \"comment_count\": 12,\n      \"favorite_count\": 4000,\n      \"is_answered\": true,\n      \"accepted_answer_id\": 11227902,\n      \"creation_date\": 1338717687,\n      \"last_activity_date\": 1700000000,\n      \"last_edit_date\": 1690000000,\n      \"owner\": {\n        \"user_id\": 22656,\n        \"user_type\": \"registered\",\n        \"display_name\": \"Jon Skeet\",\n        \"reputation\": 1500000,\n        \"profile_image\": \"https://i.sstatic.net/lLZAr.jpg?s=128\",\n        \"link\": \"https://stackoverflow.com/users/22656/jon-skeet\",\n        \"accept_rate\": 92\n      },\n      \"tags\": [\n        \"java\",\n        \"c++\",\n        \"performance\",\n        \"cpu-architecture\",\n        \"branch-prediction\"\n      ],\n      \"content_license\": \"CC BY-SA 4.0\",\n      \"protected_date\": 1556,\n      \"locked_date\": 5735,\n      \"closed_date\": 1879,\n      \"closed_reason\": \"string\",\n      \"bounty_amount\": 5728,\n      \"bounty_closes_date\": 3758\n    },\n    {\n      \"question_id\": 11227809,\n      \"title\": \"Why is processing a sorted array faster than processing an unsorted array?\",\n      \"body\": \"string\",\n      \"body_markdown\": \"string\",\n      \"link\": \"https://stackoverflow.com/questions/11227809\",\n      \"score\": 27000,\n      \"view_count\": 1900000,\n      \"answer_count\": 25,\n      \"comment_count\": 12,\n      \"favorite_count\": 4000,\n      \"is_answered\": true,\n      \"accepted_answer_id\": 11227902,\n      \"creation_date\": 1338717687,\n      \"last_activity_date\": 1700000000,\n      \"last_edit_date\": 1690000000,\n      \"owner\": {\n        \"user_id\": 22656,\n        \"user_type\": \"registered\",\n        \"display_name\": \"Jon Skeet\",\n        \"reputation\": 1500000,\n        \"profile_image\": \"https://i.sstatic.net/lLZAr.jpg?s=128\",\n        \"link\": \"https://stackoverflow.com/users/22656/jon-skeet\",\n        \"accept_rate\": 92\n      },\n      \"tags\": [\n        \"java\",\n        \"c++\",\n        \"performance\",\n        \"cpu-architecture\",\n        \"branch-prediction\"\n      ],\n      \"content_license\": \"CC BY-SA 4.0\",\n      \"protected_date\": 3123,\n      \"locked_date\": 4791,\n      \"closed_date\": 2708,\n      \"closed_reason\": \"string\",\n      \"bounty_amount\": 9836,\n      \"bounty_closes_date\": 1266\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b9da9878-f8af-41bc-9304-c2eec2feb0e5",
+          "name": "Stack Exchange Search Excerpts",
+          "request": {
+            "name": "Stack Exchange Search Excerpts",
+            "description": {
+              "content": "Full-text excerpt search across questions and answers.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "search",
+                "excerpts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "site",
+                  "value": "stackoverflow",
+                  "description": "(Required) Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`)."
+                },
+                {
+                  "disabled": false,
+                  "key": "key",
+                  "value": "<string>",
+                  "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "<string>",
+                  "description": "Custom response filter id created via /filters/create."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "1-indexed page number."
+                },
+                {
+                  "disabled": false,
+                  "key": "pagesize",
+                  "value": "30",
+                  "description": "Items per page (max 100)."
+                },
+                {
+                  "disabled": false,
+                  "key": "q",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "tagged",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5196b71e-7ec3-4ce0-91d5-ed950d3cc0e2",
+              "name": "A page of search excerpts.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "search",
+                    "excerpts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "site",
+                      "value": "stackoverflow"
+                    },
+                    {
+                      "key": "key",
+                      "value": "example_app_key_abcdef"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "default"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "pagesize",
+                      "value": "30"
+                    },
+                    {
+                      "key": "q",
+                      "value": "openapi specification"
+                    },
+                    {
+                      "key": "tagged",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"has_more\": true,\n  \"quota_max\": 10000,\n  \"quota_remaining\": 9999,\n  \"backoff\": 0,\n  \"error_id\": 5422,\n  \"error_message\": \"string\",\n  \"error_name\": \"string\",\n  \"page\": 1,\n  \"page_size\": 30,\n  \"total\": 7719,\n  \"type\": \"string\",\n  \"items\": [\n    {\n      \"question_id\": 11227809,\n      \"title\": \"Why is processing a sorted array faster than processing an unsorted array?\",\n      \"body\": \"string\",\n      \"body_markdown\": \"string\",\n      \"link\": \"https://stackoverflow.com/questions/11227809\",\n      \"score\": 27000,\n      \"view_count\": 1900000,\n      \"answer_count\": 25,\n      \"comment_count\": 12,\n      \"favorite_count\": 4000,\n      \"is_answered\": true,\n      \"accepted_answer_id\": 11227902,\n      \"creation_date\": 1338717687,\n      \"last_activity_date\": 1700000000,\n      \"last_edit_date\": 1690000000,\n      \"owner\": {\n        \"user_id\": 22656,\n        \"user_type\": \"registered\",\n        \"display_name\": \"Jon Skeet\",\n        \"reputation\": 1500000,\n        \"profile_image\": \"https://i.sstatic.net/lLZAr.jpg?s=128\",\n        \"link\": \"https://stackoverflow.com/users/22656/jon-skeet\",\n        \"accept_rate\": 92\n      },\n      \"tags\": [\n        \"java\",\n        \"c++\",\n        \"performance\",\n        \"cpu-architecture\",\n        \"branch-prediction\"\n      ],\n      \"content_license\": \"CC BY-SA 4.0\",\n      \"protected_date\": 1556,\n      \"locked_date\": 5735,\n      \"closed_date\": 1879,\n      \"closed_reason\": \"string\",\n      \"bounty_amount\": 5728,\n      \"bounty_closes_date\": 3758\n    },\n    {\n      \"question_id\": 11227809,\n      \"title\": \"Why is processing a sorted array faster than processing an unsorted array?\",\n      \"body\": \"string\",\n      \"body_markdown\": \"string\",\n      \"link\": \"https://stackoverflow.com/questions/11227809\",\n      \"score\": 27000,\n      \"view_count\": 1900000,\n      \"answer_count\": 25,\n      \"comment_count\": 12,\n      \"favorite_count\": 4000,\n      \"is_answered\": true,\n      \"accepted_answer_id\": 11227902,\n      \"creation_date\": 1338717687,\n      \"last_activity_date\": 1700000000,\n      \"last_edit_date\": 1690000000,\n      \"owner\": {\n        \"user_id\": 22656,\n        \"user_type\": \"registered\",\n        \"display_name\": \"Jon Skeet\",\n        \"reputation\": 1500000,\n        \"profile_image\": \"https://i.sstatic.net/lLZAr.jpg?s=128\",\n        \"link\": \"https://stackoverflow.com/users/22656/jon-skeet\",\n        \"accept_rate\": 92\n      },\n      \"tags\": [\n        \"java\",\n        \"c++\",\n        \"performance\",\n        \"cpu-architecture\",\n        \"branch-prediction\"\n      ],\n      \"content_license\": \"CC BY-SA 4.0\",\n      \"protected_date\": 3123,\n      \"locked_date\": 4791,\n      \"closed_date\": 2708,\n      \"closed_reason\": \"string\",\n      \"bounty_amount\": 9836,\n      \"bounty_closes_date\": 1266\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "28220871-9621-486a-a774-f14af0ddcd48",
+          "name": "Stack Exchange Find Similar Questions",
+          "request": {
+            "name": "Stack Exchange Find Similar Questions",
+            "description": {
+              "content": "Find questions similar to a candidate title.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "similar"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "site",
+                  "value": "stackoverflow",
+                  "description": "(Required) Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`)."
+                },
+                {
+                  "disabled": false,
+                  "key": "key",
+                  "value": "<string>",
+                  "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "<string>",
+                  "description": "Custom response filter id created via /filters/create."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "1-indexed page number."
+                },
+                {
+                  "disabled": false,
+                  "key": "pagesize",
+                  "value": "30",
+                  "description": "Items per page (max 100)."
+                },
+                {
+                  "disabled": false,
+                  "key": "title",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "tagged",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9b5451f2-ac26-4f2a-b25f-7aba375ecf77",
+              "name": "A page of similar questions.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "similar"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "site",
+                      "value": "stackoverflow"
+                    },
+                    {
+                      "key": "key",
+                      "value": "example_app_key_abcdef"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "default"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "pagesize",
+                      "value": "30"
+                    },
+                    {
+                      "key": "title",
+                      "value": "How do I parse JSON in Python?"
+                    },
+                    {
+                      "key": "tagged",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"has_more\": true,\n  \"quota_max\": 10000,\n  \"quota_remaining\": 9999,\n  \"backoff\": 0,\n  \"error_id\": 5422,\n  \"error_message\": \"string\",\n  \"error_name\": \"string\",\n  \"page\": 1,\n  \"page_size\": 30,\n  \"total\": 7719,\n  \"type\": \"string\",\n  \"items\": [\n    {\n      \"question_id\": 11227809,\n      \"title\": \"Why is processing a sorted array faster than processing an unsorted array?\",\n      \"body\": \"string\",\n      \"body_markdown\": \"string\",\n      \"link\": \"https://stackoverflow.com/questions/11227809\",\n      \"score\": 27000,\n      \"view_count\": 1900000,\n      \"answer_count\": 25,\n      \"comment_count\": 12,\n      \"favorite_count\": 4000,\n      \"is_answered\": true,\n      \"accepted_answer_id\": 11227902,\n      \"creation_date\": 1338717687,\n      \"last_activity_date\": 1700000000,\n      \"last_edit_date\": 1690000000,\n      \"owner\": {\n        \"user_id\": 22656,\n        \"user_type\": \"registered\",\n        \"display_name\": \"Jon Skeet\",\n        \"reputation\": 1500000,\n        \"profile_image\": \"https://i.sstatic.net/lLZAr.jpg?s=128\",\n        \"link\": \"https://stackoverflow.com/users/22656/jon-skeet\",\n        \"accept_rate\": 92\n      },\n      \"tags\": [\n        \"java\",\n        \"c++\",\n        \"performance\",\n        \"cpu-architecture\",\n        \"branch-prediction\"\n      ],\n      \"content_license\": \"CC BY-SA 4.0\",\n      \"protected_date\": 1556,\n      \"locked_date\": 5735,\n      \"closed_date\": 1879,\n      \"closed_reason\": \"string\",\n      \"bounty_amount\": 5728,\n      \"bounty_closes_date\": 3758\n    },\n    {\n      \"question_id\": 11227809,\n      \"title\": \"Why is processing a sorted array faster than processing an unsorted array?\",\n      \"body\": \"string\",\n      \"body_markdown\": \"string\",\n      \"link\": \"https://stackoverflow.com/questions/11227809\",\n      \"score\": 27000,\n      \"view_count\": 1900000,\n      \"answer_count\": 25,\n      \"comment_count\": 12,\n      \"favorite_count\": 4000,\n      \"is_answered\": true,\n      \"accepted_answer_id\": 11227902,\n      \"creation_date\": 1338717687,\n      \"last_activity_date\": 1700000000,\n      \"last_edit_date\": 1690000000,\n      \"owner\": {\n        \"user_id\": 22656,\n        \"user_type\": \"registered\",\n        \"display_name\": \"Jon Skeet\",\n        \"reputation\": 1500000,\n        \"profile_image\": \"https://i.sstatic.net/lLZAr.jpg?s=128\",\n        \"link\": \"https://stackoverflow.com/users/22656/jon-skeet\",\n        \"accept_rate\": 92\n      },\n      \"tags\": [\n        \"java\",\n        \"c++\",\n        \"performance\",\n        \"cpu-architecture\",\n        \"branch-prediction\"\n      ],\n      \"content_license\": \"CC BY-SA 4.0\",\n      \"protected_date\": 3123,\n      \"locked_date\": 4791,\n      \"closed_date\": 2708,\n      \"closed_reason\": \"string\",\n      \"bounty_amount\": 9836,\n      \"bounty_closes_date\": 1266\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.stackexchange.com/2.3",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "47b7380a-bd22-487f-850d-d7503e39e6a6",
+    "name": "Stack Exchange Access Tokens Search API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Public, read-mostly HTTP/JSON API spanning all 180+ Stack Exchange sites\n(Stack Overflow, Server Fault, Super User, Ask Ubuntu, Stats, Math Overflow, ...).\n\nAll method families live under a single base URL with a uniform wrapper\n(`items`, `has_more`, `page`, `quota_max`, `quota_remaining`, `backoff`).\nRead access is unauthenticated. Write methods require OAuth 2.0 with the\nappropriate scopes (`write_access`, `private_info`, `no_expiry`).\n\nMost paths take a required `site` query parameter naming the target Q&A\ncommunity (`stackoverflow`, `serverfault`, `superuser`, ...). Use `/sites`\nto enumerate the network.\n\n\nContact Support:\n Name: Stack Exchange API",
+      "type": "text/plain"
+    }
+  }
+}

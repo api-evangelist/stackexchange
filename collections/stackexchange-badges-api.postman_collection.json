@@ -1,0 +1,690 @@
+{
+  "item": [
+    {
+      "id": "bf240340-d575-4bf2-b679-c28661ad1845",
+      "name": "Badges",
+      "description": {
+        "content": "Badges defined on a site — by id, name, type, and recipients.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "5ca8069f-30b0-41e4-a097-eab5a6b144bf",
+          "name": "Stack Exchange List Badges",
+          "request": {
+            "name": "Stack Exchange List Badges",
+            "description": {
+              "content": "All badges defined on a site.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "badges"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "site",
+                  "value": "stackoverflow",
+                  "description": "(Required) Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`)."
+                },
+                {
+                  "disabled": false,
+                  "key": "key",
+                  "value": "<string>",
+                  "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "<string>",
+                  "description": "Custom response filter id created via /filters/create."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "1-indexed page number."
+                },
+                {
+                  "disabled": false,
+                  "key": "pagesize",
+                  "value": "30",
+                  "description": "Items per page (max 100)."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "rank"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6c6d3662-a9b8-4820-94ab-b599d0a10319",
+              "name": "A page of badges.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "badges"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "site",
+                      "value": "stackoverflow"
+                    },
+                    {
+                      "key": "key",
+                      "value": "example_app_key_abcdef"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "default"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "pagesize",
+                      "value": "30"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "rank"
+                    },
+                    {
+                      "key": "key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"has_more\": true,\n  \"quota_max\": 10000,\n  \"quota_remaining\": 9999,\n  \"backoff\": 0,\n  \"error_id\": 7391,\n  \"error_message\": \"string\",\n  \"error_name\": \"string\",\n  \"page\": 1,\n  \"page_size\": 30,\n  \"total\": 3567,\n  \"type\": \"string\",\n  \"items\": [\n    {\n      \"badge_id\": 23,\n      \"name\": \"Nice Question\",\n      \"description\": \"Question score of 10 or more.\",\n      \"rank\": \"bronze\",\n      \"badge_type\": \"named\",\n      \"award_count\": 500000,\n      \"link\": \"https://stackoverflow.com/help/badges/23/nice-question\",\n      \"user\": {\n        \"user_id\": 22656,\n        \"user_type\": \"registered\",\n        \"display_name\": \"Jon Skeet\",\n        \"reputation\": 1500000,\n        \"profile_image\": \"https://i.sstatic.net/lLZAr.jpg?s=128\",\n        \"link\": \"https://stackoverflow.com/users/22656/jon-skeet\",\n        \"accept_rate\": 92\n      }\n    },\n    {\n      \"badge_id\": 23,\n      \"name\": \"Nice Question\",\n      \"description\": \"Question score of 10 or more.\",\n      \"rank\": \"bronze\",\n      \"badge_type\": \"named\",\n      \"award_count\": 500000,\n      \"link\": \"https://stackoverflow.com/help/badges/23/nice-question\",\n      \"user\": {\n        \"user_id\": 22656,\n        \"user_type\": \"registered\",\n        \"display_name\": \"Jon Skeet\",\n        \"reputation\": 1500000,\n        \"profile_image\": \"https://i.sstatic.net/lLZAr.jpg?s=128\",\n        \"link\": \"https://stackoverflow.com/users/22656/jon-skeet\",\n        \"accept_rate\": 92\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e2834727-69a9-4ee9-99cc-6fff434dfd3d",
+          "name": "Stack Exchange Get Badges by Ids",
+          "request": {
+            "name": "Stack Exchange Get Badges by Ids",
+            "description": {
+              "content": "Fetch badges by semicolon-delimited ids.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "badges",
+                ":ids"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "site",
+                  "value": "stackoverflow",
+                  "description": "(Required) Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`)."
+                },
+                {
+                  "disabled": false,
+                  "key": "key",
+                  "value": "<string>",
+                  "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "<string>",
+                  "description": "Custom response filter id created via /filters/create."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ids",
+                  "description": "(Required) Up to 100 semicolon-delimited ids of the resource."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4d3f4340-9e35-489a-a634-f9bdb2d8f13d",
+              "name": "A page of badges.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "badges",
+                    ":ids"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "site",
+                      "value": "stackoverflow"
+                    },
+                    {
+                      "key": "key",
+                      "value": "example_app_key_abcdef"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "default"
+                    },
+                    {
+                      "key": "key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ids",
+                      "description": "(Required) Up to 100 semicolon-delimited ids of the resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"has_more\": true,\n  \"quota_max\": 10000,\n  \"quota_remaining\": 9999,\n  \"backoff\": 0,\n  \"error_id\": 6365,\n  \"error_message\": \"string\",\n  \"error_name\": \"string\",\n  \"page\": 1,\n  \"page_size\": 30,\n  \"total\": 589,\n  \"type\": \"string\",\n  \"items\": [\n    {\n      \"badge_id\": 23,\n      \"name\": \"Nice Question\",\n      \"description\": \"Question score of 10 or more.\",\n      \"rank\": \"bronze\",\n      \"badge_type\": \"named\",\n      \"award_count\": 500000,\n      \"link\": \"https://stackoverflow.com/help/badges/23/nice-question\",\n      \"user\": {\n        \"user_id\": 22656,\n        \"user_type\": \"registered\",\n        \"display_name\": \"Jon Skeet\",\n        \"reputation\": 1500000,\n        \"profile_image\": \"https://i.sstatic.net/lLZAr.jpg?s=128\",\n        \"link\": \"https://stackoverflow.com/users/22656/jon-skeet\",\n        \"accept_rate\": 92\n      }\n    },\n    {\n      \"badge_id\": 23,\n      \"name\": \"Nice Question\",\n      \"description\": \"Question score of 10 or more.\",\n      \"rank\": \"bronze\",\n      \"badge_type\": \"named\",\n      \"award_count\": 500000,\n      \"link\": \"https://stackoverflow.com/help/badges/23/nice-question\",\n      \"user\": {\n        \"user_id\": 22656,\n        \"user_type\": \"registered\",\n        \"display_name\": \"Jon Skeet\",\n        \"reputation\": 1500000,\n        \"profile_image\": \"https://i.sstatic.net/lLZAr.jpg?s=128\",\n        \"link\": \"https://stackoverflow.com/users/22656/jon-skeet\",\n        \"accept_rate\": 92\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7b6d481d-478c-4ba1-be2c-7b19ac31b90a",
+          "name": "Stack Exchange List Badge Recipients",
+          "request": {
+            "name": "Stack Exchange List Badge Recipients",
+            "description": {
+              "content": "Recent recipients of the named badges.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "badges",
+                ":ids",
+                "recipients"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "site",
+                  "value": "stackoverflow",
+                  "description": "(Required) Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`)."
+                },
+                {
+                  "disabled": false,
+                  "key": "key",
+                  "value": "<string>",
+                  "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "<string>",
+                  "description": "Custom response filter id created via /filters/create."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ids",
+                  "description": "(Required) Up to 100 semicolon-delimited ids of the resource."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c0cbf40b-b4c8-4e93-91ab-9222f3228581",
+              "name": "A page of badges with their recipients.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "badges",
+                    ":ids",
+                    "recipients"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "site",
+                      "value": "stackoverflow"
+                    },
+                    {
+                      "key": "key",
+                      "value": "example_app_key_abcdef"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "default"
+                    },
+                    {
+                      "key": "key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ids",
+                      "description": "(Required) Up to 100 semicolon-delimited ids of the resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"has_more\": true,\n  \"quota_max\": 10000,\n  \"quota_remaining\": 9999,\n  \"backoff\": 0,\n  \"error_id\": 6365,\n  \"error_message\": \"string\",\n  \"error_name\": \"string\",\n  \"page\": 1,\n  \"page_size\": 30,\n  \"total\": 589,\n  \"type\": \"string\",\n  \"items\": [\n    {\n      \"badge_id\": 23,\n      \"name\": \"Nice Question\",\n      \"description\": \"Question score of 10 or more.\",\n      \"rank\": \"bronze\",\n      \"badge_type\": \"named\",\n      \"award_count\": 500000,\n      \"link\": \"https://stackoverflow.com/help/badges/23/nice-question\",\n      \"user\": {\n        \"user_id\": 22656,\n        \"user_type\": \"registered\",\n        \"display_name\": \"Jon Skeet\",\n        \"reputation\": 1500000,\n        \"profile_image\": \"https://i.sstatic.net/lLZAr.jpg?s=128\",\n        \"link\": \"https://stackoverflow.com/users/22656/jon-skeet\",\n        \"accept_rate\": 92\n      }\n    },\n    {\n      \"badge_id\": 23,\n      \"name\": \"Nice Question\",\n      \"description\": \"Question score of 10 or more.\",\n      \"rank\": \"bronze\",\n      \"badge_type\": \"named\",\n      \"award_count\": 500000,\n      \"link\": \"https://stackoverflow.com/help/badges/23/nice-question\",\n      \"user\": {\n        \"user_id\": 22656,\n        \"user_type\": \"registered\",\n        \"display_name\": \"Jon Skeet\",\n        \"reputation\": 1500000,\n        \"profile_image\": \"https://i.sstatic.net/lLZAr.jpg?s=128\",\n        \"link\": \"https://stackoverflow.com/users/22656/jon-skeet\",\n        \"accept_rate\": 92\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "02de4513-a00a-4bd3-9652-4fe83891d286",
+          "name": "Stack Exchange List Named Badges",
+          "request": {
+            "name": "Stack Exchange List Named Badges",
+            "description": {
+              "content": "All named (non-tag-based) badges.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "badges",
+                "name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "site",
+                  "value": "stackoverflow",
+                  "description": "(Required) Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`)."
+                },
+                {
+                  "disabled": false,
+                  "key": "key",
+                  "value": "<string>",
+                  "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "<string>",
+                  "description": "Custom response filter id created via /filters/create."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "1-indexed page number."
+                },
+                {
+                  "disabled": false,
+                  "key": "pagesize",
+                  "value": "30",
+                  "description": "Items per page (max 100)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1cd31f6b-d00c-427f-a1de-750845972085",
+              "name": "A page of named badges.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "badges",
+                    "name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "site",
+                      "value": "stackoverflow"
+                    },
+                    {
+                      "key": "key",
+                      "value": "example_app_key_abcdef"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "default"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "pagesize",
+                      "value": "30"
+                    },
+                    {
+                      "key": "key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"has_more\": true,\n  \"quota_max\": 10000,\n  \"quota_remaining\": 9999,\n  \"backoff\": 0,\n  \"error_id\": 6365,\n  \"error_message\": \"string\",\n  \"error_name\": \"string\",\n  \"page\": 1,\n  \"page_size\": 30,\n  \"total\": 589,\n  \"type\": \"string\",\n  \"items\": [\n    {\n      \"badge_id\": 23,\n      \"name\": \"Nice Question\",\n      \"description\": \"Question score of 10 or more.\",\n      \"rank\": \"bronze\",\n      \"badge_type\": \"named\",\n      \"award_count\": 500000,\n      \"link\": \"https://stackoverflow.com/help/badges/23/nice-question\",\n      \"user\": {\n        \"user_id\": 22656,\n        \"user_type\": \"registered\",\n        \"display_name\": \"Jon Skeet\",\n        \"reputation\": 1500000,\n        \"profile_image\": \"https://i.sstatic.net/lLZAr.jpg?s=128\",\n        \"link\": \"https://stackoverflow.com/users/22656/jon-skeet\",\n        \"accept_rate\": 92\n      }\n    },\n    {\n      \"badge_id\": 23,\n      \"name\": \"Nice Question\",\n      \"description\": \"Question score of 10 or more.\",\n      \"rank\": \"bronze\",\n      \"badge_type\": \"named\",\n      \"award_count\": 500000,\n      \"link\": \"https://stackoverflow.com/help/badges/23/nice-question\",\n      \"user\": {\n        \"user_id\": 22656,\n        \"user_type\": \"registered\",\n        \"display_name\": \"Jon Skeet\",\n        \"reputation\": 1500000,\n        \"profile_image\": \"https://i.sstatic.net/lLZAr.jpg?s=128\",\n        \"link\": \"https://stackoverflow.com/users/22656/jon-skeet\",\n        \"accept_rate\": 92\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "48c06b18-08ab-4428-abcc-21a27b37aeea",
+          "name": "Stack Exchange List Tag-Based Badges",
+          "request": {
+            "name": "Stack Exchange List Tag-Based Badges",
+            "description": {
+              "content": "All tag-based badges.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "badges",
+                "tags"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "site",
+                  "value": "stackoverflow",
+                  "description": "(Required) Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`)."
+                },
+                {
+                  "disabled": false,
+                  "key": "key",
+                  "value": "<string>",
+                  "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "<string>",
+                  "description": "Custom response filter id created via /filters/create."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "1-indexed page number."
+                },
+                {
+                  "disabled": false,
+                  "key": "pagesize",
+                  "value": "30",
+                  "description": "Items per page (max 100)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "78d70349-20df-4393-9683-07899d435544",
+              "name": "A page of tag-based badges.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "badges",
+                    "tags"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "site",
+                      "value": "stackoverflow"
+                    },
+                    {
+                      "key": "key",
+                      "value": "example_app_key_abcdef"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "default"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "pagesize",
+                      "value": "30"
+                    },
+                    {
+                      "key": "key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"has_more\": true,\n  \"quota_max\": 10000,\n  \"quota_remaining\": 9999,\n  \"backoff\": 0,\n  \"error_id\": 6365,\n  \"error_message\": \"string\",\n  \"error_name\": \"string\",\n  \"page\": 1,\n  \"page_size\": 30,\n  \"total\": 589,\n  \"type\": \"string\",\n  \"items\": [\n    {\n      \"badge_id\": 23,\n      \"name\": \"Nice Question\",\n      \"description\": \"Question score of 10 or more.\",\n      \"rank\": \"bronze\",\n      \"badge_type\": \"named\",\n      \"award_count\": 500000,\n      \"link\": \"https://stackoverflow.com/help/badges/23/nice-question\",\n      \"user\": {\n        \"user_id\": 22656,\n        \"user_type\": \"registered\",\n        \"display_name\": \"Jon Skeet\",\n        \"reputation\": 1500000,\n        \"profile_image\": \"https://i.sstatic.net/lLZAr.jpg?s=128\",\n        \"link\": \"https://stackoverflow.com/users/22656/jon-skeet\",\n        \"accept_rate\": 92\n      }\n    },\n    {\n      \"badge_id\": 23,\n      \"name\": \"Nice Question\",\n      \"description\": \"Question score of 10 or more.\",\n      \"rank\": \"bronze\",\n      \"badge_type\": \"named\",\n      \"award_count\": 500000,\n      \"link\": \"https://stackoverflow.com/help/badges/23/nice-question\",\n      \"user\": {\n        \"user_id\": 22656,\n        \"user_type\": \"registered\",\n        \"display_name\": \"Jon Skeet\",\n        \"reputation\": 1500000,\n        \"profile_image\": \"https://i.sstatic.net/lLZAr.jpg?s=128\",\n        \"link\": \"https://stackoverflow.com/users/22656/jon-skeet\",\n        \"accept_rate\": 92\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.stackexchange.com/2.3",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "2b389f38-3ac0-43f5-b8d7-014466db8bc6",
+    "name": "Stack Exchange Access Tokens Badges API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Public, read-mostly HTTP/JSON API spanning all 180+ Stack Exchange sites\n(Stack Overflow, Server Fault, Super User, Ask Ubuntu, Stats, Math Overflow, ...).\n\nAll method families live under a single base URL with a uniform wrapper\n(`items`, `has_more`, `page`, `quota_max`, `quota_remaining`, `backoff`).\nRead access is unauthenticated. Write methods require OAuth 2.0 with the\nappropriate scopes (`write_access`, `private_info`, `no_expiry`).\n\nMost paths take a required `site` query parameter naming the target Q&A\ncommunity (`stackoverflow`, `serverfault`, `superuser`, ...). Use `/sites`\nto enumerate the network.\n\n\nContact Support:\n Name: Stack Exchange API",
+      "type": "text/plain"
+    }
+  }
+}

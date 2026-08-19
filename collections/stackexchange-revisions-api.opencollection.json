@@ -1,0 +1,63 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Stack Exchange Access Tokens Revisions API",
+    "version": "2.3"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "key",
+      "value": "{{key}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Revisions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Stack Exchange Get Revisions by GUIDs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.stackexchange.com/2.3/revisions/:ids",
+            "params": [
+              {
+                "name": "ids",
+                "value": "",
+                "type": "path",
+                "description": "Up to 100 semicolon-delimited revision GUIDs."
+              },
+              {
+                "name": "site",
+                "value": "",
+                "type": "query",
+                "description": "Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`)."
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP."
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Custom response filter id created via /filters/create."
+              }
+            ]
+          },
+          "docs": "Fetch revisions by GUID."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

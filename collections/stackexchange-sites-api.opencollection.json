@@ -1,0 +1,63 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Stack Exchange Access Tokens Sites API",
+    "version": "2.3"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "key",
+      "value": "{{key}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Sites",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Stack Exchange List Sites",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.stackexchange.com/2.3/sites",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP."
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Custom response filter id created via /filters/create."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "1-indexed page number."
+              },
+              {
+                "name": "pagesize",
+                "value": "",
+                "type": "query",
+                "description": "Items per page (max 100)."
+              }
+            ]
+          },
+          "docs": "All Stack Exchange sites in the network."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

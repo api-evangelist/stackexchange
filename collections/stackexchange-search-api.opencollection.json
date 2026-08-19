@@ -1,0 +1,298 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Stack Exchange Access Tokens Search API",
+    "version": "2.3"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "key",
+      "value": "{{key}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Search",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Stack Exchange Search Questions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.stackexchange.com/2.3/search",
+            "params": [
+              {
+                "name": "site",
+                "value": "",
+                "type": "query",
+                "description": "Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`)."
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP."
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Custom response filter id created via /filters/create."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "1-indexed page number."
+              },
+              {
+                "name": "pagesize",
+                "value": "",
+                "type": "query",
+                "description": "Items per page (max 100)."
+              },
+              {
+                "name": "intitle",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "tagged",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "nottagged",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Title-match search for questions."
+        },
+        {
+          "info": {
+            "name": "Stack Exchange Search Questions Advanced",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.stackexchange.com/2.3/search/advanced",
+            "params": [
+              {
+                "name": "site",
+                "value": "",
+                "type": "query",
+                "description": "Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`)."
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP."
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Custom response filter id created via /filters/create."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "1-indexed page number."
+              },
+              {
+                "name": "pagesize",
+                "value": "",
+                "type": "query",
+                "description": "Items per page (max 100)."
+              },
+              {
+                "name": "q",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "title",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "body",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "tagged",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "nottagged",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "accepted",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "answers",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "closed",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "migrated",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "notice",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "views",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Advanced search across question title, body, tags, and dates."
+        },
+        {
+          "info": {
+            "name": "Stack Exchange Search Excerpts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.stackexchange.com/2.3/search/excerpts",
+            "params": [
+              {
+                "name": "site",
+                "value": "",
+                "type": "query",
+                "description": "Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`)."
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP."
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Custom response filter id created via /filters/create."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "1-indexed page number."
+              },
+              {
+                "name": "pagesize",
+                "value": "",
+                "type": "query",
+                "description": "Items per page (max 100)."
+              },
+              {
+                "name": "q",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "tagged",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Full-text excerpt search across questions and answers."
+        },
+        {
+          "info": {
+            "name": "Stack Exchange Find Similar Questions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.stackexchange.com/2.3/similar",
+            "params": [
+              {
+                "name": "site",
+                "value": "",
+                "type": "query",
+                "description": "Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`)."
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "App key from stackapps.com. Raises the daily quota to 10,000/IP."
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Custom response filter id created via /filters/create."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "1-indexed page number."
+              },
+              {
+                "name": "pagesize",
+                "value": "",
+                "type": "query",
+                "description": "Items per page (max 100)."
+              },
+              {
+                "name": "title",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "tagged",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Find questions similar to a candidate title."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
