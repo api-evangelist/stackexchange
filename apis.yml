@@ -27,7 +27,7 @@ description: >-
   knowledge bases with its own v3 REST API) and ships an official Stack Overflow
   MCP server that grounds AI agents in community-verified content.
 url: https://api.stackexchange.com/
-specificationVersion: '0.20'
+specificationVersion: '0.23'
 created: '2026-05-28'
 modified: '2026-05-29'
 x-source: public-apis/public-apis
