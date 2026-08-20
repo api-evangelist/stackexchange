@@ -36,6 +36,17 @@ x-tier: 1
 x-tier-reason: developer-flagship-community-knowledge-graph-with-mcp
 x-type: company
 tags:
+  - Q&A
+  - Developer Community
+  - Knowledge Graph
+  - Stack Overflow
+  - Stack Exchange
+  - Reputation
+  - Tags
+  - Community
+  - MCP
+  - AI Grounding
+tags_raw:
   - Q And A
   - Developer Community
   - Knowledge Graph
@@ -188,6 +199,8 @@ apis:
   humanURL: https://api.stackexchange.com/docs
   baseURL: https://api.stackexchange.com/2.3
   tags:
+  - Event
+  tags_raw:
   - Events
   properties:
   - type: OpenAPI
@@ -474,6 +487,8 @@ apis:
   humanURL: https://api.stackexchange.com/docs
   baseURL: https://api.stackexchange.com/2.3
   tags:
+  - User
+  tags_raw:
   - Users
   properties:
   - type: OpenAPI
