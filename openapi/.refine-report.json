@@ -39,6 +39,24 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
+  "notes": [
+    "stackexchange-access-tokens-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "stackexchange-answers-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "stackexchange-badges-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "stackexchange-comments-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "stackexchange-events-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "stackexchange-filters-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "stackexchange-info-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "stackexchange-me-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "stackexchange-posts-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "stackexchange-questions-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "stackexchange-revisions-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "stackexchange-search-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "stackexchange-sites-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "stackexchange-suggested-edits-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "stackexchange-tags-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "stackexchange-users-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
   "skipped": []
 }

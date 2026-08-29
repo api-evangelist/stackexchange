@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: Stack Exchange Access Tokens Badges API
   description: 'Public, read-mostly HTTP/JSON API spanning all 180+ Stack Exchange sites
@@ -165,15 +165,41 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    BadgesResponse:
-      allOf:
-      - $ref: '#/components/schemas/Wrapper'
-      - type: object
-        properties:
-          items:
-            type: array
-            items:
-              $ref: '#/components/schemas/Badge'
+    Badge:
+      type: object
+      description: A badge definition.
+      properties:
+        badge_id:
+          type: integer
+          example: 23
+        name:
+          type: string
+          example: Nice Question
+        description:
+          type: string
+          example: Question score of 10 or more.
+        rank:
+          type: string
+          enum:
+          - bronze
+          - silver
+          - gold
+          example: bronze
+        badge_type:
+          type: string
+          enum:
+          - named
+          - tag_based
+          example: named
+        award_count:
+          type: integer
+          example: 500000
+        link:
+          type: string
+          format: uri
+          example: https://stackoverflow.com/help/badges/23/nice-question
+        user:
+          $ref: '#/components/schemas/ShallowUser'
     ShallowUser:
       type: object
       description: Lightweight user reference embedded in posts and comments.
@@ -208,6 +234,15 @@ components:
         accept_rate:
           type: integer
           example: 92
+    BadgesResponse:
+      allOf:
+      - $ref: '#/components/schemas/Wrapper'
+      - type: object
+        properties:
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/Badge'
     Wrapper:
       type: object
       description: Common envelope returned by every Stack Exchange API method.
@@ -255,50 +290,7 @@ components:
       - has_more
       - quota_max
       - quota_remaining
-    Badge:
-      type: object
-      description: A badge definition.
-      properties:
-        badge_id:
-          type: integer
-          example: 23
-        name:
-          type: string
-          example: Nice Question
-        description:
-          type: string
-          example: Question score of 10 or more.
-        rank:
-          type: string
-          enum:
-          - bronze
-          - silver
-          - gold
-          example: bronze
-        badge_type:
-          type: string
-          enum:
-          - named
-          - tag_based
-          example: named
-        award_count:
-          type: integer
-          example: 500000
-        link:
-          type: string
-          format: uri
-          example: https://stackoverflow.com/help/badges/23/nice-question
-        user:
-          $ref: '#/components/schemas/ShallowUser'
   parameters:
-    Key:
-      name: key
-      in: query
-      required: false
-      description: App key from stackapps.com. Raises the daily quota to 10,000/IP.
-      schema:
-        type: string
-        example: example_app_key_abcdef
     Ids:
       name: ids
       in: path
@@ -307,15 +299,32 @@ components:
       schema:
         type: string
         example: 11227809;417142
-    Site:
-      name: site
+    Page:
+      name: page
       in: query
-      required: true
-      description: Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).
+      required: false
+      description: 1-indexed page number.
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+        example: 1
+    Key:
+      name: key
+      in: query
+      required: false
+      description: App key from stackapps.com. Raises the daily quota to 10,000/IP.
       schema:
         type: string
-        default: stackoverflow
-        example: stackoverflow
+        example: example_app_key_abcdef
+    Filter:
+      name: filter
+      in: query
+      required: false
+      description: Custom response filter id created via /filters/create.
+      schema:
+        type: string
+        example: default
     PageSize:
       name: pagesize
       in: query
@@ -327,24 +336,15 @@ components:
         maximum: 100
         default: 30
         example: 30
-    Page:
-      name: page
+    Site:
+      name: site
       in: query
-      required: false
-      description: 1-indexed page number.
-      schema:
-        type: integer
-        minimum: 1
-        default: 1
-        example: 1
-    Filter:
-      name: filter
-      in: query
-      required: false
-      description: Custom response filter id created via /filters/create.
+      required: true
+      description: Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).
       schema:
         type: string
-        example: default
+        default: stackoverflow
+        example: stackoverflow
   securitySchemes:
     oauth2:
       type: oauth2

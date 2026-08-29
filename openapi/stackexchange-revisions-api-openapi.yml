@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: Stack Exchange Access Tokens Revisions API
   description: 'Public, read-mostly HTTP/JSON API spanning all 180+ Stack Exchange sites
@@ -70,33 +70,63 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
-  parameters:
-    Key:
-      name: key
-      in: query
-      required: false
-      description: App key from stackapps.com. Raises the daily quota to 10,000/IP.
-      schema:
-        type: string
-        example: example_app_key_abcdef
-    Site:
-      name: site
-      in: query
-      required: true
-      description: Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).
-      schema:
-        type: string
-        default: stackoverflow
-        example: stackoverflow
-    Filter:
-      name: filter
-      in: query
-      required: false
-      description: Custom response filter id created via /filters/create.
-      schema:
-        type: string
-        example: default
   schemas:
+    Revision:
+      type: object
+      description: A revision to a post.
+      properties:
+        revision_guid:
+          type: string
+          format: uuid
+          example: 9f1f1ad2-9bcb-4f0c-9eee-1234567890ab
+        revision_number:
+          type: integer
+          example: 4
+        revision_type:
+          type: string
+          enum:
+          - single_user
+          - vote_based
+          example: single_user
+        post_type:
+          type: string
+          enum:
+          - question
+          - answer
+          example: question
+        post_id:
+          type: integer
+          example: 11227809
+        comment:
+          type: string
+          example: Fixed typo
+        creation_date:
+          type: integer
+          format: int64
+          example: 1338800000
+        is_rollback:
+          type: boolean
+          example: false
+        last_body:
+          type: string
+        last_title:
+          type: string
+        last_tags:
+          type: array
+          items:
+            type: string
+        body:
+          type: string
+        title:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+        set_community_wiki:
+          type: boolean
+        user:
+          $ref: '#/components/schemas/ShallowUser'
     RevisionsResponse:
       allOf:
       - $ref: '#/components/schemas/Wrapper'
@@ -187,62 +217,32 @@ components:
       - has_more
       - quota_max
       - quota_remaining
-    Revision:
-      type: object
-      description: A revision to a post.
-      properties:
-        revision_guid:
-          type: string
-          format: uuid
-          example: 9f1f1ad2-9bcb-4f0c-9eee-1234567890ab
-        revision_number:
-          type: integer
-          example: 4
-        revision_type:
-          type: string
-          enum:
-          - single_user
-          - vote_based
-          example: single_user
-        post_type:
-          type: string
-          enum:
-          - question
-          - answer
-          example: question
-        post_id:
-          type: integer
-          example: 11227809
-        comment:
-          type: string
-          example: Fixed typo
-        creation_date:
-          type: integer
-          format: int64
-          example: 1338800000
-        is_rollback:
-          type: boolean
-          example: false
-        last_body:
-          type: string
-        last_title:
-          type: string
-        last_tags:
-          type: array
-          items:
-            type: string
-        body:
-          type: string
-        title:
-          type: string
-        tags:
-          type: array
-          items:
-            type: string
-        set_community_wiki:
-          type: boolean
-        user:
-          $ref: '#/components/schemas/ShallowUser'
+  parameters:
+    Key:
+      name: key
+      in: query
+      required: false
+      description: App key from stackapps.com. Raises the daily quota to 10,000/IP.
+      schema:
+        type: string
+        example: example_app_key_abcdef
+    Filter:
+      name: filter
+      in: query
+      required: false
+      description: Custom response filter id created via /filters/create.
+      schema:
+        type: string
+        example: default
+    Site:
+      name: site
+      in: query
+      required: true
+      description: Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).
+      schema:
+        type: string
+        default: stackoverflow
+        example: stackoverflow
   securitySchemes:
     oauth2:
       type: oauth2

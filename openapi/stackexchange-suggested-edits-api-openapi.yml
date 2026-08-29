@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: Stack Exchange Access Tokens Suggested Edits API
   description: 'Public, read-mostly HTTP/JSON API spanning all 180+ Stack Exchange sites
@@ -88,14 +88,6 @@ paths:
         dispatcher: FALLBACK
 components:
   parameters:
-    Key:
-      name: key
-      in: query
-      required: false
-      description: App key from stackapps.com. Raises the daily quota to 10,000/IP.
-      schema:
-        type: string
-        example: example_app_key_abcdef
     Ids:
       name: ids
       in: path
@@ -104,15 +96,32 @@ components:
       schema:
         type: string
         example: 11227809;417142
-    Site:
-      name: site
+    Page:
+      name: page
       in: query
-      required: true
-      description: Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).
+      required: false
+      description: 1-indexed page number.
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+        example: 1
+    Key:
+      name: key
+      in: query
+      required: false
+      description: App key from stackapps.com. Raises the daily quota to 10,000/IP.
       schema:
         type: string
-        default: stackoverflow
-        example: stackoverflow
+        example: example_app_key_abcdef
+    Filter:
+      name: filter
+      in: query
+      required: false
+      description: Custom response filter id created via /filters/create.
+      schema:
+        type: string
+        example: default
     PageSize:
       name: pagesize
       in: query
@@ -124,25 +133,50 @@ components:
         maximum: 100
         default: 30
         example: 30
-    Page:
-      name: page
+    Site:
+      name: site
       in: query
-      required: false
-      description: 1-indexed page number.
-      schema:
-        type: integer
-        minimum: 1
-        default: 1
-        example: 1
-    Filter:
-      name: filter
-      in: query
-      required: false
-      description: Custom response filter id created via /filters/create.
+      required: true
+      description: Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).
       schema:
         type: string
-        example: default
+        default: stackoverflow
+        example: stackoverflow
   schemas:
+    ShallowUser:
+      type: object
+      description: Lightweight user reference embedded in posts and comments.
+      properties:
+        user_id:
+          type: integer
+          format: int64
+          example: 22656
+        user_type:
+          type: string
+          enum:
+          - unregistered
+          - registered
+          - moderator
+          - team_admin
+          - does_not_exist
+          example: registered
+        display_name:
+          type: string
+          example: Jon Skeet
+        reputation:
+          type: integer
+          example: 1500000
+        profile_image:
+          type: string
+          format: uri
+          example: https://i.sstatic.net/lLZAr.jpg?s=128
+        link:
+          type: string
+          format: uri
+          example: https://stackoverflow.com/users/22656/jon-skeet
+        accept_rate:
+          type: integer
+          example: 92
     SuggestedEditsResponse:
       allOf:
       - $ref: '#/components/schemas/Wrapper'
@@ -189,40 +223,6 @@ components:
           format: int64
         proposing_user:
           $ref: '#/components/schemas/ShallowUser'
-    ShallowUser:
-      type: object
-      description: Lightweight user reference embedded in posts and comments.
-      properties:
-        user_id:
-          type: integer
-          format: int64
-          example: 22656
-        user_type:
-          type: string
-          enum:
-          - unregistered
-          - registered
-          - moderator
-          - team_admin
-          - does_not_exist
-          example: registered
-        display_name:
-          type: string
-          example: Jon Skeet
-        reputation:
-          type: integer
-          example: 1500000
-        profile_image:
-          type: string
-          format: uri
-          example: https://i.sstatic.net/lLZAr.jpg?s=128
-        link:
-          type: string
-          format: uri
-          example: https://stackoverflow.com/users/22656/jon-skeet
-        accept_rate:
-          type: integer
-          example: 92
     Wrapper:
       type: object
       description: Common envelope returned by every Stack Exchange API method.

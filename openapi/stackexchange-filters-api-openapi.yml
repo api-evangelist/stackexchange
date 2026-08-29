@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: Stack Exchange Access Tokens Filters API
   description: 'Public, read-mostly HTTP/JSON API spanning all 180+ Stack Exchange sites
@@ -110,6 +110,15 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
+  parameters:
+    Key:
+      name: key
+      in: query
+      required: false
+      description: App key from stackapps.com. Raises the daily quota to 10,000/IP.
+      schema:
+        type: string
+        example: example_app_key_abcdef
   schemas:
     FiltersResponse:
       allOf:
@@ -120,6 +129,21 @@ components:
             type: array
             items:
               $ref: '#/components/schemas/Filter'
+    Filter:
+      type: object
+      properties:
+        filter:
+          type: string
+        filter_type:
+          type: string
+          enum:
+          - safe
+          - unsafe
+          - invalid
+        included_fields:
+          type: array
+          items:
+            type: string
     Wrapper:
       type: object
       description: Common envelope returned by every Stack Exchange API method.
@@ -167,30 +191,6 @@ components:
       - has_more
       - quota_max
       - quota_remaining
-    Filter:
-      type: object
-      properties:
-        filter:
-          type: string
-        filter_type:
-          type: string
-          enum:
-          - safe
-          - unsafe
-          - invalid
-        included_fields:
-          type: array
-          items:
-            type: string
-  parameters:
-    Key:
-      name: key
-      in: query
-      required: false
-      description: App key from stackapps.com. Raises the daily quota to 10,000/IP.
-      schema:
-        type: string
-        example: example_app_key_abcdef
   securitySchemes:
     oauth2:
       type: oauth2

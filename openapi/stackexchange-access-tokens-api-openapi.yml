@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: Stack Exchange Access Tokens API
   description: 'Public, read-mostly HTTP/JSON API spanning all 180+ Stack Exchange sites
@@ -137,22 +137,6 @@ components:
         type: string
         example: default
   schemas:
-    AccessToken:
-      type: object
-      description: An OAuth access token, returned by the access-token endpoints.
-      properties:
-        access_token:
-          type: string
-        expires_on_date:
-          type: integer
-          format: int64
-        account_id:
-          type: integer
-          format: int64
-        scope:
-          type: array
-          items:
-            type: string
     AccessTokensResponse:
       allOf:
       - $ref: '#/components/schemas/Wrapper'
@@ -209,6 +193,22 @@ components:
       - has_more
       - quota_max
       - quota_remaining
+    AccessToken:
+      type: object
+      description: An OAuth access token, returned by the access-token endpoints.
+      properties:
+        access_token:
+          type: string
+        expires_on_date:
+          type: integer
+          format: int64
+        account_id:
+          type: integer
+          format: int64
+        scope:
+          type: array
+          items:
+            type: string
   securitySchemes:
     oauth2:
       type: oauth2
