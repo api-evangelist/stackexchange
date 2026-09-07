@@ -1,0 +1,137 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/api-evangelist/stack-exchange/json-schema/stack-exchange-question-schema.json",
+  "title": "Stack Exchange Question",
+  "description": "A question posted on a Stack Exchange network site",
+  "type": "object",
+  "required": ["question_id", "title", "link"],
+  "properties": {
+    "question_id": {
+      "type": "integer",
+      "description": "Unique identifier for the question",
+      "example": 11227809
+    },
+    "title": {
+      "type": "string",
+      "description": "Title of the question",
+      "example": "Why is processing a sorted array faster than processing an unsorted array?"
+    },
+    "body": {
+      "type": "string",
+      "description": "HTML body of the question"
+    },
+    "body_markdown": {
+      "type": "string",
+      "description": "Markdown source of the question body"
+    },
+    "score": {
+      "type": "integer",
+      "description": "Net upvote score of the question"
+    },
+    "view_count": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Number of times the question has been viewed"
+    },
+    "answer_count": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Number of answers the question has received"
+    },
+    "accepted_answer_id": {
+      "type": "integer",
+      "description": "ID of the accepted answer if one exists"
+    },
+    "is_answered": {
+      "type": "boolean",
+      "description": "Whether the question has been answered"
+    },
+    "creation_date": {
+      "type": "integer",
+      "description": "Unix timestamp of when the question was created"
+    },
+    "last_activity_date": {
+      "type": "integer",
+      "description": "Unix timestamp of last activity"
+    },
+    "last_edit_date": {
+      "type": "integer",
+      "description": "Unix timestamp of last edit"
+    },
+    "owner": {
+      "$ref": "#/$defs/ShallowUser"
+    },
+    "tags": {
+      "type": "array",
+      "items": {"type": "string"},
+      "description": "Tags associated with the question"
+    },
+    "link": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL link to the question page"
+    },
+    "closed_reason": {
+      "type": "string",
+      "description": "Reason the question was closed"
+    },
+    "closed_date": {
+      "type": "integer",
+      "description": "Unix timestamp of when the question was closed"
+    },
+    "bounty_amount": {
+      "type": "integer",
+      "description": "Bounty amount if an active bounty exists"
+    },
+    "bounty_closes_date": {
+      "type": "integer",
+      "description": "Unix timestamp when the bounty closes"
+    },
+    "community_owned_date": {
+      "type": "integer",
+      "description": "Unix timestamp when the question became community wiki"
+    }
+  },
+  "$defs": {
+    "ShallowUser": {
+      "title": "Shallow User",
+      "description": "A minimal representation of a Stack Exchange user",
+      "type": "object",
+      "properties": {
+        "user_id": {
+          "type": "integer",
+          "description": "Unique user identifier"
+        },
+        "display_name": {
+          "type": "string",
+          "description": "User's display name"
+        },
+        "reputation": {
+          "type": "integer",
+          "description": "User's reputation score"
+        },
+        "user_type": {
+          "type": "string",
+          "enum": ["unregistered", "registered", "moderator", "named_moderator", "team_admin"],
+          "description": "Type of user account"
+        },
+        "profile_image": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL of user's profile image"
+        },
+        "link": {
+          "type": "string",
+          "format": "uri",
+          "description": "Link to user's profile page"
+        },
+        "accept_rate": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Percentage of questions with accepted answers"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "schema": "https://schema.org/",
+    "se": "https://api.stackexchange.com/2.3/",
+    "sioc": "http://rdfs.org/sioc/ns#",
+    "foaf": "http://xmlns.com/foaf/0.1/",
+
+    "QAForum": "schema:QAPage",
+    "StackExchangeSite": "schema:WebSite",
+    "Question": "schema:Question",
+    "Answer": "schema:Answer",
+    "Comment": "sioc:Post",
+    "User": "foaf:Person",
+    "Tag": "schema:DefinedTerm",
+    "Badge": "schema:Certification",
+
+    "question_id": "schema:identifier",
+    "title": "schema:name",
+    "body": "schema:text",
+    "score": "schema:reviewCount",
+    "view_count": "schema:interactionCount",
+    "answer_count": "schema:answerCount",
+    "accepted_answer_id": "schema:acceptedAnswer",
+    "is_answered": "schema:answerCount",
+    "creation_date": {
+      "@id": "schema:dateCreated",
+      "@type": "schema:DateTime"
+    },
+    "last_activity_date": {
+      "@id": "schema:dateModified",
+      "@type": "schema:DateTime"
+    },
+    "owner": "schema:author",
+    "tags": "schema:keywords",
+    "link": {
+      "@id": "schema:url",
+      "@type": "@id"
+    },
+
+    "user_id": "schema:identifier",
+    "display_name": "foaf:name",
+    "reputation": "se:reputation",
+    "profile_image": {
+      "@id": "foaf:img",
+      "@type": "@id"
+    },
+
+    "tag_name": "schema:name",
+    "count": "schema:commentCount",
+    "has_synonyms": "se:hasSynonyms",
+
+    "badge_id": "schema:identifier",
+    "award_count": "schema:reviewCount",
+    "rank": "schema:educationalLevel",
+
+    "StackOverflow": "se:stackoverflow",
+    "ServerFault": "se:serverfault",
+    "SuperUser": "se:superuser",
+
+    "comment_id": "schema:identifier",
+    "post_id": "se:postId"
+  }
+}

@@ -1,0 +1,90 @@
+extends: spectral:oas
+rules:
+  stack-exchange-operation-summaries-title-case:
+    description: All Stack Exchange API operation summaries must use Title Case
+    message: "Operation summary '{{value}}' must use Title Case"
+    severity: warn
+    given: "$.paths[*][get,post,put,patch,delete].summary"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[A-Z][a-zA-Z0-9]*([ ][A-Z][a-zA-Z0-9]*)*$"
+
+  stack-exchange-site-parameter-required:
+    description: Stack Exchange API endpoints must require the site query parameter
+    message: "Operation must include the 'site' query parameter"
+    severity: warn
+    given: "$.paths[*][get,post,put,patch,delete].parameters[*]"
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          type: object
+
+  stack-exchange-operationid-camel-case:
+    description: Stack Exchange API operationIds must use camelCase
+    message: "operationId '{{value}}' must use camelCase"
+    severity: warn
+    given: "$.paths[*][get,post,put,patch,delete].operationId"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[a-z][a-zA-Z0-9]*$"
+
+  stack-exchange-operations-must-have-operationid:
+    description: All Stack Exchange API operations must have an operationId
+    message: "Operation is missing operationId"
+    severity: error
+    given: "$.paths[*][get,post,put,patch,delete]"
+    then:
+      field: operationId
+      function: truthy
+
+  stack-exchange-semicolon-ids-in-path:
+    description: Stack Exchange API path parameters for IDs use semicolon-delimited format
+    message: "Path {ids} parameters accept semicolon-delimited lists of IDs"
+    severity: info
+    given: "$.paths[*]~"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^/[a-z][a-z-/{}]*$"
+
+  stack-exchange-wrapper-response:
+    description: Stack Exchange API responses should use the wrapper envelope format
+    message: "Response should use Stack Exchange wrapper format with items and has_more"
+    severity: info
+    given: "$.paths[*][get,post,put,patch,delete].responses.200.content.application/json.schema"
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          type: object
+
+  stack-exchange-pagination-parameters:
+    description: Stack Exchange list operations should support page and pagesize parameters
+    message: "List operations should support page and pagesize parameters"
+    severity: warn
+    given: "$.paths[*].get.parameters[*]"
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          type: object
+
+  stack-exchange-oauth2-defined:
+    description: Stack Exchange API must define OAuth 2.0 security scheme
+    message: "Stack Exchange API spec must define oauth2 security scheme"
+    severity: error
+    given: "$.components.securitySchemes"
+    then:
+      field: oauth2
+      function: truthy
+
+  stack-exchange-tags-defined:
+    description: All tags referenced in operations must be defined at document level
+    message: "Tags must be defined in the global tags list"
+    severity: warn
+    given: "$.paths[*][get,post,put,patch,delete].tags"
+    then:
+      function: truthy

@@ -522,6 +522,20 @@ apis:
   - type: SDKs
     url: https://github.com/StackExchange/StacMan
 common:
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/stack-exchange
+  - type: Signup
+    url: http://stackapps.com/apps/oauth/register
+  - type: Applications
+    url: http://stackapps.com/apps/oauth
+  - type: GitHub Topics
+    url: https://github.com/topics/stackexchange-api
+  - type: JSONLD
+    url: json-ld/stackexchange-context.jsonld
+  - type: JSONSchema
+    url: json-schema/stackexchange-question-schema.json
+  - type: SpectralRules
+    url: rules/stackexchange-rules.yml
   - type: PostmanWorkspace
     url: https://www.postman.com/kinlaneapi/stack-exchange/overview
   - type: AgenticAccess
