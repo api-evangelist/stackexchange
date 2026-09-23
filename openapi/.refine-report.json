@@ -1,22 +1,7 @@
 {
   "provider": "stackexchange",
   "sources": [
-    "stackexchange-access-tokens-api-openapi.yml",
-    "stackexchange-answers-api-openapi.yml",
-    "stackexchange-badges-api-openapi.yml",
-    "stackexchange-comments-api-openapi.yml",
-    "stackexchange-events-api-openapi.yml",
-    "stackexchange-filters-api-openapi.yml",
-    "stackexchange-info-api-openapi.yml",
-    "stackexchange-me-api-openapi.yml",
-    "stackexchange-posts-api-openapi.yml",
-    "stackexchange-questions-api-openapi.yml",
-    "stackexchange-revisions-api-openapi.yml",
-    "stackexchange-search-api-openapi.yml",
-    "stackexchange-sites-api-openapi.yml",
-    "stackexchange-suggested-edits-api-openapi.yml",
-    "stackexchange-tags-api-openapi.yml",
-    "stackexchange-users-api-openapi.yml"
+    "_ae-authored/stackexchange-api-v2-3.yaml"
   ],
   "outputs": [
     "stackexchange-access-tokens-api-openapi.yml",
@@ -40,23 +25,26 @@
   "errors": [],
   "warnings": [],
   "notes": [
-    "stackexchange-access-tokens-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "stackexchange-answers-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "stackexchange-badges-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "stackexchange-comments-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "stackexchange-events-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "stackexchange-filters-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "stackexchange-info-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "stackexchange-me-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "stackexchange-posts-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "stackexchange-questions-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "stackexchange-revisions-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "stackexchange-search-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "stackexchange-sites-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "stackexchange-suggested-edits-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "stackexchange-tags-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "stackexchange-users-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "sourced from openapi/_original/ (0 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "stackexchange-api-v2-3.yaml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
     "apis.yml register: already-registered"
   ],
-  "skipped": []
+  "skipped": [
+    "stackexchange-access-tokens-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "stackexchange-answers-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "stackexchange-badges-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "stackexchange-comments-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "stackexchange-events-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "stackexchange-filters-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "stackexchange-info-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "stackexchange-me-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "stackexchange-posts-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "stackexchange-questions-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "stackexchange-revisions-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "stackexchange-search-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "stackexchange-sites-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "stackexchange-suggested-edits-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "stackexchange-tags-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "stackexchange-users-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

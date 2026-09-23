@@ -1,27 +1,9 @@
 openapi: 3.2.0
 info:
-  title: Stack Exchange Access Tokens Events API
+  title: Stack Exchange Events API
   description: 'Public, read-mostly HTTP/JSON API spanning all 180+ Stack Exchange sites
 
-    (Stack Overflow, Server Fault, Super User, Ask Ubuntu, Stats, Math Overflow, ...).
-
-
-    All method families live under a single base URL with a uniform wrapper
-
-    (`items`, `has_more`, `page`, `quota_max`, `quota_remaining`, `backoff`).
-
-    Read access is unauthenticated. Write methods require OAuth 2.0 with the
-
-    appropriate scopes (`write_access`, `private_info`, `no_expiry`).
-
-
-    Most paths take a required `site` query parameter naming the target Q&A
-
-    community (`stackoverflow`, `serverfault`, `superuser`, ...). Use `/sites`
-
-    to enumerate the network.
-
-    '
+    (Stack Overflow, Server Fault, Super User, Ask Ubuntu, Stats, Math Overflow, ...).'
   version: '2.3'
   termsOfService: https://stackoverflow.com/legal/api-terms-of-use
   contact:
@@ -49,9 +31,7 @@ paths:
       summary: Stack Exchange List Events
       description: 'Recent network events (last ~15 seconds) for the authenticated user.
 
-        Requires authentication.
-
-        '
+        Requires authentication.'
       security:
       - oauth2:
         - no_expiry
@@ -77,32 +57,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    Event:
-      type: object
-      description: A network event (1.5 minute live window).
-      properties:
-        event_type:
-          type: string
-          example: question_posted
-        event_id:
-          type: integer
-        creation_date:
-          type: integer
-          format: int64
-        link:
-          type: string
-          format: uri
-        excerpt:
-          type: string
-    EventsResponse:
-      allOf:
-      - $ref: '#/components/schemas/Wrapper'
-      - type: object
-        properties:
-          items:
-            type: array
-            items:
-              $ref: '#/components/schemas/Event'
     Wrapper:
       type: object
       description: Common envelope returned by every Stack Exchange API method.
@@ -150,15 +104,33 @@ components:
       - has_more
       - quota_max
       - quota_remaining
+    Event:
+      type: object
+      description: A network event (1.5 minute live window).
+      properties:
+        event_type:
+          type: string
+          example: question_posted
+        event_id:
+          type: integer
+        creation_date:
+          type: integer
+          format: int64
+        link:
+          type: string
+          format: uri
+        excerpt:
+          type: string
+    EventsResponse:
+      allOf:
+      - $ref: '#/components/schemas/Wrapper'
+      - type: object
+        properties:
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/Event'
   parameters:
-    Key:
-      name: key
-      in: query
-      required: false
-      description: App key from stackapps.com. Raises the daily quota to 10,000/IP.
-      schema:
-        type: string
-        example: example_app_key_abcdef
     Filter:
       name: filter
       in: query
@@ -167,14 +139,6 @@ components:
       schema:
         type: string
         example: default
-    AccessToken:
-      name: access_token
-      in: query
-      required: false
-      description: OAuth 2.0 access token. Required for any /me surface and any write.
-      schema:
-        type: string
-        example: example_access_token_abcdef
     Site:
       name: site
       in: query
@@ -184,6 +148,22 @@ components:
         type: string
         default: stackoverflow
         example: stackoverflow
+    AccessToken:
+      name: access_token
+      in: query
+      required: false
+      description: OAuth 2.0 access token. Required for any /me surface and any write.
+      schema:
+        type: string
+        example: example_access_token_abcdef
+    Key:
+      name: key
+      in: query
+      required: false
+      description: App key from stackapps.com. Raises the daily quota to 10,000/IP.
+      schema:
+        type: string
+        example: example_app_key_abcdef
   securitySchemes:
     oauth2:
       type: oauth2

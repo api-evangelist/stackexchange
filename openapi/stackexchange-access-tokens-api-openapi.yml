@@ -3,25 +3,7 @@ info:
   title: Stack Exchange Access Tokens API
   description: 'Public, read-mostly HTTP/JSON API spanning all 180+ Stack Exchange sites
 
-    (Stack Overflow, Server Fault, Super User, Ask Ubuntu, Stats, Math Overflow, ...).
-
-
-    All method families live under a single base URL with a uniform wrapper
-
-    (`items`, `has_more`, `page`, `quota_max`, `quota_remaining`, `backoff`).
-
-    Read access is unauthenticated. Write methods require OAuth 2.0 with the
-
-    appropriate scopes (`write_access`, `private_info`, `no_expiry`).
-
-
-    Most paths take a required `site` query parameter naming the target Q&A
-
-    community (`stackoverflow`, `serverfault`, `superuser`, ...). Use `/sites`
-
-    to enumerate the network.
-
-    '
+    (Stack Overflow, Server Fault, Super User, Ask Ubuntu, Stats, Math Overflow, ...).'
   version: '2.3'
   termsOfService: https://stackoverflow.com/legal/api-terms-of-use
   contact:
@@ -119,33 +101,7 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
-  parameters:
-    Key:
-      name: key
-      in: query
-      required: false
-      description: App key from stackapps.com. Raises the daily quota to 10,000/IP.
-      schema:
-        type: string
-        example: example_app_key_abcdef
-    Filter:
-      name: filter
-      in: query
-      required: false
-      description: Custom response filter id created via /filters/create.
-      schema:
-        type: string
-        example: default
   schemas:
-    AccessTokensResponse:
-      allOf:
-      - $ref: '#/components/schemas/Wrapper'
-      - type: object
-        properties:
-          items:
-            type: array
-            items:
-              $ref: '#/components/schemas/AccessToken'
     Wrapper:
       type: object
       description: Common envelope returned by every Stack Exchange API method.
@@ -193,6 +149,15 @@ components:
       - has_more
       - quota_max
       - quota_remaining
+    AccessTokensResponse:
+      allOf:
+      - $ref: '#/components/schemas/Wrapper'
+      - type: object
+        properties:
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/AccessToken'
     AccessToken:
       type: object
       description: An OAuth access token, returned by the access-token endpoints.
@@ -209,6 +174,23 @@ components:
           type: array
           items:
             type: string
+  parameters:
+    Filter:
+      name: filter
+      in: query
+      required: false
+      description: Custom response filter id created via /filters/create.
+      schema:
+        type: string
+        example: default
+    Key:
+      name: key
+      in: query
+      required: false
+      description: App key from stackapps.com. Raises the daily quota to 10,000/IP.
+      schema:
+        type: string
+        example: example_app_key_abcdef
   securitySchemes:
     oauth2:
       type: oauth2

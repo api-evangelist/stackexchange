@@ -1,27 +1,9 @@
 openapi: 3.2.0
 info:
-  title: Stack Exchange Access Tokens Me API
+  title: Stack Exchange Me API
   description: 'Public, read-mostly HTTP/JSON API spanning all 180+ Stack Exchange sites
 
-    (Stack Overflow, Server Fault, Super User, Ask Ubuntu, Stats, Math Overflow, ...).
-
-
-    All method families live under a single base URL with a uniform wrapper
-
-    (`items`, `has_more`, `page`, `quota_max`, `quota_remaining`, `backoff`).
-
-    Read access is unauthenticated. Write methods require OAuth 2.0 with the
-
-    appropriate scopes (`write_access`, `private_info`, `no_expiry`).
-
-
-    Most paths take a required `site` query parameter naming the target Q&A
-
-    community (`stackoverflow`, `serverfault`, `superuser`, ...). Use `/sites`
-
-    to enumerate the network.
-
-    '
+    (Stack Overflow, Server Fault, Super User, Ask Ubuntu, Stats, Math Overflow, ...).'
   version: '2.3'
   termsOfService: https://stackoverflow.com/legal/api-terms-of-use
   contact:
@@ -353,79 +335,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    Badge:
-      type: object
-      description: A badge definition.
-      properties:
-        badge_id:
-          type: integer
-          example: 23
-        name:
-          type: string
-          example: Nice Question
-        description:
-          type: string
-          example: Question score of 10 or more.
-        rank:
-          type: string
-          enum:
-          - bronze
-          - silver
-          - gold
-          example: bronze
-        badge_type:
-          type: string
-          enum:
-          - named
-          - tag_based
-          example: named
-        award_count:
-          type: integer
-          example: 500000
-        link:
-          type: string
-          format: uri
-          example: https://stackoverflow.com/help/badges/23/nice-question
-        user:
-          $ref: '#/components/schemas/ShallowUser'
-    Event:
-      type: object
-      description: A network event (1.5 minute live window).
-      properties:
-        event_type:
-          type: string
-          example: question_posted
-        event_id:
-          type: integer
-        creation_date:
-          type: integer
-          format: int64
-        link:
-          type: string
-          format: uri
-        excerpt:
-          type: string
-    Notification:
-      type: object
-      description: An in-product notification for the authenticated user.
-      properties:
-        notification_type:
-          type: string
-          example: badge_earned
-        creation_date:
-          type: integer
-          format: int64
-          example: 1735000000
-        is_unread:
-          type: boolean
-          example: true
-        body:
-          type: string
-          example: You earned the 'Nice Question' badge.
-        post_id:
-          type: integer
-        site:
-          $ref: '#/components/schemas/Site'
     CommentsResponse:
       allOf:
       - $ref: '#/components/schemas/Wrapper'
@@ -435,7 +344,7 @@ components:
             type: array
             items:
               $ref: '#/components/schemas/Comment'
-    AnswersResponse:
+    ReputationResponse:
       allOf:
       - $ref: '#/components/schemas/Wrapper'
       - type: object
@@ -443,148 +352,7 @@ components:
           items:
             type: array
             items:
-              $ref: '#/components/schemas/Answer'
-    EventsResponse:
-      allOf:
-      - $ref: '#/components/schemas/Wrapper'
-      - type: object
-        properties:
-          items:
-            type: array
-            items:
-              $ref: '#/components/schemas/Event'
-    BadgesResponse:
-      allOf:
-      - $ref: '#/components/schemas/Wrapper'
-      - type: object
-        properties:
-          items:
-            type: array
-            items:
-              $ref: '#/components/schemas/Badge'
-    QuestionsResponse:
-      allOf:
-      - $ref: '#/components/schemas/Wrapper'
-      - type: object
-        properties:
-          items:
-            type: array
-            items:
-              $ref: '#/components/schemas/Question'
-    ReputationChange:
-      type: object
-      properties:
-        user_id:
-          type: integer
-          format: int64
-        post_id:
-          type: integer
-        post_type:
-          type: string
-          enum:
-          - question
-          - answer
-        vote_type:
-          type: string
-          enum:
-          - accepts
-          - bounties_won
-          - up_votes
-          - down_votes
-          - suggested_edit
-          - post_undeleted
-          - spam
-          - vote_fraud_reversal
-          - post_deleted
-          - post_migrated
-          - association_bonus
-        reputation_change:
-          type: integer
-        on_date:
-          type: integer
-          format: int64
-    InboxItem:
-      type: object
-      description: An inbox item for the authenticated user.
-      properties:
-        item_type:
-          type: string
-          example: comment
-        creation_date:
-          type: integer
-          format: int64
-        is_unread:
-          type: boolean
-        title:
-          type: string
-        body:
-          type: string
-        link:
-          type: string
-          format: uri
-        question_id:
-          type: integer
-        answer_id:
-          type: integer
-        comment_id:
-          type: integer
-        site:
-          $ref: '#/components/schemas/Site'
-    Comment:
-      type: object
-      description: A comment attached to a question or answer.
-      properties:
-        comment_id:
-          type: integer
-          example: 14587302
-        post_id:
-          type: integer
-          example: 11227809
-        post_type:
-          type: string
-          enum:
-          - question
-          - answer
-          example: question
-        score:
-          type: integer
-          example: 12
-        body:
-          type: string
-          example: Great explanation, thank you.
-        body_markdown:
-          type: string
-        creation_date:
-          type: integer
-          format: int64
-          example: 1338800000
-        edited:
-          type: boolean
-          example: false
-        link:
-          type: string
-          format: uri
-          example: https://stackoverflow.com/questions/11227809#comment14587302_11227809
-        owner:
-          $ref: '#/components/schemas/ShallowUser'
-        reply_to_user:
-          $ref: '#/components/schemas/ShallowUser'
-        content_license:
-          type: string
-          example: CC BY-SA 4.0
-    BadgeCount:
-      type: object
-      description: Bronze/silver/gold badge counts for a user.
-      properties:
-        bronze:
-          type: integer
-          example: 10000
-        silver:
-          type: integer
-          example: 5000
-        gold:
-          type: integer
-          example: 800
+              $ref: '#/components/schemas/ReputationChange'
     Question:
       type: object
       description: A question on a Stack Exchange site.
@@ -669,6 +437,57 @@ components:
         bounty_closes_date:
           type: integer
           format: int64
+    QuestionsResponse:
+      allOf:
+      - $ref: '#/components/schemas/Wrapper'
+      - type: object
+        properties:
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/Question'
+    Comment:
+      type: object
+      description: A comment attached to a question or answer.
+      properties:
+        comment_id:
+          type: integer
+          example: 14587302
+        post_id:
+          type: integer
+          example: 11227809
+        post_type:
+          type: string
+          enum:
+          - question
+          - answer
+          example: question
+        score:
+          type: integer
+          example: 12
+        body:
+          type: string
+          example: Great explanation, thank you.
+        body_markdown:
+          type: string
+        creation_date:
+          type: integer
+          format: int64
+          example: 1338800000
+        edited:
+          type: boolean
+          example: false
+        link:
+          type: string
+          format: uri
+          example: https://stackoverflow.com/questions/11227809#comment14587302_11227809
+        owner:
+          $ref: '#/components/schemas/ShallowUser'
+        reply_to_user:
+          $ref: '#/components/schemas/ShallowUser'
+        content_license:
+          type: string
+          example: CC BY-SA 4.0
     TagsResponse:
       allOf:
       - $ref: '#/components/schemas/Wrapper'
@@ -678,250 +497,6 @@ components:
             type: array
             items:
               $ref: '#/components/schemas/Tag'
-    UsersResponse:
-      allOf:
-      - $ref: '#/components/schemas/Wrapper'
-      - type: object
-        properties:
-          items:
-            type: array
-            items:
-              $ref: '#/components/schemas/User'
-    ReputationResponse:
-      allOf:
-      - $ref: '#/components/schemas/Wrapper'
-      - type: object
-        properties:
-          items:
-            type: array
-            items:
-              $ref: '#/components/schemas/ReputationChange'
-    ShallowUser:
-      type: object
-      description: Lightweight user reference embedded in posts and comments.
-      properties:
-        user_id:
-          type: integer
-          format: int64
-          example: 22656
-        user_type:
-          type: string
-          enum:
-          - unregistered
-          - registered
-          - moderator
-          - team_admin
-          - does_not_exist
-          example: registered
-        display_name:
-          type: string
-          example: Jon Skeet
-        reputation:
-          type: integer
-          example: 1500000
-        profile_image:
-          type: string
-          format: uri
-          example: https://i.sstatic.net/lLZAr.jpg?s=128
-        link:
-          type: string
-          format: uri
-          example: https://stackoverflow.com/users/22656/jon-skeet
-        accept_rate:
-          type: integer
-          example: 92
-    Site:
-      type: object
-      description: A Stack Exchange community site.
-      properties:
-        site_url:
-          type: string
-          format: uri
-          example: https://stackoverflow.com
-        api_site_parameter:
-          type: string
-          example: stackoverflow
-        name:
-          type: string
-          example: Stack Overflow
-        site_type:
-          type: string
-          enum:
-          - main_site
-          - meta_site
-          example: main_site
-        audience:
-          type: string
-          example: professional and enthusiast programmers
-        icon_url:
-          type: string
-          format: uri
-        logo_url:
-          type: string
-          format: uri
-        favicon_url:
-          type: string
-          format: uri
-        launch_date:
-          type: integer
-          format: int64
-          example: 1221177600
-        site_state:
-          type: string
-          enum:
-          - normal
-          - closed_beta
-          - open_beta
-          - linked_meta
-          example: normal
-        styling:
-          type: object
-          properties:
-            link_color:
-              type: string
-            tag_foreground_color:
-              type: string
-            tag_background_color:
-              type: string
-        related_sites:
-          type: array
-          items:
-            type: object
-            properties:
-              name:
-                type: string
-              site_url:
-                type: string
-                format: uri
-              relation:
-                type: string
-                enum:
-                - parent
-                - meta
-                - chat
-        markdown_extensions:
-          type: array
-          items:
-            type: string
-    NotificationsResponse:
-      allOf:
-      - $ref: '#/components/schemas/Wrapper'
-      - type: object
-        properties:
-          items:
-            type: array
-            items:
-              $ref: '#/components/schemas/Notification'
-    Answer:
-      type: object
-      description: An answer on a Stack Exchange site.
-      properties:
-        answer_id:
-          type: integer
-          example: 11227902
-        question_id:
-          type: integer
-          example: 11227809
-        title:
-          type: string
-          example: Why is processing a sorted array faster than processing an unsorted array?
-        body:
-          type: string
-          description: HTML body (filter-dependent).
-        body_markdown:
-          type: string
-          description: Markdown body (filter-dependent).
-        link:
-          type: string
-          format: uri
-          example: https://stackoverflow.com/a/11227902
-        score:
-          type: integer
-          example: 36000
-        up_vote_count:
-          type: integer
-          example: 36500
-        down_vote_count:
-          type: integer
-          example: 500
-        is_accepted:
-          type: boolean
-          example: true
-        comment_count:
-          type: integer
-          example: 20
-        creation_date:
-          type: integer
-          format: int64
-          example: 1338719105
-        last_activity_date:
-          type: integer
-          format: int64
-          example: 1700000000
-        last_edit_date:
-          type: integer
-          format: int64
-        owner:
-          $ref: '#/components/schemas/ShallowUser'
-        last_editor:
-          $ref: '#/components/schemas/ShallowUser'
-        tags:
-          type: array
-          items:
-            type: string
-          example:
-          - java
-          - c++
-          - performance
-        content_license:
-          type: string
-          example: CC BY-SA 4.0
-        community_owned_date:
-          type: integer
-          format: int64
-        locked_date:
-          type: integer
-          format: int64
-        awarded_bounty_amount:
-          type: integer
-        awarded_bounty_users:
-          type: array
-          items:
-            $ref: '#/components/schemas/ShallowUser'
-    InboxResponse:
-      allOf:
-      - $ref: '#/components/schemas/Wrapper'
-      - type: object
-        properties:
-          items:
-            type: array
-            items:
-              $ref: '#/components/schemas/InboxItem'
-    Tag:
-      type: object
-      description: A tag on a Stack Exchange site.
-      properties:
-        name:
-          type: string
-          example: openapi
-        count:
-          type: integer
-          example: 3200
-        is_required:
-          type: boolean
-          example: false
-        is_moderator_only:
-          type: boolean
-          example: false
-        has_synonyms:
-          type: boolean
-          example: true
-        user_id:
-          type: integer
-          description: For tag-wikis, the most recent editor.
-        last_activity_date:
-          type: integer
-          format: int64
     User:
       type: object
       description: A user account on a single Stack Exchange site.
@@ -1014,6 +589,196 @@ components:
         view_count:
           type: integer
           example: 99999999
+    BadgeCount:
+      type: object
+      description: Bronze/silver/gold badge counts for a user.
+      properties:
+        bronze:
+          type: integer
+          example: 10000
+        silver:
+          type: integer
+          example: 5000
+        gold:
+          type: integer
+          example: 800
+    InboxItem:
+      type: object
+      description: An inbox item for the authenticated user.
+      properties:
+        item_type:
+          type: string
+          example: comment
+        creation_date:
+          type: integer
+          format: int64
+        is_unread:
+          type: boolean
+        title:
+          type: string
+        body:
+          type: string
+        link:
+          type: string
+          format: uri
+        question_id:
+          type: integer
+        answer_id:
+          type: integer
+        comment_id:
+          type: integer
+        site:
+          $ref: '#/components/schemas/Site'
+    AnswersResponse:
+      allOf:
+      - $ref: '#/components/schemas/Wrapper'
+      - type: object
+        properties:
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/Answer'
+    Badge:
+      type: object
+      description: A badge definition.
+      properties:
+        badge_id:
+          type: integer
+          example: 23
+        name:
+          type: string
+          example: Nice Question
+        description:
+          type: string
+          example: Question score of 10 or more.
+        rank:
+          type: string
+          enum:
+          - bronze
+          - silver
+          - gold
+          example: bronze
+        badge_type:
+          type: string
+          enum:
+          - named
+          - tag_based
+          example: named
+        award_count:
+          type: integer
+          example: 500000
+        link:
+          type: string
+          format: uri
+          example: https://stackoverflow.com/help/badges/23/nice-question
+        user:
+          $ref: '#/components/schemas/ShallowUser'
+    NotificationsResponse:
+      allOf:
+      - $ref: '#/components/schemas/Wrapper'
+      - type: object
+        properties:
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/Notification'
+    Notification:
+      type: object
+      description: An in-product notification for the authenticated user.
+      properties:
+        notification_type:
+          type: string
+          example: badge_earned
+        creation_date:
+          type: integer
+          format: int64
+          example: 1735000000
+        is_unread:
+          type: boolean
+          example: true
+        body:
+          type: string
+          example: You earned the 'Nice Question' badge.
+        post_id:
+          type: integer
+        site:
+          $ref: '#/components/schemas/Site'
+    Answer:
+      type: object
+      description: An answer on a Stack Exchange site.
+      properties:
+        answer_id:
+          type: integer
+          example: 11227902
+        question_id:
+          type: integer
+          example: 11227809
+        title:
+          type: string
+          example: Why is processing a sorted array faster than processing an unsorted array?
+        body:
+          type: string
+          description: HTML body (filter-dependent).
+        body_markdown:
+          type: string
+          description: Markdown body (filter-dependent).
+        link:
+          type: string
+          format: uri
+          example: https://stackoverflow.com/a/11227902
+        score:
+          type: integer
+          example: 36000
+        up_vote_count:
+          type: integer
+          example: 36500
+        down_vote_count:
+          type: integer
+          example: 500
+        is_accepted:
+          type: boolean
+          example: true
+        comment_count:
+          type: integer
+          example: 20
+        creation_date:
+          type: integer
+          format: int64
+          example: 1338719105
+        last_activity_date:
+          type: integer
+          format: int64
+          example: 1700000000
+        last_edit_date:
+          type: integer
+          format: int64
+        owner:
+          $ref: '#/components/schemas/ShallowUser'
+        last_editor:
+          $ref: '#/components/schemas/ShallowUser'
+        tags:
+          type: array
+          items:
+            type: string
+          example:
+          - java
+          - c++
+          - performance
+        content_license:
+          type: string
+          example: CC BY-SA 4.0
+        community_owned_date:
+          type: integer
+          format: int64
+        locked_date:
+          type: integer
+          format: int64
+        awarded_bounty_amount:
+          type: integer
+        awarded_bounty_users:
+          type: array
+          items:
+            $ref: '#/components/schemas/ShallowUser'
     Wrapper:
       type: object
       description: Common envelope returned by every Stack Exchange API method.
@@ -1061,33 +826,232 @@ components:
       - has_more
       - quota_max
       - quota_remaining
+    ReputationChange:
+      type: object
+      properties:
+        user_id:
+          type: integer
+          format: int64
+        post_id:
+          type: integer
+        post_type:
+          type: string
+          enum:
+          - question
+          - answer
+        vote_type:
+          type: string
+          enum:
+          - accepts
+          - bounties_won
+          - up_votes
+          - down_votes
+          - suggested_edit
+          - post_undeleted
+          - spam
+          - vote_fraud_reversal
+          - post_deleted
+          - post_migrated
+          - association_bonus
+        reputation_change:
+          type: integer
+        on_date:
+          type: integer
+          format: int64
+    BadgesResponse:
+      allOf:
+      - $ref: '#/components/schemas/Wrapper'
+      - type: object
+        properties:
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/Badge'
+    Site:
+      type: object
+      description: A Stack Exchange community site.
+      properties:
+        site_url:
+          type: string
+          format: uri
+          example: https://stackoverflow.com
+        api_site_parameter:
+          type: string
+          example: stackoverflow
+        name:
+          type: string
+          example: Stack Overflow
+        site_type:
+          type: string
+          enum:
+          - main_site
+          - meta_site
+          example: main_site
+        audience:
+          type: string
+          example: professional and enthusiast programmers
+        icon_url:
+          type: string
+          format: uri
+        logo_url:
+          type: string
+          format: uri
+        favicon_url:
+          type: string
+          format: uri
+        launch_date:
+          type: integer
+          format: int64
+          example: 1221177600
+        site_state:
+          type: string
+          enum:
+          - normal
+          - closed_beta
+          - open_beta
+          - linked_meta
+          example: normal
+        styling:
+          type: object
+          properties:
+            link_color:
+              type: string
+            tag_foreground_color:
+              type: string
+            tag_background_color:
+              type: string
+        related_sites:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              site_url:
+                type: string
+                format: uri
+              relation:
+                type: string
+                enum:
+                - parent
+                - meta
+                - chat
+        markdown_extensions:
+          type: array
+          items:
+            type: string
+    Tag:
+      type: object
+      description: A tag on a Stack Exchange site.
+      properties:
+        name:
+          type: string
+          example: openapi
+        count:
+          type: integer
+          example: 3200
+        is_required:
+          type: boolean
+          example: false
+        is_moderator_only:
+          type: boolean
+          example: false
+        has_synonyms:
+          type: boolean
+          example: true
+        user_id:
+          type: integer
+          description: For tag-wikis, the most recent editor.
+        last_activity_date:
+          type: integer
+          format: int64
+    Event:
+      type: object
+      description: A network event (1.5 minute live window).
+      properties:
+        event_type:
+          type: string
+          example: question_posted
+        event_id:
+          type: integer
+        creation_date:
+          type: integer
+          format: int64
+        link:
+          type: string
+          format: uri
+        excerpt:
+          type: string
+    InboxResponse:
+      allOf:
+      - $ref: '#/components/schemas/Wrapper'
+      - type: object
+        properties:
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/InboxItem'
+    UsersResponse:
+      allOf:
+      - $ref: '#/components/schemas/Wrapper'
+      - type: object
+        properties:
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/User'
+    EventsResponse:
+      allOf:
+      - $ref: '#/components/schemas/Wrapper'
+      - type: object
+        properties:
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/Event'
+    ShallowUser:
+      type: object
+      description: Lightweight user reference embedded in posts and comments.
+      properties:
+        user_id:
+          type: integer
+          format: int64
+          example: 22656
+        user_type:
+          type: string
+          enum:
+          - unregistered
+          - registered
+          - moderator
+          - team_admin
+          - does_not_exist
+          example: registered
+        display_name:
+          type: string
+          example: Jon Skeet
+        reputation:
+          type: integer
+          example: 1500000
+        profile_image:
+          type: string
+          format: uri
+          example: https://i.sstatic.net/lLZAr.jpg?s=128
+        link:
+          type: string
+          format: uri
+          example: https://stackoverflow.com/users/22656/jon-skeet
+        accept_rate:
+          type: integer
+          example: 92
   parameters:
-    AccessToken:
-      name: access_token
+    Key:
+      name: key
       in: query
       required: false
-      description: OAuth 2.0 access token. Required for any /me surface and any write.
+      description: App key from stackapps.com. Raises the daily quota to 10,000/IP.
       schema:
         type: string
-        example: example_access_token_abcdef
-    Filter:
-      name: filter
-      in: query
-      required: false
-      description: Custom response filter id created via /filters/create.
-      schema:
-        type: string
-        example: default
-    Page:
-      name: page
-      in: query
-      required: false
-      description: 1-indexed page number.
-      schema:
-        type: integer
-        minimum: 1
-        default: 1
-        example: 1
+        example: example_app_key_abcdef
     PageSize:
       name: pagesize
       in: query
@@ -1108,14 +1072,32 @@ components:
         type: string
         default: stackoverflow
         example: stackoverflow
-    Key:
-      name: key
+    Page:
+      name: page
       in: query
       required: false
-      description: App key from stackapps.com. Raises the daily quota to 10,000/IP.
+      description: 1-indexed page number.
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+        example: 1
+    AccessToken:
+      name: access_token
+      in: query
+      required: false
+      description: OAuth 2.0 access token. Required for any /me surface and any write.
       schema:
         type: string
-        example: example_app_key_abcdef
+        example: example_access_token_abcdef
+    Filter:
+      name: filter
+      in: query
+      required: false
+      description: Custom response filter id created via /filters/create.
+      schema:
+        type: string
+        example: default
   securitySchemes:
     oauth2:
       type: oauth2

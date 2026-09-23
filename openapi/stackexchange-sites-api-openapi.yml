@@ -1,27 +1,9 @@
 openapi: 3.2.0
 info:
-  title: Stack Exchange Access Tokens Sites API
+  title: Stack Exchange Sites API
   description: 'Public, read-mostly HTTP/JSON API spanning all 180+ Stack Exchange sites
 
-    (Stack Overflow, Server Fault, Super User, Ask Ubuntu, Stats, Math Overflow, ...).
-
-
-    All method families live under a single base URL with a uniform wrapper
-
-    (`items`, `has_more`, `page`, `quota_max`, `quota_remaining`, `backoff`).
-
-    Read access is unauthenticated. Write methods require OAuth 2.0 with the
-
-    appropriate scopes (`write_access`, `private_info`, `no_expiry`).
-
-
-    Most paths take a required `site` query parameter naming the target Q&A
-
-    community (`stackoverflow`, `serverfault`, `superuser`, ...). Use `/sites`
-
-    to enumerate the network.
-
-    '
+    (Stack Overflow, Server Fault, Super User, Ask Ubuntu, Stats, Math Overflow, ...).'
   version: '2.3'
   termsOfService: https://stackoverflow.com/legal/api-terms-of-use
   contact:
@@ -64,54 +46,7 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
-  parameters:
-    Key:
-      name: key
-      in: query
-      required: false
-      description: App key from stackapps.com. Raises the daily quota to 10,000/IP.
-      schema:
-        type: string
-        example: example_app_key_abcdef
-    Filter:
-      name: filter
-      in: query
-      required: false
-      description: Custom response filter id created via /filters/create.
-      schema:
-        type: string
-        example: default
-    Page:
-      name: page
-      in: query
-      required: false
-      description: 1-indexed page number.
-      schema:
-        type: integer
-        minimum: 1
-        default: 1
-        example: 1
-    PageSize:
-      name: pagesize
-      in: query
-      required: false
-      description: Items per page (max 100).
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 30
-        example: 30
   schemas:
-    SitesResponse:
-      allOf:
-      - $ref: '#/components/schemas/Wrapper'
-      - type: object
-        properties:
-          items:
-            type: array
-            items:
-              $ref: '#/components/schemas/Site'
     Site:
       type: object
       description: A Stack Exchange community site.
@@ -232,6 +167,53 @@ components:
       - has_more
       - quota_max
       - quota_remaining
+    SitesResponse:
+      allOf:
+      - $ref: '#/components/schemas/Wrapper'
+      - type: object
+        properties:
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/Site'
+  parameters:
+    PageSize:
+      name: pagesize
+      in: query
+      required: false
+      description: Items per page (max 100).
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 30
+        example: 30
+    Filter:
+      name: filter
+      in: query
+      required: false
+      description: Custom response filter id created via /filters/create.
+      schema:
+        type: string
+        example: default
+    Key:
+      name: key
+      in: query
+      required: false
+      description: App key from stackapps.com. Raises the daily quota to 10,000/IP.
+      schema:
+        type: string
+        example: example_app_key_abcdef
+    Page:
+      name: page
+      in: query
+      required: false
+      description: 1-indexed page number.
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+        example: 1
   securitySchemes:
     oauth2:
       type: oauth2

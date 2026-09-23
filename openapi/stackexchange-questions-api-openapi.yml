@@ -1,27 +1,9 @@
 openapi: 3.2.0
 info:
-  title: Stack Exchange Access Tokens Questions API
+  title: Stack Exchange Questions API
   description: 'Public, read-mostly HTTP/JSON API spanning all 180+ Stack Exchange sites
 
-    (Stack Overflow, Server Fault, Super User, Ask Ubuntu, Stats, Math Overflow, ...).
-
-
-    All method families live under a single base URL with a uniform wrapper
-
-    (`items`, `has_more`, `page`, `quota_max`, `quota_remaining`, `backoff`).
-
-    Read access is unauthenticated. Write methods require OAuth 2.0 with the
-
-    appropriate scopes (`write_access`, `private_info`, `no_expiry`).
-
-
-    Most paths take a required `site` query parameter naming the target Q&A
-
-    community (`stackoverflow`, `serverfault`, `superuser`, ...). Use `/sites`
-
-    to enumerate the network.
-
-    '
+    (Stack Overflow, Server Fault, Super User, Ask Ubuntu, Stats, Math Overflow, ...).'
   version: '2.3'
   termsOfService: https://stackoverflow.com/legal/api-terms-of-use
   contact:
@@ -268,106 +250,6 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
-  parameters:
-    ToDate:
-      name: todate
-      in: query
-      required: false
-      description: Unix epoch seconds — latest creation_date.
-      schema:
-        type: integer
-        format: int64
-        example: 1735689600
-    AccessToken:
-      name: access_token
-      in: query
-      required: false
-      description: OAuth 2.0 access token. Required for any /me surface and any write.
-      schema:
-        type: string
-        example: example_access_token_abcdef
-    Filter:
-      name: filter
-      in: query
-      required: false
-      description: Custom response filter id created via /filters/create.
-      schema:
-        type: string
-        example: default
-    PageSize:
-      name: pagesize
-      in: query
-      required: false
-      description: Items per page (max 100).
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 30
-        example: 30
-    Page:
-      name: page
-      in: query
-      required: false
-      description: 1-indexed page number.
-      schema:
-        type: integer
-        minimum: 1
-        default: 1
-        example: 1
-    Site:
-      name: site
-      in: query
-      required: true
-      description: Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).
-      schema:
-        type: string
-        default: stackoverflow
-        example: stackoverflow
-    Order:
-      name: order
-      in: query
-      required: false
-      description: Sort direction.
-      schema:
-        type: string
-        enum:
-        - desc
-        - asc
-        default: desc
-    Ids:
-      name: ids
-      in: path
-      required: true
-      description: Up to 100 semicolon-delimited ids of the resource.
-      schema:
-        type: string
-        example: 11227809;417142
-    FromDate:
-      name: fromdate
-      in: query
-      required: false
-      description: Unix epoch seconds — earliest creation_date.
-      schema:
-        type: integer
-        format: int64
-        example: 1700000000
-    Tagged:
-      name: tagged
-      in: query
-      required: false
-      description: Semicolon-delimited list of tags to AND-filter by.
-      schema:
-        type: string
-        example: openapi;rest
-    Key:
-      name: key
-      in: query
-      required: false
-      description: App key from stackapps.com. Raises the daily quota to 10,000/IP.
-      schema:
-        type: string
-        example: example_app_key_abcdef
   schemas:
     CommentsResponse:
       allOf:
@@ -378,66 +260,6 @@ components:
             type: array
             items:
               $ref: '#/components/schemas/Comment'
-    AnswersResponse:
-      allOf:
-      - $ref: '#/components/schemas/Wrapper'
-      - type: object
-        properties:
-          items:
-            type: array
-            items:
-              $ref: '#/components/schemas/Answer'
-    QuestionsResponse:
-      allOf:
-      - $ref: '#/components/schemas/Wrapper'
-      - type: object
-        properties:
-          items:
-            type: array
-            items:
-              $ref: '#/components/schemas/Question'
-    Comment:
-      type: object
-      description: A comment attached to a question or answer.
-      properties:
-        comment_id:
-          type: integer
-          example: 14587302
-        post_id:
-          type: integer
-          example: 11227809
-        post_type:
-          type: string
-          enum:
-          - question
-          - answer
-          example: question
-        score:
-          type: integer
-          example: 12
-        body:
-          type: string
-          example: Great explanation, thank you.
-        body_markdown:
-          type: string
-        creation_date:
-          type: integer
-          format: int64
-          example: 1338800000
-        edited:
-          type: boolean
-          example: false
-        link:
-          type: string
-          format: uri
-          example: https://stackoverflow.com/questions/11227809#comment14587302_11227809
-        owner:
-          $ref: '#/components/schemas/ShallowUser'
-        reply_to_user:
-          $ref: '#/components/schemas/ShallowUser'
-        content_license:
-          type: string
-          example: CC BY-SA 4.0
     Question:
       type: object
       description: A question on a Stack Exchange site.
@@ -522,40 +344,66 @@ components:
         bounty_closes_date:
           type: integer
           format: int64
-    ShallowUser:
+    QuestionsResponse:
+      allOf:
+      - $ref: '#/components/schemas/Wrapper'
+      - type: object
+        properties:
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/Question'
+    Comment:
       type: object
-      description: Lightweight user reference embedded in posts and comments.
+      description: A comment attached to a question or answer.
       properties:
-        user_id:
+        comment_id:
           type: integer
-          format: int64
-          example: 22656
-        user_type:
+          example: 14587302
+        post_id:
+          type: integer
+          example: 11227809
+        post_type:
           type: string
           enum:
-          - unregistered
-          - registered
-          - moderator
-          - team_admin
-          - does_not_exist
-          example: registered
-        display_name:
-          type: string
-          example: Jon Skeet
-        reputation:
+          - question
+          - answer
+          example: question
+        score:
           type: integer
-          example: 1500000
-        profile_image:
+          example: 12
+        body:
           type: string
-          format: uri
-          example: https://i.sstatic.net/lLZAr.jpg?s=128
+          example: Great explanation, thank you.
+        body_markdown:
+          type: string
+        creation_date:
+          type: integer
+          format: int64
+          example: 1338800000
+        edited:
+          type: boolean
+          example: false
         link:
           type: string
           format: uri
-          example: https://stackoverflow.com/users/22656/jon-skeet
-        accept_rate:
-          type: integer
-          example: 92
+          example: https://stackoverflow.com/questions/11227809#comment14587302_11227809
+        owner:
+          $ref: '#/components/schemas/ShallowUser'
+        reply_to_user:
+          $ref: '#/components/schemas/ShallowUser'
+        content_license:
+          type: string
+          example: CC BY-SA 4.0
+    AnswersResponse:
+      allOf:
+      - $ref: '#/components/schemas/Wrapper'
+      - type: object
+        properties:
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/Answer'
     Answer:
       type: object
       description: An answer on a Stack Exchange site.
@@ -679,6 +527,140 @@ components:
       - has_more
       - quota_max
       - quota_remaining
+    ShallowUser:
+      type: object
+      description: Lightweight user reference embedded in posts and comments.
+      properties:
+        user_id:
+          type: integer
+          format: int64
+          example: 22656
+        user_type:
+          type: string
+          enum:
+          - unregistered
+          - registered
+          - moderator
+          - team_admin
+          - does_not_exist
+          example: registered
+        display_name:
+          type: string
+          example: Jon Skeet
+        reputation:
+          type: integer
+          example: 1500000
+        profile_image:
+          type: string
+          format: uri
+          example: https://i.sstatic.net/lLZAr.jpg?s=128
+        link:
+          type: string
+          format: uri
+          example: https://stackoverflow.com/users/22656/jon-skeet
+        accept_rate:
+          type: integer
+          example: 92
+  parameters:
+    Tagged:
+      name: tagged
+      in: query
+      required: false
+      description: Semicolon-delimited list of tags to AND-filter by.
+      schema:
+        type: string
+        example: openapi;rest
+    ToDate:
+      name: todate
+      in: query
+      required: false
+      description: Unix epoch seconds — latest creation_date.
+      schema:
+        type: integer
+        format: int64
+        example: 1735689600
+    PageSize:
+      name: pagesize
+      in: query
+      required: false
+      description: Items per page (max 100).
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 30
+        example: 30
+    Site:
+      name: site
+      in: query
+      required: true
+      description: Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).
+      schema:
+        type: string
+        default: stackoverflow
+        example: stackoverflow
+    Page:
+      name: page
+      in: query
+      required: false
+      description: 1-indexed page number.
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+        example: 1
+    Ids:
+      name: ids
+      in: path
+      required: true
+      description: Up to 100 semicolon-delimited ids of the resource.
+      schema:
+        type: string
+        example: 11227809;417142
+    Order:
+      name: order
+      in: query
+      required: false
+      description: Sort direction.
+      schema:
+        type: string
+        enum:
+        - desc
+        - asc
+        default: desc
+    AccessToken:
+      name: access_token
+      in: query
+      required: false
+      description: OAuth 2.0 access token. Required for any /me surface and any write.
+      schema:
+        type: string
+        example: example_access_token_abcdef
+    Filter:
+      name: filter
+      in: query
+      required: false
+      description: Custom response filter id created via /filters/create.
+      schema:
+        type: string
+        example: default
+    Key:
+      name: key
+      in: query
+      required: false
+      description: App key from stackapps.com. Raises the daily quota to 10,000/IP.
+      schema:
+        type: string
+        example: example_app_key_abcdef
+    FromDate:
+      name: fromdate
+      in: query
+      required: false
+      description: Unix epoch seconds — earliest creation_date.
+      schema:
+        type: integer
+        format: int64
+        example: 1700000000
   securitySchemes:
     oauth2:
       type: oauth2
