@@ -46,6 +46,62 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    InfoResponse:
+      allOf:
+      - $ref: '#/components/schemas/Wrapper'
+      - type: object
+        properties:
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/Info'
+    Wrapper:
+      type: object
+      description: Common envelope returned by every Stack Exchange API method.
+      properties:
+        backoff:
+          type: integer
+          description: Seconds the client MUST wait before re-querying this same method. Returned when the API has identified the consumer as expensive.
+          example: 0
+        error_id:
+          type: integer
+          description: Numeric error code when the response is an error.
+        error_message:
+          type: string
+          description: Human-readable error message.
+        error_name:
+          type: string
+          description: Stable error name (e.g. `throttle_violation`).
+        has_more:
+          type: boolean
+          description: True when more pages exist past the returned `page`.
+          example: true
+        page:
+          type: integer
+          description: Page number echoed from the request.
+          example: 1
+        page_size:
+          type: integer
+          description: Page size echoed from the request.
+          example: 30
+        quota_max:
+          type: integer
+          description: Daily quota for the IP/key combination.
+          example: 10000
+        quota_remaining:
+          type: integer
+          description: Quota left after this request.
+          example: 9999
+        total:
+          type: integer
+          description: Total count when the consumer requested it via filter.
+        type:
+          type: string
+          description: Type name of the items returned.
+      required:
+      - has_more
+      - quota_max
+      - quota_remaining
     Site:
       type: object
       description: A Stack Exchange community site.
@@ -119,62 +175,6 @@ components:
           type: array
           items:
             type: string
-    Wrapper:
-      type: object
-      description: Common envelope returned by every Stack Exchange API method.
-      properties:
-        backoff:
-          type: integer
-          description: Seconds the client MUST wait before re-querying this same method. Returned when the API has identified the consumer as expensive.
-          example: 0
-        error_id:
-          type: integer
-          description: Numeric error code when the response is an error.
-        error_message:
-          type: string
-          description: Human-readable error message.
-        error_name:
-          type: string
-          description: Stable error name (e.g. `throttle_violation`).
-        has_more:
-          type: boolean
-          description: True when more pages exist past the returned `page`.
-          example: true
-        page:
-          type: integer
-          description: Page number echoed from the request.
-          example: 1
-        page_size:
-          type: integer
-          description: Page size echoed from the request.
-          example: 30
-        quota_max:
-          type: integer
-          description: Daily quota for the IP/key combination.
-          example: 10000
-        quota_remaining:
-          type: integer
-          description: Quota left after this request.
-          example: 9999
-        total:
-          type: integer
-          description: Total count when the consumer requested it via filter.
-        type:
-          type: string
-          description: Type name of the items returned.
-      required:
-      - has_more
-      - quota_max
-      - quota_remaining
-    InfoResponse:
-      allOf:
-      - $ref: '#/components/schemas/Wrapper'
-      - type: object
-        properties:
-          items:
-            type: array
-            items:
-              $ref: '#/components/schemas/Info'
     Info:
       type: object
       description: Site-wide totals and metadata.
@@ -217,6 +217,14 @@ components:
       schema:
         type: string
         example: default
+    Key:
+      name: key
+      in: query
+      required: false
+      description: App key from stackapps.com. Raises the daily quota to 10,000/IP.
+      schema:
+        type: string
+        example: example_app_key_abcdef
     Site:
       name: site
       in: query
@@ -226,14 +234,6 @@ components:
         type: string
         default: stackoverflow
         example: stackoverflow
-    Key:
-      name: key
-      in: query
-      required: false
-      description: App key from stackapps.com. Raises the daily quota to 10,000/IP.
-      schema:
-        type: string
-        example: example_app_key_abcdef
   securitySchemes:
     oauth2:
       type: oauth2

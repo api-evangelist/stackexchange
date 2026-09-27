@@ -239,6 +239,18 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    TagScore:
+      type: object
+      description: A user's score in a tag (top askers/answerers).
+      properties:
+        user:
+          $ref: '#/components/schemas/ShallowUser'
+        score:
+          type: integer
+          example: 1200
+        post_count:
+          type: integer
+          example: 45
     Wrapper:
       type: object
       description: Common envelope returned by every Stack Exchange API method.
@@ -286,45 +298,6 @@ components:
       - has_more
       - quota_max
       - quota_remaining
-    TagSynonym:
-      type: object
-      properties:
-        from_tag:
-          type: string
-          example: oas3
-        to_tag:
-          type: string
-          example: openapi
-        applied_count:
-          type: integer
-          example: 145
-        last_applied_date:
-          type: integer
-          format: int64
-        creation_date:
-          type: integer
-          format: int64
-    TagScore:
-      type: object
-      description: A user's score in a tag (top askers/answerers).
-      properties:
-        user:
-          $ref: '#/components/schemas/ShallowUser'
-        score:
-          type: integer
-          example: 1200
-        post_count:
-          type: integer
-          example: 45
-    TagScoresResponse:
-      allOf:
-      - $ref: '#/components/schemas/Wrapper'
-      - type: object
-        properties:
-          items:
-            type: array
-            items:
-              $ref: '#/components/schemas/TagScore'
     ShallowUser:
       type: object
       description: Lightweight user reference embedded in posts and comments.
@@ -359,6 +332,33 @@ components:
         accept_rate:
           type: integer
           example: 92
+    TagSynonym:
+      type: object
+      properties:
+        from_tag:
+          type: string
+          example: oas3
+        to_tag:
+          type: string
+          example: openapi
+        applied_count:
+          type: integer
+          example: 145
+        last_applied_date:
+          type: integer
+          format: int64
+        creation_date:
+          type: integer
+          format: int64
+    TagsResponse:
+      allOf:
+      - $ref: '#/components/schemas/Wrapper'
+      - type: object
+        properties:
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/Tag'
     TagSynonymsResponse:
       allOf:
       - $ref: '#/components/schemas/Wrapper'
@@ -393,7 +393,7 @@ components:
         last_activity_date:
           type: integer
           format: int64
-    TagsResponse:
+    TagScoresResponse:
       allOf:
       - $ref: '#/components/schemas/Wrapper'
       - type: object
@@ -401,8 +401,16 @@ components:
           items:
             type: array
             items:
-              $ref: '#/components/schemas/Tag'
+              $ref: '#/components/schemas/TagScore'
   parameters:
+    Filter:
+      name: filter
+      in: query
+      required: false
+      description: Custom response filter id created via /filters/create.
+      schema:
+        type: string
+        example: default
     PageSize:
       name: pagesize
       in: query
@@ -414,34 +422,6 @@ components:
         maximum: 100
         default: 30
         example: 30
-    Filter:
-      name: filter
-      in: query
-      required: false
-      description: Custom response filter id created via /filters/create.
-      schema:
-        type: string
-        example: default
-    Order:
-      name: order
-      in: query
-      required: false
-      description: Sort direction.
-      schema:
-        type: string
-        enum:
-        - desc
-        - asc
-        default: desc
-    Site:
-      name: site
-      in: query
-      required: true
-      description: Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).
-      schema:
-        type: string
-        default: stackoverflow
-        example: stackoverflow
     Key:
       name: key
       in: query
@@ -460,6 +440,26 @@ components:
         minimum: 1
         default: 1
         example: 1
+    Site:
+      name: site
+      in: query
+      required: true
+      description: Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).
+      schema:
+        type: string
+        default: stackoverflow
+        example: stackoverflow
+    Order:
+      name: order
+      in: query
+      required: false
+      description: Sort direction.
+      schema:
+        type: string
+        enum:
+        - desc
+        - asc
+        default: desc
   securitySchemes:
     oauth2:
       type: oauth2

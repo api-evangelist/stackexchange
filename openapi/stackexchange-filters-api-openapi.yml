@@ -93,15 +93,21 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    FiltersResponse:
-      allOf:
-      - $ref: '#/components/schemas/Wrapper'
-      - type: object
-        properties:
+    Filter:
+      type: object
+      properties:
+        filter:
+          type: string
+        filter_type:
+          type: string
+          enum:
+          - safe
+          - unsafe
+          - invalid
+        included_fields:
+          type: array
           items:
-            type: array
-            items:
-              $ref: '#/components/schemas/Filter'
+            type: string
     Wrapper:
       type: object
       description: Common envelope returned by every Stack Exchange API method.
@@ -149,21 +155,15 @@ components:
       - has_more
       - quota_max
       - quota_remaining
-    Filter:
-      type: object
-      properties:
-        filter:
-          type: string
-        filter_type:
-          type: string
-          enum:
-          - safe
-          - unsafe
-          - invalid
-        included_fields:
-          type: array
+    FiltersResponse:
+      allOf:
+      - $ref: '#/components/schemas/Wrapper'
+      - type: object
+        properties:
           items:
-            type: string
+            type: array
+            items:
+              $ref: '#/components/schemas/Filter'
   parameters:
     Key:
       name: key
