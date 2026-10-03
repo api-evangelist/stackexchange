@@ -312,16 +312,6 @@ components:
       schema:
         type: string
         example: example_app_key_abcdef
-    Page:
-      name: page
-      in: query
-      required: false
-      description: 1-indexed page number.
-      schema:
-        type: integer
-        minimum: 1
-        default: 1
-        example: 1
     Site:
       name: site
       in: query
@@ -331,25 +321,6 @@ components:
         type: string
         default: stackoverflow
         example: stackoverflow
-    Filter:
-      name: filter
-      in: query
-      required: false
-      description: Custom response filter id created via /filters/create.
-      schema:
-        type: string
-        example: default
-    PageSize:
-      name: pagesize
-      in: query
-      required: false
-      description: Items per page (max 100).
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 30
-        example: 30
     Order:
       name: order
       in: query
@@ -361,8 +332,37 @@ components:
         - desc
         - asc
         default: desc
+    Page:
+      name: page
+      in: query
+      required: false
+      description: 1-indexed page number.
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+        example: 1
+    PageSize:
+      name: pagesize
+      in: query
+      required: false
+      description: Items per page (max 100).
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 30
+        example: 30
+    Filter:
+      name: filter
+      in: query
+      required: false
+      description: Custom response filter id created via /filters/create.
+      schema:
+        type: string
+        example: default
   schemas:
-    TagsResponse:
+    BadgesResponse:
       allOf:
       - $ref: '#/components/schemas/Wrapper'
       - type: object
@@ -370,192 +370,7 @@ components:
           items:
             type: array
             items:
-              $ref: '#/components/schemas/Tag'
-    Question:
-      type: object
-      description: A question on a Stack Exchange site.
-      properties:
-        question_id:
-          type: integer
-          example: 11227809
-        title:
-          type: string
-          example: Why is processing a sorted array faster than processing an unsorted array?
-        body:
-          type: string
-          description: HTML body of the question (only included via filter).
-        body_markdown:
-          type: string
-          description: Markdown body of the question (only included via filter).
-        link:
-          type: string
-          format: uri
-          example: https://stackoverflow.com/questions/11227809
-        score:
-          type: integer
-          example: 27000
-        view_count:
-          type: integer
-          example: 1900000
-        answer_count:
-          type: integer
-          example: 25
-        comment_count:
-          type: integer
-          example: 12
-        favorite_count:
-          type: integer
-          example: 4000
-        is_answered:
-          type: boolean
-          example: true
-        accepted_answer_id:
-          type: integer
-          example: 11227902
-        creation_date:
-          type: integer
-          format: int64
-          example: 1338717687
-        last_activity_date:
-          type: integer
-          format: int64
-          example: 1700000000
-        last_edit_date:
-          type: integer
-          format: int64
-          example: 1690000000
-        owner:
-          $ref: '#/components/schemas/ShallowUser'
-        tags:
-          type: array
-          items:
-            type: string
-          example:
-          - java
-          - c++
-          - performance
-          - cpu-architecture
-          - branch-prediction
-        content_license:
-          type: string
-          example: CC BY-SA 4.0
-        protected_date:
-          type: integer
-          format: int64
-        locked_date:
-          type: integer
-          format: int64
-        closed_date:
-          type: integer
-          format: int64
-        closed_reason:
-          type: string
-        bounty_amount:
-          type: integer
-        bounty_closes_date:
-          type: integer
-          format: int64
-    BadgeCount:
-      type: object
-      description: Bronze/silver/gold badge counts for a user.
-      properties:
-        bronze:
-          type: integer
-          example: 10000
-        silver:
-          type: integer
-          example: 5000
-        gold:
-          type: integer
-          example: 800
-    TagScore:
-      type: object
-      description: A user's score in a tag (top askers/answerers).
-      properties:
-        user:
-          $ref: '#/components/schemas/ShallowUser'
-        score:
-          type: integer
-          example: 1200
-        post_count:
-          type: integer
-          example: 45
-    Answer:
-      type: object
-      description: An answer on a Stack Exchange site.
-      properties:
-        answer_id:
-          type: integer
-          example: 11227902
-        question_id:
-          type: integer
-          example: 11227809
-        title:
-          type: string
-          example: Why is processing a sorted array faster than processing an unsorted array?
-        body:
-          type: string
-          description: HTML body (filter-dependent).
-        body_markdown:
-          type: string
-          description: Markdown body (filter-dependent).
-        link:
-          type: string
-          format: uri
-          example: https://stackoverflow.com/a/11227902
-        score:
-          type: integer
-          example: 36000
-        up_vote_count:
-          type: integer
-          example: 36500
-        down_vote_count:
-          type: integer
-          example: 500
-        is_accepted:
-          type: boolean
-          example: true
-        comment_count:
-          type: integer
-          example: 20
-        creation_date:
-          type: integer
-          format: int64
-          example: 1338719105
-        last_activity_date:
-          type: integer
-          format: int64
-          example: 1700000000
-        last_edit_date:
-          type: integer
-          format: int64
-        owner:
-          $ref: '#/components/schemas/ShallowUser'
-        last_editor:
-          $ref: '#/components/schemas/ShallowUser'
-        tags:
-          type: array
-          items:
-            type: string
-          example:
-          - java
-          - c++
-          - performance
-        content_license:
-          type: string
-          example: CC BY-SA 4.0
-        community_owned_date:
-          type: integer
-          format: int64
-        locked_date:
-          type: integer
-          format: int64
-        awarded_bounty_amount:
-          type: integer
-        awarded_bounty_users:
-          type: array
-          items:
-            $ref: '#/components/schemas/ShallowUser'
+              $ref: '#/components/schemas/Badge'
     User:
       type: object
       description: A user account on a single Stack Exchange site.
@@ -648,7 +463,7 @@ components:
         view_count:
           type: integer
           example: 99999999
-    BadgesResponse:
+    UsersResponse:
       allOf:
       - $ref: '#/components/schemas/Wrapper'
       - type: object
@@ -656,8 +471,8 @@ components:
           items:
             type: array
             items:
-              $ref: '#/components/schemas/Badge'
-    QuestionsResponse:
+              $ref: '#/components/schemas/User'
+    PrivilegesResponse:
       allOf:
       - $ref: '#/components/schemas/Wrapper'
       - type: object
@@ -665,7 +480,48 @@ components:
           items:
             type: array
             items:
-              $ref: '#/components/schemas/Question'
+              $ref: '#/components/schemas/PrivilegeItem'
+    ReputationChange:
+      type: object
+      properties:
+        user_id:
+          type: integer
+          format: int64
+        post_id:
+          type: integer
+        post_type:
+          type: string
+          enum:
+          - question
+          - answer
+        vote_type:
+          type: string
+          enum:
+          - accepts
+          - bounties_won
+          - up_votes
+          - down_votes
+          - suggested_edit
+          - post_undeleted
+          - spam
+          - vote_fraud_reversal
+          - post_deleted
+          - post_migrated
+          - association_bonus
+        reputation_change:
+          type: integer
+        on_date:
+          type: integer
+          format: int64
+    CommentsResponse:
+      allOf:
+      - $ref: '#/components/schemas/Wrapper'
+      - type: object
+        properties:
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/Comment'
     Wrapper:
       type: object
       description: Common envelope returned by every Stack Exchange API method.
@@ -713,36 +569,337 @@ components:
       - has_more
       - quota_max
       - quota_remaining
-    ReputationChange:
+    ShallowUser:
       type: object
+      description: Lightweight user reference embedded in posts and comments.
       properties:
         user_id:
           type: integer
           format: int64
-        post_id:
-          type: integer
-        post_type:
+          example: 22656
+        user_type:
           type: string
           enum:
-          - question
-          - answer
-        vote_type:
+          - unregistered
+          - registered
+          - moderator
+          - team_admin
+          - does_not_exist
+          example: registered
+        display_name:
+          type: string
+          example: Jon Skeet
+        reputation:
+          type: integer
+          example: 1500000
+        profile_image:
+          type: string
+          format: uri
+          example: https://i.sstatic.net/lLZAr.jpg?s=128
+        link:
+          type: string
+          format: uri
+          example: https://stackoverflow.com/users/22656/jon-skeet
+        accept_rate:
+          type: integer
+          example: 92
+    AnswersResponse:
+      allOf:
+      - $ref: '#/components/schemas/Wrapper'
+      - type: object
+        properties:
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/Answer'
+    TagScoresResponse:
+      allOf:
+      - $ref: '#/components/schemas/Wrapper'
+      - type: object
+        properties:
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/TagScore'
+    Question:
+      type: object
+      description: A question on a Stack Exchange site.
+      properties:
+        question_id:
+          type: integer
+          example: 11227809
+        title:
+          type: string
+          example: Why is processing a sorted array faster than processing an unsorted array?
+        body:
+          type: string
+          description: HTML body of the question (only included via filter).
+        body_markdown:
+          type: string
+          description: Markdown body of the question (only included via filter).
+        link:
+          type: string
+          format: uri
+          example: https://stackoverflow.com/questions/11227809
+        score:
+          type: integer
+          example: 27000
+        view_count:
+          type: integer
+          example: 1900000
+        answer_count:
+          type: integer
+          example: 25
+        comment_count:
+          type: integer
+          example: 12
+        favorite_count:
+          type: integer
+          example: 4000
+        is_answered:
+          type: boolean
+          example: true
+        accepted_answer_id:
+          type: integer
+          example: 11227902
+        creation_date:
+          type: integer
+          format: int64
+          example: 1338717687
+        last_activity_date:
+          type: integer
+          format: int64
+          example: 1700000000
+        last_edit_date:
+          type: integer
+          format: int64
+          example: 1690000000
+        owner:
+          $ref: '#/components/schemas/ShallowUser'
+        tags:
+          type: array
+          items:
+            type: string
+          example:
+          - java
+          - c++
+          - performance
+          - cpu-architecture
+          - branch-prediction
+        content_license:
+          type: string
+          example: CC BY-SA 4.0
+        protected_date:
+          type: integer
+          format: int64
+        locked_date:
+          type: integer
+          format: int64
+        closed_date:
+          type: integer
+          format: int64
+        closed_reason:
+          type: string
+        bounty_amount:
+          type: integer
+        bounty_closes_date:
+          type: integer
+          format: int64
+    PrivilegeItem:
+      type: object
+      properties:
+        short_description:
+          type: string
+        description:
+          type: string
+        reputation:
+          type: integer
+    QuestionsResponse:
+      allOf:
+      - $ref: '#/components/schemas/Wrapper'
+      - type: object
+        properties:
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/Question'
+    TagScore:
+      type: object
+      description: A user's score in a tag (top askers/answerers).
+      properties:
+        user:
+          $ref: '#/components/schemas/ShallowUser'
+        score:
+          type: integer
+          example: 1200
+        post_count:
+          type: integer
+          example: 45
+    Badge:
+      type: object
+      description: A badge definition.
+      properties:
+        badge_id:
+          type: integer
+          example: 23
+        name:
+          type: string
+          example: Nice Question
+        description:
+          type: string
+          example: Question score of 10 or more.
+        rank:
           type: string
           enum:
-          - accepts
-          - bounties_won
-          - up_votes
-          - down_votes
-          - suggested_edit
-          - post_undeleted
-          - spam
-          - vote_fraud_reversal
-          - post_deleted
-          - post_migrated
-          - association_bonus
-        reputation_change:
+          - bronze
+          - silver
+          - gold
+          example: bronze
+        badge_type:
+          type: string
+          enum:
+          - named
+          - tag_based
+          example: named
+        award_count:
           type: integer
-        on_date:
+          example: 500000
+        link:
+          type: string
+          format: uri
+          example: https://stackoverflow.com/help/badges/23/nice-question
+        user:
+          $ref: '#/components/schemas/ShallowUser'
+    BadgeCount:
+      type: object
+      description: Bronze/silver/gold badge counts for a user.
+      properties:
+        bronze:
+          type: integer
+          example: 10000
+        silver:
+          type: integer
+          example: 5000
+        gold:
+          type: integer
+          example: 800
+    ReputationResponse:
+      allOf:
+      - $ref: '#/components/schemas/Wrapper'
+      - type: object
+        properties:
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/ReputationChange'
+    Answer:
+      type: object
+      description: An answer on a Stack Exchange site.
+      properties:
+        answer_id:
+          type: integer
+          example: 11227902
+        question_id:
+          type: integer
+          example: 11227809
+        title:
+          type: string
+          example: Why is processing a sorted array faster than processing an unsorted array?
+        body:
+          type: string
+          description: HTML body (filter-dependent).
+        body_markdown:
+          type: string
+          description: Markdown body (filter-dependent).
+        link:
+          type: string
+          format: uri
+          example: https://stackoverflow.com/a/11227902
+        score:
+          type: integer
+          example: 36000
+        up_vote_count:
+          type: integer
+          example: 36500
+        down_vote_count:
+          type: integer
+          example: 500
+        is_accepted:
+          type: boolean
+          example: true
+        comment_count:
+          type: integer
+          example: 20
+        creation_date:
+          type: integer
+          format: int64
+          example: 1338719105
+        last_activity_date:
+          type: integer
+          format: int64
+          example: 1700000000
+        last_edit_date:
+          type: integer
+          format: int64
+        owner:
+          $ref: '#/components/schemas/ShallowUser'
+        last_editor:
+          $ref: '#/components/schemas/ShallowUser'
+        tags:
+          type: array
+          items:
+            type: string
+          example:
+          - java
+          - c++
+          - performance
+        content_license:
+          type: string
+          example: CC BY-SA 4.0
+        community_owned_date:
+          type: integer
+          format: int64
+        locked_date:
+          type: integer
+          format: int64
+        awarded_bounty_amount:
+          type: integer
+        awarded_bounty_users:
+          type: array
+          items:
+            $ref: '#/components/schemas/ShallowUser'
+    TagsResponse:
+      allOf:
+      - $ref: '#/components/schemas/Wrapper'
+      - type: object
+        properties:
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/Tag'
+    Tag:
+      type: object
+      description: A tag on a Stack Exchange site.
+      properties:
+        name:
+          type: string
+          example: openapi
+        count:
+          type: integer
+          example: 3200
+        is_required:
+          type: boolean
+          example: false
+        is_moderator_only:
+          type: boolean
+          example: false
+        has_synonyms:
+          type: boolean
+          example: true
+        user_id:
+          type: integer
+          description: For tag-wikis, the most recent editor.
+        last_activity_date:
           type: integer
           format: int64
     Comment:
@@ -787,163 +944,6 @@ components:
         content_license:
           type: string
           example: CC BY-SA 4.0
-    Tag:
-      type: object
-      description: A tag on a Stack Exchange site.
-      properties:
-        name:
-          type: string
-          example: openapi
-        count:
-          type: integer
-          example: 3200
-        is_required:
-          type: boolean
-          example: false
-        is_moderator_only:
-          type: boolean
-          example: false
-        has_synonyms:
-          type: boolean
-          example: true
-        user_id:
-          type: integer
-          description: For tag-wikis, the most recent editor.
-        last_activity_date:
-          type: integer
-          format: int64
-    ReputationResponse:
-      allOf:
-      - $ref: '#/components/schemas/Wrapper'
-      - type: object
-        properties:
-          items:
-            type: array
-            items:
-              $ref: '#/components/schemas/ReputationChange'
-    CommentsResponse:
-      allOf:
-      - $ref: '#/components/schemas/Wrapper'
-      - type: object
-        properties:
-          items:
-            type: array
-            items:
-              $ref: '#/components/schemas/Comment'
-    Badge:
-      type: object
-      description: A badge definition.
-      properties:
-        badge_id:
-          type: integer
-          example: 23
-        name:
-          type: string
-          example: Nice Question
-        description:
-          type: string
-          example: Question score of 10 or more.
-        rank:
-          type: string
-          enum:
-          - bronze
-          - silver
-          - gold
-          example: bronze
-        badge_type:
-          type: string
-          enum:
-          - named
-          - tag_based
-          example: named
-        award_count:
-          type: integer
-          example: 500000
-        link:
-          type: string
-          format: uri
-          example: https://stackoverflow.com/help/badges/23/nice-question
-        user:
-          $ref: '#/components/schemas/ShallowUser'
-    PrivilegesResponse:
-      allOf:
-      - $ref: '#/components/schemas/Wrapper'
-      - type: object
-        properties:
-          items:
-            type: array
-            items:
-              $ref: '#/components/schemas/PrivilegeItem'
-    PrivilegeItem:
-      type: object
-      properties:
-        short_description:
-          type: string
-        description:
-          type: string
-        reputation:
-          type: integer
-    TagScoresResponse:
-      allOf:
-      - $ref: '#/components/schemas/Wrapper'
-      - type: object
-        properties:
-          items:
-            type: array
-            items:
-              $ref: '#/components/schemas/TagScore'
-    ShallowUser:
-      type: object
-      description: Lightweight user reference embedded in posts and comments.
-      properties:
-        user_id:
-          type: integer
-          format: int64
-          example: 22656
-        user_type:
-          type: string
-          enum:
-          - unregistered
-          - registered
-          - moderator
-          - team_admin
-          - does_not_exist
-          example: registered
-        display_name:
-          type: string
-          example: Jon Skeet
-        reputation:
-          type: integer
-          example: 1500000
-        profile_image:
-          type: string
-          format: uri
-          example: https://i.sstatic.net/lLZAr.jpg?s=128
-        link:
-          type: string
-          format: uri
-          example: https://stackoverflow.com/users/22656/jon-skeet
-        accept_rate:
-          type: integer
-          example: 92
-    UsersResponse:
-      allOf:
-      - $ref: '#/components/schemas/Wrapper'
-      - type: object
-        properties:
-          items:
-            type: array
-            items:
-              $ref: '#/components/schemas/User'
-    AnswersResponse:
-      allOf:
-      - $ref: '#/components/schemas/Wrapper'
-      - type: object
-        properties:
-          items:
-            type: array
-            items:
-              $ref: '#/components/schemas/Answer'
   securitySchemes:
     oauth2:
       type: oauth2

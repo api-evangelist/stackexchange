@@ -52,32 +52,6 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
-  parameters:
-    Filter:
-      name: filter
-      in: query
-      required: false
-      description: Custom response filter id created via /filters/create.
-      schema:
-        type: string
-        example: default
-    Key:
-      name: key
-      in: query
-      required: false
-      description: App key from stackapps.com. Raises the daily quota to 10,000/IP.
-      schema:
-        type: string
-        example: example_app_key_abcdef
-    Site:
-      name: site
-      in: query
-      required: true
-      description: Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).
-      schema:
-        type: string
-        default: stackoverflow
-        example: stackoverflow
   schemas:
     Wrapper:
       type: object
@@ -126,6 +100,40 @@ components:
       - has_more
       - quota_max
       - quota_remaining
+    ShallowUser:
+      type: object
+      description: Lightweight user reference embedded in posts and comments.
+      properties:
+        user_id:
+          type: integer
+          format: int64
+          example: 22656
+        user_type:
+          type: string
+          enum:
+          - unregistered
+          - registered
+          - moderator
+          - team_admin
+          - does_not_exist
+          example: registered
+        display_name:
+          type: string
+          example: Jon Skeet
+        reputation:
+          type: integer
+          example: 1500000
+        profile_image:
+          type: string
+          format: uri
+          example: https://i.sstatic.net/lLZAr.jpg?s=128
+        link:
+          type: string
+          format: uri
+          example: https://stackoverflow.com/users/22656/jon-skeet
+        accept_rate:
+          type: integer
+          example: 92
     Revision:
       type: object
       description: A revision to a post.
@@ -182,40 +190,6 @@ components:
           type: boolean
         user:
           $ref: '#/components/schemas/ShallowUser'
-    ShallowUser:
-      type: object
-      description: Lightweight user reference embedded in posts and comments.
-      properties:
-        user_id:
-          type: integer
-          format: int64
-          example: 22656
-        user_type:
-          type: string
-          enum:
-          - unregistered
-          - registered
-          - moderator
-          - team_admin
-          - does_not_exist
-          example: registered
-        display_name:
-          type: string
-          example: Jon Skeet
-        reputation:
-          type: integer
-          example: 1500000
-        profile_image:
-          type: string
-          format: uri
-          example: https://i.sstatic.net/lLZAr.jpg?s=128
-        link:
-          type: string
-          format: uri
-          example: https://stackoverflow.com/users/22656/jon-skeet
-        accept_rate:
-          type: integer
-          example: 92
     RevisionsResponse:
       allOf:
       - $ref: '#/components/schemas/Wrapper'
@@ -225,6 +199,32 @@ components:
             type: array
             items:
               $ref: '#/components/schemas/Revision'
+  parameters:
+    Site:
+      name: site
+      in: query
+      required: true
+      description: Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).
+      schema:
+        type: string
+        default: stackoverflow
+        example: stackoverflow
+    Filter:
+      name: filter
+      in: query
+      required: false
+      description: Custom response filter id created via /filters/create.
+      schema:
+        type: string
+        example: default
+    Key:
+      name: key
+      in: query
+      required: false
+      description: App key from stackapps.com. Raises the daily quota to 10,000/IP.
+      schema:
+        type: string
+        example: example_app_key_abcdef
   securitySchemes:
     oauth2:
       type: oauth2

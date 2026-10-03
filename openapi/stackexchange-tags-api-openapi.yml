@@ -239,18 +239,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    TagScore:
-      type: object
-      description: A user's score in a tag (top askers/answerers).
-      properties:
-        user:
-          $ref: '#/components/schemas/ShallowUser'
-        score:
-          type: integer
-          example: 1200
-        post_count:
-          type: integer
-          example: 45
     Wrapper:
       type: object
       description: Common envelope returned by every Stack Exchange API method.
@@ -332,6 +320,45 @@ components:
         accept_rate:
           type: integer
           example: 92
+    TagSynonymsResponse:
+      allOf:
+      - $ref: '#/components/schemas/Wrapper'
+      - type: object
+        properties:
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/TagSynonym'
+    TagScoresResponse:
+      allOf:
+      - $ref: '#/components/schemas/Wrapper'
+      - type: object
+        properties:
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/TagScore'
+    TagScore:
+      type: object
+      description: A user's score in a tag (top askers/answerers).
+      properties:
+        user:
+          $ref: '#/components/schemas/ShallowUser'
+        score:
+          type: integer
+          example: 1200
+        post_count:
+          type: integer
+          example: 45
+    TagsResponse:
+      allOf:
+      - $ref: '#/components/schemas/Wrapper'
+      - type: object
+        properties:
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/Tag'
     TagSynonym:
       type: object
       properties:
@@ -350,24 +377,6 @@ components:
         creation_date:
           type: integer
           format: int64
-    TagsResponse:
-      allOf:
-      - $ref: '#/components/schemas/Wrapper'
-      - type: object
-        properties:
-          items:
-            type: array
-            items:
-              $ref: '#/components/schemas/Tag'
-    TagSynonymsResponse:
-      allOf:
-      - $ref: '#/components/schemas/Wrapper'
-      - type: object
-        properties:
-          items:
-            type: array
-            items:
-              $ref: '#/components/schemas/TagSynonym'
     Tag:
       type: object
       description: A tag on a Stack Exchange site.
@@ -393,24 +402,17 @@ components:
         last_activity_date:
           type: integer
           format: int64
-    TagScoresResponse:
-      allOf:
-      - $ref: '#/components/schemas/Wrapper'
-      - type: object
-        properties:
-          items:
-            type: array
-            items:
-              $ref: '#/components/schemas/TagScore'
   parameters:
-    Filter:
-      name: filter
+    Page:
+      name: page
       in: query
       required: false
-      description: Custom response filter id created via /filters/create.
+      description: 1-indexed page number.
       schema:
-        type: string
-        example: default
+        type: integer
+        minimum: 1
+        default: 1
+        example: 1
     PageSize:
       name: pagesize
       in: query
@@ -422,24 +424,6 @@ components:
         maximum: 100
         default: 30
         example: 30
-    Key:
-      name: key
-      in: query
-      required: false
-      description: App key from stackapps.com. Raises the daily quota to 10,000/IP.
-      schema:
-        type: string
-        example: example_app_key_abcdef
-    Page:
-      name: page
-      in: query
-      required: false
-      description: 1-indexed page number.
-      schema:
-        type: integer
-        minimum: 1
-        default: 1
-        example: 1
     Site:
       name: site
       in: query
@@ -460,6 +444,22 @@ components:
         - desc
         - asc
         default: desc
+    Key:
+      name: key
+      in: query
+      required: false
+      description: App key from stackapps.com. Raises the daily quota to 10,000/IP.
+      schema:
+        type: string
+        example: example_app_key_abcdef
+    Filter:
+      name: filter
+      in: query
+      required: false
+      description: Custom response filter id created via /filters/create.
+      schema:
+        type: string
+        example: default
   securitySchemes:
     oauth2:
       type: oauth2

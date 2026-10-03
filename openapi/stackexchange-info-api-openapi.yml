@@ -46,6 +46,39 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    Info:
+      type: object
+      description: Site-wide totals and metadata.
+      properties:
+        total_questions:
+          type: integer
+        total_unanswered:
+          type: integer
+        total_accepted:
+          type: integer
+        total_answers:
+          type: integer
+        total_comments:
+          type: integer
+        total_votes:
+          type: integer
+        total_badges:
+          type: integer
+        total_users:
+          type: integer
+        questions_per_minute:
+          type: number
+        answers_per_minute:
+          type: number
+        badges_per_minute:
+          type: number
+        new_active_users:
+          type: integer
+        api_revision:
+          type: string
+          example: 2024.12.01.1234
+        site:
+          $ref: '#/components/schemas/Site'
     InfoResponse:
       allOf:
       - $ref: '#/components/schemas/Wrapper'
@@ -175,48 +208,7 @@ components:
           type: array
           items:
             type: string
-    Info:
-      type: object
-      description: Site-wide totals and metadata.
-      properties:
-        total_questions:
-          type: integer
-        total_unanswered:
-          type: integer
-        total_accepted:
-          type: integer
-        total_answers:
-          type: integer
-        total_comments:
-          type: integer
-        total_votes:
-          type: integer
-        total_badges:
-          type: integer
-        total_users:
-          type: integer
-        questions_per_minute:
-          type: number
-        answers_per_minute:
-          type: number
-        badges_per_minute:
-          type: number
-        new_active_users:
-          type: integer
-        api_revision:
-          type: string
-          example: 2024.12.01.1234
-        site:
-          $ref: '#/components/schemas/Site'
   parameters:
-    Filter:
-      name: filter
-      in: query
-      required: false
-      description: Custom response filter id created via /filters/create.
-      schema:
-        type: string
-        example: default
     Key:
       name: key
       in: query
@@ -234,6 +226,14 @@ components:
         type: string
         default: stackoverflow
         example: stackoverflow
+    Filter:
+      name: filter
+      in: query
+      required: false
+      description: Custom response filter id created via /filters/create.
+      schema:
+        type: string
+        example: default
   securitySchemes:
     oauth2:
       type: oauth2

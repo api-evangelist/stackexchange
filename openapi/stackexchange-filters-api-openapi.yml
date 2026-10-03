@@ -93,6 +93,15 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    FiltersResponse:
+      allOf:
+      - $ref: '#/components/schemas/Wrapper'
+      - type: object
+        properties:
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/Filter'
     Filter:
       type: object
       properties:
@@ -155,15 +164,6 @@ components:
       - has_more
       - quota_max
       - quota_remaining
-    FiltersResponse:
-      allOf:
-      - $ref: '#/components/schemas/Wrapper'
-      - type: object
-        properties:
-          items:
-            type: array
-            items:
-              $ref: '#/components/schemas/Filter'
   parameters:
     Key:
       name: key
