@@ -137,62 +137,140 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
-  parameters:
-    Ids:
-      name: ids
-      in: path
-      required: true
-      description: Up to 100 semicolon-delimited ids of the resource.
-      schema:
-        type: string
-        example: 11227809;417142
-    Page:
-      name: page
-      in: query
-      required: false
-      description: 1-indexed page number.
-      schema:
-        type: integer
-        minimum: 1
-        default: 1
-        example: 1
-    PageSize:
-      name: pagesize
-      in: query
-      required: false
-      description: Items per page (max 100).
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 30
-        example: 30
-    Site:
-      name: site
-      in: query
-      required: true
-      description: Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).
-      schema:
-        type: string
-        default: stackoverflow
-        example: stackoverflow
-    Key:
-      name: key
-      in: query
-      required: false
-      description: App key from stackapps.com. Raises the daily quota to 10,000/IP.
-      schema:
-        type: string
-        example: example_app_key_abcdef
-    Filter:
-      name: filter
-      in: query
-      required: false
-      description: Custom response filter id created via /filters/create.
-      schema:
-        type: string
-        example: default
   schemas:
+    Post:
+      type: object
+      description: Generic post (question or answer) view.
+      properties:
+        post_id:
+          type: integer
+        post_type:
+          type: string
+          enum:
+          - question
+          - answer
+        body:
+          type: string
+        body_markdown:
+          type: string
+        link:
+          type: string
+          format: uri
+        score:
+          type: integer
+        creation_date:
+          type: integer
+          format: int64
+        last_activity_date:
+          type: integer
+          format: int64
+        owner:
+          $ref: '#/components/schemas/ShallowUser'
+        comment_count:
+          type: integer
+    PostsResponse:
+      allOf:
+      - $ref: '#/components/schemas/Wrapper'
+      - type: object
+        properties:
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/Post'
+    RevisionsResponse:
+      allOf:
+      - $ref: '#/components/schemas/Wrapper'
+      - type: object
+        properties:
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/Revision'
+    CommentsResponse:
+      allOf:
+      - $ref: '#/components/schemas/Wrapper'
+      - type: object
+        properties:
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/Comment'
+    ShallowUser:
+      type: object
+      description: Lightweight user reference embedded in posts and comments.
+      properties:
+        user_id:
+          type: integer
+          format: int64
+          example: 22656
+        user_type:
+          type: string
+          enum:
+          - unregistered
+          - registered
+          - moderator
+          - team_admin
+          - does_not_exist
+          example: registered
+        display_name:
+          type: string
+          example: Jon Skeet
+        reputation:
+          type: integer
+          example: 1500000
+        profile_image:
+          type: string
+          format: uri
+          example: https://i.sstatic.net/lLZAr.jpg?s=128
+        link:
+          type: string
+          format: uri
+          example: https://stackoverflow.com/users/22656/jon-skeet
+        accept_rate:
+          type: integer
+          example: 92
+    Comment:
+      type: object
+      description: A comment attached to a question or answer.
+      properties:
+        comment_id:
+          type: integer
+          example: 14587302
+        post_id:
+          type: integer
+          example: 11227809
+        post_type:
+          type: string
+          enum:
+          - question
+          - answer
+          example: question
+        score:
+          type: integer
+          example: 12
+        body:
+          type: string
+          example: Great explanation, thank you.
+        body_markdown:
+          type: string
+        creation_date:
+          type: integer
+          format: int64
+          example: 1338800000
+        edited:
+          type: boolean
+          example: false
+        link:
+          type: string
+          format: uri
+          example: https://stackoverflow.com/questions/11227809#comment14587302_11227809
+        owner:
+          $ref: '#/components/schemas/ShallowUser'
+        reply_to_user:
+          $ref: '#/components/schemas/ShallowUser'
+        content_license:
+          type: string
+          example: CC BY-SA 4.0
     Wrapper:
       type: object
       description: Common envelope returned by every Stack Exchange API method.
@@ -240,40 +318,15 @@ components:
       - has_more
       - quota_max
       - quota_remaining
-    ShallowUser:
-      type: object
-      description: Lightweight user reference embedded in posts and comments.
-      properties:
-        user_id:
-          type: integer
-          format: int64
-          example: 22656
-        user_type:
-          type: string
-          enum:
-          - unregistered
-          - registered
-          - moderator
-          - team_admin
-          - does_not_exist
-          example: registered
-        display_name:
-          type: string
-          example: Jon Skeet
-        reputation:
-          type: integer
-          example: 1500000
-        profile_image:
-          type: string
-          format: uri
-          example: https://i.sstatic.net/lLZAr.jpg?s=128
-        link:
-          type: string
-          format: uri
-          example: https://stackoverflow.com/users/22656/jon-skeet
-        accept_rate:
-          type: integer
-          example: 92
+    SuggestedEditsResponse:
+      allOf:
+      - $ref: '#/components/schemas/Wrapper'
+      - type: object
+        properties:
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/SuggestedEdit'
     Revision:
       type: object
       description: A revision to a post.
@@ -367,114 +420,61 @@ components:
           format: int64
         proposing_user:
           $ref: '#/components/schemas/ShallowUser'
-    RevisionsResponse:
-      allOf:
-      - $ref: '#/components/schemas/Wrapper'
-      - type: object
-        properties:
-          items:
-            type: array
-            items:
-              $ref: '#/components/schemas/Revision'
-    PostsResponse:
-      allOf:
-      - $ref: '#/components/schemas/Wrapper'
-      - type: object
-        properties:
-          items:
-            type: array
-            items:
-              $ref: '#/components/schemas/Post'
-    SuggestedEditsResponse:
-      allOf:
-      - $ref: '#/components/schemas/Wrapper'
-      - type: object
-        properties:
-          items:
-            type: array
-            items:
-              $ref: '#/components/schemas/SuggestedEdit'
-    CommentsResponse:
-      allOf:
-      - $ref: '#/components/schemas/Wrapper'
-      - type: object
-        properties:
-          items:
-            type: array
-            items:
-              $ref: '#/components/schemas/Comment'
-    Post:
-      type: object
-      description: Generic post (question or answer) view.
-      properties:
-        post_id:
-          type: integer
-        post_type:
-          type: string
-          enum:
-          - question
-          - answer
-        body:
-          type: string
-        body_markdown:
-          type: string
-        link:
-          type: string
-          format: uri
-        score:
-          type: integer
-        creation_date:
-          type: integer
-          format: int64
-        last_activity_date:
-          type: integer
-          format: int64
-        owner:
-          $ref: '#/components/schemas/ShallowUser'
-        comment_count:
-          type: integer
-    Comment:
-      type: object
-      description: A comment attached to a question or answer.
-      properties:
-        comment_id:
-          type: integer
-          example: 14587302
-        post_id:
-          type: integer
-          example: 11227809
-        post_type:
-          type: string
-          enum:
-          - question
-          - answer
-          example: question
-        score:
-          type: integer
-          example: 12
-        body:
-          type: string
-          example: Great explanation, thank you.
-        body_markdown:
-          type: string
-        creation_date:
-          type: integer
-          format: int64
-          example: 1338800000
-        edited:
-          type: boolean
-          example: false
-        link:
-          type: string
-          format: uri
-          example: https://stackoverflow.com/questions/11227809#comment14587302_11227809
-        owner:
-          $ref: '#/components/schemas/ShallowUser'
-        reply_to_user:
-          $ref: '#/components/schemas/ShallowUser'
-        content_license:
-          type: string
-          example: CC BY-SA 4.0
+  parameters:
+    PageSize:
+      name: pagesize
+      in: query
+      required: false
+      description: Items per page (max 100).
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 30
+        example: 30
+    Filter:
+      name: filter
+      in: query
+      required: false
+      description: Custom response filter id created via /filters/create.
+      schema:
+        type: string
+        example: default
+    Page:
+      name: page
+      in: query
+      required: false
+      description: 1-indexed page number.
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+        example: 1
+    Site:
+      name: site
+      in: query
+      required: true
+      description: Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).
+      schema:
+        type: string
+        default: stackoverflow
+        example: stackoverflow
+    Ids:
+      name: ids
+      in: path
+      required: true
+      description: Up to 100 semicolon-delimited ids of the resource.
+      schema:
+        type: string
+        example: 11227809;417142
+    Key:
+      name: key
+      in: query
+      required: false
+      description: App key from stackapps.com. Raises the daily quota to 10,000/IP.
+      schema:
+        type: string
+        example: example_app_key_abcdef
   securitySchemes:
     oauth2:
       type: oauth2

@@ -102,6 +102,22 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    AccessToken:
+      type: object
+      description: An OAuth access token, returned by the access-token endpoints.
+      properties:
+        access_token:
+          type: string
+        expires_on_date:
+          type: integer
+          format: int64
+        account_id:
+          type: integer
+          format: int64
+        scope:
+          type: array
+          items:
+            type: string
     Wrapper:
       type: object
       description: Common envelope returned by every Stack Exchange API method.
@@ -149,22 +165,6 @@ components:
       - has_more
       - quota_max
       - quota_remaining
-    AccessToken:
-      type: object
-      description: An OAuth access token, returned by the access-token endpoints.
-      properties:
-        access_token:
-          type: string
-        expires_on_date:
-          type: integer
-          format: int64
-        account_id:
-          type: integer
-          format: int64
-        scope:
-          type: array
-          items:
-            type: string
     AccessTokensResponse:
       allOf:
       - $ref: '#/components/schemas/Wrapper'
@@ -175,14 +175,6 @@ components:
             items:
               $ref: '#/components/schemas/AccessToken'
   parameters:
-    Key:
-      name: key
-      in: query
-      required: false
-      description: App key from stackapps.com. Raises the daily quota to 10,000/IP.
-      schema:
-        type: string
-        example: example_app_key_abcdef
     Filter:
       name: filter
       in: query
@@ -191,6 +183,14 @@ components:
       schema:
         type: string
         example: default
+    Key:
+      name: key
+      in: query
+      required: false
+      description: App key from stackapps.com. Raises the daily quota to 10,000/IP.
+      schema:
+        type: string
+        example: example_app_key_abcdef
   securitySchemes:
     oauth2:
       type: oauth2

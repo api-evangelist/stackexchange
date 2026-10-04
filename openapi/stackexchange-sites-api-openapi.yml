@@ -47,6 +47,15 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    SitesResponse:
+      allOf:
+      - $ref: '#/components/schemas/Wrapper'
+      - type: object
+        properties:
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/Site'
     Wrapper:
       type: object
       description: Common envelope returned by every Stack Exchange API method.
@@ -167,34 +176,7 @@ components:
           type: array
           items:
             type: string
-    SitesResponse:
-      allOf:
-      - $ref: '#/components/schemas/Wrapper'
-      - type: object
-        properties:
-          items:
-            type: array
-            items:
-              $ref: '#/components/schemas/Site'
   parameters:
-    Key:
-      name: key
-      in: query
-      required: false
-      description: App key from stackapps.com. Raises the daily quota to 10,000/IP.
-      schema:
-        type: string
-        example: example_app_key_abcdef
-    Page:
-      name: page
-      in: query
-      required: false
-      description: 1-indexed page number.
-      schema:
-        type: integer
-        minimum: 1
-        default: 1
-        example: 1
     PageSize:
       name: pagesize
       in: query
@@ -214,6 +196,24 @@ components:
       schema:
         type: string
         example: default
+    Page:
+      name: page
+      in: query
+      required: false
+      description: 1-indexed page number.
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+        example: 1
+    Key:
+      name: key
+      in: query
+      required: false
+      description: App key from stackapps.com. Raises the daily quota to 10,000/IP.
+      schema:
+        type: string
+        example: example_app_key_abcdef
   securitySchemes:
     oauth2:
       type: oauth2

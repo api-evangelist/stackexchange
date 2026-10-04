@@ -57,6 +57,15 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    EventsResponse:
+      allOf:
+      - $ref: '#/components/schemas/Wrapper'
+      - type: object
+        properties:
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/Event'
     Wrapper:
       type: object
       description: Common envelope returned by every Stack Exchange API method.
@@ -121,24 +130,15 @@ components:
           format: uri
         excerpt:
           type: string
-    EventsResponse:
-      allOf:
-      - $ref: '#/components/schemas/Wrapper'
-      - type: object
-        properties:
-          items:
-            type: array
-            items:
-              $ref: '#/components/schemas/Event'
   parameters:
-    AccessToken:
-      name: access_token
+    Filter:
+      name: filter
       in: query
       required: false
-      description: OAuth 2.0 access token. Required for any /me surface and any write.
+      description: Custom response filter id created via /filters/create.
       schema:
         type: string
-        example: example_access_token_abcdef
+        example: default
     Site:
       name: site
       in: query
@@ -156,14 +156,14 @@ components:
       schema:
         type: string
         example: example_app_key_abcdef
-    Filter:
-      name: filter
+    AccessToken:
+      name: access_token
       in: query
       required: false
-      description: Custom response filter id created via /filters/create.
+      description: OAuth 2.0 access token. Required for any /me surface and any write.
       schema:
         type: string
-        example: default
+        example: example_access_token_abcdef
   securitySchemes:
     oauth2:
       type: oauth2
