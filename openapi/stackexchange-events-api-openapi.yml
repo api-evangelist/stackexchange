@@ -131,23 +131,6 @@ components:
         excerpt:
           type: string
   parameters:
-    Filter:
-      name: filter
-      in: query
-      required: false
-      description: Custom response filter id created via /filters/create.
-      schema:
-        type: string
-        example: default
-    Site:
-      name: site
-      in: query
-      required: true
-      description: Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).
-      schema:
-        type: string
-        default: stackoverflow
-        example: stackoverflow
     Key:
       name: key
       in: query
@@ -164,6 +147,23 @@ components:
       schema:
         type: string
         example: example_access_token_abcdef
+    Site:
+      name: site
+      in: query
+      required: true
+      description: Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).
+      schema:
+        type: string
+        default: stackoverflow
+        example: stackoverflow
+    Filter:
+      name: filter
+      in: query
+      required: false
+      description: Custom response filter id created via /filters/create.
+      schema:
+        type: string
+        example: default
   securitySchemes:
     oauth2:
       type: oauth2

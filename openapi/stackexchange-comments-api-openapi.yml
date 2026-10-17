@@ -80,91 +80,49 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
-  parameters:
-    FromDate:
-      name: fromdate
-      in: query
-      required: false
-      description: Unix epoch seconds — earliest creation_date.
-      schema:
-        type: integer
-        format: int64
-        example: 1700000000
-    ToDate:
-      name: todate
-      in: query
-      required: false
-      description: Unix epoch seconds — latest creation_date.
-      schema:
-        type: integer
-        format: int64
-        example: 1735689600
-    PageSize:
-      name: pagesize
-      in: query
-      required: false
-      description: Items per page (max 100).
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 30
-        example: 30
-    Filter:
-      name: filter
-      in: query
-      required: false
-      description: Custom response filter id created via /filters/create.
-      schema:
-        type: string
-        example: default
-    Page:
-      name: page
-      in: query
-      required: false
-      description: 1-indexed page number.
-      schema:
-        type: integer
-        minimum: 1
-        default: 1
-        example: 1
-    Site:
-      name: site
-      in: query
-      required: true
-      description: Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).
-      schema:
-        type: string
-        default: stackoverflow
-        example: stackoverflow
-    Ids:
-      name: ids
-      in: path
-      required: true
-      description: Up to 100 semicolon-delimited ids of the resource.
-      schema:
-        type: string
-        example: 11227809;417142
-    Key:
-      name: key
-      in: query
-      required: false
-      description: App key from stackapps.com. Raises the daily quota to 10,000/IP.
-      schema:
-        type: string
-        example: example_app_key_abcdef
-    Order:
-      name: order
-      in: query
-      required: false
-      description: Sort direction.
-      schema:
-        type: string
-        enum:
-        - desc
-        - asc
-        default: desc
   schemas:
+    Comment:
+      type: object
+      description: A comment attached to a question or answer.
+      properties:
+        comment_id:
+          type: integer
+          example: 14587302
+        post_id:
+          type: integer
+          example: 11227809
+        post_type:
+          type: string
+          enum:
+          - question
+          - answer
+          example: question
+        score:
+          type: integer
+          example: 12
+        body:
+          type: string
+          example: Great explanation, thank you.
+        body_markdown:
+          type: string
+        creation_date:
+          type: integer
+          format: int64
+          example: 1338800000
+        edited:
+          type: boolean
+          example: false
+        link:
+          type: string
+          format: uri
+          example: https://stackoverflow.com/questions/11227809#comment14587302_11227809
+        owner:
+          $ref: '#/components/schemas/ShallowUser'
+        reply_to_user:
+          $ref: '#/components/schemas/ShallowUser'
+        content_license:
+          type: string
+          example: CC BY-SA 4.0
     CommentsResponse:
       allOf:
       - $ref: '#/components/schemas/Wrapper'
@@ -255,48 +213,90 @@ components:
       - has_more
       - quota_max
       - quota_remaining
-    Comment:
-      type: object
-      description: A comment attached to a question or answer.
-      properties:
-        comment_id:
-          type: integer
-          example: 14587302
-        post_id:
-          type: integer
-          example: 11227809
-        post_type:
-          type: string
-          enum:
-          - question
-          - answer
-          example: question
-        score:
-          type: integer
-          example: 12
-        body:
-          type: string
-          example: Great explanation, thank you.
-        body_markdown:
-          type: string
-        creation_date:
-          type: integer
-          format: int64
-          example: 1338800000
-        edited:
-          type: boolean
-          example: false
-        link:
-          type: string
-          format: uri
-          example: https://stackoverflow.com/questions/11227809#comment14587302_11227809
-        owner:
-          $ref: '#/components/schemas/ShallowUser'
-        reply_to_user:
-          $ref: '#/components/schemas/ShallowUser'
-        content_license:
-          type: string
-          example: CC BY-SA 4.0
+  parameters:
+    ToDate:
+      name: todate
+      in: query
+      required: false
+      description: Unix epoch seconds — latest creation_date.
+      schema:
+        type: integer
+        format: int64
+        example: 1735689600
+    Key:
+      name: key
+      in: query
+      required: false
+      description: App key from stackapps.com. Raises the daily quota to 10,000/IP.
+      schema:
+        type: string
+        example: example_app_key_abcdef
+    Site:
+      name: site
+      in: query
+      required: true
+      description: Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).
+      schema:
+        type: string
+        default: stackoverflow
+        example: stackoverflow
+    Filter:
+      name: filter
+      in: query
+      required: false
+      description: Custom response filter id created via /filters/create.
+      schema:
+        type: string
+        example: default
+    Order:
+      name: order
+      in: query
+      required: false
+      description: Sort direction.
+      schema:
+        type: string
+        enum:
+        - desc
+        - asc
+        default: desc
+    Ids:
+      name: ids
+      in: path
+      required: true
+      description: Up to 100 semicolon-delimited ids of the resource.
+      schema:
+        type: string
+        example: 11227809;417142
+    Page:
+      name: page
+      in: query
+      required: false
+      description: 1-indexed page number.
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+        example: 1
+    FromDate:
+      name: fromdate
+      in: query
+      required: false
+      description: Unix epoch seconds — earliest creation_date.
+      schema:
+        type: integer
+        format: int64
+        example: 1700000000
+    PageSize:
+      name: pagesize
+      in: query
+      required: false
+      description: Items per page (max 100).
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 30
+        example: 30
   securitySchemes:
     oauth2:
       type: oauth2

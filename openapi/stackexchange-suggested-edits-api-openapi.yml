@@ -70,6 +70,49 @@ paths:
         dispatcher: FALLBACK
 components:
   parameters:
+    Key:
+      name: key
+      in: query
+      required: false
+      description: App key from stackapps.com. Raises the daily quota to 10,000/IP.
+      schema:
+        type: string
+        example: example_app_key_abcdef
+    Site:
+      name: site
+      in: query
+      required: true
+      description: Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).
+      schema:
+        type: string
+        default: stackoverflow
+        example: stackoverflow
+    Filter:
+      name: filter
+      in: query
+      required: false
+      description: Custom response filter id created via /filters/create.
+      schema:
+        type: string
+        example: default
+    Ids:
+      name: ids
+      in: path
+      required: true
+      description: Up to 100 semicolon-delimited ids of the resource.
+      schema:
+        type: string
+        example: 11227809;417142
+    Page:
+      name: page
+      in: query
+      required: false
+      description: 1-indexed page number.
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+        example: 1
     PageSize:
       name: pagesize
       in: query
@@ -81,50 +124,16 @@ components:
         maximum: 100
         default: 30
         example: 30
-    Filter:
-      name: filter
-      in: query
-      required: false
-      description: Custom response filter id created via /filters/create.
-      schema:
-        type: string
-        example: default
-    Page:
-      name: page
-      in: query
-      required: false
-      description: 1-indexed page number.
-      schema:
-        type: integer
-        minimum: 1
-        default: 1
-        example: 1
-    Ids:
-      name: ids
-      in: path
-      required: true
-      description: Up to 100 semicolon-delimited ids of the resource.
-      schema:
-        type: string
-        example: 11227809;417142
-    Site:
-      name: site
-      in: query
-      required: true
-      description: Target Q&A community. Either the api_site_parameter from a `/sites` entry (e.g. `stackoverflow`, `serverfault`, `superuser`) or a full domain (`stackoverflow.com`).
-      schema:
-        type: string
-        default: stackoverflow
-        example: stackoverflow
-    Key:
-      name: key
-      in: query
-      required: false
-      description: App key from stackapps.com. Raises the daily quota to 10,000/IP.
-      schema:
-        type: string
-        example: example_app_key_abcdef
   schemas:
+    SuggestedEditsResponse:
+      allOf:
+      - $ref: '#/components/schemas/Wrapper'
+      - type: object
+        properties:
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/SuggestedEdit'
     ShallowUser:
       type: object
       description: Lightweight user reference embedded in posts and comments.
@@ -159,6 +168,43 @@ components:
         accept_rate:
           type: integer
           example: 92
+    SuggestedEdit:
+      type: object
+      description: A pending edit suggested by a user.
+      properties:
+        suggested_edit_id:
+          type: integer
+          example: 12345
+        post_id:
+          type: integer
+          example: 11227809
+        post_type:
+          type: string
+          enum:
+          - question
+          - answer
+          example: question
+        body:
+          type: string
+        title:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+        comment:
+          type: string
+        creation_date:
+          type: integer
+          format: int64
+        approval_date:
+          type: integer
+          format: int64
+        rejection_date:
+          type: integer
+          format: int64
+        proposing_user:
+          $ref: '#/components/schemas/ShallowUser'
     Wrapper:
       type: object
       description: Common envelope returned by every Stack Exchange API method.
@@ -206,52 +252,6 @@ components:
       - has_more
       - quota_max
       - quota_remaining
-    SuggestedEditsResponse:
-      allOf:
-      - $ref: '#/components/schemas/Wrapper'
-      - type: object
-        properties:
-          items:
-            type: array
-            items:
-              $ref: '#/components/schemas/SuggestedEdit'
-    SuggestedEdit:
-      type: object
-      description: A pending edit suggested by a user.
-      properties:
-        suggested_edit_id:
-          type: integer
-          example: 12345
-        post_id:
-          type: integer
-          example: 11227809
-        post_type:
-          type: string
-          enum:
-          - question
-          - answer
-          example: question
-        body:
-          type: string
-        title:
-          type: string
-        tags:
-          type: array
-          items:
-            type: string
-        comment:
-          type: string
-        creation_date:
-          type: integer
-          format: int64
-        approval_date:
-          type: integer
-          format: int64
-        rejection_date:
-          type: integer
-          format: int64
-        proposing_user:
-          $ref: '#/components/schemas/ShallowUser'
   securitySchemes:
     oauth2:
       type: oauth2

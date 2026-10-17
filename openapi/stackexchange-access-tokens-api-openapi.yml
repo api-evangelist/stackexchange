@@ -102,22 +102,15 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    AccessToken:
-      type: object
-      description: An OAuth access token, returned by the access-token endpoints.
-      properties:
-        access_token:
-          type: string
-        expires_on_date:
-          type: integer
-          format: int64
-        account_id:
-          type: integer
-          format: int64
-        scope:
-          type: array
+    AccessTokensResponse:
+      allOf:
+      - $ref: '#/components/schemas/Wrapper'
+      - type: object
+        properties:
           items:
-            type: string
+            type: array
+            items:
+              $ref: '#/components/schemas/AccessToken'
     Wrapper:
       type: object
       description: Common envelope returned by every Stack Exchange API method.
@@ -165,24 +158,23 @@ components:
       - has_more
       - quota_max
       - quota_remaining
-    AccessTokensResponse:
-      allOf:
-      - $ref: '#/components/schemas/Wrapper'
-      - type: object
-        properties:
+    AccessToken:
+      type: object
+      description: An OAuth access token, returned by the access-token endpoints.
+      properties:
+        access_token:
+          type: string
+        expires_on_date:
+          type: integer
+          format: int64
+        account_id:
+          type: integer
+          format: int64
+        scope:
+          type: array
           items:
-            type: array
-            items:
-              $ref: '#/components/schemas/AccessToken'
+            type: string
   parameters:
-    Filter:
-      name: filter
-      in: query
-      required: false
-      description: Custom response filter id created via /filters/create.
-      schema:
-        type: string
-        example: default
     Key:
       name: key
       in: query
@@ -191,6 +183,14 @@ components:
       schema:
         type: string
         example: example_app_key_abcdef
+    Filter:
+      name: filter
+      in: query
+      required: false
+      description: Custom response filter id created via /filters/create.
+      schema:
+        type: string
+        example: default
   securitySchemes:
     oauth2:
       type: oauth2
